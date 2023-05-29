@@ -1,0 +1,8 @@
+{{ object.id }}
+{{ object.first_name }}
+{{ object.last_name }}
+{{ object.first_name }}
+{{ object.last_name }}
+{{ object.username }}
+{{ object.username }}
+{{ object.email }}

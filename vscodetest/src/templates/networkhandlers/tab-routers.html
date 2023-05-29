@@ -1,0 +1,55 @@
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+       href="{% url 'nvphandler_sync_routers_tzs' handler.id %}"
+       id="import-rtz">
+       <span class="icon-import"></span>
+       Import Routers and Trans. Zones
+   </a>
+</div>
+
+<table id="routers" class="stats">
+    <thead>
+        <tr>
+            <th>Router</th>
+            <th>NVP ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for router in handler.logical_routers.all %}
+        <tr>
+            <td class="name">{{ router.display }}</td>
+            <td class="type">{{ router.uuid }}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<br>
+
+<table id="zones" class="stats">
+    <thead>
+        <tr>
+            <th>Transport Zone</th>
+            <th>NVP ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tz in handler.transport_zones.all %}
+        <tr>
+            <td class="name">{{ tz.display }}</td>
+            <td class="type">{{ tz.uuid }}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#import-rtz').data('dialog_options', {
+        position: 'center', 
+        width: '400', 
+        wait_msg: 'Querying the network handler...'
+    });
+});
+</script>

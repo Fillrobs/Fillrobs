@@ -1,0 +1,51 @@
+{% load helper_tags %}
+{% load static %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>{% portal_label %} License Needs Fixing</title>
+    <link rel="stylesheet" href="{% static 'css/c2.css' %}">
+    {% block javascript %}
+        {% include "common/head_javascript_includes.html" %}
+    {% endblock javascript %}
+</head>
+<body>
+    <div class="dead-center-container">
+    <div class="dead-center-content">
+    <div class="container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" title="Dismiss this notification"><i class="fas fa-times"></i></button>
+                <Strong>{{ message }}</Strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+    <div class="row">
+    <div class="col-sm-10 col-sm-push-1 col-lg-8 col-lg-push-2">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <img width=200 height=49 src="{% static 'logos/cb-sw-horizontal.svg' %}">
+            </div>
+            <div class="panel-body text-left">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ message }}
+                        <hr class="visible-xs">
+                    </div>
+
+                    <div class="col-sm-6">
+                        {% include 'product_license/upload_form.html' %}
+                    </div>
+                </div>{# end .row #}
+            </div>
+        </div>
+    </div>{# end .col... #}
+    </div>{# end .row #}
+    </div>{# end .container #}
+    </div>{# end .dead-center-content #}
+    </div>{# end .dead-center-container #}
+</body>
+</html>

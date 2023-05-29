@@ -1,0 +1,54 @@
+{% load i18n %}
+<table id="existing_actions" data-table="dialog clickable">
+    <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>{{ action_label }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for action in actions %}
+        <tr>
+            <td><input name="action" type="radio" value="{{ action.id }}" {% if action.id == selected %}checked{% endif %}/></td>
+            <td>{{ action.name }}</td>
+        </tr>
+    {% empty %}
+    <tr><td></td><td><i>{% blocktrans %}No {{ script_type }} have been shared for re-use.{% endblocktrans %}</i></td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(function () {
+    c2.dataTables.init("#existing_actions");
+    var $table = $('#existing_actions');
+    var $submitButton = $('#dialog-modal .js-submit-form');
+    var $others;
+
+    function uncheckAllOtherRadios($input) {
+        $others = $table.DataTable().$('input[type=radio]').not($input);
+        $others.prop('checked', false);
+        $others.closest('tr').removeClass('selected');
+    }
+
+    var enableSubmitOnInputChange = function (){
+        $table.find('input[type=radio]').on('change', function(e) {
+            uncheckAllOtherRadios($(this));
+            $submitButton.prop("disabled",false);
+        });
+
+        // $.clickable does not trigger a change event any longer, so handle it manually
+        $table.find('tbody tr').on('click', function(e) {
+            uncheckAllOtherRadios($(this).find('input[type=radio]'));
+            $submitButton.prop("disabled",false);
+        });
+    };
+
+    $table.dataTable().on('table:draw', function(){
+        enableSubmitOnInputChange();
+    });
+
+    $submitButton.prop("disabled",true);
+    enableSubmitOnInputChange();
+});
+</script>

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load connector_tags %}
+
+{% block topnav %}providers{% endblock %}
+
+{% block content %}
+<h1>Configuration Managers</h1>
+
+<section class="intro">
+    <p><i>{{ tenant_msg }}</i></p>
+</section>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'choose_connector_dialog' %}"
+        id="add_provider">
+        <span class="icon-add"></span>
+        Add a configuration manager
+    </a>
+</div>
+
+<table id="providers" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            {% if profile.show_tenant_info %}
+                <th>Tenant</th>
+            {% endif %}
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for provider in providers %}
+        <tr id="provider-{{ provider.id }}" class="{{ provider.module_name }}">
+            <td>{{ provider|link_or_label:profile }}</td>
+            {% if profile.show_tenant_info %}
+                <td>
+                    {{ provider.tenant|link_or_label_none_global:profile }}
+                </td>
+            {% endif %}
+            <td>
+                {% connector_icon provider %}
+                {{ provider.class_label }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

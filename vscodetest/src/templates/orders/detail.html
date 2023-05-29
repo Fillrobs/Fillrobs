@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block topnav %}orders{% endblock %}
+
+{% load item_list %}
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block content %}
+    {% if order and not order|order_empty %}
+        <div id="order-details">
+        </div>
+    {% else %}
+        <h1> {{ pagetitle }} </h1>
+
+        <div class="panel panel-default">
+            <div class="panel-body">
+              <p>{% trans "There are no items in your current order." %}</p>
+
+                {% new_server_button profile=profile %}
+                {% trans "New Resource" as new_resource %}
+                {% button new_resource 'service_catalog' 'icon-resource' dialog=False %}
+            </div>
+        </div>
+    {% endif %}
+
+    <script>
+    $(function () {
+        'use strict';
+
+        var $orderDetails = $('#order-details');
+
+        $orderDetails.on('click', '.icon-delete', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: e.currentTarget.href,
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status == true) {
+                        window.location.href = "/current_order/";
+                    }
+                },
+                error: function(response) {
+                    console.log(response);
+                }
+            });
+        });
+
+        $orderDetails.on('click', 'form.orderActions button', c2.forms.doOrderAction);
+
+        // Periodically update the order details contents for the orders that are active:
+        function update() {
+            var url = "{% url 'order_detail_contents' order.id %}";
+
+            $orderDetails.load(url, function(data) {
+                // If the status is no longer "ACTIVE", re-load the page again:
+                var orderStatus = $("#hidden_order_status").text();
+                if (orderStatus == "ACTIVE") {
+                    window.setTimeout(update, 5000);
+                }
+
+                // Move H1 from result container next to uplink to fix breadcrumb appearance
+                var $newH1 = $('#dynamic-title');
+                if ($newH1.length === 0) {
+                    $('.uplink').after('<h1 id="dynamic-title"></h1>');
+                    $newH1 = $('#dynamic-title');
+                }
+                var $oldH1 = $('#order-details h1');
+                $newH1.html($oldH1.html());
+                $oldH1.remove();
+
+                // Until we do more fine grained DOM updates (ex. explicitly setting
+                // the width of the progress bar), we should disable the progress bar
+                // animation after the first update, because otherwise the progress bar
+                // will re-animate from 0% every time.
+                // Apply this after a delay so an in-progress animation isn't canceled.
+                window.setTimeout(c2.progressBars.disableAnimations, 2500);
+            });
+        }
+
+        update();
+
+    });
+    </script>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Password Expired" %}{% endblock %}
+
+{% block body %}
+<div class="panel panel-default panel-narrow">
+    <div class="panel-body text-center">
+        {% include "common/login_banner.html" %}
+        <br/><br/>
+
+        <p id="normal-logout">{% trans "Your password has expired." %}</p>
+        <p class="text-center"><a href="{% url 'password_reset' %}" class="btn btn-default">Reset Your Password</a></p>
+    </div>
+</div>
+{% endblock body %}
+

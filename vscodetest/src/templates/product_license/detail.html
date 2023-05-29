@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Product License{% endblock %}
+
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+<span class="uplink"><a href="{% url 'admin_home' %}">Admin</a></span>
+
+<h1 class="h1">Product License</h1>
+
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Details</h2>
+        {% for license, features in license_features.items %}
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <dl>
+                    {% for feat in features %}
+                        <dt>{{ feat.name }}</dt>
+                        <dd>
+                            {% if feat.type == 'str' %}
+                                {{ feat.value }}
+                            {% elif feat.type == 'bool' %}
+                                {% if feat.value %}
+                                    <span class="icon-enabled" title="This feature is enabled"></span>
+                                {% else %}
+                                    <span class="icon-disabled" title="This feature is disabled"></span>
+                                {% endif %}
+                            {% elif feat.type == 'int' %}
+                                {{ feat.value|intcomma }}
+                            {% endif %}
+                        </dd>
+                    {% endfor %}
+                </dl>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="col-sm-6">
+        {% if profile.is_cbadmin %}
+            <h2 class="h2">Upload a New License</h2>
+            {% include 'product_license/upload_form.html' %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

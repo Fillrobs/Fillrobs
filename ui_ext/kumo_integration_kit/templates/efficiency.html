@@ -1,0 +1,191 @@
+{% load static %}
+
+<head>
+  <meta id="handler_details" data-handler="{{ handler_type }}" data-handlerid="{{ rh_id }}"
+    data-normaladapter="{{ normal_adapter_id }}" data-normalid="{{ handler_normal_id }}"
+    data-acurrency="{{ acc_currency }}">
+  <meta id="host_details" data-host="{{ KUMO_WEB_HOST }}">
+  <link rel="stylesheet" type="text/css" href="{% static 'kumo_integration_kit/css/efficiency.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'kumo_integration_kit/css/common.css' %}">
+  <script src="{% static 'kumo_integration_kit/js/_mixpanel.js' %}" type="text/javascript"></script>
+</head>
+
+<body>
+
+  <div id="efficiency-tab" style="position: relative;">
+
+    <!-- Modal -->
+    <div class="errorMessageModal modal fade" tabindex="-1" role="dialog" aria-labelledby="errorMessageModalTitle" aria-hidden="true" data-keyboard="false" data-backdrop="static" style="position: absolute;">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          {% include 'kumo_integration_kit/templates/_error.html' %}
+        </div>
+      </div>
+    </div>
+
+    <efficiency-tab>
+      {% include 'kumo_integration_kit/templates/_cbloader.html' %}
+    </efficiency-tab>
+    
+    <form id="form-cost">
+      <div class="col-sm-12" style="padding-bottom: 20px;">
+        <h2>Cost Efficiency</h2>
+      </div>
+      <div>
+        <div class="row">
+          <div>
+            <div class="col-sm-5">
+              <div class="form-group chart-data">
+                <div class="form-group col-sm-5">
+                  <div>
+                    <h4 for="potential-cost" class="form-label">Potential Benefit (Monthly)</h4>
+                    <h3 id="potential-cost">$0</h3>
+                  </div>
+                </div>
+                <div class="form-group col-sm-4">
+                  <div>
+                    <h4 for="no-of-services" class="form-label">No. of Services</h4>
+                    <h3 id="no-of-services">0</h3>
+                  </div>
+                </div>
+                <div class="form-group col-sm-3">
+                  <div>
+                    <h4 for="no-of-adapters" class="form-label">No. of Adapters</h4>
+                    <h3 id="no-of-adapters">0</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="filter-data">
+                <div class="form-group col-sm-12 top-10">
+                  <h3 for="cost-regions">Regions</h3>
+                  <select class="form-control" name="cost-regions" id="cost-regions">
+                    <option value="" selected="selected">All Regions</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-12 top-10">
+                  <h3 for="cost-services">Services</h3>
+                  <select class="form-control" name="cost-services" id="cost-services">
+                    <option value="" selected="selected">All Services</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-12 top-10">
+                  <h3 for="lifecycle">LifeCycle</h3>
+                  <select class="form-control" name="cost-lifecycle" id="cost-lifecycle">
+                    <option value="" selected="selected">All Lifecycles</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Spot">Spot</option>
+                  </select>
+                </div>
+                <div class="form-group col-sm-12 top-10">
+                  <h3 for="cost-tags">Tag Key</h3>
+                  <select class="form-control" name="cost-tags" id="cost-tags">
+                    <option value="" selected="selected">All Tags</option>
+                  </select>
+                </div>
+                <div class="form-group hidden col-sm-12 top-10" id="costTagvalue">
+                  <h3 for="cost-values">Tag Value</h3>
+                  <select class="form-control" name="cost-values" id="cost-values">
+                    <option value="" selected="selected">Select Tag Value</option>
+                  </select>
+                </div>
+                <div class="form-group div-box" id="tagListBox"></div>
+                <div class="form-group col-sm-12" id="tag-btn">
+                  <input type="button" id="submit-tag" value="Apply Tags" class="btn btn-primary">
+                </div>
+              </div>
+            </div>
+            <div id="cost-accordion-div" class="col-sm-7">
+              <table id="cost-accordion-table" class="table table-striped" style="width:100%">
+                  <thead>
+                      <tr>
+                          <th>Type of Efficiency</th>
+                          <th>Service</th>
+                          <th>Count</th>
+                          <th>Estimated Savings</th>
+                          <th>Download CSV</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      
+                  </tbody>
+              </table>
+              {% comment %} <div class="panel-group" id="cost-accordion">
+                
+              </div> {% endcomment %}
+            </div>
+          </div>
+        </div>
+
+        <!-- The Modal -->
+        <div class="modal fade" id="listServicesModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div style="display: inline-flex;">
+                  <select class="form-control" name="modal-service" id="modal-service"></select>
+                  <span title="Export to CSV" id="modal-csv-download">
+                    <i class="fa fa-file-excel fa-xl" style="color: #2aa522;font-size: x-large;"></i>
+                  </span>
+                  <select class="form-control" name="modal-category" id="modal-category">
+                    <option value="unused">Unused</option>
+                    {% if handler_type == "AWS" %}
+                    <option value="unoptimized">Unoptimized</option>
+                    <option value="suppressed">Suppressed</option>
+                    {% else %}
+                    <option value="unoptimized" disabled>Unoptimized</option>
+                    <option value="suppressed" disabled>Suppressed</option>
+                    {% endif %}
+                  </select>
+                </div>
+                <div style="display: flex;">
+                  <select class="form-control" name="select-regions" id="select-regions">
+                    <option value="" selected="selected">All Regions</option>
+                  </select>
+                  <select class="form-control" name="select-services" id="select-services">
+                    <option value="" selected="selected">All Services</option>
+                  </select>
+                  <select class="form-control" name="select-lifecycle" id="select-lifecycle">
+                    <option value="" selected="selected">All Lifecycles</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Spot">Spot</option>
+                  </select>
+                  <select class="form-control" name="select-tags" id="select-tags">
+                    <option value="" selected="selected">All Tags</option>
+                  </select>
+                  <select class="form-control" name="select-values" id="select-values">
+                    <option value="" selected="selected">Select Tag Value</option>
+                  </select>
+                </div>
+                <div style="display: flex;">
+                  <div class="div-box" id="tagSelectListBox"></div>
+                </div>
+                <div style="display: block;">
+                  <div style="margin-inline: 5px;float: left;">
+                    <button type="button" class="btn btn-primary apply-modal-filters">Apply</button>
+                  </div>
+                  <div style="margin-inline: 5px;float: right;padding-top: 10px;">
+                    <label class="form-label">Adapter Name: </label>
+                    <label class="form-label" id="adapterNameMaster" style="font-weight: bold;"></label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal body -->
+              <div class="modal-body">
+                <div class="table-datatable table-responsive">
+                  <table id="list-service-detail" class="display"></table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <script type="module" src="{% static 'kumo_integration_kit/js/efficiency.js' %}"></script>
+
+  </div>
+
+</body>

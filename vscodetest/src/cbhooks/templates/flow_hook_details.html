@@ -1,0 +1,20 @@
+{# added to common hooks/details.html #}
+
+<tr>
+    <th>Orchestration Flow</th>
+    <td>
+        <a href="{% url 'orchestrator_detail' hook.orchestration_flow.engine.id %}#tab-flows">
+            {{ hook.orchestration_flow }}
+        </a>
+    </td>
+</tr>
+<tr>
+    <th>Flow Environments</th>
+    <td>
+        {% for env in hook.orchestration_flow.environments.all %}
+            {{ env.name }}{% if not forloop.last %},{% endif %}
+        {% empty %}
+            <i>Available for all environments</i>
+        {% endfor %}
+    </td>
+</tr>

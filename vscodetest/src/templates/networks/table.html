@@ -1,0 +1,87 @@
+{% comment %}
+    Used by networks/list.html and also resourcehandlers/detail.html
+    Expects a queryset 'networks'.  Calling templates may call dataTable
+    if desired.
+{% endcomment %}
+
+{% load helper_tags %}
+<table id="networks" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            {% if profile.show_tenant_info %}
+                <th>Tenant</th>
+            {% endif %}
+            {% if not hide_rh_col %}
+                <th>Resource Handler</th>
+            {% endif %}
+            <th>Gateway IP</th>
+            <th>Addressing Schema</th>
+            <th>IP Pool</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for network in networks %}
+            <tr>
+                <td class="name">
+                    <span class="icon-network"></span>&nbsp
+                    <a href="{% url "network_detail" network.id %}">
+                        {{ network.name|default:network.id }}
+                    </a>
+                </td>
+                {% if profile.show_tenant_info %}
+                    <td>
+                        {# Since objects.values() is passed in, we use have to use __label to get the name of tenant #}
+                        {# and can't rely on the usual link_or_label_none_global filter. #}
+                        {# However, the people with show_tenant_info all get a link so that helps #}
+                        {% if network.tenant__id %}
+                            <a href={% url 'tenant_detail' network.tenant__id %}>{{ network.tenant__label }}</a>
+                        {% else %}
+                            <i>Global</i>
+                        {% endif %}
+                    </td>
+                {% endif %}
+                {% if not hide_rh_col %}
+                    <td>
+                    {% if network.resource_handlers %}
+                        {% for handler in network.resource_handlers %}
+                            <p>{{ handler|link_or_label:profile }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <i>None</i>
+                    {% endif %}
+                    </td>
+                {% endif %}
+                <td class="gateway">
+                    {{ network.gateway|default_if_none:"<i>None</i>" }}
+                </td>
+                <td>
+                    {{ network.addressing_schema }}
+                    {% if network.resourcepoolmapping__pool %}
+                        (resource pool overrides)
+                    {% endif %}
+                </td>
+                <td>
+                    {% if network.resourcepoolmapping__pool %}
+                    <a href="{% url "resourcepool_detail" network.resourcepoolmapping__pool %}">
+                        {{ network.resourcepoolmapping__pool__name|default_if_none:"Unnamed Pool" }}
+                        </a>
+                    {% else %}
+                        <i>None</i>
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="icon-delete open-dialog"
+                    {# If there is a handler in context, then this is the RH Networks tab, so use the correct url #}
+                    {# which accepts handler_id in context #}
+                        {% if handler %}
+                            href="{% url 'resourcehandler_network_delete' handler.id network.id %}"
+                        {% else %}
+                            href="{% url 'network_delete' network.id %}"></a>
+                        {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

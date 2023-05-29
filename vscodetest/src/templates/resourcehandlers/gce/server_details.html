@@ -1,0 +1,42 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-4x8">
+            <dt>Location:</dt>
+            <dd>{{ details.location }}</dd>
+            {% if details.snapshots.exists %}
+                <dt>
+                    <span data-toggle="tooltip"
+                        title="All snapshots currently on the server that have been created with CloudBolt">
+                        Snapshots</span>:
+                </dt>
+                <dd>
+                    {% for snapshot in details.snapshots.all %}
+                        {{ snapshot.get_name_with_date_created }}
+
+                        <a class="open-dialog"
+                            href="{% url 'server_delete_snapshot' server.id snapshot.id %}"
+                            id="delete_snapshot">
+                            <span class="icon-delete"></span>
+                        </a>
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </dd>
+            {%  endif %}
+
+            {% if details.tags_as_list %}
+                <dt>GCE Tags:</dt>
+                <dd>
+                    {% for tag in details.tags_as_list %}
+                        <span class="cb-tag">{{ tag }}</span>
+                    {% endfor %}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>

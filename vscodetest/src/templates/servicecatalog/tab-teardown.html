@@ -1,0 +1,61 @@
+{% load service_catalog_tags %}
+{% load i18n %}
+
+
+{% if user_can_manage %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'add_teardown_action_item_dialog' blueprint.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Action' %}
+        </a>
+    </div>
+{% endif %}
+
+<ol id="teardown-items" class="list-unstyled">
+  {% for item in teardown_items %}
+    <li class="{% if forloop.first %} first{% endif %}">
+        {% if item.deploy_seq == 0 %}
+            {# Placeholder seq_num is also posted to server side on sortupdate #}
+            <div class="item-details panel panel-default" data-id="{{ item.id }}">
+                <div class="panel-heading">
+                    <span data-toggle="collapse" class="h3 panel-title collapsed"
+                        data-target="#item-details-placeholder">
+
+                        <span data-toggle="tooltip" title="Expand or collapse details"
+                            class="collapsed-indicator no-tooltip-affordance"></span>
+
+                        <i class="fas fa-trash-alt"></i>
+                        {% trans 'Servers and other resource components are deleted' %}
+
+                    </span>
+                </div>
+                <div id="item-details-placeholder" class="panel-body collapse">
+                    {% blocktrans %}Items above this line apply <b>before</b> all servers, load
+                    balancers, and other resource components are deleted. Items
+                    below apply <b>afterwards</b> {% endblocktrans %}
+                </div>
+            </div>
+        {% else %}
+            {% service_item_details_panel item ordering=False %}
+        {% endif %}
+    </li>
+  {% endfor %}
+</ol>
+
+<script>
+$(function() {
+    var $items = $('#teardown-items');
+    c2.collapsible.init($items);
+
+    var remote_url = "{{ blueprint.remote_source_url }}";
+    if (remote_url == "") {
+        function resequence() {
+            c2.blueprints.renumberParallelItems($items);
+        }
+        c2.sortable.sortablePanels('#teardown-items', '{% url "sort_teardown_items" %}', resequence);
+        $('input[name=execute_in_parallel]').on('change', resequence);
+        resequence();
+    }
+});
+</script>

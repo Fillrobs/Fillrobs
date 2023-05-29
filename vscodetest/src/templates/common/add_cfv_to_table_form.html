@@ -1,0 +1,43 @@
+{% comment %}
+Param options dialog form for adding a new parameter value.
+
+Form provides server-side widget and validation logic.  Submitting this, which is
+handled in the parent dialog template (dialogs/param_options_dialog.html),
+results in a CFV being get-or-created and added to the DataTable.  The actual
+linking of that CFV to the environment, group, or blueprint happens when the dialog is
+saved.
+
+See also common.views.add_cfv_form and common.forms.AddParameterValueForm.
+{% endcomment %}
+
+{% load i18n %}
+
+<form id="addCFVForm" method="post"
+    class="form-inline bootstrap3"
+    action="{% url 'add_cfv_form' field.id model obj_id %}">
+    {% if form.errors %}
+        <div>
+            {{ form.value.errors }}
+        </div>
+    {% endif %}
+
+    {% comment %}
+    Give this form-group a width of 100% so large Ace editors (CODE params)
+    are sized correctly. Without this, they get a width of 2px.
+    {% endcomment %}
+    <div class="form-group" style="width:100%">
+        {{ form.value }}
+        {{ form.field.units_string }}
+
+        <button type="submit" class="btn btn-default">
+            <span class="icon-add"></span>
+            {% trans "Add option" %}
+        </button>
+    </div>
+
+    {% if form.value.help_text %}
+        <span class="help-block">
+            {{ form.value.help_text }}
+        </span>
+    {% endif %}
+</form>

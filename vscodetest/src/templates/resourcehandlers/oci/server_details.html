@@ -1,0 +1,17 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>{% trans "Availability Domain" %}:</dt>
+            <dd>{{ details.availability_domain }}</dd>
+            <dt>{% trans "Shape" %}:</dt>
+            <dd>{{ details.shape }}</dd>
+        </dl>
+    </div>
+</div>

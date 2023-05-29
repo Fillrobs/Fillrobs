@@ -1,0 +1,32 @@
+<div class="btn-toolbar">
+    <a class="btn btn-default"
+        href="{% url 'import_vcd_storage_profiles' handler.id %}"
+        id="import_profiles">
+        <span class="icon-import"></span>
+        Import Storage Policies
+    </a>
+</div>
+
+<table id="profiles" data-table>
+    <thead>
+        <tr>
+            <th>Storage Policy</th>
+            <th>Virtual Datacenter</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sp in profiles %}
+        <tr>
+            <td class="name">{{ sp }}</td>
+            <td>{{ sp.vdc_name }} ({{ sp.vdc_uuid }})</td>
+            <td>
+                {{ sp.type }}
+                <a title="Edit policy '{{ sp }}'"
+                   href="{% url 'edit_vcd_storage_profile' sp.id %}"
+                   class="icon-edit open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

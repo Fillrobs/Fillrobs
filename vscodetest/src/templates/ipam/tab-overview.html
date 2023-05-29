@@ -1,0 +1,88 @@
+{% load helper_tags %}
+
+{% block content %}
+    {% if ipam %}
+        <h1>{{ ipam }}</h1>
+    {% else %}
+        <h1>IP Address Management</h1>
+    {% endif %}
+
+    <div class="well well-sm">
+        {% if ipam.ipam_technology.name == 'Infoblox' %}
+            IPAM integration with Infoblox allows you to
+            manage IP assignment, DHCP reservation, DNS resolution, and other
+            IP management related tasks &mdash; even making use of Infoblox's
+            extensible attributes interface. For more detailed information see
+            the full
+            {% docs_link title="documentation on Infoblox." url="infoblox.html" %}
+        {% elif ipam.ipam_technology.name == 'phpIPAM' %}
+            IPAM integration with phpIPAM allows you to manage hostname validation and IP assignment with
+            phpIPAM. For more detailed information see the full
+            {% docs_link title="documentation on phpIPAM." url="phpipam.html" %}
+        {% elif ipam.ipam_technology.name == 'BlueCat' %}
+            IPAM integration with BlueCat allows you to manage hostname validation and IP assignment with BlueCat
+            Address Manager. For more detailed information see the full
+            {% docs_link title="documentation on BlueCat." url="bluecat.html" %}
+        {% elif ipam.ipam_technology.name == 'SolarWinds' %}
+            Solarwinds IP Address Manager is a product offered by Solarwinds that allows enterprises to manage
+            and control their DNS, DHCP, and IP Address operations within their private data centers and public clouds.
+            For more detailed information see the full
+            {% docs_link title="documentation on SolarWinds." url="solarwinds.html" %}
+        {% endif %}
+    </div>
+
+    {% if ipam %}
+
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+               href="{% url 'ipam_edit' ipam.id %}">
+                <span class="icon-edit"></span>
+                Edit Credentials
+            </a>
+            <a class="btn btn-default open-dialog"
+               href="{% url 'ipam_delete' ipam.id %}">
+                <span class="icon-delete"></span>
+                Remove&hellip;
+            </a>
+            <a class="btn btn-default open-dialog verify"
+               href="{% url 'ipam_verify_connection' ipam.id %}">
+                <span class="icon-verify-connection"></span>
+                Verify Connection
+            </a>
+        </div>
+
+        <dl>
+            <dt>Technology:</dt><dd>{{ ipam.ipam_technology.name }}</dd>
+            <dt>IP Address:</dt><dd>{{ ipam.ip }}</dd>
+            <dt>Username:</dt><dd>{{ ipam.serviceaccount }}</dd>
+            {% if show_max_results %}
+                <dt>Maximum # of Network Results:</dt>
+                <dd>
+                    {% if ipam.networks_max_results %}
+                        {{ ipam.networks_max_results }}
+                    {% else %}
+                        Default (5000)
+                    {% endif %}
+                    <a href="{%  url 'ipam_edit_networks_max_results' ipam.id %}" class="open-dialog revealable">
+                        <i class="icon-edit"></i></a>
+                </dd>
+            {%  endif %}
+            {% if profile.show_tenant_info %}
+                <dt>Tenant:</dt>
+                <dd>{{ ipam.tenant|link_or_label_none_global:profile }}</dd>
+            {% endif %}
+        </dl>
+
+    {% else %}
+        <div class="alert alert-info">
+            <p>No IP address management tool has been added yet.</p>
+        </div>
+        <br>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog" href="{% url 'ipam_add' %}">
+                <span class="icon-add"></span>
+                Add Infoblox IPAM
+            </a>
+        </div>
+    {% endif %}
+{% endblock content %}

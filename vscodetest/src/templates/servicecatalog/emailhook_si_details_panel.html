@@ -1,0 +1,52 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{%  block item_details_row %}
+    {% with emailhook_action=service_item.hook.cast %}
+    <div class="row">
+        <div class="col-sm-6">
+
+            <dl class="vertical">
+                <dt>{% trans 'Email hook action:' %}</dt>
+                <dd>
+                    {% if managing %}
+                        <a href="{{ emailhook_action.get_absolute_url }}"
+                            class="no-tooltip-affordance" data-toggle="tooltip"
+                            title={% blocktrans with email_action_type_slug=email_action.type_slug emailhook_action_name=emailhook_action.name %}"Manage this {{ email_action_type_slug }}">
+                            {{ emailhook_action_name }}{% endblocktrans %}
+                        </a>
+                    {% else %}
+                        {{ emailhook_action.name }}
+                    {% endif %}
+
+                    {% infotip emailhook_action.description %}
+                </dd>
+
+                {% include 'actions/action_input_defaults.html' with action=service_item edit_url="edit_service_item" %}
+
+                <dt>{% trans 'Subject:' %}</dt>
+                <dd>
+                    <div ng-non-bindable>
+                        <pre>{{ emailhook_action.emailhook.subject }}</pre>
+                    </div>
+                </dd>
+
+                <dt>Body:</dt>
+                <dd>
+                    <div ng-non-bindable>
+                        <pre>{{ emailhook_action.emailhook.body }}</pre>
+                    </div>
+                </dd>
+
+            </dl>
+
+        </div><!-- col 1 -->
+        <div class="col-sm-6">
+            {% include 'servicecatalog/action_sequencing_options.html' %}
+        </div><!-- col 2 -->
+    </div><!-- row -->
+    {% endwith %}
+{%  endblock item_details_row %}

@@ -1,0 +1,47 @@
+{% load cache %}
+{% load i18n %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 bookmarks_submenu request.user.id %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Bookmarks
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                Bookmark pages of interest for quick reaccess.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'add_bookmark' %}" class="cb-btn cb-btn-primary" data-add-bookmark>Bookmark Current Page</a>
+        </div>
+        
+    </div>
+    <div class="dropdown-menu__actions">
+        <!-- Keep if quick actions are needed in the future -->
+        <!-- <div class="quick-actions">
+            <h5 class="heading-5 bold">Quick Actions</h5>
+            <a href="{% url 'add_resourcetype' %}" class="cb-btn cb-btn-secondary open-dialog">New Resource Type</a>
+            <a href="{% url 'order_new_server' %}" class="cb-btn cb-btn-secondary">New Server</a>
+        </div> -->
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="bookmarks-content">
+        {% for bookmark in bookmarks|slice:":25" %}
+            <a href="{{ bookmark.page_url }}">
+                {{ bookmark.page_title }}
+                <span data-delete-bookmark href="{% url 'delete_bookmark' bookmark.id %}" class="revealable">
+                    <i class="icon-delete" style="display: inline-block"></i>
+                </span>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% endspaceless %}
+{% endcache %}

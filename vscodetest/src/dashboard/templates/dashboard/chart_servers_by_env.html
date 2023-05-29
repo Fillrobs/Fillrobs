@@ -1,0 +1,41 @@
+{% extends "dashboard/card.html" %}
+{% load helper_tags %}
+
+{% block card_id %}servers-by-env-card{% endblock %}
+{% block heading %}{{ card_title }}{% endblock %}
+{% block card_body %}
+<div id="chart-servers-by-env"></div>
+
+<script>
+$(function() {
+    var maxRows = {{ max_rows }};
+    var categories = {{ categories|to_json }};
+    var serverCounts = {{ server_counts|to_json }};
+    var envIdsByName = {{ env_ids_by_name|to_json }};
+
+    $('#chart-servers-by-env').highcharts(_.merge(c2.charts.serverBarChartDefaults, {
+        title: { text: '' },
+        subtitle: { text: '' },
+        xAxis: {
+            categories: categories.slice(0, maxRows)
+        },
+        series: [
+            {
+                name: 'Servers',
+                data: serverCounts.slice(0, maxRows),
+                events: {
+                    click: function (e) {
+                        // Bars link to the detail view for that env
+                        window.location.href = "/environments/"+ 
+                            envIdsByName[e.point.category] + "/#tab-servers";
+                    }
+                }
+            }
+        ],
+        exporting: {
+            enabled: false
+        }
+    }));
+});
+</script>
+{% endblock %}

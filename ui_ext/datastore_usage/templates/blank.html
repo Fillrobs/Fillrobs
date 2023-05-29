@@ -1,0 +1,18 @@
+{% extends "dashboard/card.html" %}
+
+{% block card_id %}datastore-report{% endblock %}
+
+{% block heading %}
+    VMware Datastore Usage and Capacity report
+{% endblock %}
+
+{% block card_body %}
+<h1> This report is available only to Super Admins</h1>
+
+<script>
+    c2.dataTables.init($("#table-{{ report_slug|slugify }}"));
+        $(function(){
+            $('#datastore-report').insertBefore('#servers-by-env');
+        });
+</script>
+{% endblock card_body %}

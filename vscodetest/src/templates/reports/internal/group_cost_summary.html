@@ -1,0 +1,20 @@
+{% extends "reports/internal/base.html" %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+
+{% block report_content %}
+
+<p class="help-block">
+{% trans "This report may take a minute or two. Once it completes, it will be cached for this group and date range, making it blazingly fast from then on." %}
+</p>
+
+<div id="gcs"
+    class="padding"
+    data-include="{% url 'run_group_cost_summary' %}?pagetitle={{ report_slug|urlencode:"" }}&group={{ group.id }}&start_date={{ start_ymd }}&end_date={{ end_ymd }}"
+    data-block="true">
+    <div class="text-center" style="height: 450px;">
+        {% trans "Crunching server usage numbers..." %}
+    </div>
+</div>
+{% endblock %}

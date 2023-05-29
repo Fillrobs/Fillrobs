@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('using-ssl-with-an-external-postgresql-database-from-cloudbolt',true);});
+//--></script><title>Using SSL with an External PostgreSQL Database from CloudBolt</title><script type="text/javascript">//<!--
+var articleTitleText='Using SSL with an External PostgreSQL Database from CloudBolt';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Using SSL with an External PostgreSQL Database from CloudBolt</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="cloudbolt-appliance-reference-architecture.html">CloudBolt Appliance Reference Architecture</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">Advanced PostgreSQL Setup</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Using SSL with an External PostgreSQL Database from CloudBolt</span></span>
+  </div><h1 id="h1__246429115" data-has-heading-anchor="true">
+  Use SSL with an External PostgreSQL Database from CloudBolt
+<a href="using-ssl-with-an-external-postgresql-database-from-cloudbolt.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<br/>
+<ul class=""><li class="CHMiniToc_heading2"><a href="using-ssl-with-an-external-postgresql-database-from-cloudbolt.html#h2__1296687178">PostgreSQL Database Configuration</a></li><li class="CHMiniToc_heading2"><a href="using-ssl-with-an-external-postgresql-database-from-cloudbolt.html#h2__666690443">CloudBolt Database Configuration</a></li></ul>
+<hr/>
+<section>
+  <h2 id="h2__1296687178" data-has-heading-anchor="true">
+    PostgreSQL Database Configuration
+  <a href="using-ssl-with-an-external-postgresql-database-from-cloudbolt.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Perform the following on the PostgreSQL Server.
+  </p>
+  <ol>
+    <li>
+      Add the following to the PostgreSQL data directory: <code class="path">/var/lib/pgsql/14/data</code>
+      <ul>
+        <li>
+          Server SSL Certificate: <code class="path">server.crt</code>
+        </li>
+        <li>
+          Private Key: <code class="path">server.key</code>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Update the SSL configuration to enable SSL:
+      <ol>
+        <li>
+          Edit <code class="path">/var/lib/pgsql/14/data/postgresql.conf</code>:
+          <ol>
+            <li>
+              Uncomment <code class="path">ssl</code> and set the value to <code>on</code>
+            </li>
+          </ol>
+        </li>
+        <li>
+          If the filename for Server SSL Certificate is not <code class="path">server.crt</code> and/or Private Key is not <code class="path">server.key</code>, perform the following:
+          <ol>
+            <li>
+              Uncomment <code class="path">ssl_cert_file</code> and set the value to the Server SSL Certificate filename if it is not <code>server.crt</code>
+            </li>
+            <li>
+              Uncomment <code class="path">ssl_key_file</code> and set the value to the Private Key filename if it is not <code>server.key</code>
+            </li>
+          </ol>
+        </li>
+        
+      </ol>
+      <br/>
+      <b>Example <code class="path">/var/lib/pgsql/14/data/postgresql.conf</code></b>
+      <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre># - SSL -<br><br>ssl = on<br>#ssl_ca_file = ''<br>#ssl_cert_file = 'server.crt'<br>#ssl_crl_file = ''<br>#ssl_crl_dir = ''<br>#ssl_key_file = 'server.key'<br>#ssl_ciphers = 'HIGH:MEDIUM:+3DES:!aNULL' # allowed SSL ciphers<br>#ssl_prefer_server_ciphers = on<br>#ssl_ecdh_curve = 'prime256v1'<br>#ssl_min_protocol_version = 'TLSv1.2'<br>#ssl_max_protocol_version = ''<br>#ssl_dh_params_file = ''<br>#ssl_passphrase_command = ''<br>#ssl_passphrase_command_supports_reload = off</pre></td></tr></table>
+      <br/>
+    </li>
+    <li>
+      Update the allowed hosts to use SSL by adding <code>hostssl</code> entries for your IP/IP Ranges:
+      <ol>
+        <li>
+          <p>
+            Edit <code class="path">/var/lib/pgsql/14/data/pg_hba.conf</code>: 
+          </p>
+          <b>Example <code class="path">/var/lib/pgsql/14/data/pg_hba.conf</code></b>
+          <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre># TYPE  DATABASE        USER            ADDRESS                 METHOD<br><br># "local" is for Unix domain socket connections only<br>local   all             all                                     peer<br># IPv4 local connections:<br>host    all             all             127.0.0.1/32            scram-sha-256<br># IPv6 local connections:<br>host    all             all             ::1/128                 scram-sha-256<br># Allow replication connections from localhost, by a user with the<br># replication privilege.<br>local   replication     all                                     peer<br>host    replication     all             127.0.0.1/32            scram-sha-256<br>host    replication     all             ::1/128                 scram-sha-256<br>hostssl all             all             192.168.56.0/24         scram-sha-256</pre></td></tr></table>
+          <br/>
+        </li>
+      </ol>
+    </li>
+    <li>
+      Restart the database <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>systemctl restart postgresql-14</pre></td></tr></table>
+      <br/>
+    </li>
+    <li>
+      Verify SSL is configured properly by connecting to the database using <code>psql</code> command below:<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>#Replace value for password in the psql command below<br><br>psql "dbname=cloudbolt host=db.cloudbolt.vm user=cb_dba password=yourdbpassword sslmode=require"</pre></td></tr></table>
+      <br/>
+      <b>Example expected return after executing <code>psql</code> command above</b><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre># Example of successful psql command return<br>psql (14.2)<br>SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)<br>Type "help" for help.<br><br>cloudbolt=&gt;</pre></td></tr></table>
+      <br/>
+    </li>
+  </ol>
+  <p>
+    For further detailed information, refer to PostgreSQL documentation: <a href="https://www.postgresql.org/docs/14/ssl-tcp.html#SSL-SETUP" target="_blank">Secure TCP/IP Connections with SSL</a>.
+  </p>
+</section>
+<section>
+  <h2 id="h2__666690443" data-has-heading-anchor="true">
+    CloudBolt Database Configuration
+  <a href="using-ssl-with-an-external-postgresql-database-from-cloudbolt.html#h2__666690443" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol>
+    <li>
+      Add the following files to the CloudBolt Database directory: <code class="path">/var/opt/cloudbolt/proserv/db</code>
+      <ul>
+        <li>
+          <code class="path">server.crt</code>
+        </li>
+        <li>
+          <code class="path">server.key</code>
+        </li>
+        <li>
+          <code class="path">root.crt</code>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Change ownership of all 3 files to <code class="path">apache:apache</code> with the following commands: <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>chown apache:apache /var/opt/cloudbolt/proserv/db/server.crt<br>chown apache:apache /var/opt/cloudbolt/proserv/db/server.key<br>chown apache:apache /var/opt/cloudbolt/proserv/db/root.crt</pre></td></tr></table>
+      <br/>
+    </li>
+    <li>
+      For all Web nodes and all Job Engine nodes, update the your database settings:
+      <ol>
+        <li>
+          <p>
+            Edit <code class="path">/var/opt/cloudbolt/proserv/custom_settings.py</code> to add the <code>OPTIONS</code> for SSL:
+          </p>
+          <b>Example <code class="path">/var/opt/cloudbolt/proserv/custom_settings.py</code> with <code>OPTIONS</code></b><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>#Replace value for PASSWORD in the block below<br><br>DATABASES = {<br>    'default': {<br>        "ENGINE": "django.db.backends.postgresql_psycopg2",<br>        "NAME": "cloudbolt",<br>        "USER": "cb_dba",<br>        "PASSWORD": "yourpassword",<br>        "HOST": "db.cloudbolt.vm",<br>        "PORT": "5432",<br>        'OPTIONS': {<br>            'sslmode': "require",<br>            'sslcert': "/var/opt/cloudbolt/proserv/db/server.crt",<br>            'sslkey': "/var/opt/cloudbolt/proserv/db/server.key",<br>            'sslrootcert': "/var/opt/cloudbolt/proserv/db/root.crt",<br>        },<br>    }<br>}</pre></td></tr></table>
+          <br/>
+        </li>
+      </ol>
+    </li>
+    <li>
+      In a web browser, log in to the CloudBolt UI and navigate to a couple of different pages.
+    </li>
+    <li>
+      On the database server, connect to the database using <code>psql</code> and execute the following query. 
+      <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>#Replace value for password in the psql command below<br><br>psql "dbname=cloudbolt host=db.cloudbolt.vm user=cb_dba password=yourdbpassword sslmode=require"<br>psql (14.2)<br>SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)<br>Type "help" for help.<br><br>cloudbolt=&gt; SELECT * FROM pg_stat_ssl;</pre></td></tr></table>
+      <ul>
+        <li>
+          The <b>ssl</b> column should have the value <code>t</code> for all pid’s.&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>#Example Expected Result<br><br><br> pid  | ssl | version |           cipher            | bits | client_dn | client_serial | issuer_dn<br>------+-----+---------+-----------------------------+------+-----------+---------------+-----------<br> 2963 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2952 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2994 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2995 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2993 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2996 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br> 2997 | t   | TLSv1.2 | ECDHE-RSA-AES256-GCM-SHA384 |  256 |           |               |<br>(7 rows)</pre></td></tr></table>
+        </li>
+      </ul>
+    </li>
+  </ol>
+</section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="network-connectivity.html" class="articleActions_link CHNavLinkPrevious">Network Connectivity</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="upgrading-cloudbolt.html" class="articleActions_link CHNavLinkNext">Upgrading CloudBolt</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

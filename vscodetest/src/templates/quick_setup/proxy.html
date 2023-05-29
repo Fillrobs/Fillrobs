@@ -1,0 +1,62 @@
+{% extends "quick_setup/base.html" %}
+
+{% block panel_heading %}Proxy Settings{% endblock %}
+
+{% block top_right %}
+    {% include 'common/docs_link.html' with icon_only=True url="quick-setup-wizard.html" %}
+{% endblock %}
+
+{% block setup_content %}
+
+    <h4>Does your organization use a proxy for outgoing HTTP(S) connections?</h4>
+
+    <div class="help-block">
+        <p>
+        Configure proxy settings to enable features such as public cloud
+        services, GitHub, ServiceNow, checking for CloudBolt updates, etc.
+        </p>
+        <p>
+        Proxy settings can be configured later in <i>Admin > Miscellaneous Settings</i>.
+        </p>
+    </div>
+
+    <p>&nbsp;</p>
+
+    <div class="btn-toolbar text-center">
+        <a id="btn-proxy" href="#" class="btn btn-default">Yes, configure now</a>
+        <a id="btn-skip" href="#" class="btn btn-primary">No proxy</a>
+    </div>
+
+    <div class="form-fields">
+    {{ block.super }}
+    </div>
+{%  endblock %}
+
+{% block onReady %}
+    {{ block.super }}
+    // Provide a hint about this field to user; resilient against
+    // renumbering of wizard steps.
+    $('input[name={{ wizard.steps.current }}-domain]')
+        .attr('placeholder', window.location.hostname);
+
+    var $fields = $('.form-fields');
+
+    // Hide fields initially unless they have values (e.g. returned to this step)
+    if (!$('#id_1-ip').val()) {
+        $fields.hide();
+    }
+
+    $('#btn-proxy').click(function(e) {
+        e.preventDefault();
+        $fields.slideDown();
+    });
+
+    $('#btn-skip').click(function(e) {
+        e.preventDefault();
+
+        // Clear form fields in case admin started filling this out.
+        $('form.setup input:visible').val('');
+
+        $('.wizard-pagination-next').trigger('click');
+    });
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load auth_tags %}
+
+{% block topnav %}Single Sign-On{% endblock %}
+
+{% block content %}
+<h1>Single Sign-On (SSO)</h1>
+
+<section class="intro">
+    <p>
+        Connects {% portal_label %} with Single Sign-On (SSO) Identity Providers (IdP).
+    </p>
+</section>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'choose_sso_dialog' %}"        
+        id="add_provider">
+        <span class="icon-add"></span>
+        Add a Single Sign-On IdP
+    </a>
+</div>
+
+<table id="providers" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for provider in providers %}
+        <tr id="provider-{{ provider.id }}" class="{{ provider.slug }}">
+            <td>{{ provider|link_or_label:profile }}</td>
+            <td>
+                {% sso_icon provider %}
+                {{ provider.class_label }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,410 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('commvault-backup-and-recovery',true);});
+//--></script><title>CommVault Backup and Recovery</title><script type="text/javascript">//<!--
+var articleTitleText='CommVault Backup and Recovery';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">CommVault Backup and Recovery</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="data-backup-and-recovery.html">Data Backup and Recovery</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">CommVault Backup and Recovery</span></span>
+  </div><h1 id="h1__246429115" data-has-heading-anchor="true">
+  CommVault Backup and Recovery in CloudBolt
+<a href="commvault-backup-and-recovery.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn how to set up CommVault in CloudBolt, import CommVault VM groups, and begin backing up your VMs.
+</p>
+<br/>
+<p>
+  <ul class=""><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2__1296687178">Introduction</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3_1644201065">Prerequisites</a></li><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2_1223016999">Configure CommVault Data Protection in CloudBolt</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3_982900084">Create a CommVault Integration in CloudBolt</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3__1734226522">Import VM Groups</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3__1759917330">Add the Data Protection Plan Parameter to Environments</a></li><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2_326966011">Provision a Server with a Protection Plan</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3_1261305107">Predefine a Data Protection Plan</a></li><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2_2125172704">Restoring from Snapshots</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3__1857011872">Concept: How Servers are Restored in CommVault and CMP</a></li><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2_1408145810">Concept: Understanding the Data Protection Lifecycle</a></li><li class="CHMiniToc_heading3"><a href="commvault-backup-and-recovery.html#h3_260527243">Managing Virtual Machines</a></li><li class="CHMiniToc_heading2"><a href="commvault-backup-and-recovery.html#h2_1397819733">Outcomes</a></li></ul>
+</p>
+<hr/>
+<section>
+  <h2 id="h2__1296687178" data-has-heading-anchor="true">
+    Introduction
+  <a href="commvault-backup-and-recovery.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  CommVault  manages plan association for VMs via VM groups, using filters to add new Servers to predefined groups. 
+</section>
+<p>
+  The CloudBolt CommVault integration allows you to import these CommVault groups, so that the choice on the Blueprint is one of a group to assign the vm. After the group is chosen and the Order is submitted, CloudBolt adds the newly created Server to the VM group by hostname<span>.</span>
+</p>
+<p>
+  Once you’ve created a Server with a CommVault backup plan configured, you’ll need to run a new backup job on the VM Group in CommVault. Use the same credentials you used to add the backup plan to log into the console. 
+  <br/>
+</p>
+<h3 id="h3_1644201065" data-has-heading-anchor="true">
+  Prerequisites
+<a href="commvault-backup-and-recovery.html#h3_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ul>
+  <li>
+    An existing Resource Handler in CloudBolt for one of CommVault's supported Cloud Providers.
+  </li>
+  <li>
+    
+    Configure CommVault
+    
+    <ul>
+      <li>
+        
+        Storage
+        
+      </li>
+      <li>
+        
+        Server Backup Plan
+        
+      </li>
+      <li>
+        
+        VM Groups
+      </li>
+      <li>
+        Hypervisor
+      </li>
+      <li>
+        Plan configured in CommVault and assigned to a VM Group.
+      </li>
+    </ul>
+  </li>
+</ul>
+<div class="alert alert-success">
+  <i class="mdi mdi-check-circle"></i>
+  We recommend that your Resource Handler is configured to use a fully-qualified domain name (FQDN) on your server as opposed to using an IP Address.
+</div>
+<h4 id="h4_964255440" data-has-heading-anchor="true">
+  
+  External Resources 
+  
+<a href="commvault-backup-and-recovery.html#h4_964255440" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<ul>
+  <li>
+    
+    <a href="https://documentation.commvault.com/11.24/essential/86652_adding_vm_group.html" target="_blank">CommVault's Documentation on VM Groups</a>
+    
+  </li>
+  <li>
+    
+    <a href="https://documentation.commvault.com/11.24/essential/125284_associating_vm_with_server_backup_plan.html" target="_blank">Associating a VM with a Server Backup Plan</a>
+    
+  </li>
+  <li>
+    
+    <a href="https://documentation.commvault.com/11.24/essential/116837_storage.html" target="_blank">CommVault Storage</a>
+    
+  </li>
+</ul>
+<hr/>
+<h2 id="h2_1223016999" data-has-heading-anchor="true">
+  Configure CommVault Data Protection  in CloudBolt
+<a href="commvault-backup-and-recovery.html#h2_1223016999" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3_982900084" data-has-heading-anchor="true">
+  Create a CommVault Integration in CloudBolt
+<a href="commvault-backup-and-recovery.html#h3_982900084" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    In CloudBolt, click&nbsp;<b>Admin &gt; Integrations &gt; Data Protection.</b>
+  </li>
+  <li>
+    Click&nbsp;<b>+Add a Data Protection Solution...</b>
+  </li>
+  <li>
+    Choose CommVault.&nbsp;
+  </li>
+  <li>
+    CloudBolt will reach out to CommVault and create a connection based on the information entered in the following fields:
+    <ul>
+      <li>
+        <b>Name</b>: A descriptive name for this data protection solution.
+      </li>
+      <li>
+        <b>IP address*</b>: The IP Address or FQDN for your CommVault instance. Do not enter the protocol prefix (e.g. https).
+      </li>
+      <li>
+        <b>Account username*</b>: Username for the CommVault account.
+      </li>
+      <li>
+        <b>Password*</b>: Password for the CommVault account.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Click&nbsp;<b>Create.</b>
+  </li>
+</ol>
+<h3 id="h3__1734226522" data-has-heading-anchor="true">
+  Import VM Groups
+<a href="commvault-backup-and-recovery.html#h3__1734226522" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Once your CommVault connection is created in CloudBolt, import the <b>VM Groups</b>. 
+</p>
+<p>
+  The Protection Plans tab displays the <b>VM Groups</b> from CommVault. Admins must manually&nbsp;update this list when changes are made in the CommVault interface.
+</p>
+<ol>
+  <li>
+    Click&nbsp;<b>Import Protection Plans,&nbsp;</b>which will import VM Groups from CommVault.
+  </li>
+  <li>
+    Select from the&nbsp;list of available VM Groups to import. This list is generated based on the groups that an admin has already configured in the data protection solution.
+  </li>
+  <li>
+    Once a plan is imported, view it in the Protection Plans tab. Click&nbsp;<b>X&nbsp;</b>to remove a plan from the list.
+  </li>
+</ol>
+<h3 id="h3__1759917330" data-has-heading-anchor="true">
+  Add the Data Protection Plan Parameter to Environments
+<a href="commvault-backup-and-recovery.html#h3__1759917330" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Next, set up Data Protection for Environments by adding the&nbsp;<a href="data-protection-plan-parameters.html">Data Protection Plan parameter</a>&nbsp;to them. You can also pre-define the Parameter selection in the Blueprint.
+</p>
+<hr/>
+<h2 id="h2_326966011" data-has-heading-anchor="true">
+  Provision a Server with a Protection Plan
+<a href="commvault-backup-and-recovery.html#h2_326966011" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  You can predefine the CommVault Data Protection group for a Server at order time, or let the user choose on ordering. CloudBolt will add the Server to the selected CommVault VM group.
+</p>
+<h3 id="h3_1261305107" data-has-heading-anchor="true">
+  Predefine a Data Protection Plan
+<a href="commvault-backup-and-recovery.html#h3_1261305107" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    In CloudBolt, create a Blueprint or Edit an existing Blueprint.
+    <ol>
+      <li>
+        If editing an existing Blueprint, click&nbsp;<b>Build tab &gt; Configured Environments &gt; Edit the Environment.</b>
+      </li>
+    </ol>
+  </li>
+  <li>
+    In the "Blueprint Item Parameters for [Your Environment]" form, click the Data Protection Plan toggle to&nbsp;<b>Predefine&nbsp;</b>and select a plan from the dropdown.
+  </li>
+  <li>
+    Click&nbsp;<b>Save.</b>
+  </li>
+  <li>
+    On the&nbsp;<b>Overview tab</b>, click&nbsp;<b>Order</b>.
+  </li>
+  <li>
+    <span>Kick off the initial back up in CommVault,</span> then backups will be taken according to the schedule set in CommVault's Server Backup Plan.
+  </li>
+</ol>
+<div class="alert alert-success">
+  <i class="mdi mdi-check-circle mr-2"></i>Parameters that have a single value provided by the Environment will not be shown to users at order time; the value will simply be included once the Blueprint is ordered.
+</div>
+<hr/>
+<h2 id="h2_2125172704" data-has-heading-anchor="true">
+  Restoring from Snapshots
+<a href="commvault-backup-and-recovery.html#h2_2125172704" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  Visit&nbsp;<a href="restoring-from-snapshots.html" target="_blank">Restoring from Snapshots</a>&nbsp;for information on restoring CommVault snapshots in CloudBolt in the scenario of a data loss event.
+</p>
+<p>When you click <b>Restore</b>  on a Server in CloudBolt, a job gets submitted and CommVault which starts the restore process. </p><p>This job can take time depending on the amount of data/connectivity etc. In CloudBolt, a pop up message says “Host has been restored”;  wait for the restore process to complete on CommVault before checking the system is restored.</p>
+<h3 id="h3__1857011872" data-has-heading-anchor="true">
+  <br/>
+  Concept: How Servers are Restored in CommVault and CMP
+<a href="commvault-backup-and-recovery.html#h3__1857011872" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  There are various restore types in CommVault, many of which center around restoring individual files. In CMP, the Restore functionality that has been implemented is a VM Restore, in place with unconditional overwrite. This means that the whole virtual machine is replaced with a new virtual machine of the same configuration based on the specified backup. 
+</p>
+<p>
+  The key take away  is that a restore is really a replacement. It does not internally modify the contents of the VM, but instead replaces it.
+  
+  In the example where we restore “dns1.mydomain.org”, that machine for inventory purposes is now a new machine with the same name. After the next CommVault backup it will have the same id: 23, but a new GUID. 
+</p>
+<p>
+  
+  During the next VM sync, CMP will find the new machine and retire the old one. We do not add Data Protection on VM sync, so the newly imported virtual machine will not have the Data Protection tab and will not have access to its backups, although they are still in CommVault.
+</p>
+<p>
+  If you delete “dns1.mydomain.org” in CMP and re-provision a machine of the same name, you will find that CommVault has tracked the life cycle of this host name and you will get the same client id and have access to all the old backups of this host name.
+</p>
+<hr/>
+<h2 id="h2_1408145810" data-has-heading-anchor="true">
+  Concept: Understanding the Data Protection Lifecycle
+<a href="commvault-backup-and-recovery.html#h2_1408145810" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  During provisioning, CloudBolt adds the hostname of the Server to the Content of the specific CommVault VM Group. This virtual machine will not exist in CommVault until the next backup is run on the VM Group.
+</p>
+<div class="alert alert-primary">
+  <i class="mdi mdi-help-circle mr-2"></i>Backup requests do not queue. Requesting a backup on a Group or client while a backup is running will result in an error.
+</div>
+<h3 id="h3_260527243" data-has-heading-anchor="true">
+  <br/>
+  Managing Virtual Machines
+<a href="commvault-backup-and-recovery.html#h3_260527243" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  When a virtual server is discovered during a backup, it is assigned a Client ID and a GUID. At this point it can be individually managed. 
+</p>
+<p>
+  CommVault manages the life cycle of a virtual machine based on its host name. If you provision a machine named “dns1.mydomain.org”, that machine will get an integer Client ID; for example 23, and the Client ID will persist across restores. The GUID will change with each instance of the machine.
+</p>
+<section class="nextsteps">
+  <h2 id="h2_1397819733" data-has-heading-anchor="true">
+    Outcomes
+  <a href="commvault-backup-and-recovery.html#h2_1397819733" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  
+  <p id="h2_1397819733">
+    CommVault integration in CloudBolt is complete and your provisioned Servers are being protected.
+  </p>
+</section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="veeam-ui-extension.html" class="articleActions_link CHNavLinkPrevious">Veeam UI Extension</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="configuration-managers.html" class="articleActions_link CHNavLinkNext">Configuration Managers</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

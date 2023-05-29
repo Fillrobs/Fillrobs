@@ -1,0 +1,27 @@
+<tr data-id="{{network.id}}">
+    <td class="name">
+        <span class="icon-network"></span>&nbsp
+        <a href="{% url "network_detail" network.id %}">
+            {{ network.name|default:network.id }}
+        </a>
+    </td>
+    <td>
+        {{ network.subnetworks.count }}
+    </td>
+    <td>
+        {{ network.mode }}
+    </td>
+    <td>
+        {{ network.cidr_block }}
+    </td>
+    <td class="gateway">
+        {{ network.gateway|default:"" }}
+    </td>
+    <td>
+        <a class="icon-delete open-dialog"
+            href="{% url 'gcp_project_network_delete' handler_id project_id network.id %}"></a>
+        <a class="fas fa-sync"
+            href="{% url 'gcp_project_network_update' handler_id project_id network.id %}"
+            title="Refresh this network"></a>
+    </td>
+</tr>

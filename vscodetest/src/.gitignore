@@ -1,0 +1,9 @@
+# Files that get added during unit test run
+test_db*
+!test_dblock.py
+# Ignore patches.
+patches
+# Ignore downloaded docs
+*_docs.zip
+# Ignore log files
+*.log

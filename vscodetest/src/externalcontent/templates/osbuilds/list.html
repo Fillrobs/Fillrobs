@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load infrastructure_tags %}
+{% load helper_tags %}
+{% block topnav %}os-builds{% endblock %}
+
+{% block content %}
+    <span class="uplink"><a href="{% url 'admin_home' %}">Admin</a></span>
+
+    <h1> OS Builds</h1>
+    <div class="well well-sm">
+        <p>OS Builds are user-facing choices that can relate to multiple images
+        of different types and technologies (ex. VMware templates, AMIs,
+        etc).  When a user chooses an OS Build and an environment, {% portal_label %}
+        translates those selections into a specific image to deploy. </p>
+
+        <p>OS Builds provide a level of abstraction which enables the same
+        blueprint to be deployed to different environments, each hosted on a
+        different virtualization system or public cloud. </p>
+    </div>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog" href="{% url 'osbuild_new' %}" id="add_osbuild">
+            <span class="icon-add"></span>
+            New OS Build
+        </a>
+        <a class="btn btn-default open-dialog" href="{% url 'osbuild_clean' %}">
+            <span class="icon-clean"></span>
+            Remove Unused OS Builds
+        </a>
+    </div>
+
+
+    <table id="osbuilds" data-table>
+       <thead>
+          <tr>
+             <th>OS</th>
+             <th>Name</th>
+             {# profile.show_tenant_info is not used here, because this is the one list view where the tenant admins #}
+             {# can see global objects, and objects from their tenant #}
+             {% if enable_multitenancy %}
+                <th>Tenant</th>
+             {% endif %}
+             <th>
+                 <span title="Environments configured to expose the OS Build" data-toggle="tooltip">
+                     Environments
+                 </span>
+             </th>
+             <th>
+                 <span title="Number of images associated with this OS Build" data-toggle="tooltip">
+                     {{template_label|default:"image"|title}}s
+                 </span>
+             </th>
+             <th>
+                 <span title="Number of servers using this OS Build" data-toggle="tooltip">
+                     Servers
+                 </span>
+             </th>
+          </tr>
+       </thead>
+       <tbody>
+            {% for osb in osbuilds %}
+                <tr>
+                    <td class="os" width="20px">{{ osb.os_family|os_family_icon_html }}</td>
+                    <td class="name"> <a href="{% url 'osbuild_detail' osb.id %}">
+                        {{ osb.name |default:"<i>(no name)</i>" }}</a>
+                    </td>
+                    {% if enable_multitenancy %}
+                        <td >
+                            {{ osb.tenant|link_or_label_none_global:profile }}
+                        </td>
+                    {% endif %}
+                    <td class="environments">
+                        {% if osb.filtered_envs_remain %}
+                            {{ osb.filtered_envs|render_list:profile }}
+                            and {{ osb.filtered_envs_remain }} other environment{{ osb.filtered_envs_remain|pluralize }}
+                        {% else %}
+                            {{ osb.filtered_envs|render_list:profile }}
+                        {% endif %}
+                    </td>
+                    <td class="images">
+                        <a href="{% url 'osbuild_detail' osb.id %}#tab-images">
+                            {{ osb.osbuildattribute_set.count }}
+                            image{{ osb.osbuildattribute_set.count|pluralize }}</a>
+                    </td>
+                    <td class="servers">
+                        {% if osb.active_servers_count > 0 %}
+                        <a href="{% url 'osbuild_detail' osb.id %}#tab-servers">
+                            {{ osb.active_servers_count }} active</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+       </tbody>
+    </table>
+
+{% endblock %}

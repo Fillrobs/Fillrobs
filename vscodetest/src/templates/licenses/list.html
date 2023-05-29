@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% comment %}
+    only resource admins or superusers should see this page
+{% endcomment %}
+{% block topnav %}licenses{% endblock %}
+{% block title %}License Pools{% endblock %}
+
+{% block content %}
+    <h1>License Pools</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'license_pool_add' %}">
+            <span class="icon-add"></span>
+            Add a license pool
+        </a>
+    </div>
+
+    <p>
+    License pools allow you to create collections of license values, deploy
+    them as servers are provisioned, and manage compliance.  Values can be
+    character strings, files, or blank.  Charts and history events shed light
+    on license usage over time.
+    </p>
+
+    <table id="pools" data-table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Count</th>
+                <th>Deployed</th>
+                <th>Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pool in licensepools %}
+                <tr>
+                    <td><a href="{% url 'license_pool_detail' pool.id %}">{{ pool.name }}</a></td>
+                    <td>{{ pool.count }}</td>
+                    <td>{{ pool.used }}</td>
+                    <td>{{ pool.group|default:"All" }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

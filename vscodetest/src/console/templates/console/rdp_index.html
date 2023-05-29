@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ server_name }} - Console</title>
+    {% include "common/head_css_includes.html" %}
+</head>
+
+<body>
+        <div id="info-message" class="info">
+            Your RDP Client should start and connect to: '{{novnc_iframe_url}}'
+        </div>
+        <iframe src="{{ novnc_iframe_url }}" width="100%" height="0px"/>
+        </iframe>
+</body>
+</html>

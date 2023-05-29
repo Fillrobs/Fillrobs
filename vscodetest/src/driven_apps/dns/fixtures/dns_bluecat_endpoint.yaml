@@ -1,0 +1,28 @@
+- model: naming.endpoint
+  pk: 2
+  fields:
+    real_type:
+      - naming
+      - bluecatendpoint
+    workspace: 1
+    type: bluecat
+    name: BlueCatEndpoint
+    description: My BlueCat
+    single_threaded: false
+- model: naming.bluecatendpoint
+  pk: 2
+  fields:
+    host: bluecat90.sovlabs.net
+    port: 443
+    ssl: true
+    credential: 2
+    dns_view: 'bluecat90.sovlabs.net'
+- model: credentials.modulecredential
+  pk: 2
+  fields:
+    workspace: 1
+    name: bluecat_cred1
+    description: bluecat_test
+    username: vrasvc
+    password: VmwareS0v
+    endpoint_type: bluecat

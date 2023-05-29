@@ -1,0 +1,34 @@
+{% spaceless %}
+{% comment %}
+About spaceless: remove some whitespace so that the output can be used in
+in-line text situations without introducing spurious spaces before or after the
+tooltip target.
+
+This seemingly over-complicated markup ensures that items sort correctly in a
+DataTable context regardless of whether they have a tooltip or not, and also to
+ensure CSS rules apply consistently in either case (i.e. margins on elements
+after icons).
+
+After the template is rendered, the `text_tooltip` tag removes leading and
+trailing whitespace on each line, blank lines, and newline characters. This
+allows the tag to be in-line, such as in a comma-separated list (avoiding a
+space between an item and the comma directly after it), without displaying a
+spurious space before or after the tooltip target.
+{% endcomment %}
+
+<span class="hidden">{{ label }}</span>
+
+{% if tip %}
+    <span ng-non-bindable 
+        {% if not hint %}
+            class="no-tooltip-affordance"
+        {% endif %}
+        data-toggle="tooltip"
+        data-html="true"
+        data-placement="{{ placement }}"
+        {% if width %} data-max-width="{{ width }}" {% endif %}
+        title="{{ tip }}">{{ label }}</span>
+{% else %}
+    <span>{{ label }}</span>
+{% endif %}
+{% endspaceless %}

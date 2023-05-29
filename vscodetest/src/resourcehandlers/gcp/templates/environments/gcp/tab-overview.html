@@ -1,0 +1,10 @@
+{% if env_location and project %}
+<dt>{{ location_label }}:</dt>
+    <dd>
+        {% if env_location != "-" %}
+            <a href="{% url 'gcp_project_detail' handler_id project_id %}">{{ project.name }}</a>
+        {% else %}
+            <i style='color:red'>None (must configure to use this environment)</i>
+        {% endif %}
+    </dd>
+{% endif %}

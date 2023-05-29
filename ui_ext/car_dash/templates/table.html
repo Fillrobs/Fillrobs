@@ -1,0 +1,49 @@
+{% extends "dashboard/card.html" %}
+
+{% block card_id %}car-dash{% endblock %}
+
+{% block heading %}Car Stock{% endblock %}
+
+{% block heading_right %}
+    {# This content is pulled right. #}
+    Manufacturer List:
+    <a href="/resources/car_manufacturer/list/"><i class="fa fa-chart"></i> Car Manufacturers</a>
+{% endblock %}
+
+{% block card_body %}
+<style type="text/css">
+    .car_manufs em {
+      color: rgb(124, 181, 236);
+      font-size: 1.5em;
+      font-style: normal;
+    }
+    .car_manufs i {
+      color: #aaa;
+    }
+</style>
+<ul class="car_manufs pull-left">
+{% for column in columns %}
+
+
+          {% for manuf in column %}
+          <li>
+              <em>{{ manuf.logo|safe }}&nbsp;{{ manuf.manuf|safe }}&nbsp;{{ manuf.carcnt|safe }} cars in stock</em>
+          </li>
+          {% endfor %}
+
+
+
+
+{% empty %}
+
+{# This only runs when columns is empty #}
+<p>Sorry, there are no Car Manufacturers.</p>
+
+{% endfor %}
+</ul>
+<script>
+  $(function(){
+      $('#car-dash').insertBefore('#servers-by-env');
+  });
+  </script>
+{% endblock card_body %}

@@ -1,0 +1,33 @@
+{% comment %}
+This template overrides the template table for generic RHs to also include the
+VMware tools status for each VMware template.
+
+This is included by templates/resourcehandlers/discover_templates.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<table id="discovered_templates" data-table="dialog clickable">
+    <thead>
+        {% block template_columns %}
+        <th>
+            <input class="check-column" type="checkbox" />
+        </th>
+        <th>Template name</th>
+        <th>Reported OS</th>
+        <th>Description</th>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% block template_rows %}
+            {% for template in templates_added %}
+            <tr>
+                <td><input name="template" type="checkbox" value="{{ template.name }}"/></td>
+                <td class="name">{{ template.label }}</td>
+                <td>{{ template.os_family|os_family_icon }} {{ template.os_family.name }}</td>
+                <td>{{ template.description }}</td>
+            </tr>
+            {% endfor %}
+        {% endblock %}
+    </tbody>
+</table>

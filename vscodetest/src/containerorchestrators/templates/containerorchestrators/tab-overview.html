@@ -1,0 +1,60 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{# this template can be extended by CO-specific templates to override the container_orchestrator_details block #}
+<div class="btn-toolbar">
+    {% block actions %}
+    <a class="btn btn-default open-dialog"
+        href="{% url 'container_orchestrator_settings' container_orchestrator.id %}">
+        <span class="icon-edit"></span>
+        Edit Settings
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'delete_container_orchestrator' container_orchestrator.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'container_orchestrator_verify_connection' container_orchestrator.id %}">
+        <span class="icon-verify-connection"></span>
+        Verify Connection
+    </a>
+    {% endblock %}
+</div>
+
+<dl>
+{% block container_orchestrator_details %}
+    <dt>Protocol:</dt><dd>{{ container_orchestrator.protocol }}</dd>
+    {% if container_orchestrator.ip != "N/A" %}
+        {# some technologies have no relevant IP (ex. GCE, Azure) #}
+        <dt>IP Address:</dt>
+        <dd>{{ container_orchestrator.ip }}</dd>
+    {% endif %}
+    {% if container_orchestrator.port %}
+        <dt>Port:</dt><dd>{{ container_orchestrator.port }}</dd>
+    {% endif %}
+    {% if container_orchestrator.url_path_prefix %}
+        <dt>URL Path Prefix:</dt>
+        <dd>{{ container_orchestrator.url_path_prefix }}</dd>
+    {% endif %}
+    <dt>{{ username_label|default:"Username" }}:</dt>
+    <dd>{{ container_orchestrator.serviceaccount }}</dd>
+    <dt>Authentication type:</dt>
+    <dd>{{ container_orchestrator.get_auth_type_display }}</dd>
+    {% if profile.show_tenant_info %}
+        <dt>Tenant:</dt>
+        <dd>{{ container_orchestrator.tenant|link_or_label_none_global:profile }}</dd>
+    {% endif %}
+    <dt>Environments:</dt>
+    <dd>
+        <div id="read_envs">
+            {{ environment_displays|render_list:profile }}
+        </div>
+    </dd>
+{% endblock container_orchestrator_details %}
+  {% for name, value in overview_extra_nv_pairs %}
+      <dt>{{ name }}:</dt>
+      <dd>{{ value }}</dd>
+  {% endfor %}
+</dl>

@@ -1,0 +1,80 @@
+{% load helper_tags %}
+{% load i18n %}
+{% portal_label as the_portal_label %}
+{% load i18n %}
+
+{% comment %}
+    These links are shown both on the Admin home page and in All Actions.
+    Args:
+        - indent: integer.  If supplied, add CSS class depth-{{ indent }} to each LI
+        - placement: (str) direction of tooltip placement
+{% endcomment %}
+
+{% load helper_tags %}
+
+
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% trans "Server Actions" as server_actions_title %}
+    {% trans "Add new buttons on servers for users to run actions" as server_actions_description %}
+
+    <a href="{% url 'server_actions' %}"
+        data-spotlight="scripts flows hooks orchestration plugins">
+        {% text_tooltip server_actions_title server_actions_description placement hint=False %}
+    </a>
+</li>
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% trans "Resource Actions" as resource_actions_title %}
+    {% trans "Add new buttons on resources for users to run actions" as resource_actions_description %}
+
+    <a href="{% url 'resource_actions' %}"
+        data-spotlight="scripts flows hooks orchestration plugins">
+        {% text_tooltip resource_actions_title resource_actions_description placement hint=False %}
+    </a>
+</li>
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% trans "Orchestration Actions" as orchestration_actions_title %}
+    {% blocktrans asvar orchestration_actions_description %} Hook your custom logic into {{the_portal_label}} processes at various <i>hook points</i> {% endblocktrans %}
+
+    <a href="{% url 'orchestration_actions' %}"
+        data-spotlight="scripts flows hooks plug-ins plugins triggers jobs orders">
+        {% text_tooltip orchestration_actions_title orchestration_actions_description placement hint=False %}
+    </a>
+</li>
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% trans "Recurring Jobs" as recurring_jobs_title %}
+    {% trans "Run jobs or actions on a periodic basis." as recurring_jobs_description %}
+
+    <a href="{% url 'recurring_job_list' %}"
+        data-spotlight="scripts flows hooks plug-ins plugins triggers jobs orders">
+        {% text_tooltip recurring_jobs_title recurring_jobs_description placement hint=False %}
+    </a>
+</li>
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% trans "Rules" as rules_title %}
+    {% trans "Run daily and can be used to check for issues in the environment and take corrective action" as rules_description %}
+
+    <a href="{% url 'rules' %}"
+        data-spotlight="scripts flows hooks plug-ins plugins triggers jobs orders">
+        {% text_tooltip rules_title rules_description placement hint=False %}
+    </a>
+</li>
+{% if licensed_modules %}
+<li {% if indent %}class="depth-{{ indent }}"{% endif %}>
+    {% blocktrans asvar tip %} Use your existing orchestration content from {{the_portal_label}} {% endblocktrans %}
+    {% if "orchestration" in licensed_modules %}
+        {% trans "External Orchestrators" as licenced_external_orchestrators_title %}
+        {% blocktrans asvar licenced_external_orchestrators_description %} Use your existing orchestration content from {{the_portal_label}} {% endblocktrans %}
+        <a href="{% url 'orchestrators_list' %}"
+            data-spotlight="flow hpoo vco">
+            {% text_tooltip licenced_external_orchestrators_title licenced_external_orchestrators_description placement hint=False %}
+        </a>
+    {% else %} {# show admin what they are missing...perhaps they will license it #}
+        {% trans "External Orchestrators (not licensed)" as unlicenced_external_orchestrators_title %}
+        {% trans "Use your existing orchestration content from {{the_portal_label}}" as unlicenced_external_orchestrators_description %}
+        <a href="#" class="disabled" title="Contact {% portal_label %} to license this feature"
+            data-spotlight="flow hpoo vco">
+            {% text_tooltip unlicenced_external_orchestrators_title unlicenced_external_orchestrators_description placement hint=False %}
+        </a>
+    {% endif %}
+</li>
+{% endif %}

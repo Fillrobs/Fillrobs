@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if managing %}
+    <input type=checkbox name=show_on_order_form
+        data-toggle="toggle"
+        data-on="{% trans 'Always' %}"
+        data-off="{% trans 'If needed' %}"
+        data-width="180"
+        data-post-url="{% url 'toggle_show_on_order_form' service_item.id %}"
+        {% if service_item.show_on_order_form %}checked{% endif %}
+        {% if blueprint.remote_source_url %}disabled{% endif %} />
+{% else %}
+    {% if service_item.show_on_order_form %}
+        {% trans 'Always' %}
+    {% else %}
+        {% trans 'If needed' %}
+    {% endif %}
+{% endif %}

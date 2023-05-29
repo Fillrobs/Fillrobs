@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load account_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block topnav %}reports{% endblock %}
+{% block uplink %}
+    <span class="uplink"><a href="{% url 'report_list' %}">{% trans "Reports" %}</a></span>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ pagetitle }}</h1>
+
+    {% block server_side_csv_export %}
+        {% if export_form %}
+            <div class="btn-toolbar">
+                <div class="pull-right">
+                    <form id="export-form" method="get" action="{% url 'export_internal_report' %}">
+                        {% csrf_token %}
+                        {{ export_form.report }}
+                        <span id="selection-info"></span>
+                        {{ export_form.rep_format }}
+                        <button type="submit" class="btn btn-default" id="export_form_submit">
+                          {% trans "Export as CSV" %}
+                        </button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block report_content %}
+        <div id="chart_div" class="panel panel-default"></div>
+    {% endblock %}
+{% endblock content %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/highcharts/modules/exporting.js"></script>
+    <script src="{{ STATIC_URL }}js/rgbcolor.js"></script>
+    <script src="{{ STATIC_URL }}js/canvg.js"></script>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load tag_tags %}
+{% load i18n %}
+{% block topnav %}
+    {% trans 'catalog' %}
+{% endblock %}
+{% block javascript %}
+    {{ block.super }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="grunticon" content="{{ STATIC_URL }}img/"/>
+
+    <script src="{{ STATIC_URL }}js/initial.js"></script>
+
+    <!-- Optional; remove if IE <= 8 styling isn’t a priority -->
+    <!--[if lt IE 9]>
+  <script src="{{ STATIC_URL }}js/lib/html5shiv.js"></script>
+<![endif]-->
+
+{% endblock %}
+{% block extrastyle %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/catalog.css"/>
+{% endblock %}
+{% block fluidclass %}
+    {% comment %} Pass no value for the
+fluidclass because we don't want to use the default fluid-container for the new
+catalog styles. Eventually these two styles of adding padding will be rectified.
+{% endcomment %}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <a class="a11y" href="#content">Skip to main content</a>
+
+        <div class="pg-title">
+            <div class="pg-title--inner layout">
+                <h1 class="hed--page">Catalog</h1>
+                <div class="well catalog-actions">
+                    {% if profile.can_create_blueprint and not catalog_only_mode %}
+                    <a
+                        class="small open-dialog"
+                        href="{% url 'add_blueprint' %}"
+                        data-test="blueprint-create"
+                    >
+                    Create Blueprint</a>
+                    <a
+                        class="small open-dialog"
+                        href="{% url 'upload_blueprint' %}"
+                        data-test="blueprint-upload"
+                    >Upload Blueprint </a>
+                    {% endif %}
+                    {% if show_content_library %}
+                    <a
+                        id="import-button"
+                        class="small"
+                        href="{% url 'library' %}?type=blueprints"
+                        data-test="blueprints-library"
+                    >Import Blueprint</a>
+                    {% endif %}
+                    {% if profile.is_cbadmin %}
+                    <a
+                        id="import-button"
+                        class="small"
+                        href="{% url 'catalog_management' %}"
+                        data-test="catalog-manage"
+                    >Manage Catalog</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- /end .pg-title -->
+    </header>
+<script type="text/javascript">
+    $(function() {
+        // Function that runs Django loop over the object_lst
+        // If they are blueprints it adds it to a python dict (similar to an JS Object)
+        // Then pushing to the bps_list variable and turned into JSON.stringify
+        // It is then placed in a hidden inputs value to be able to parse in Vue
+        // TODO: This is a temporary solution and should be replaced with the API ASAP.
+        const bps_list = []
+        {% for bp in object_list %}
+            {% if bp.type == "Blueprint" %}
+                bp_dict = {}
+                bp_dict["name"] = "{{bp.name}}"
+                bp_dict["description"] = "{{bp.description|escapejs}}"
+                bp_dict["canOrder"] =  "{{bp|can_order:profile}}"
+                bp_dict["isManager"] = "{{bp|is_manager:profile}}"
+                bp_dict["status"] = "{{ bp.status }}"
+                bp_dict["listImage"] = "{{ bp.list_image }}"
+                bp_dict["pk"] = "{{ bp.pk }}"
+                bp_dict["favorited"] = "{{ bp.favorited }}"
+                bp_dict["isOrderable"] = "{{ bp.is_orderable }}"
+                bp_dict["orderCount"] = "{{ bp.order_count }}"
+                bp_dict["needsConfiguration"] = "{{ bp.needs_configuration }}"
+                bp_dict["resourceType"] = {% if bp.resource_type %}"{{ bp.resource_type.label }}" {% else %}"None"{% endif %}
+                var categoryList = [];
+                {% for t in bp.tags.values %}
+                    var tagObj = {
+                        id: parseInt("{{ t.id }}"),
+                        name: "{{ t.name }}",
+                        parentId: parseInt("{{ t.parent_id }}"),
+                        sequence: parseInt("{{ t.sequence }}")
+                    }
+                    categoryList.push(tagObj)
+                {% endfor %}
+                bp_dict["categories"] = categoryList
+                var osBuildsList = [];
+                {% for s in bp.pssis %}
+                    {% for o in s.allowable_os_families.all %}
+                        osBuildsList.push("{{ o.name }}" )
+                    {% endfor %}
+                {% endfor %}
+                bp_dict["osBuilds"] =  osBuildsList
+                bps_list.push(bp_dict)
+            {% endif %}
+        {% endfor %}
+        document.getElementById("bps_list").value = JSON.stringify(bps_list);
+    });
+</script>
+    <input type="hidden" id="bps_list" name="bps_list" readonly="true">
+    <div class="row content__blueprints">
+        {% load render_bundle from webpack_loader %}
+            <div id="blueprintCatalog"></div>
+        {% render_bundle 'chunk-vendors' %}
+        {% render_bundle 'blueprintCatalog' %}
+    </div>
+{% endblock %}
+{% block scripts %}
+
+    {% if profile.is_cbadmin and profile.view_initial_tour %}
+        <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+        <script src="{{ STATIC_URL }}js/tours/catalogTour.js"></script>
+        <script>
+          c2.catalogTour.init().start();
+        </script>
+    {% endif %}
+{% endblock %}

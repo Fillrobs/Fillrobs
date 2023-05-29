@@ -1,0 +1,21 @@
+#!/bin/sh
+
+. /mnt/g/Metsi2/CloudBolt/Scripts/cloudboltprojects
+
+ echo $current_project
+
+cproj=$current_project
+
+if [ $cproj='metsilabs' ]
+then
+	fpath="profilefiles/metsilabs"
+
+	echo $fpath
+
+	. $fpath
+
+	echo "targetcloudbolt=$targetcloudbolt"
+        echo "targetcloudboltuser=$targetcloudboltuser"
+	echo "targetcloudboltpass=$
+fi
+"targetcloudboltpass

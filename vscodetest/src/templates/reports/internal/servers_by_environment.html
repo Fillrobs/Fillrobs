@@ -1,0 +1,33 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+var maxRows = {{ max_rows }};
+var categories = {{ categories|to_json }};
+var serverCounts = {{ server_counts|to_json }};
+
+$('#chart_div').highcharts(_.merge(c2.charts.serverBarChartDefaults, {
+    title: {
+        text: '{% blocktrans with maxRows="' + maxRows + '" %}Servers by Environment (Top {{maxRows}}){% endblocktrans %}'
+    },
+    xAxis: {
+        categories: categories.slice(0, maxRows)
+    },
+    series: [
+        {
+            name: '{% trans "Servers" %}',
+            data: serverCounts.slice(0, maxRows)
+        }
+    ],
+    exporting: {
+        filename: 'C2_Servers_by_Environment',
+        toCSV: function() {
+            return c2.downloads.arrayToCSV(
+                ['{% trans "Environment" %}', '{% trans "Server Count" %}'],
+                _.zip(categories, serverCounts));
+        }
+    }
+}));
+{% endblock %}

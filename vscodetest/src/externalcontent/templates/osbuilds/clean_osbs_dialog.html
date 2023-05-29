@@ -1,0 +1,37 @@
+{% extends 'dialogs/dialog.html' %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block non_form_content %}
+{% if osbs.count %}
+<p>These {{ osbs.count }} OS builds are not provided by any image and are not in use
+by any server record or blueprint.</p>
+{% else %}
+<p>No unused OS builds found. They all have images, servers, or are in use by a blueprint.</p>
+{% endif %}
+{% endblock non_form_content %}
+
+{% block form_content %}
+{% if osbs.count %}
+<table data-table="dialog">
+    <thead>
+        <tr>
+            <th>OS</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for osb in osbs %}
+            <tr>
+                <td class="os">{{ osb.os_family|os_family_icon_html }}</td>
+                <td class="name">{{ osb.name |default:"<i>(no name)</i>" }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    c2.dataTables.init()
+</script>
+{% endif %}
+{% endblock form_content %}

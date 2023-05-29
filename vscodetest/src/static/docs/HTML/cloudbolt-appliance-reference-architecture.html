@@ -1,0 +1,630 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('cloudbolt-appliance-reference-architecture',true);});
+//--></script><title>CloudBolt Appliance Reference Architecture</title><script type="text/javascript">//<!--
+var articleTitleText='CloudBolt Appliance Reference Architecture';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">CloudBolt Appliance Reference Architecture</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">CloudBolt Appliance Reference Architecture</span></span>
+  </div><h1 style="" id="h1__246429115" data-has-heading-anchor="true">
+  CloudBolt Appliance Reference Architecture
+<a href="cloudbolt-appliance-reference-architecture.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about the CloudBolt appliance architecture, security, backup, hardware guidelines, and network connectivity out of the box.
+</p>
+<br/>
+<ul class=""><li class="CHMiniToc_heading2"><a href="cloudbolt-appliance-reference-architecture.html#h2__1296687178">Overview</a></li><li class="CHMiniToc_heading2"><a href="cloudbolt-appliance-reference-architecture.html#h2__105141891">Appliance</a></li><li class="CHMiniToc_heading2"><a href="cloudbolt-appliance-reference-architecture.html#h2_1726447977">CloudBolt Architecture</a></li><li class="CHMiniToc_heading2"><a href="cloudbolt-appliance-reference-architecture.html#h2__1434251725">Single Node Architecture</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3_1317723470">High Availability for Single Node</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3_322745517">Disaster Recovery for Single Node</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3_805859948">Backup for Single Node</a></li><li class="CHMiniToc_heading2"><a href="cloudbolt-appliance-reference-architecture.html#h2_654223654">Distributed Architecture</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3_838880121">Web Server</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3__1387027031">Job Engine</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3__658557387">File Service and Database</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3__710102131">Failure Tolerance and High Availability</a></li><li class="CHMiniToc_heading3"><a href="cloudbolt-appliance-reference-architecture.html#h3__1800004875">Using Hosted Services</a></li></ul>
+<section>
+  <h2 id="h2__1296687178">
+  </h2>
+</section>
+<hr/>
+<section>
+  <h2 id="h2__1296687178" data-has-heading-anchor="true">
+    Overview
+  <a href="cloudbolt-appliance-reference-architecture.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  There are two suggested designs in this guide: a single node and a distributed architecture.
+</section>
+<ul>
+  <li>
+    <section>
+      <b>Single Node:</b> This is recommended for users that are new to CloudBolt, as it is simplest to set up and maintain. A single node architecture <i>can </i>be suitable for production environments, if third party tools are used to maintain appliance availability.
+    </section>
+  </li>
+  <li>
+    <section>
+      <b>Distributed Architecture: </b>This can be used to maintain High Availability when running in public clouds, and is used to increase scalability in larger deployments. This deployment type is more complex to deploy and relies on external services to provide High Availability of the platform, e.g. load balancing, file and database services.&nbsp;
+    </section>
+  </li>
+</ul>
+<p>
+  This document will describe both architectures. We recommend you&nbsp;adapt them to suit the needs of your deployment.
+  <br/>
+  <br/>
+</p>
+<hr/>
+<h2 id="h2__105141891" data-has-heading-anchor="true">
+  Appliance
+<a href="cloudbolt-appliance-reference-architecture.html#h2__105141891" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  The CloudBolt appliance is a complete OS (CentOS 7.x) and  is configured to run either CloudBolt CMP or <a href="http://docs.cloudbolt.io/smart/onefuse/what-is-onefuse" target="_blank">OneFuse</a>.
+</p>
+<p>
+  The appliance can only run a single product/personality at once (configured upon first boot). If you would like to run both CloudBolt CMP and OneFuse, deploy a copy of this design for each product.
+</p>
+<p>
+  The appliance is the building block for both our reference architectures: single node and distributed. 
+</p>
+<ul>
+  <li>
+    In the single node architecture, and by default, the appliance will run all the CloudBolt roles.
+  </li>
+  <li>
+    In a distributed setup, these roles are split out as availability or scalability requirements dictate.
+    <br/>
+    <br/>
+  </li>
+</ul>
+<hr/>
+<section>
+  <h2 id="h2_1726447977" data-has-heading-anchor="true">
+    CloudBolt Architecture
+  <a href="cloudbolt-appliance-reference-architecture.html#h2_1726447977" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CloudBolt is based on a standard 3-tier app model: Web/App/DB with a LAMP stack. Users interact with the application using a Browser-based client or via integration into their own tools using the <a href="cloudbolt-api-v3.html" target="_blank">CloudBolt API</a>.
+    <br/>
+    <br/>
+  </p>
+  
+  
+    <div class="image-row">
+      <div class="image-set">
+        <a href="../Storage/cloudbolt-docs/getting%20started/cmp_single-appliance-arch-postgresql.png" data-lightbox="cloudbolt-architecture" data-title="Single Appliance Architecture" target="_top"><img src="../Storage/cloudbolt-docs/getting%20started/cmp_single-appliance-arch-postgresql.png" alt="" style="width: 300px; height: 226px;"/></a>
+      </div>
+    </div>
+  
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1914648802">
+  </h2>
+  <h2 id="h2__1434251725" data-has-heading-anchor="true">
+    Single Node Architecture
+  <a href="cloudbolt-appliance-reference-architecture.html#h2__1434251725" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol>
+    <li>
+      Follow the quick start guide to <a href="installing-cloudbolt.html">Install CloudBolt</a> to create a functional CloudBolt environment running on a single VM appliance.&nbsp;
+    </li>
+  </ol>
+  <p>
+    This architecture is simple to manage and includes all functionality available within CloudBolt.&nbsp;
+  </p>
+  <h3 id="h3_1317723470" data-has-heading-anchor="true">
+    High Availability for Single Node
+  <a href="cloudbolt-appliance-reference-architecture.html#h3_1317723470" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Improve the availability of CloudBolt by leveraging hypervisor HA like VMware HA or Hyper-V clustering, in order to mitigate some of the impact associated with hardware failure. The single appliance does not provide application-level High Availability and so during hardware failures some downtime will be introduced as the appliance restarts.
+  </p>
+  <h3 id="h3_322745517" data-has-heading-anchor="true">
+    Disaster Recovery for Single Node
+  <a href="cloudbolt-appliance-reference-architecture.html#h3_322745517" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    The single appliance offers a simple solution for Disaster Recovery (DR), as recovery only requires restoration of a single VM.
+  </p>
+  <ul>
+    <li>
+      A minimum solution is to restore the VM from backup in your Disaster Recovery site.
+    </li>
+    <li>
+      Leverage your existing investment in tools, which could vary depending on your Recovery Time Objective (RTO) and Recovery Point Objectives (RPO).
+    </li>
+    <li>
+      To further reduce your RTO and RPOs, leverage existing investments in a Disaster Recovery as a Service (DRaaS) product: VMware SRM, Zerto, or Microsoft Azure Site Recovery.
+    </li>
+  </ul>
+</section>
+<table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="infoBoxImageCell">
+        <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+      </td>
+      <td class="infoBoxText">
+        <p>
+          Tip: When performing DR planning, ensure that the CloudBolt appliance's restoration is given due attention as DR plans for other applications may require CloudBolt's availability in order to provision replacement services during a DR event.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="h3_805859948" data-has-heading-anchor="true">
+  Backup for Single Node
+<a href="cloudbolt-appliance-reference-architecture.html#h3_805859948" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  To protect CloudBolt&nbsp;we  backup the appliance to ensure we can revert the state of the CloudBolt appliance(s) to a known working state. As&nbsp;a CloudBolt appliance&nbsp;runs as a self-contianed VM, the backup process is as simple as protecting the entire VM in your backup solution. This way on-going backups of the production environment and any necessary restores can be simple to manage. When configuring your backup solution, as the CloudBolt appliance includes a 
+</p>
+
+
+  PostgreSQL
+
+database, it is important to ensure your backup software's agent is also configured to protect the <i>cloudbolt</i> database when capturing the state of the VM.
+<p>
+</p>
+<p>
+  Alternate methods of extracting state (file and database level backups) from the CloudBolt appliance can be used  for migrations and testing however&nbsp;for on-going backups of a production environment where availability is key, such procedures may be unacceptably complex during a Disaster Recovery scenario. The backup options for CloudBolt are discussed further in Backing up the CloudBolt appliance.
+</p>
+
+<hr/>
+<h2 id="h2_654223654" data-has-heading-anchor="true">
+  Distributed Architecture
+<a href="cloudbolt-appliance-reference-architecture.html#h2_654223654" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  In a distributed architecture, we separate CloudBolt roles in order to provide scaling and improve availability. If all the components of your solution are Highly Available we consider CloudBolt to be Highly Available.
+</p>
+<p>
+  The following diagram shows an architecture where the Web Server and Job Engine roles have been split out with the use of a Multi-AZ Database service and Highly Available File Server.
+</p>
+<div>
+  <div class="image-set">
+    <a href="../Storage/cloudbolt-docs/getting%20started/cmp_distributed-arch.png" data-lightbox="cloudbolt-dist-architecture" data-title="Distributed Architecture" target="_top"><img src="../Storage/cloudbolt-docs/getting%20started/cmp_distributed-arch.png" alt="" style="width: 400px; height: 285px;"/></a>
+  </div>
+  <div class="image-set">
+    <br/>
+  </div>
+  <h3 style="" id="h3_838880121" data-has-heading-anchor="true">
+    
+    Web Server
+    
+  <a href="cloudbolt-appliance-reference-architecture.html#h3_838880121" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+</div>
+<p>
+  The Web Server is the main building block of the CloudBolt distributed architecture. It contains the main application code and is responsible for providing the Web interface and APIs.
+</p>
+<p>
+  To add multiple Web Servers to your deployment, you will need a Load Balancer which provides both High Availability of the CloudBolt web service, and Load Balancing to distribute the web traffic across the Web Servers. It is important to ensure your Load Balancer service is also HA.
+</p>
+<h4 id="h4__1260645605" data-has-heading-anchor="true">
+  Web Server Scaling
+<a href="cloudbolt-appliance-reference-architecture.html#h4__1260645605" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<ul>
+  <li>
+    Scale out for availability: Web Servers can be scaled horizontally, for example, by adding new Web Servers in different failure domains/availability zones in order to improve availability.&nbsp;
+  </li>
+  <li>
+    Scale up for throughput: Web Servers also scale well vertically by adding hardware resources to the VM in order to increase throughput in larger environments. See <a href="hardware-guidelines.html" target="_blank">Hardware Guidelines</a>.
+  </li>
+</ul>
+<h4 style="" id="h4_1433464100" data-has-heading-anchor="true">
+  <br/>
+  Load Balancer Requirements
+<a href="cloudbolt-appliance-reference-architecture.html#h4_1433464100" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  Load Balancing CloudBolt's Web role is very similar to many other HTTPS applications, with the key details listed in the table below.
+</p>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th style="width: 212px;">
+        Requirement
+      </th>
+      <th style="width: 1338px;">
+        Details
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th style="width: 212px;">
+        HTTPS Termination
+      </th>
+      <td style="width: 1338px;">
+        The Load Balancer is not required to terminate SSL, but it can be enabled if you wish to use web application firewall functionality on your Load Balancer service, or to simplify provisioning of a trusted SSL certificate.
+      </td>
+    </tr>
+    <tr>
+      <th style="width: 212px;">
+        Stickiness
+      </th>
+      <td style="width: 1338px;">
+        COOKIE or SSL sessionid based stickiness is required as browser sessions are not shared between web servers.
+      </td>
+    </tr>
+    <tr>
+      <th style="width: 212px;">
+        Health Monitor
+      </th>
+      <td style="width: 1338px;">
+        Recommended to ensure traffic is not sent to broken nodes.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<h3 style="" id="h3__1387027031" data-has-heading-anchor="true">
+  <br/>
+  Job Engine
+<a href="cloudbolt-appliance-reference-architecture.html#h3__1387027031" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  The Job Engine is responsible for processing all background Jobs in the CloudBolt platform. It must be scaled according to the number of Jobs being processed in your CloudBolt environment.
+</p>
+<h4 id="h4__70203536" data-has-heading-anchor="true">
+  <br/>
+  Scaling Job Engines
+<a href="cloudbolt-appliance-reference-architecture.html#h4__70203536" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  Adding additional Job Engines does not require a Load Balancer. <a href="setting-up-high-availability.html" target="_blank">Configure each Job Engine node</a> with the shared database, file services, and CloudBolt deployment secret keys.
+</p>
+<p>
+  As Job Engines are added to an Environment, they distribute load equally by default. If you want to direct specific Job types to different nodes (e.g. ensuring Resource Handler Sync Jobs are processed on dedicated Job Engine hosts) see <a href="running-excluding-specific-job-types.html" target="_blank">Job Engine Filtering</a>.
+</p>
+<h3 id="h3__658557387" data-has-heading-anchor="true">
+  <br/>
+  File Service and Database
+<a href="cloudbolt-appliance-reference-architecture.html#h3__658557387" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  While File Service is not a CloudBolt role, it is an important dependency in a Distributed CloudBolt setup.
+</p>
+<p>
+  In a Single Node CloudBolt environment, assets like CloudBolt Plug-ins are stored on the CloudBolt appliance's local filesystem. In order to make these assets available to all Web Server and Job Engine nodes, we need to make a shared filesystem available to all of these nodes.
+</p>
+<p>
+  Similarly, all nodes require access to the same shared CloudBolt DB. This should also be provisioned externally.
+</p>
+<table class="warningBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="warningBoxImageCell">
+        <img alt="Warning" src="../Storage/cloudbolt-docs/warning.png"/>
+      </td>
+      <td class="warningBoxText">
+        <b>Important</b><b>:</b> When considering High Availability and Disaster Recovery, it is a common mistake to couple the two in a public cloud deployment. Access to multiple availability zones are often within network latency bounds, which allow for fully synchronous replication between two independent sites.&nbsp;
+        <br/>
+        <br/>
+        When considering such a topology, also ensure that&nbsp;snapshots are available for both the File Service and Database. These&nbsp;provide&nbsp;alternate recovery points&nbsp;and protect&nbsp;against logical corruption of the CloudBolt platform as part of a Disaster Recovery plan.
+        <br/>
+        <br/>
+        One analogy is the concept that RAID is not Backup, as a data corruption would be mirrored to your alternate site instantaneously.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br/>
+<h4 id="h4_2019887315" data-has-heading-anchor="true">
+  File Service
+<a href="cloudbolt-appliance-reference-architecture.html#h4_2019887315" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  CloudBolt is able to use a number of different network storage protocols supported by the underlying CentOS 7. We recommend using NFS as your network storage protocol, as it is widely supported and highly available solutions are often in place that CloudBolt can leverage.
+</p>
+<p>
+  Both the CloudBolt Web Servers and CloudBolt Job Engine VMs require the following directories to be stored on a shared file system. It is important for platform stability (in particular if using alternate shared filesystems) to ensure that the filesystem is synchronously replicated.
+</p>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>
+        Path
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>
+        /var/opt/cloudbolt
+      </th>
+    </tr>
+    <tr>
+      <th>
+        /var/log/cloudbolt/jobs
+      </th>
+    </tr>
+    <tr>
+      <th>
+        /var/www/html/cloudbolt/static
+      </th>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="h3__710102131" data-has-heading-anchor="true">
+  Failure Tolerance and High Availability
+<a href="cloudbolt-appliance-reference-architecture.html#h3__710102131" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+CloudBolt can be considered three services in terms of <a href="setting-up-high-availability.html" target="_blank">High Availability</a>:
+<ul>
+  <li>
+    Web server
+  </li>
+  <li>
+    Job engine
+  </li>
+  <li>
+    Database
+  </li>
+</ul>
+<p>
+  By default, all of these services run on a single machine. They can also each run on a separate machine or multiple separate machines. For example, seven separate machines could contain two web servers, three Job Engines, and a master database that replicates to a minion.
+  <br/>
+  <br/>
+</p>
+<h4 id="h4__1959785311" data-has-heading-anchor="true">
+  Web Server Failure
+<a href="cloudbolt-appliance-reference-architecture.html#h4__1959785311" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  When configured behind a Load Balancer, the loss of any web server will only impact the users session that are running on that server. The end-user experience during the failure of a web server is that they will be logged out and will need to log in again to complete their work.
+</p>
+<p>
+  When using&nbsp;<a href="http://docs.cloudbolt.io/smart/project-cloudbolt-docs/single-sign-on-sso" target="_blank">CloudBolt&nbsp;SSO</a>, the impact to the end user is minimized as they will be able to log in automatically and continue their requests.
+</p>
+<h4 id="h4__1999745359" data-has-heading-anchor="true">
+  <br/>
+  Job Engine Failure
+<a href="cloudbolt-appliance-reference-architecture.html#h4__1999745359" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  During the failure of a Job Engine node, any Jobs In Progress on that node will fail and will require manual intervention to restart. From an end-user perspective, the Order will fail. However, when a Job fails, it is possible for the impacted user to retry the Job from the CloudBolt portal, so this scenario often does not require involvement from a CloudBolt admin.&nbsp;
+</p>
+<h4 id="h4__1159461924" data-has-heading-anchor="true">
+  <br/>
+  Database, File Service and Load Balancer Failures
+<a href="cloudbolt-appliance-reference-architecture.html#h4__1159461924" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  These are the critical dependencies in a Highly Available CloudBolt deployment and the failure of any of these dependencies will render the CloudBolt platform unusable. The availability of your CloudBolt deployment will only be as good as the availability of these services, so it is important that they are well understood.
+</p>
+<p>
+  When commissioning a distributed HA deployment of CloudBolt, it is important to perform testing of the deployment by simulating network failures or node failures.
+</p>
+<div class="card">
+  <h5 style="" id="h5_1689083776" data-has-heading-anchor="true">
+    Example 
+  <a href="cloudbolt-appliance-reference-architecture.html#h5_1689083776" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h5>
+  <div class="card-body">
+    Errors in configuration of a database connection string or NFS mount point could result in an outage of the CloudBolt platform (e.g. accessing an AWS EFS mount target across AZs).
+  </div>
+</div>
+<p>
+  <br/>
+  If you require assistance with deployment or validation of your CloudBolt deployment, please contact <a href="https://support.cloudbolt.io/hc/en-us/requests/new" target="_blank">CloudBolt Customer Success</a>.
+</p>
+<h3 id="h3__1800004875" data-has-heading-anchor="true">
+  Using Hosted Services
+<a href="cloudbolt-appliance-reference-architecture.html#h3__1800004875" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Where available, CloudBolt can be configured to use public cloud provider or other managed services in your environment to reduce operational cost as they provide services suitable for Highly Available deployments.
+</p>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th class="dxhe-resizable-table-cell">
+        Service
+      </th>
+      <th class="dxhe-resizable-table-cell">
+        AWS
+      </th>
+      <th class="dxhe-resizable-table-cell">
+        Azure
+      </th>
+      <th class="dxhe-resizable-table-cell">
+        Requirement
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th class="dxhe-resizable-table-cell">
+        Database
+      </th>
+      <td>
+        
+        
+          <a href="https://aws.amazon.com/rds/postgresql/" target="_blank">Amazon RDS for PostgreSQL</a>
+        
+      </td>
+      <td>
+        
+        
+          <a href="https://azure.microsoft.com/en-us/services/postgresql/" target="_blank">Azure Database for PostgreSQL</a>
+        
+      </td>
+      <td>
+        
+        
+          PostgreSQL 13 or 14
+        
+      </td>
+    </tr>
+    <tr>
+      <th class="dxhe-resizable-table-cell">
+        File Services
+      </th>
+      <td>
+        <a href="https://aws.amazon.com/efs/" target="_blank">Amazon Elastic File System</a>
+      </td>
+      <td>
+        <a href="https://azure.microsoft.com/en-us/services/storage/files/" target="_blank">Azure Files</a>
+      </td>
+      <td>
+        NFS Service
+      </td>
+    </tr>
+    <tr>
+      <th class="dxhe-resizable-table-cell">
+        Load Balancer
+      </th>
+      <td>
+        <a href="https://aws.amazon.com/elasticloadbalancing/application-load-balancer/" target="_blank">Elastic Load Balancing - Application Load Balancer</a>
+      </td>
+      <td>
+        <a href="https://azure.microsoft.com/en-us/services/load-balancer/" target="_blank">Azure Load Balancer</a>
+      </td>
+      <td>
+        HTTP(S) Load Balancer
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+For deployment guidelines specific to public cloud deployments, see&nbsp;
+
+
+<a href="high-availability-in-aws-with-postgresql.html" target="_blank">High Availability in AWS with PostgreSQL</a>.
+  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="custom-resource-report.html" class="articleActions_link CHNavLinkPrevious">Custom Resource Report</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="appliance-security.html" class="articleActions_link CHNavLinkNext">Appliance Security</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

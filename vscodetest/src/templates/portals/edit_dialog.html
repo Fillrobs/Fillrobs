@@ -1,0 +1,35 @@
+{% extends "dialogs/dialog.html" %}
+{% load helper_tags %}
+
+
+{% block dialog_footer %}
+    <div class="btn-toolbar text-center">
+        <button id="reset-colors" class="btn btn-default">
+            <i class="fas fa-undo"></i>
+            {{ reset_btn_label|default:"Reset all colors to defaults" }}
+        </button>
+
+        {{ block.super }}
+    </div>
+{% endblock dialog_footer %}
+
+
+{% block on_ready %}
+$(function() {
+    var $colors = $('.colorpicker-element').closest('.form-group');
+    var $prev = $colors.first().prev();
+    $prev.after(c2.forms.splitElementsIntoColumns($colors, {{ fields_per_column|default:6 }}));
+
+    $colors.find('label').removeClass('col-lg-3').addClass('col-lg-6');
+    $colors.find('.controls').removeClass('col-lg-9').addClass('col-lg-6');
+
+    $('.colorpicker-element input').clearable();
+
+    $('button#reset-colors').on('click', function(e) {
+        e.preventDefault();
+
+        $('#action_form').find('.colorpicker-element input').val('');
+        $('#action_form').submit();
+    });
+});
+{% endblock on_ready %}

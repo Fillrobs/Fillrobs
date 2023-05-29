@@ -1,0 +1,25 @@
+- model: accounts.grouptype
+  pk: 1
+  fields:
+    group_type: Workspace
+- model: accounts.grouptype
+  pk: 2
+  fields:
+    group_type: Organization
+- model: accounts.group
+  pk: 1
+  fields:
+    global_id: GRP-75fyehsc
+    name: Default
+    description: null
+    type: 1
+    parent: null
+    levels_to_show: null
+    allow_auto_approval: false
+    custom_fields: []
+    custom_field_options: []
+    preconfigurations: []
+    preconfiguration_options: []
+    environments: []
+    inherited_environments: []
+    can_approve: []

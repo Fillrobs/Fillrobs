@@ -1,0 +1,28 @@
+{% comment %}
+This template overrides the generic network_table to show GCP-appropriate network information
+
+This is included by resourcehandlers/gcp/tmplates/environments/gcp/sync_networks.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<table id="discovered_networks" data-table="dialog clickable">
+    <thead>
+        <th><input class="check-column" type="checkbox" /></th>
+        <th>Name</th>
+        <th>Subnetworks</th>
+        <th>IP ranges</th>
+        <th>Gateways</th>
+    </thead>
+    <tbody>
+        {% for network in networks_added %}
+        <tr>
+            <td><input name="network" type="checkbox" value="{{ network.network }}"/></td>
+            <td class="name">{{ network.name }}</td>
+            <td>{{ network.subnetworks|length }}</td>
+            <td>{{ network.cidr_block|default_if_none:"" }}</td>
+            <td>{{ network.gateway|default_if_none:"" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,12 @@
+{% extends 'users/user_groups_form_row.html' %}
+{% comment %}
+Renders a hidden row that's used by jquery.formset to dynamically create new
+formset rows from. It's nearly identical to the normal formset rows.
+{% endcomment %}
+
+{% block row_attrs %}
+    class="group-row empty-row" id="group_form_template" style="display:none"
+{% endblock %}
+
+{# Blank data-row attribute because we don't know the group until user selects one #}
+{% block checkbox_data_attr %}{% endblock %}

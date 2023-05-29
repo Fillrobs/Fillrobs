@@ -1,0 +1,62 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div id="env-overview">
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'gcp_project_verify_connection' handler_id project.id %}">
+                <span class="icon-verify-connection"></span>
+                {% trans 'Verify Connection' %}
+            </a>
+            <a class="btn btn-default open-dialog"
+                href="{% url 'gcp_project_edit' handler_id project.id %}">
+                <span class="icon-edit"></span>
+                {% trans "Edit" %}
+            </a>
+
+            {% if profile.is_cbadmin %}
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'gcp_project_delete' handler_id project.id %}"
+                    id="delete_project">
+                    <span class="icon-delete"></span>
+                    {% trans "Delete" %}
+                </a>
+            {% endif %}
+        </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <dl class="dt-25">
+
+                <dt>{% trans "Description:" %}</dt>
+                <dd>
+                    <div {% if project.description %} class="well well-sm" {% endif %}>
+                        {{ project.description|default:_("<i>No description</i>") }}
+                    </div>
+                </dd>
+
+                <dt>{% trans 'Resource handler:' %}</dt>
+                {% if project.handler %}
+                    <dd>{{ project.handler|resource_handler_icon }} {{ project.handler|link_or_label:profile }}
+                {% endif %}
+                </dd>
+                {% if project.environment %}
+                    <dt>{% trans 'Environment:' %}</dt>
+                    <dd>
+                        <a href="{% url 'env_detail' project.environment.id %}">{{ project.environment }}</a>
+                    </dd>
+                {% endif %}
+                <dt>{% trans "Project ID:" %}</dt>
+                <dd>{{ project.gcp_id }}</dd>
+
+                <dt>{% trans "Project Number:" %}</dt>
+                <dd>{{ project.project_number }}</dd>
+            </dl>
+
+        </div>
+
+    </div>
+</div>

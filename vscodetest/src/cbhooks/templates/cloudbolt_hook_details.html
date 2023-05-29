@@ -1,0 +1,24 @@
+{# added to common hooks/details.html #}
+{% load helper_tags %}
+
+<tr>
+    <th>Hook module path</th>
+    <td>
+        {% if hook.module_file %}
+            {{ hook.module_file }}
+        {% else %}
+            <i>None</i>
+        {% endif %}
+</tr>
+<tr>
+    <th>Hook environments</th>
+    <td>
+        {% for env in hook.environments.all %}
+            {{ env|link_or_label:profile }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            <i>Available for all environments</i>
+        {% endfor %}
+        <a class="icon-edit open-dialog"
+            href="{% url 'hook_edit_environments' hook.id %}"></a>
+    </td>
+</tr>

@@ -1,0 +1,99 @@
+{% load helper_tags %}
+
+<table id="connector-{{ object_type }}" class="stats">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Servers</th>
+            <th>Initialization Playbooks</th>
+            <th>Available Playbooks</th>
+            <th><span class="sr-only">Edit Buttons</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in objects %}
+        <tr>
+            <td class="name">{{ obj.name }}</td>
+            <td>
+                {% for server in obj.get_active_servers %}
+                    {% if forloop.last %}
+                        {{ server|link_or_label:profile }}
+                    {% else %}
+                        {{ server|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </td>
+            <td>
+                {{ obj.initialization_playbooks.all|render_list:profile }}
+            </td>
+            <td>
+                {{ obj.available_playbooks.all|render_list:profile }}
+            </td>
+            <td>
+                {% if obj.available_playbooks.exists %}
+                    <a class="icon-start-tests open-dialog no-tooltip-affordance"
+                        href="{% url 'ansible_group_run_playbook' provider.id obj.id %}"
+                        data-toggle="tooltip"
+                        title="Run playbook"
+                        ></a>
+                {% else %}
+                    <a class="icon-start-tests open-dialog no-tooltip-affordance"
+                        href="{% url 'ansible_group_run_adhoc' provider.id obj.id %}"
+                        data-toggle="tooltip"
+                        title="Run adhoc command"
+                        ></a>
+                {% endif %}
+                <a class="icon-edit open-dialog no-tooltip-affordance"
+                    href="{% url 'ansible_group_update' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Edit group"
+                    ></a>
+                <a class="icon-delete open-dialog no-tooltip-affordance"
+                    href="{% url 'ansible_group_delete' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove group from {% portal_label %}"
+                    ></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    'use strict';
+
+    var $objectsTable = $('#connector-{{ object_type }}');
+
+    $objectsTable.dataTable({
+        "aaSorting": [[ 0, "asc" ]],
+        "oLanguage": {
+            "sEmptyTable": "No {{ object_type }} has been added"
+        }
+    });
+
+    $objectsTable.on('click', '.js-post-link', function (e) {
+        e.preventDefault();
+        c2.block.block();
+        $.post(e.target.href).done(function () {
+            var $target = $(e.target);
+            var $row = $target.closest('tr');
+
+            // tooltips must be destroyed before deleting the row
+            // because otherwise the tooltip will stick around
+            // forever, never knowing that the mouse left the trigger
+            $target.tooltip('destroy');
+            // Bootstrap doesn't do a very good job of cleaning up...
+            $('#tooltip-container').empty();
+            $objectsTable.fnDeleteRow($row[0]);
+        }).fail(function () {
+            // Show a dismissable alert then fade out after 15s
+            c2.alerts.addGlobalAlert('The {{ object_type }} could not be removed.', 'error', true, 15000);
+        }).always(function () {
+            c2.block.unblock();
+        });
+    });
+});
+</script>

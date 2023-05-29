@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block topnav %}customfields{% endblock %}
+
+{% block content %}
+    <span class="uplink"><a href="{% url 'admin_home' %}">{% trans "Admin" %}</a></span>
+    <h1>{% trans "Parameters" %}</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_custom_field' %}">
+            <span class="icon-add"></span>
+            {% trans "New parameter" %}
+        </a>
+    </div>
+
+    <table id="global-customfields-table" data-table
+        {% comment %}
+        Quick fix to avoid Angular trying to interpret hostname template
+        descriptions. A less intrusive way of doing this still needs to be
+        devised.
+        {% endcomment %}
+        ng-non-bindable>
+        <thead>
+            <tr>
+                <th>{% trans "Label" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for custom_field in custom_fields %}
+            <tr>
+                <td class="shrink">
+                    <span class="icon-param"></span>
+                    {{ custom_field|rich_display:profile }}
+                </td>
+
+                <td class="shrink">
+                    {{ custom_field.name }}
+                </td>
+
+                <td class="shrink">
+                    {{ custom_field.get_type_display }}
+                </td>
+
+                <td class="shrink">
+                    <div class="btn-group">
+                        <a class="icon-edit btn btn-default btn-sm open-dialog"
+                            href="{% url 'edit_custom_field' custom_field.id %}"></a>
+                        <a class="icon-delete btn btn-default btn-sm open-dialog"
+                            href="{% url 'delete_custom_field' custom_field.id %}"></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

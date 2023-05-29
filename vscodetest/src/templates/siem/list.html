@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load siem_tags %}
+
+{% block topnav %}siem{% endblock %}
+
+{% block content %}
+<h1>Security Information and Event Management (SIEM) Providers</h1>
+
+<section class="intro">
+    <p>
+        Data forwarding and receiving configurations can be managed for a
+        number of different SIEM providers in {% portal_label %}.
+    </p>
+</section>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'choose_siem_dialog' %}"
+        id="add_provider">
+        <span class="icon-add"></span>
+        Add a SIEM provider
+    </a>
+</div>
+
+<table id="providers" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for provider in providers %}
+        <tr id="provider-{{ provider.id }}" class="{{ provider.module_name }}">
+            <td>{{ provider|link_or_label:profile }}</td>
+            <td>
+                {% siem_icon provider %}
+                {{ provider.class_label }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

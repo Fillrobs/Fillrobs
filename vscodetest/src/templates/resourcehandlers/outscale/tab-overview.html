@@ -1,0 +1,21 @@
+{% extends 'resourcehandlers/tab-overview.html' %}
+{% load i18n %}
+
+{% block handler_details %}
+  <dt>{% trans 'Name' %}:</dt>
+  <dd>{{ handler.name}}</dd>
+  <dt>{% trans 'Description:' %}</dt>
+  <dd>
+      <p {% if handler.description %} class="well well-sm" {% endif %}>
+          {{ handler.description|default:_("<i>No description</i>") }}
+      </p>
+  </dd>
+  <dt>{% trans 'Region:' %}</dt>
+  <dd>
+      {{ handler.region }}
+  </dd>
+  <dt>{% trans 'Access Key:' %}</dt>
+  <dd>
+      {{ handler.access_key }}
+  </dd>
+{% endblock handler_details %}

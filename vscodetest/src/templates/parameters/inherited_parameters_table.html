@@ -1,0 +1,67 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<hr>
+<h3>{% trans 'Inherited Parameters' %}</h3>
+
+    <table id="inherited-preconfig-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Parameter" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Options" %}</th>
+                <th>{% trans "Constraints" %}</th>
+                <th>{% trans "Group" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for param in inherited_params %}
+            <tr>
+
+                {# Parameter #}
+                <td>
+                    {% if param.is_preconfig %}
+                        <span class="icon-preconfig"></span>
+                    {% else %}
+                        <span class="icon-param"></span>
+                    {% endif %}
+                    {{ param|rich_display:profile }}
+                </td>
+
+                {# Type #}
+                <td>
+                    {% if param.is_preconfig %}
+                        {% trans "Preconfiguration" %}
+                    {% else %}
+                        {{ param.get_type_display }}
+                    {% endif %}
+                </td>
+
+                {# Options #}
+                <td class="param-options">
+                    {% if param.is_preconfig %}
+                        <ul class="options list-unstyled pull-left">
+                            {% for opt in param.options %}
+                                <li>{% preconfig_option opt %}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% get_field_options_as_str param.options param %}
+                    {% endif %}
+                </td>
+
+                {# Constraints #}
+                <td>
+                    {% group_or_env_param_constraints group_or_env_str group_or_env.id param.id %}
+                </td>
+
+                {# Group #}
+                <td>
+                    {{ param.group|link_or_label:profile }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

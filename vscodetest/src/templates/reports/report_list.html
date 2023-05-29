@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block topnav %}reports{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="grunticon" content="{{ STATIC_URL }}img/" />
+
+    <script src="{{ STATIC_URL }}js/initial.js"></script>
+
+    <!-- Optional; remove if IE <= 8 styling isn’t a priority -->
+    <!--[if lt IE 9]>
+            <script src="{{ STATIC_URL }}js/lib/html5shiv.js"></script>
+        <![endif]-->
+
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/catalog.css" />
+{% endblock %}
+
+{% block fluidclass %}
+    {% comment %}
+        Pass no value for the fluidclass because we don't want to use the
+        default fluid-container for the new catalog styles. Eventually these
+        two styles of adding padding will be rectified.
+    {% endcomment %}
+{% endblock %}
+
+{% block content %}
+    <header>
+        <a class="a11y" href="#content">Skip to main content</a>
+
+        <div class="pg-title">
+            <div class="pg-title--inner layout">
+                <h1 class="hed--page">{% portal_label %} {% trans "Reports" %}</h1>
+            </div>
+        </div>
+        <!-- /end .pg-title -->
+    </header>
+    <main class="pg-main reports-list" id="content">
+
+
+{% comment %}
+    `desc_as_tooltip` determines if descriptions are tooltips on the link or
+    paragraphs below the name.
+{% endcomment %}
+
+
+{% for category, reports in internal_reports.items %}
+    <section class="catalog-main layout">
+        <h2>{{ category }}</h2>
+    </section>
+
+    <!-- Catalog grid -->
+    <section id="reports-list" class="catalog-main layout">
+
+        <ol class="tile-list">
+        {% for report in reports %}
+            <li class="tile-item">
+                {% if report.error_msg %}
+                    <div class="alert alert-danger">{{ report.error_msg }}</div>
+                {% else %}
+                    <a href="{{ report.url }}"
+                        class="tile no-tooltip-affordance {% if report.css_class %}{{ report.css_class }}{% endif %}"
+                        {% if desc_as_tooltip %}
+                            title="{{ report.desc }}"
+                            data-toggle="tooltip" data-html="true" data-placement="left"
+                        {% endif %}
+                        ">
+                        <h3 class="tile--title">
+                            <div class="tile--logo-wrapper">
+                                {% if report.thumbnail %}
+                                    <img class="tile--logo report-thumbnail" src="{{ report.thumbnail|urlencode }}"/>
+                                {% else %}
+                                    <img class="tile--logo report-thumbnail"
+                                        src="{{ STATIC_URL }}img/reports/{{ report.slug|urlencode }}_tn.jpg"/>
+                                {% endif %}
+                            </div>
+                            <div class="report-name">
+                                {% if report.icon %}
+                                    <img class="icon" src="{{ STATIC_URL }}img/reports-icons/{{ report.icon|urlencode }}.svg"/>
+                                {% endif %}
+                                {{report.name}}
+                            </div>
+                        </h3>
+                        <footer class="tile--footer">
+                            {% if not desc_as_tooltip %}
+                                <p>{{ report.desc }}</p>
+                            {% endif %}
+                        </footer>
+                    </a>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ol>
+    </section>
+    <!-- /end catalog grid -->
+{% empty %}
+    <section id="reports-list">
+        <p style="margin-left: 4.8em">
+        {% blocktrans %}All default reports have been disabled for your account.
+        Please contact your administrator.{% endblocktrans %}
+        </p>
+    </section>
+{% endfor %}
+
+
+  {% if can_view_external_reports %}
+
+    {% if external_engines %}
+    <h1>{% trans "External Reports" %}</h1>
+        <div id="engine-info">
+        </div>
+
+        <script id="engine-template" type="text/template">
+            <h2 class="h3">{% blocktrans with host="<%= engine.host %>" %}Jasper Report Engine at {{ host }}{% endblocktrans %}</h2>
+
+            <% if (error) { %>
+                <div class="alert alert-danger">
+                    <%= error %>
+                </div>
+            <% } else { %>
+                <table id="reports-<%= engine.id %>" class="stats">
+                  <thead>
+                    <tr>
+                        <th>{% trans "Report Name" %}</th>
+                        <th>{% trans "Description" %}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% _.forEach(reports, function(report) { %>
+                        <tr>
+                            <td>
+                                <a class="open-dialog"
+                                    href="<%= report.download_url %>"
+                                    > <%= report.pretty_name %></a>
+                            </td>
+                            <td><%= report.desc %></td>
+                        </tr>
+                    <% }); %>
+                  </tbody>
+                </table>
+            <% } %>
+
+            <div class="clearfix"></div>
+
+            <% if (!reports) { %>
+            <% } %>
+        </script>
+    {% comment "Do not advertise the ability to add an external report engine" %}
+        {% else %}
+        <div class="btn-toolbar">
+          <a class="btn btn-default add open-dialog"
+              id="add_reporting_engine"
+              href="{% url 'reporting_engine_new' %}">
+              <span class='icon-add'></span> {% trans "Add a reporting engine" %}</a>
+        </div>
+    {% endcomment %}
+    {% endif %}
+  {% endif %}
+
+
+    </main>
+{% endblock content %}
+
+{% block onReady %}
+    {% if not reports %}
+        $('#add_reporting_engine').data('dialog_options', {
+            position: 'center',
+            width: 500,
+            height: 200,
+        });
+    {% endif %}
+
+    {% if can_view_external_reports and external_engines %}
+        var engineTemplate = _.template(document.getElementById('engine-template').innerHTML);
+
+        {% for engine in external_engines %}
+            var $engine = $(
+                '<div id="engine-{{ engine.id }}">' +
+                    '<h2 class="h3">{% blocktrans with host="<%= engine.host %>" %}Jasper Report Engine at {{ host }}{% endblocktrans %}</h2>' +
+                    '<div class="spinner"></div>' +
+                '</div>'
+            );
+            $engine.appendTo('#engine-info');
+            $.get('{% url 'engine_info_json' engine.id %}', function(data) {
+                $('#engine-{{ engine.id }}').html(engineTemplate(data));
+            });
+        {% endfor %}
+    {% endif %}
+{% endblock onReady%}

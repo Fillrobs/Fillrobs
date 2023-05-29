@@ -1,0 +1,9 @@
+{% load resource_tags %}
+{% load i18n %}
+
+<p>
+    {% blocktrans with resources_label=resource_type.pluralized_label %}{{ resources_label }} deployed from this blueprint are shown below.{% endblocktrans %}
+    <a href="{% url 'resource_list' resource_type.name %}">{% blocktrans with resources_label=resource_type.pluralized_label %}View all {{ resources_label }}{% endblocktrans %}</a>.
+</p>
+
+{% resources_table blueprint_id=blueprint.id resource_type=resource_type %}

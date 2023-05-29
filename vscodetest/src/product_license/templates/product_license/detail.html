@@ -1,0 +1,12 @@
+{% load humanize %}
+
+<pre>
+    Connectors: {{ license.enable_connectors|yesno }}
+    Catalog: {{ license.enable_service_catalog|yesno }}
+    Network Handlers: {{ license.enable_network_handlers|yesno }}
+    Orchestration Engines: {{ license.enable_orchestration|yesno }}
+    Provisioning Engines: {{ license.enable_provisioning_engines|yesno }}
+    Reports: {{ license.enable_reports|yesno }}
+    Maximum Server Count: {{ license.maximum_server_count|intcomma }}
+    Expiration Date: {{ license.expiry }}
+</pre>

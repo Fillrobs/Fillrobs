@@ -1,0 +1,104 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load str_tags %}
+{% load i18n %}
+
+<span class="hidden">{{ server.hostname }}</span>
+{% if wrap_with_link %} {# VIEW permission was checked in the templatetag #}
+    <a class="server-card-link" href="{{ server.get_absolute_url }}">
+{% endif %}
+
+<div
+    {% if with_tooltip %}
+        class="server-card no-tooltip-affordance {{ size }} {{ server.power_status|lower }}"
+        data-html="true"
+        data-max-width="500px"
+        data-toggle="tooltip"
+        data-tooltip-source="#server-details-{{ server.id }}"
+    {% else %}
+        class="server-card {{ size }}"
+    {% endif %}
+
+    id="server-card-{{ server.id }}">
+
+    {% if with_hostname %}
+        <div class="hostname">{% truncate_str_middle server.hostname hostname_maxlen %}</div>
+    {% endif %}
+
+    <div class="visual">
+        {{ server|show_server_image:size }}
+        {{ server.os_family|os_family_icon }}
+        <span class="power-state-indicator"></span>
+    </div>
+
+</div>
+
+{% if wrap_with_link %}
+    </a>
+{% endif %}
+
+{% if with_tooltip %}
+  <div id="server-details-{{ server.id }}" class="hidden">
+    <h3 class="h4">{{ server.hostname }}</h3>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'Power:' %}</b></div>
+      <div class="col-xs-6">
+          <span class="power-state {{ server.power_status|lower }}">
+            {{ server.get_power_status_display }}
+          </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'Status:' %}</b></div>
+      <div class="col-xs-6">{{ server.status }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'CPU:' %}</b></div>
+      <div class="col-xs-6">
+          {{ server.cpu_cnt|default:'-' }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'Memory:' %}</b></div>
+      <div class="col-xs-6">
+          {{ server.mem_size|render_size_field:"mem_size" }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'Disk:' %}</b></div>
+      <div class="col-xs-6">
+          {{ server.disk_size|default:'-' }} GB
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'IP:' %}</b></div>
+      <div class="col-xs-6">
+          {{ server.ip }}
+      </div>
+    </div>
+    {% if server.os_build %}
+      <div class="row">
+        <div class="col-xs-6"><b>{% trans 'OS Build:' %}</b></div>
+        <div class="col-xs-6">
+            {{ server.os_build }}
+        </div>
+      </div>
+    {% endif %}
+    <div class="row">
+      <div class="col-xs-6"><b>{% trans 'Applications:' %}</b></div>
+      {% if server.applications.all %}
+        <div class="col-xs-6">{{ server.applications.all|render_group }}</div>
+      {% else %}
+        <div class="col-xs-6"></div>
+      {% endif %}
+    </div>
+    {% if enable_rates_feature %}
+      <div class="row">
+        <div class="col-xs-6"><b>{% trans 'Rate:' %}</b></div>
+        <div class="col-xs-6">
+            {{ server.rate_display }}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}{# with_tooltip #}

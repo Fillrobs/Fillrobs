@@ -1,0 +1,6 @@
+{# added to common tab-disks.html #}
+
+<dt>GCP Disk Type:</dt>
+<dd>{{ disk.disk_type }}</dd>
+
+{% include 'servers/disk_actions.html' with allow_resize=True position=position %}

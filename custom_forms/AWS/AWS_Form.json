@@ -1,0 +1,416 @@
+{
+  "logoPosition": "right",
+  "completedHtml": "<h3>Thank you for completing the Form</h3>",
+  "completedBeforeHtml": "<h3>Our records show that you have already completed this Form.</h3>",
+  "loadingHtml": "<h3>Loading Form...</h3>",
+  "pages": [
+    {
+      "name": "Select an AWS Environment",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "dropdown",
+              "name": "CI_aws_environment_id",
+              "title": "Select an AWS Environment",
+              "choicesByUrl": {
+                "url": "http://localhost:8001/api/v3/cmp/inboundWebHooks/IWH-ak08vlyv/run/?token=e6-oBDVkTp2RzPcBHo4w8CmFPM48qI3854ysXHkUzZM",
+                "valueName": "id",
+                "titleName": "name"
+              }
+            },
+            {
+              "type": "panel",
+              "name": "panel2",
+              "elements": [
+                {
+                  "type": "html",
+                  "visible": false,
+                  "visibleIf": "{CI_aws_environment_id} notempty",
+                  "name": "Import parameters from AWS",
+                  "html": "<a href='#' onclick='importAWSparams({CI_awsEnvId});' id='importAWSparams' class='btn btn-default'>Import AWS Values</a><div id='importAWSparams_res'></div>",
+                  "description": "This will import the AWS parameters and reset the data within this page"
+                }
+              ],
+              "title": "Reset Values"
+            },
+            {
+              "type": "panel",
+              "name": "panel3",
+              "elements": [
+                {
+                  "type": "html",
+                  "visible": false,
+                  "visibleIf": "{CI_aws_environment_id} notempty",
+                  "name": "Import Available Networks",
+                  "html": "<a href='#' onclick='importAWSnetworks({CI_awsEnvId});' id='importAWSnetworks' class='btn btn-default'>Import Available Networks</a><div id='importAWSnetworks_res'></div>",
+                  "description": "This will import the Available Networks"
+                }
+              ],
+              "title": "Reset Network Values"
+            }
+          ]
+        }
+      ],
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "showQuestionNumbers": "on",
+        "questionStartIndex": "1",
+        "nextButtonText": "Next"
+      },
+      "page": "Select an AWS Environment"
+    },
+    {
+      "name": "AWS Environment Data",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "expression",
+              "name": "CI_awsEnvId",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Environment ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "text",
+              "name": "CI_awsEnvName",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Environment Name",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_awsAccessKey",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "AWS Access Key",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_rhName",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "CMP ResourceHandler Name",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_awsAccountId",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "AWS Account ID",
+              "startWithNewLine": false,
+              "columns": 1
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_zonesData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Availability Zones",
+              "choices": []
+            }
+          ],
+          "title": "Availability Zones"
+        },
+        {
+          "type": "panel",
+          "name": "panel4",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_instanceTypeData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Instance Types",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ],
+          "title": "Instance Types",
+          "description": "Missing some Instance Types? Reimport them from the first page to reset the list"
+        },
+        {
+          "type": "panel",
+          "name": "panel5",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_elasticIpData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Elastic IPs",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel6",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_awsHostData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "AWS Host Data",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel7",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_awsHostGroupData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "AWS Host Group Data",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel8",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_deleteEbsVolTermData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Delete EBS Volumes on Termination ",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel9",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_ebsVolumeTypeData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "EBS Volume Types",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel10",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_iopsData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "IOPS",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel11",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_keyNameData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Key Names",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel12",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_secGroupData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Security Groups",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        }
+      ],
+      "title": "AWS Environment Data",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "AWS Environment Data"
+    },
+    {
+      "name": "AWS Environment Groups",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_envGroupData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "html": "<div id='envGroupData_{CI_envGroupData}'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "AWS Environment Groups",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "AWS Environment Groups"
+    },
+    {
+      "name": "Add a Group",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_addGroupData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "html": "<div id='addEnvGroupForm'></div><div id='addEnvGroupForm_res'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "Add a Group",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "Add a Group"
+    },
+    {
+      "name": "Extras",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envNetworkData",
+              "visible": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Networks",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel2",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envOSBuildData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "OS Builds"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envParamsData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_aws_environment_id} notempty",
+              "title": "Parameters"
+            }
+          ]
+        }
+      ],
+      "title": "Extras",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Finish"
+      },
+      "page": "Extras"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "runexpression",
+      "expression": "{CI_aws_environment_id} notempty",
+      "runExpression": "popAWSdata()"
+    }
+  ],
+  "showProgressBar": "top",
+  "progressBarType": "buttons"
+}

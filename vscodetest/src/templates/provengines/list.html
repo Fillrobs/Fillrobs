@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load pe_tags %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+    <h1>Provisioning Engines</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'provengine_add' %}">
+            <span class="icon-add"></span>
+            Add a provisioning engine
+        </a>
+    </div>
+
+    <table id="provengines" data-table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Technology</th>
+            <th>Username</th>
+            <th>IP Address</th>
+            {% comment %}
+                <th>Servers</th>
+            {% endcomment %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for provengine in provengines %}
+                <tr>
+                    <td class="name"><a href="{{ provengine.get_absolute_url }}">{{ provengine.name }}</a></td>
+                    <td>{{ provengine|provengine_icon }} {{ provengine.provision_technology.name }}</td>
+                    <td class="username">{{ provengine.serviceaccount }}</td>
+                    <td class="address">{{ provengine.ip }}</td>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

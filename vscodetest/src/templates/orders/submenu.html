@@ -1,0 +1,48 @@
+{% load cache %}
+{% load order_tags %}
+{% load i18n %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 orders_submenu profile.user_id %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Orders
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                View orders and their details. Take action on orders including approving/denying, editing, and duplicating.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'order_list' %}" class="cb-btn cb-btn-primary">See all Orders</a>
+        </div>
+
+    </div>
+    <div class="dropdown-menu__actions">
+        <div class="quick-actions">
+            <h2 class="heading-5 bold panel-title">Quick Actions</h2>
+            <a href="{% url 'current_order' %}" class="cb-btn cb-btn-secondary">Current Order</a>
+        </div>
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="cart-content">
+        {% with cart_size=profile.user|cart_size %} {# This doesn't seem to be used #}
+            {% if my_orders %}
+                {% for order in my_orders %}
+                    <a href="{% url 'order_detail' order.id %}">
+                        {{ order|order_status_icon }}
+                        {{ order.name }}
+                    </a>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+{% endspaceless %}
+{% endcache %}

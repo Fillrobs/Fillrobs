@@ -1,0 +1,38 @@
+<p>
+    Below are UI extensions available from
+    <a href="{% url 'connectioninfo_detail' connection.id %}"
+        class="no-tooltip-affordance" data-toggle="tooltip"
+        title="Manage ConnectionInfo">{{ connection.name }}</a>.
+    Import a UI extension package to create a local copy.
+</p>
+
+
+<div id="remote-extensions-table-toolbar">
+    <a class="btn btn-default" data-include-refresh>
+        <i class="fas fa-sync"></i>
+        Refresh
+    </a>
+</div>
+<table id="remote-extensions-table"
+    data-table
+    data-table-toolbar="#remote-extensions-table-toolbar"
+    class="content-from-content-library">
+    <thead>
+        <tr>
+            <th class="expand"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for package in packages %}
+            <tr>
+                <td>
+                    {% include 'extensions/package.html' with package=package %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+c2.dataTables.init('#remote-extensions-table');
+</script>

@@ -1,0 +1,29 @@
+{# Used by template tag resource_tags.attribute_cards #}
+{% load account_tags %}
+{% load helper_tags %}
+{% load resource_tags %}
+
+{{ heading }}
+
+{% for attribute in attributes %}
+    {% attribute_card attribute size="tiny" with_tooltip=True %}
+{% endfor %}
+
+{% if more_cards > 0 %}
+    {% if more_btn_url %}
+        <a href="{{ more_btn_url }}"
+            {% if more_btn_tooltip %}
+              data-toggle="tooltip" title="{{ more_btn_tooltip }}"
+            {% endif %}
+            >
+            <span class="attribute-card-ellipsis"> +{{ more_cards }} more </span>
+        </a>
+    {% else %}
+        <span class="attribute-card-ellipsis"
+            {% if more_btn_tooltip %}
+              data-toggle="tooltip" title="{{ more_btn_tooltip }}"
+            {% endif %}
+            > +{{ more_cards }} more </span>
+    {% endif %}
+{% endif %}
+

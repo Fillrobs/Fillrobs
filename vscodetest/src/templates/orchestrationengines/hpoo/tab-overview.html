@@ -1,0 +1,35 @@
+{% extends 'orchestrationengines/tab-overview.html' %}
+
+{% block actions %}
+    <a class="btn btn-default open-dialog"
+        href="{% url 'hpoo_edit_credentials' engine.id %}">
+        <span class="icon-credentials"></span>
+        Edit Credentials
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'hpoo_edit_settings' engine.id %}">
+        <span class="icon-edit"></span>
+        Edit Settings
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'orchestrator_verify_connection' engine.id %}">
+        <span class="icon-verify-connection"></span>
+        Verify Connection
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'orchestrator_delete' engine.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+{% endblock %}
+
+{% block engine_details %}
+  <dt>Name:</dt>
+  <dd>{{ engine.name}}</dd>
+  <dt>IP Address:</dt>
+  <dd>{{ engine.host }}</dd>
+  <dt>Username:</dt>
+  <dd>{{ engine.serviceaccount }}</dd>
+  <dt>Flow Repository Path:</dt>
+  <dd>{{ engine.flow_repo_path }}</dd>
+{% endblock engine_details %}

@@ -1,0 +1,26 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<table id="snapshots"
+    data-table
+    data-table-no-auto-init
+    data-table-sort="0,desc"
+    data-table-sort-disabled="1{% if can_restore %},2{% endif %}"
+    data-table-source="{% url 'dataprotection_snapshot_list_json' server_id can_restore %}"
+    >
+    <thead>
+        <tr>
+            <th>{% trans 'Date' %}</th>
+            <th>{% trans 'Description' %}</th>
+            {% if can_restore %}<th>{% trans 'Actions' %}</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+            {# content is loaded asynchronously #}
+    </tbody>
+</table>
+<script>
+        $(function(){
+          c2.dataTables.init('#snapshots');
+        });
+</script>

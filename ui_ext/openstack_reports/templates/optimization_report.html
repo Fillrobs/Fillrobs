@@ -1,0 +1,46 @@
+{% extends "reports/simple_base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}OpenStack Reports{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css" href="{% static 'openstack_reports/css/common.css' %}">
+<script src="{% static 'openstack_reports/js/jspdf.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'openstack_reports/js/jspdf.plugin.autotable.min.js' %}" type="text/javascript"></script>
+{% endblock %}
+
+{% block report_content %}
+<div class="panel-body">
+    <button id="pdf-report" class="btn btn-default plot-btn" style="float: right;">
+        <i class="fas fa-download"></i> Export as PDF
+    </button>
+</div>
+<div>
+    <table id="optimization-report" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Snapshot Space (GB)</th>
+                <th>Snapshot Age (Days)</th>
+                <th>Parent Project</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in snapshots %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.snapshot_size }} GB</td>
+                <td>{{ row.snapshot_age }} Days</td>
+                <td>{{ row.parent_project }}</td>
+                <td>{{ row.status|title }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="module" src="{% static 'openstack_reports/js/optimization_report.js' %}"></script>
+{% endblock %}

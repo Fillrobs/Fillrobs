@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% load helper_tags %}
+{% load i18n %}
+{% block topnav %}dashboard{% endblock %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+
+{% block content %}
+<script>
+    // The CSRF Token was set as a cookie, it's been moved to session storage
+    // It is needed for the Dashboard on PUT calls to update the widgets.
+    var csrfToken = "{{ csrf_token }}";
+    sessionStorage.setItem("csrfToken", csrfToken);
+    var profile_id = "{{ profile.id }}";
+    sessionStorage.setItem("userId", profile_id);
+    var rate_currency_unit = "{{ rate_currency_unit }}"
+    sessionStorage.setItem("rate_currency_unit", rate_currency_unit)
+</script>
+<h1 class="hidden">Dashboard</h1>
+{# Legacy Widgets are above the new Vue widgets. #}
+<div class="legacy">
+    {% comment %}
+    Beware: some of these IDs are used to set up click handlers.
+    Specifically, XUIs are written such that they might insert their widget before or after an element
+    with a particular ID, such as `servers-by-env` for at least some of the Dashboard XUIs in our
+    Content Library.
+    Hence, the reason why we've left behind empty divs with the IDs of the widgets that we used to
+    have before they were replaced by the Vue components above. At some point, we hope to refactor
+    how Dashboard XUIs work so this is no longer an issue, and then we can remove these vestigial divs.
+    The only things expected to show here are the Reports list and any XUIs.
+    {% endcomment %}
+    <div id="servers-by-env"></div>  {# Only for XUI placement support #}
+    <div class="row col-sm--12">
+        <div id="dash-left-col" class="col-sm-7">
+            <div id="pending-orders"></div>  {# Only for XUI placement support #}
+            <div id="my-servers"></div>  {# Only for XUI placement support #}
+            <div id="my-orders"></div>  {# Only for XUI placement support #}
+        </div>
+
+        <div id="dash-right-col" class="col-sm-5">
+            <div id="my-groups"></div>  {# Only for XUI placement support #}
+            <div id="recent-activity"></div>  {# Only for XUI placement support #}
+        </div>
+    </div>
+</div>
+
+<div class="hidden">
+    {% comment %}
+    Load extensions asynchronously into this hidden area. Each can move itself
+    before or after an existing card via:
+        $(extensionPanelSelector).insertBefore(targetPanelSel);
+        $(extensionPanelSelector).insertAfter(targetPanelSel);
+    Where those calls are made from inside the XUI code itself, so we need to be cautious about
+    what they might be expecting to exist on this page.
+    {% endcomment %}
+    {% for ext in extensions %}
+        <div data-include="{% url 'render_dashboard_extension' ext.package ext.view_name %}">
+        </div>
+    {% endfor %}
+</div>
+{% load render_bundle from webpack_loader %}
+
+<div id="dashboard">
+    <dashboard></dashboard>
+</div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'dashboard' %}
+{% comment %} Setting this to display none to avoid showing it while the Vue dashboard page is loading.
+That page sets it to display: block after the content is ready. {% endcomment %}
+<div id="legacy-dashlets" class="legacy row col-sm--12" style="display: none">
+    <div id="dash-right-col" class="col-sm-6">
+        {% if profile.is_cbadmin or profile.global_viewer %}
+            <div id="ui-extensions" data-include="{% url 'dashboard_ui_extensions' %}"></div>
+        {% endif %}
+    </div>
+</div>
+<script>
+    $(function() {
+        'use strict';
+
+        function iconClickHandler(event) {
+            // always doOrderAction _except_ when the action is deny or rename
+            if (!$(this).hasClass('icon-deny') && !$(this).hasClass('icon-edit')) {
+                c2.forms.doOrderAction(event);
+            }
+        }
+
+        {# This icon click handler is required for the orders and pending orders panels #}
+        $("#pending-orders, #my-orders").on('click', 'form.orderActions .btn', iconClickHandler);
+    });
+</script>
+
+{% if profile.is_cbadmin and profile.view_initial_tour %}
+    <script>
+        var profile_id = '{{ profile.id }}';
+    </script>
+    <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+    <script src="{{ STATIC_URL }}js/tours/dashboardTour.js"></script>
+    <script>
+        c2.dashboardTour.init().start();
+    </script>
+{% endif %}
+
+{% endblock content %}

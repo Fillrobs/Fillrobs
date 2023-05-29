@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block topnav %}preconfigurations{% endblock %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block content %}
+
+    <span class="uplink"><a href="{% url 'admin_home' %}">{% trans "Admin" %}</a></span>
+    <h1>{% trans "Preconfigurations" %}</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_preconfig' %}"
+            id="add_preconfig">
+            <span class="icon-add"></span>
+            {% trans "New preconfiguration" %}
+        </a>
+    </div>
+
+    <table id="global-preconfig-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Label" %}</th>
+                <th>{% trans "Name" %}</th>
+                {% if profile.show_tenant_info %}
+                  <th>{% trans "Tenant" %}</th>
+                {% endif %}
+                <th>{% trans "Parameters" %}</th>
+                <th>{% trans "Options" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for preconfig in preconfigs %}
+            <tr>
+                <td class="param-label">
+                    <span class="icon-preconfig"></span>
+                    {{ preconfig.label }}
+                </td>
+                <td class="param-name">
+                    {{ preconfig.name }}
+                </td>
+                {% if profile.show_tenant_info %}
+                    <td>
+                        {{ preconfig.tenant|link_or_label_none_global:profile }}
+                    </td>
+                {% endif %}
+                <td>
+                    <ul class="list-unstyled">
+                        {% if not preconfig.custom_fields.count and not preconfig.include_os_build and not preconfig.include_applications %}
+                            <li>{% trans "None" %}</li>
+                        {% else %}
+                            {% for cf in preconfig.custom_fields.all %}
+                              <li>{{ cf|rich_display:profile }}</li>
+                            {% endfor %}
+                            {% if preconfig.include_os_build %}
+                                <li>{% trans "OS Build" %}</li>
+                            {% endif %}
+                            {% if preconfig.include_applications %}
+                                <li>{% trans "Applications" %}</li>
+                            {% endif %}
+                        {% endif %}
+                        <li>
+                            <a class="icon-edit open-dialog"
+                                href="{% url 'edit_preconfig_fields' preconfig.id %}"></a>
+                        </li>
+                    </ul>
+                </td>
+
+                <td>
+                    <ul class="options list-unstyled">
+                    {% if not preconfig.options %}
+                        <li>
+                            <i class="error" data-toggle="tooltip" title="{% trans "No options exist for this preconfiguration. This is an error condition and should be corrected." %}">{% trans "None" %}</i>
+                        </li>
+                    {% endif %}
+
+                    {% for opt in preconfig.options %}
+                        <li>
+                            {% preconfig_option opt %}
+                        </li>
+                    {% endfor %}
+                        <li>
+                            <a class="icon-edit open-dialog"
+                                data-dialog-width="90%"
+                                href="{% url 'edit_preconfig_options' preconfig.id %}"></a>
+                        </li>
+                    </ul>
+                </td>
+
+                <td class="shrink">
+                    <a class="icon-delete open-dialog btn btn-default btn-sm"
+                        href="{% url 'delete_preconfig' preconfig.id %}"></a>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

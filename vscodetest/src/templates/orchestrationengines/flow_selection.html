@@ -1,0 +1,17 @@
+{% if flows %}
+    <p>Select a flow to run for {{server.hostname}}</p>
+    <ul id="choose_flow" class="button-list">
+    {% for flow in flows %}
+      <li>
+        <a class="btn btn-default js-dialog-link"
+            href="{% url 'flow_run_from_server' flow.id server.id %}">
+            <span class="icon icon-handler-tiny icon-handler-{{ flow.engine.type_slug }}"
+                title="{{ flow.engine.technology.name }}"></span>
+            {{ flow.name }}
+        </a>
+      </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    No flows are available to servers in this environment.
+{% endif %}

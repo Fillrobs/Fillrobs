@@ -1,0 +1,73 @@
+{% load helper_tags %}
+{% load hook_tags %}
+{% load i18n %}
+
+<table data-table>
+    <thead>
+        <tr>
+            <th class="icon-and-label">{% trans "Type" %} </th>
+            <th class="expand">{% trans 'Name' %}</th>
+            <th class="shrink">{% trans 'Code' %}</th>
+            <th class="shrink">{% trans 'Shared' %}</th>
+            <th class="shrink">{% trans 'Constraints' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for action, env_count in actions %}
+        <tr>
+            <td>
+                {# enables table search/sort by type #}
+                <span class="hidden">{{ action.type_slug }}</span>
+
+                {% include 'actions/action_type_icon.html' %}
+                {% include 'actions/action_type_label.html' %}
+            </td>
+            <td>
+                {% include 'actions/card.html' with link=True icon=False %}
+            </td>
+            <td>
+                {% include 'actions/source_code_dialog_link.html' with show_code_origin=True %}
+            </td>
+            <td>
+                {{ action.shared|render_as_checkmark }}
+            </td>
+            <td class="shrink">
+                {% if env_count %}
+                    {% with envs=action.environments.all %}
+                        <span
+                            data-toggle="tooltip"
+                            data-html="true"
+                            data-max-width="800"
+                            title="
+                            <p>Only enabled in {{ envs|length }} environment{{ envs|pluralize }}:</p>
+                            <ul class=list-unstyled>
+                                {% for env in envs %}
+                                    <li>{{ env }}</li>
+                                {% endfor %}
+                            </ul>
+                            ">{{ envs|length }} environment{{ envs|pluralize }}</span>
+                    {% endwith %}
+                {% endif %}
+
+                {% if action.type_slug == 'script' or action.type_slug == 'plugin' %}
+                    {% with os_families=action.os_families.all %}
+                        {% if os_families %}
+                            <div class="no-tooltip-affordance"
+                                data-toggle="tooltip"
+                                data-html="true"
+                                data-max-width="800"
+                                title="Only enabled for these OS families">
+                                <ul class="text-center list-inline">
+                                    {% for family in os_families %}
+                                        <li>{{ family|os_family_icon }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    {% endwith %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

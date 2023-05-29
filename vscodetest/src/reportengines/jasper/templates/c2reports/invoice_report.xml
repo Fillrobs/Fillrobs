@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <report_details>
+    <report_title>{{ report_title }}</report_title>
+    <custom_banner_url>{{ custom_banner_url }}</custom_banner_url>
+    <group_name>{{ group_name }}</group_name>
+    <start_period>{{ start_period }}</start_period>
+    <end_period>{{ end_period }}</end_period>
+    <period_display>{{ period_display }}</period_display>
+    <units>{{ units }}</units>
+    <units_display>{{ units_display }}</units_display>
+    </report_details>
+
+    <environments>
+        {% for env in report_envs %}
+        <environment>
+                    <id>{{ env.id }}</id>
+                    <name>{{ env.name }}</name>
+                    <servers_cnt>{{ env.servers_cnt }}</servers_cnt>
+                    <env_cpus_on_rate>{{ env.cpus_on_rate }}</env_cpus_on_rate>
+                    <env_cpus_off_rate>{{ env.cpus_off_rate }}</env_cpus_off_rate>
+                    <env_mem_on_rate>{{ env.mem_on_rate }}</env_mem_on_rate>
+                    <env_mem_off_rate>{{ env.mem_off_rate }}</env_mem_off_rate>
+                    <env_disk_rate>{{ env.disk_rate }}</env_disk_rate>
+                    <cpu_cnt_on>{{ env.cpu_cnt_on }}</cpu_cnt_on>
+                    <cpu_cnt_off>{{ env.cpu_cnt_off }}</cpu_cnt_off>
+                    <mem_size_on>{{ env.mem_size_on }}</mem_size_on>
+                    <mem_size_off>{{ env.mem_size_off }}</mem_size_off>
+                    <disk_size>{{ env.disk_size }}</disk_size>
+          </environment>
+          {% endfor %}
+    </environments>
+    <error>{{error}}</error>
+</report>

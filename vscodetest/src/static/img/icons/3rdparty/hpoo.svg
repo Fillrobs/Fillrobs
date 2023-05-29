@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+<rect x="0" y="0" width="1000" height="1000" fill="rgb(24,151,211)"/>
+<g fill="rgb(255,255,255)">
+    <path d=" M 500 57 L 389 171 L 610 171 L 500 57 Z "/>
+    <rect x="367" y="228" width="264" height="179"/>
+    <rect x="321" y="422" width="357" height="47"/>
+    <rect x="326" y="189" width="347" height="44"/>
+    <path d=" M 22 164 L 22 475 L 336 338 L 336 301 L 22 164 Z "/>
+    <path d=" M 969 167 L 969 474 L 663 341 L 663 302 L 969 167 Z "/>
+    <path d=" M 278 1000 L 721 1000 L 629 467 L 370 467 L 278 1000 Z "/>
+</g>
+<g fill="rgb(24,151,211)">
+    <path d=" M 10 249 L 347 310 L 347 326 L 11 283 L 10 249 Z "/>
+    <path d=" M 10 389 L 347 327 L 347 312 L 11 354 L 10 389 Z "/>
+    <path d=" M 989 249 L 652 310 L 652 326 L 988 283 L 989 249 Z "/>
+    <path d=" M 989 389 L 652 327 L 652 312 L 988 354 L 989 389 Z "/>
+</g>
+</svg>

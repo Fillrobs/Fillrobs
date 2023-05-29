@@ -1,0 +1,12 @@
+{# this template is used by the helper_tags.icon_tooltip tag #}
+{% if tip %}
+    {# CSS class `infotip` applies the glyphicon #}
+    <span class="infotip"
+        data-toggle="tooltip"
+        data-placement="{{ placement|default:'top' }}"
+        data-html="true"
+        {% if width %}
+            data-max-width="{{ width }}"
+        {% endif %}
+        title="{{ tip }}"></span>
+{% endif %}

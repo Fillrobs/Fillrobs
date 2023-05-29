@@ -1,0 +1,5 @@
+{% load helper_tags %}
+
+{% with server_or_resource=resource server_or_resource_str='resource' %}
+    {% include 'power_schedule/tab-power-schedule.html' %}
+{% endwith %}

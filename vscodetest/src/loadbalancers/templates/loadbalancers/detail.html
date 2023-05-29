@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load tab_tags %}
+{% load lb_tags %}
+{% load i18n %}
+
+{% block title %}{% trans 'Load Balancer:' %} {{ loadbalancer.name }} {% endblock %}
+{% block topnav %}loadbalancers{% endblock %}
+
+{% block content %}
+
+<h1>{{ loadbalancer|loadbalancer_icon }} {{ loadbalancer.name }}</h1>
+
+<div class="btn-toolbar">
+    {% block actions %}
+    <a class="btn btn-default open-dialog"
+        href="{% url 'loadbalancer_edit' loadbalancer.id %}">
+        <span class="icon-edit"></span>
+        {% trans 'Edit Settings' %}
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'loadbalancer_delete' loadbalancer.id %}">
+        <span class="icon-delete"></span>
+        {% trans 'Delete' %}&hellip;
+    </a>
+    {% endblock %}
+</div>
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <h3> {% trans 'Overview' %} </h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+        {% block loadbalancer_details %}
+          <dt>{% trans 'Name' %}:</dt>
+          <dd>{{ loadbalancer.name}}</dd>
+          <dt>{% trans 'IP Address:' %}</dt>
+          <dd>{{ loadbalancer.connection_info.ip }}</dd>
+          <dt>{{ username_label|default:"Username" }}:</dt>
+          <dd>{{ loadbalancer.connection_info.username }}</dd>
+            <dt>{% trans 'IP Pool:' %}</dt>
+            {% if ip_pool %}
+                <dd><a href="{{ ip_pool.get_absolute_url }}">{{ ip_pool }}</a></dd>
+            {% else %}
+               <dd>{% trans 'None (required to use this load balancer)' %}
+               <a class="btn btn-default open-dialog"
+                   href="{% url 'loadbalancer_add_pool' loadbalancer.id %}">
+                   <span class="icon-add"></span>
+                   {% trans 'Add Range of IPs' %}
+               </a>
+                </dd>
+            {% endif %}
+
+        {% endblock loadbalancer_details %}
+          {% for name, value in overview_extra_nv_pairs %}
+              <dt>{{ name }}:</dt>
+              <dd>{{ value }}</dd>
+          {% endfor %}
+        </dl>
+    </div>
+</div>
+{% endblock content %}

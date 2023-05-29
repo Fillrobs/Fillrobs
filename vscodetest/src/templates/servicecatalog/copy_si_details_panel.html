@@ -1,0 +1,37 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{%  block item_details_row %}
+    {% with action=service_item.hook.cast %}
+    <div class="row">
+        <div class="col-sm-6">
+
+            <dl class="vertical">
+                <dt>{% trans 'Copy File Action:' %}</dt>
+                <dd>
+                    {% if managing %}
+                        <a href="{{ action.get_absolute_url }}"
+                            class="no-tooltip-affordance" data-toggle="tooltip"
+                            title={% blocktrans with action_slug=action.type_slug action_name=action.name %}"Manage this {{ action_slug }}">
+                            {{ action_name }}{% endblocktrans %}
+                        </a>
+                    {% else %}
+                        {{ action.name }}
+                    {% endif %}
+                    {% infotip action.description %}
+                </dd>
+            </dl>
+
+            {% include 'servicecatalog/action_target_info.html' %}
+            {% include 'actions/action_input_defaults.html' with action=service_item edit_url="edit_service_item" %}
+
+        </div><!-- col 1 -->
+        <div class="col-sm-6">
+            {% include 'servicecatalog/action_sequencing_options.html' %}
+        </div><!-- col 2 -->
+    </div><!-- row -->
+    {% endwith %}
+{%  endblock item_details_row %}

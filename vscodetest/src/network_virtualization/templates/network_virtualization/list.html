@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% comment %}
+    only cb admins or global viewers should see this page
+{% endcomment %}
+{% load i18n %}
+{% load helper_tags %}
+{% load network_virtualization_tags %}
+{% block topnav %}network_virtualization{% endblock %}
+
+{% block content %}
+    <h1>Network Virtualization Platforms</h1>
+
+    <section class="intro">
+        <p>
+            Network virtualization platforms make it possible to
+            programmatically create, provision, and manage networks all in
+            software. When configured, you can create Blueprints that will
+            provision a virtual network and deploy servers and applications
+            on that network.
+        </p>
+    </section>
+
+    {% if not network_virtualizers or network_virtualizers.count == 0 %}
+        <div class="alert alert-warning">
+            <h4>{% trans 'Next Steps' %}</h4>
+            {% blocktrans %}
+                To start using Network Virtualization in CloudBolt, click the
+                <b>Add a Network Virtualization Platform...</b> link below to
+                create your first Network Virtualization Platform.
+            {% endblocktrans %}
+        </div>
+    {% endif %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+           href="{% url 'network_virtualization_add' %}"
+           id="add_network_virtualizer">
+            <span class="icon-add"></span>
+            {% trans 'Add a Network Virtualization Platform...' %}
+        </a>
+    </div>
+
+    <table id="network_virtualizers" data-table>
+        <thead>
+            <tr>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Technology' %}</th>
+            <th>{% trans 'IP Address' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for platform in network_virtualizers %}
+                <tr>
+                    <td><a href="{% url 'network_virtualization_detail' platform.id %}" >{{ platform.name }}</a></td>
+                    <td>{{ platform|network_virtualization_icon }} {{ platform.network_virtualization_technology.name }}</td>
+                    <td>{{ platform.ip }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block onReady %}
+
+    $('button[type=submit]').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+{% endblock onReady%}

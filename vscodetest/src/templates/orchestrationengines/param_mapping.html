@@ -1,0 +1,72 @@
+
+<form method="post" action="">
+    {{ formset.management_form }}
+    <p>Define the param mapping to be used when running this flow.  When running a flow, the user will be prompted for any parameters without a mapping.</p>
+
+    
+    {{ formset.non_form_errors }}
+
+    <table class="stats" id="paramMappings">
+        <thead>
+            <tr>
+            <th>Flow Param</th>
+            <th>Required</th>
+            <th>
+                <span title data-html="true" data-toggle="tooltip" data-original-title=
+                    "The accepted format for CB mapping is:
+                    (object).(attribute).  Supported object types are server,
+                    group, environment, and resource_handler.  Each has the
+                    attributes name and id, as well as many other type-specific
+                    atttributes.  Servers, for example, have attributes
+                    hostname, ip, total_rate, owner, group, mac, etc.">
+                    CB Mapping
+                    <span class="glyphicon glyphicon-question-sign"></span>
+                </span>
+            </th>
+            <th>Remove</th>
+            </tr>
+        </thead>
+
+        <tbody style="overflow: auto;">
+        {% for form in formset %}
+            {{ form.id }}
+            <tr>
+                <td>
+                    {{ form.param_id }}
+                    {{ form.param_key }}
+                </td>
+                <td>
+                    {{ form.param_required}}
+                </td>
+                <td>
+                    {{ form.param_c2_mapping}}
+                </td>
+                <td class="remove"> 
+                {% if formset.can_delete %}
+                    {{ form.DELETE }} 
+                {% endif %}
+                </td>
+            </tr>
+        {% empty %}
+            {{ empty_form.id }}
+            <tr style="display:none;">
+                <td>
+                    {{ empty_form.param_id }}
+                    {{ empty_form.param_key }}
+                </td>
+                <td>
+                    {{ empty_form.param_required}}
+                </td>
+                <td>
+                    {{ empty_form.param_c2_mapping }}
+                </td>
+                <td class="remove"> 
+                {% if formset.can_delete %}
+                    {{ empty_form.DELETE }} 
+                {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>

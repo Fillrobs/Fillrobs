@@ -1,0 +1,40 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+        href="{% url 'import_transport_zones' sdn.id %}">
+            <span class="icon-import"></span>
+            Import Transport Zones
+        </a>
+    </div>
+
+    <table id="transport-zones" data-table>
+        <thead>
+            <th>Name</th>
+            <th>UUID</th>
+            <th>Environments</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for transport_zone in transport_zones %}
+                <tr>
+                    <td>{{ transport_zone.display_name }}</td>
+                    <td>{{ transport_zone.uuid }}</td>
+                    <td>
+                        {% for env in transport_zone.all_associated_envs %}
+                            {{ env.name }}<br/>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a class="icon-edit open-dialog"
+                        href="{% url 'edit_transport_zone' sdn.id transport_zone.id %}"></a>
+                        <a class="icon-delete open-dialog"
+                        href="{% url 'delete_transport_zone' sdn.id transport_zone.id %}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

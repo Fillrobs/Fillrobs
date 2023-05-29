@@ -1,0 +1,90 @@
+{
+  "logoPosition": "right",
+  "completedHtml": "<h3>Thank you for completing the survey</h3><div style=\"margin: 40px 0; width:100%\"><button style=\"margin: auto\" class=\"v2-class---button v2-class---button--primary v2-class---button--large\" onclick=\"reRunSurvey();\"><span class=\"v2-class---button__text v2-class---button__text--secondary v2-class---button__text--large\">Run survey again</span></button></div>",
+  "pages": [
+    {
+      "name": "page1",
+      "elements": [
+        {
+          "type": "paneldynamic",
+          "name": "items",
+          "title": "Items",
+          "templateElements": [
+            {
+              "type": "text",
+              "name": "name",
+              "title": "Name:",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "cost",
+              "startWithNewLine": false,
+              "title": "Item Cost:",
+              "isRequired": true,
+              "inputType": "number"
+            },
+            {
+              "type": "text",
+              "name": "vendor",
+              "title": "Vendor:",
+              "isRequired": true
+            },
+            {
+              "type": "text",
+              "name": "quantity",
+              "startWithNewLine": false,
+              "title": "Quantity:",
+              "isRequired": true,
+              "inputType": "number"
+            },
+            {
+              "type": "text",
+              "name": "link",
+              "title": "Link:",
+              "isRequired": true
+            },
+            {
+              "type": "expression",
+              "name": "total",
+              "startWithNewLine": false,
+              "title": "Total Item Cost:",
+              "expression": "{panel.cost} * {panel.quantity}",
+              "displayStyle": "currency",
+              "currency": "EUR"
+            }
+          ],
+          "templateTitle": "item #{panelIndex}",
+          "panelCount": 1,
+          "minPanelCount": 1,
+          "keyName": "name",
+          "panelAddText": "Add another  item",
+          "panelRemoveText": "Remove item"
+        },
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "expression",
+              "name": "totalQuantity",
+              "title": "Total  Quantity:",
+              "expression": "sumInArray({items}, 'quantity')"
+            },
+            {
+              "type": "expression",
+              "name": "totalCost",
+              "startWithNewLine": false,
+              "title": "Total Cost:",
+              "expression": "sumInArray({items}, 'total')",
+              "displayStyle": "currency",
+              "currency": "EUR"
+            }
+          ],
+          "title": "Totals"
+        }
+      ]
+    }
+  ],
+  "showQuestionNumbers": "off"
+}

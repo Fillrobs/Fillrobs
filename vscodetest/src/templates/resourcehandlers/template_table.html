@@ -1,0 +1,32 @@
+{% comment %}
+This is included by templates/resourcehandlers/discover_templates.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<table id="discovered_templates" data-table="dialog clickable">
+    <thead>
+        {% block template_columns %}
+        <th>
+            <input class="check-column" type="checkbox" />
+        </th>
+        <th>{{template_label|default:"image"|title}} name</th>
+        <th>Reported OS</th>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% block template_rows %}
+            {% for template in templates_added %}
+            <tr>
+            {% comment %}
+            template is keyed on name for most resource handlers, except where some resource handlers need a
+            separate (composite) key to determine uniqueness, where this key exists it is stored as template.value
+            {% endcomment %}
+                <td><input name="template" type="checkbox" value="{{ template.value|default:template.name }}"/></td>
+                <td class="name">{{ template.name }}</td>
+                <td>{{ template.os_family|os_family_icon }} {{ template.os_family.name }}</td>
+            </tr>
+            {% endfor %}
+        {% endblock %}
+    </tbody>
+</table>

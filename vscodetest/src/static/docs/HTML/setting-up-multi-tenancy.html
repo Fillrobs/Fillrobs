@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('setting-up-multi-tenancy',true);});
+//--></script><title>Setting up Multi-Tenancy</title><script type="text/javascript">//<!--
+var articleTitleText='Setting up Multi-Tenancy';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Setting up Multi-Tenancy</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">Using CloudBolt</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="multi-tenancy-in-cloudbolt.html">Multi-Tenancy in CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Setting up Multi-Tenancy</span></span>
+  </div><h1 id="h1__246429115" data-has-heading-anchor="true">Setting up Multi-Tenancy in CloudBolt
+<a href="setting-up-multi-tenancy.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Now that you have learned about the concepts and use cases of Multi-Tenancy, learn how to set it up in CloudBolt.
+</p>
+<p>
+  <ul class=""><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2_1644201065">Prerequisites</a></li><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2_1223016999">Perform Basic Setup</a></li><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2_1223017000">Test the Multi-Tenancy Setup</a></li><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2__1509718096">Security Recommendations</a></li><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2_705932608">Optional Setup Steps</a></li><li class="CHMiniToc_heading2"><a href="setting-up-multi-tenancy.html#h2_1397819733">Outcomes</a></li></ul>
+</p>
+<hr/>
+<section>
+  <h2 id="h2_1644201065" data-has-heading-anchor="true">
+    Prerequisites
+  <a href="setting-up-multi-tenancy.html#h2_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ul>
+    <li id="h2_1644201065">
+      CloudBolt version 9.4.5 or newer.
+    </li>
+    <li id="h2_1644201065">Licensed for Multi-Tenancy</li>
+  <li id="h2_1644201065">A CB Admin User and two Users you can log in as who are <i>not </i>CB Admins.
+    </li>
+  </ul>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1223016999" data-has-heading-anchor="true">
+    Perform Basic Setup
+  <a href="setting-up-multi-tenancy.html#h2_1223016999" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol>
+    <li id="h2_1223016999">
+      Obtain a Multi-Tenancy license file from your account representative at CloudBolt.
+    </li>
+    <li id="h2_1223016999">
+      Log in to the CloudBolt instance UI as a CB Admin.
+    </li>
+    <li id="h2_1223016999">Click&nbsp;<b>Admin &gt; Maintenance &gt; CloudBolt Product License.&nbsp;</b></li><li id="h2_1223016999">Under <b>Upload a New License,&nbsp;</b>paste&nbsp;the Multi-Tenancy License. </li><li id="h2_1223016999">Click <b>Apply License.</b></li>
+    <li id="h2_1223016999">
+      Click <b>Admin &gt; System &gt; Multi-Tenancy</b>.
+    </li>
+    <li id="h2_1223016999">
+      Create two Tenants, adding at least one User to each of the new Tenants as a Tenant Admin.
+    </li>
+    <li id="h2_1223016999">
+      Navigate to the Groups page.&nbsp;
+      <ol>
+        <li id="h2_1223016999">
+          Create two top-level Groups to represent the two Tenants. The Groups can have the same name as the Tenants.
+        </li>
+        <li id="h2_1223016999">
+          Add the two Tenant Admin Users to the corresponding Groups. If you do not know which Roles to add them to on the Group, add them to all Roles on the Group.
+        </li>
+      </ol>
+    </li>
+  </ol>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1223017000" data-has-heading-anchor="true">
+    Test the Multi-Tenancy Setup
+  <a href="setting-up-multi-tenancy.html#h2_1223017000" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+</section>
+<table class="infoBox tipBox" cellspacing="0" cellpadding="0">
+  <tbody>
+    <tr>
+      <td class="infoBoxImageCell">
+        <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+      </td>
+      <td class="infoBoxText">
+        <b>Tip:&nbsp;</b>To test changes to Multi-Tenancy without logging in and out of CloudBolt, we recommend using either three separate browser windows, or a browser extension that allows multiple sessions (like Multi Session Box for Chrome or Multi-Account Containers for Firefox).&nbsp;
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol><li>
+    Log in to three different browser sessions:
+    
+    
+  <ol type="a"><li>
+        One as a Global CloudBolt Admin.
+      </li><li>
+        One as Tenant Admin&nbsp;from the first Tenant.
+      </li><li>
+        One as Tenant Admin from the second Tenant.
+      </li></ol></li><li>
+    As a Tenant Admin for the first Tenant, navigate to <b>Admin &gt; Resource Handlers. </b>
+    
+  <ol type="a"><li>
+        Create a new Resource Handler. This Resource Handler will automatically be assigned to the first Tenant as it was created by a User who belongs to that Tenant.</li></ol></li><li>As a Tenant Admin for the second Tenant, navigate to <b>Admin &gt; Resource Handlers </b>and confirm the  Resource Handler created above is not visible.</li></ol><p>You can repeat these steps for different kinds of objects: Container Orchestrators, Blueprints, etc.</p><table class="infoBox" cellpadding="0" cellspacing="0">
+  <tbody>
+	<tr>
+	  <td class="infoBoxImageCell">
+	    <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+	  </td>
+	  <td class="infoBoxText">
+	    <b>Important:&nbsp;</b>Blueprints are governed by Group permissions rather than Tenant membership, but since you have separate top-level Groups for the Tenants, they will not be seen across Tenants (with the exception of Blueprints that a CB Admin makes available to all Groups or multiple Groups across different Tenants).</td>
+	</tr>
+  </tbody>
+</table>
+<hr/>
+<section>
+  <h2 id="h2__1509718096" data-has-heading-anchor="true">
+     Security Recommendations<a href="setting-up-multi-tenancy.html#h2__1509718096" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2><ol><li>If you upgraded CloudBolt from a version earlier than 9.4.5, we recommend you remove the ability for Resource Admins to make their Blueprints available to all Groups.&nbsp;<ul><li>Click <b>Admin &gt; Roles</b>, edit the Resource Admin Role and remove <i>blueprint.any_group_can_deploy </i>permission. See&nbsp;<a href="group-permissions-for-blueprints.html" target="_blank">Group Permissions for Blueprints</a>&nbsp;for more information.</li></ul></li><li>We recommend disabling the Cost Dashboard Report to remove the potential of leaking information across Tenants.<ul><li>Click <b>Admin &gt; Miscellaneous Settings. </b>Scroll to the "Disabled out-of-the-box reports" field and add Cost Dashboard.</li></ul></li><li>To avoid Servers being built with the same default password in multiple Tenants, remove the default password for new Windows VMs.<ul><li>Click <b>Admin &gt; Parameters &gt; New Password </b>and remove the global default. <b>This will need to be set at another level (Group or Environment) for Windows VM provisioning&nbsp;in VMware Resource Handlers to work.</b></li></ul></li></ol>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_705932608" data-has-heading-anchor="true">
+    Optional Setup Steps<a href="setting-up-multi-tenancy.html#h2_705932608" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2><h3 id="h2_705932608" style="" data-has-heading-anchor="true">Set up Branded Portals<a href="setting-up-multi-tenancy.html#h2_705932608" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3><p>If you want each of your Tenants to have a differently-branded or white-labeled experience, create a <a href="branded-portals-api.html" target="_blank">Branded Portal</a> for each Tenant.</p><ol><li>In CloudBolt, click <b>Admin &gt; Portals and Branding.</b></li><li>Create a Portal for each of your Tenants.</li><li>Navigate to your Tenant's detail page.</li><li>Click <b>Edit &gt; Select the Portal you created for it.</b></li></ol><p>When a Tenant User logs in to the Portal designated above, that Portal's branding will be used for the UI. If there is no Tenant associated with the User, or no Portal associated with the Tenant, CloudBolt will select a Portal using its normal logic based on the host part of the URL. CloudBolt will use the Default Portal if there is no match.</p>
+  <h3 id="h3_257863296" data-has-heading-anchor="true">Add Tenant Roles<a href="setting-up-multi-tenancy.html#h3_257863296" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3><p>You may grant different Users different levels of access within the same Tenant. For example, grant Users permissions to only manage Configuration Managers and Environments.</p><ol><li>In CloudBolt, click <b>Admin &gt; Security &gt; Multi-tenancy.</b></li><li>Add a new Tenant Role, select the appropriate permissions, and assign Users to it.</li></ol></section><table class="infoBox" cellspacing="0" cellpadding="0">
+  <tbody>
+	<tr>
+	  <td class="infoBoxImageCell">
+	    <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+	  </td>
+	  <td class="infoBoxText"><b>Note: </b>The assignment of Users to Tenant Roles can also be done when adding Users to a Tenant in the UI.</td>
+	</tr>
+  </tbody>
+</table><section><h3 id="h3__831683701" data-has-heading-anchor="true">Modify Tenant Roles<a href="setting-up-multi-tenancy.html#h3__831683701" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3><p>For some organizations, there may be a use case to grant Tenant Admins all permissions except a few; for example, the ability to create and manage Users.&nbsp;</p><p>In this case, we recommend modifying the Tenant Admin Role that CloudBolt comes with and removing the permissions you do not want to grant. Upon upgrade, CloudBolt will not add new permissions to this role. If CloudBolt introduces new Tenant permissions in future versions, those new permissions will need to be added manually to this or other Tenant Roles after upgrading.</p><h3 id="h3_257863296" data-has-heading-anchor="true">Automatically Associate Users with a Tenant<a href="setting-up-multi-tenancy.html#h3_257863296" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3><p>For Users within a Tenant who do not need administrative privileges, it is not strictly necessary that they have a Tenant set on them. Their Group membership will keep them from seeing anything that belongs to Groups of which they are not members.</p><p>However, there are at least two reasons why you may want the Users to belong to a Tenant:</p><ol><li>If the User manages Blueprints and needs to use Tenant-specific OS Builds in their Blueprints.</li><li>If you want the Tenant-specific Portal to be used after they log in, but you do not have separate hostnames set up for each Tenant that are pointed at the&nbsp;CloudBolt instance.</li></ol><h3 id="h3__1193590295" data-has-heading-anchor="true">Add Users to a Tenant<a href="setting-up-multi-tenancy.html#h3__1193590295" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3><p>Users can be added to Tenants from the Tenant details page, with no Tenant Role if you do not want them to&nbsp;perform Administrative actions.</p><p>To automatically assign all Users to a Tenant, update the External Users Sync or SSO User Update Plug-in:</p><ol><li>In CloudBolt, click <b>Admin &gt; Actions &gt; Orchestration Actions &gt; Other.</b></li><li>Navigate to the SSO User Update or External Users Sync Plug-in and modify it to suit your needs.</li></ol>
+</section>
+<section class="nextsteps">
+  <h2 id="h2_1397819733" data-has-heading-anchor="true">
+    Outcomes<a href="setting-up-multi-tenancy.html#h2_1397819733" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2><p>Begin using Multi-tenancy in CloudBolt to enable certain Users to administer aspects of CloudBolt within the confines of their particular organization.</p></section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="objects-permissions-multi-tenancy.html" class="articleActions_link CHNavLinkPrevious">Objects and Permissions of Multi-Tenancy</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="rbac-and-portals-multi-tenancy.html" class="articleActions_link CHNavLinkNext">Using RBAC and Portals with Multi-Tenancy</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<a class="" style="display: inline" data-toggle=collapse
+    href="#csr-columns-help">
+    {% trans "About these options" %}
+</a>
+<div id="csr-columns-help"
+    {# Hack to clear the * and X buttons #}
+    style="margin-top: 10px;"
+    class="collapse padding panel panel-default">
+    <p class="help-block">
+    {% blocktrans %}Includes parameters with <b>Show on Servers</b> enabled, as well
+    as server properties and built-in parameters.{% endblocktrans %}
+    </p>
+    {{ SERVER_COLUMNS_HELP }}
+</div>
+

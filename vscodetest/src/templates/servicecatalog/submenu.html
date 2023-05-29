@@ -1,0 +1,55 @@
+{% load cache %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% comment %}
+Cache this rendered template to avoid HTTP calls. See common/header.html
+
+In this case, the 5 minutes is imporant because our cache-busting code is not
+perfect: it does not go to great lengths to invalidate submenus for all
+possible users with view permission on a blueprint.  It focuses on
+owners and the person making the change; other users will get an updated
+submenu within 5 minutes.
+{% endcomment %}
+
+{% cache 300 catalog_submenu request.user.id %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Catalog
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                Blueprints your user has permission to deploy. You can create blueprints from scratch or import samples from the {% portal_label %} Content Library by clicking Import in the upper right corner.
+            </p>
+            <p class="paragraph">
+                For detailed documentation about configuring Blueprints for use in the Catalog, access Support in the navigation bar.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'service_catalog' %}" class="cb-btn cb-btn-primary">Catalog</a>
+        </div>
+    </div>
+    <div class="dropdown-menu__actions">
+    {% if show_new_blueprint %}
+        <div class="quick-actions">
+            <h2 class="heading-5 bold panel-title">Quick Actions</h2>
+            <a href="{% url 'add_blueprint' %}" class="cb-btn cb-btn-secondary open-dialog">New Blueprint</a>
+        </div>
+    {% endif %}
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="catalog-content">
+        {% for blueprint in recent_blueprints %}
+        <a href="{{ blueprint.submenu_url }}">
+            {{ blueprint.name|default:'(No name)' }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endspaceless %}
+{% endcache %}

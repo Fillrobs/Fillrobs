@@ -1,0 +1,28 @@
+{# Used by template tag infrastructure_tags.server_cards #}
+{% load account_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{{ heading }}
+
+{% for server in servers %}
+    {% server_card server size="tiny" with_tooltip=True with_hostname=True link_if_can_view=profile %}
+{% endfor %}
+
+{% if more_cards > 0 %}
+    {% if more_btn_url %}
+        <a href="{{ more_btn_url }}"
+            {% if more_btn_tooltip %}
+              data-toggle="tooltip" title="{{ more_btn_tooltip }}"
+            {% endif %}
+            >
+            <span class="server-card-ellipsis"> {% blocktrans %}+{{ more_cards }} more{% endblocktrans %} </span>
+        </a>
+    {% else %}
+        <span class="server-card-ellipsis"
+            {% if more_btn_tooltip %}
+              data-toggle="tooltip" title="{{ more_btn_tooltip }}"
+            {% endif %}
+            > {% blocktrans %}+{{ more_cards }} more{% endblocktrans %} </span>
+    {% endif %}
+{% endif %}

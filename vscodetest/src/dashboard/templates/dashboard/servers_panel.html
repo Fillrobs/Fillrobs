@@ -1,0 +1,66 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="panel panel-default servers">
+    <div class="panel-heading">
+        <small class="pull-right">
+            {% if my_servers and my_servers|length < all_my_servers_count %}
+            {% blocktrans with count=my_servers|length total_count=all_my_servers_count %}Showing {{ count }} of {{ total_count }} owned by you{% endblocktrans %}
+            &emsp;
+            {% endif %}
+            <a href="{% url 'server_list' %}">{% trans 'All Servers' %}</a>
+        </small>
+        <h2 class="panel-title">{% trans 'My Servers' %}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>{% trans 'Server' %}</th>
+                    <th>{% trans 'Group' %}</th>
+                    <th>{% trans 'Environment' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for server in my_servers %}
+                <tr>
+                    <td>
+                        {% server_card server size='tiny' with_tooltip=True with_hostname=True link_if_can_view=profile %}
+                    </td>
+                    <td>
+                        {{ server.group|link_or_label:profile }}
+                    </td>
+                    <td>
+                        {{ server.environment|link_or_label:profile }}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td>{% trans 'You have no active servers at this time.' %}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group">
+                {% new_server_button profile=profile %}
+
+                {# show link to catalog even if they can't request any #}
+                {% trans 'New Resource' as button_label %}
+                {% if enable_service_catalog %}
+                    {% button button_label 'service_catalog' 'icon-resource' dialog=False %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<script>
+$(function() {
+    c2.tooltip.init($('.panel.servers'));
+});
+</script>

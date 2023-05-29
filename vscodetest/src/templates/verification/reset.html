@@ -1,0 +1,30 @@
+{% extends "verification/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery" %}{% endblock %}
+{%block content %}
+<form method="post" action="{{ url }}">
+    {% csrf_token %}
+
+    <div class="form-group">
+        {% if form.email.errors %}
+            {{ form.email.errors }}
+        {% endif %}
+        <label>
+            <div class="input-group">
+                <span class="input-group-addon">
+                    <i class="icon-user"></i>
+                </span>
+                <input type="text" name="{{ form.email.html_name }}" aria-label="Email" autofocus="autofocus" placeholder="Email" required="" id="{{ form.email.id_for_label }}"
+                    class="form-control">
+            </div>
+        </label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">{% trans " Recover my password " %}</button>
+    </div>
+
+</form>
+{% endblock %}

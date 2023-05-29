@@ -1,0 +1,21 @@
+{% comment %}
+    Used by 'when' filter.
+{% endcomment %}
+{% spaceless %}
+
+{# for sorting #}
+<span class="hidden">{{ datetime_for_sort|date:"c" }}</span>
+
+<span class="nowrap no-tooltip-affordance {% if for_next_run %}next-run{% endif %}"
+    {% if with_tooltip %}
+        data-toggle="tooltip"
+        data-html="true"
+        data-max-width="600"
+        title="<p>{% if how_long_ago %}<i>{{ how_long_ago }}</i></p> <p>{% endif %}{{ datetime|date:'r' }}</p>"
+    {% endif %}
+    >
+    <span class="date-part">{{ datetime|date:date_format }}</span>
+    &nbsp;
+    <span class="time-part">{{ datetime|date:time_format }}</span>
+</span>
+{% endspaceless %}

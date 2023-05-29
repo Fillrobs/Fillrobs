@@ -1,0 +1,37 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'edit_env_groups' environment.id %}">
+        <span class="icon-edit"></span>
+        {% trans "Edit" %}
+    </a>
+</div>
+
+{% if environment.group_set.count %}
+    <table id="env-groups" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Group name" %}</th>
+                <th>{% trans "Type" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in environment.group_set.all %}
+            <tr>
+                <td class="name">{{ group|link_or_label:profile }}</td>
+                <td>{{ group.type }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% else %}
+    {% trans "Unconstrained <i>(environment is available to all groups)</i>" %}
+{% endif %}

@@ -1,0 +1,104 @@
+{% load crispy_forms_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% comment %}
+`initialize_panes` is a boolean template parameter passed in by the include
+call (even itself, see below).  It's only True when the formset/page is first
+rendered. After that, the tab pane enclosing each SI form does not need to be
+created again.
+{% endcomment %}
+
+{% for subform in form.formset %}
+    {% with item=subform.service_item_obj item_prefix_id=form.service_item_obj.id %}
+        {# Normal SI pane that does not contain nested ones #}
+        {% if initialize_panes %}
+
+            <div id="item-{% if item_prefix_id %}{{ item_prefix_id }}-{% endif %}{{ item.id }}"
+                class="tab-pane
+                    service-item
+                    nested
+                    {{ item.type_slug }}
+                    {% if subform.service_item_not_orderable %}error{% endif %}"
+                {# Active and hidden classes are set by JS in c2.orderForm.init #}
+                {% if item.id == 0 %}
+                    {# Special case of BP params form, which should always show #}
+                    data-show="true"
+                {% else %}
+                    data-show="{{ item.show_on_order_form|to_json }}"
+                {% endif %}
+
+                {# Environments to prefetch for cost comparison. Only set on PSSIs. #}
+                {% if subform.pssi_configured_env_ids %}
+                    data-configured-env-ids="{{ subform.pssi_configured_env_ids|to_json }}"
+                {% endif %}
+            >
+            {% if item.has_environment_option %}
+
+                {% service_item_details_panel item ordering=True %}
+
+                <div class="form-group environment-option
+                    {% if subform.environment.errors %}has-error{% endif %}"
+                    >
+                    <label class="requiredField col-lg-3 control-label">
+                        {% trans 'Environment' %}
+                        {% if enable_multitenancy and profile.is_cbadmin %}
+                            {% blockinfotip %} {% trans "Environments that are available to this group and capable of provisioning this blueprint item.  As a non-tenant-specific user, you may see environments in this list that are not visible to the group's users." %} {% endblockinfotip %}
+                        {% else %}
+                            {% blockinfotip %} {% trans "Environments that are available to this group and capable of provisioning this blueprint item." %} {% endblockinfotip %}
+                        {% endif %}
+                    </label>
+
+                    <div class="col-lg-9 order-form__section">
+                        {{ subform.environment }}
+                        <ul class="help-block errorlist">
+                        {% for error in subform.environment.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            {% else %}
+                {% service_item_details_panel subform.service_item.value ordering=True %}
+            {% endif %}
+
+            {% for msg in subform.informational_messages %}
+                <div class="alert alert-info">{{ msg }}</div>
+            {% endfor %}
+
+            <div class="update-on-env-change">
+        {% endif %} {# End of if initialize-panel #}
+            {% endwith %}
+
+        {# When the environment dropdown changes, only update the following section #}
+        {% for hidden in subform.hidden_fields %} {{ hidden }} {% endfor %}
+
+        {% if subform.has_param_fields %}
+                    <div class="runtime-inputs">
+                        {% include 'common/fake_password_field.html' with uuid=item.id %}
+                        {% crispy subform subform.only_params_form_helper %}
+                    </div>
+        {% endif %}
+
+
+        {% if show_rates and item.type_slug == 'provserver' %}
+                    <div class="form-group">
+                        <label class="col-lg-3 text-right">
+                            {% trans 'Rate' %}
+                            {% blockinfotip %} {% trans "Rates shown do not include any global parameter defaults." %} {% endblockinfotip %}
+                        </label>
+                        <div id="item-{{ item.id }}-rate" class="si-rate col-lg-9">
+                            {# This text will be replaced by c2.orderForm.init if it is not applicable #}
+                            <i>{% trans 'Select an environment' %}</i>
+                        </div>
+                    </div>
+        {% endif %}
+        {# End section that changes when environment dropdown changes #}
+        {% if initialize_panes %}
+                    </div>
+                </div>
+        {% endif %}
+{% endfor %}

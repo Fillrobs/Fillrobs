@@ -1,0 +1,10 @@
+{% if env_cluster %}
+    <dt>SCVMM Host Cluster:</dt>
+    <dd>
+        {% if env_cluster != "-" %}
+            {{ env_cluster }}
+        {% else %}
+            <i style='color:red'>None (must configure to use this environment)</i>
+        {% endif %}
+    </dd>
+{% endif %}

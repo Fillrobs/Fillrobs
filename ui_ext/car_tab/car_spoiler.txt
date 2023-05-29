@@ -1,0 +1,6 @@
+{
+  "Name": "Car Spolier",
+  "DisplayName": "Gold Spoiler",
+  "State": "Installed",
+  "OptionSize": "Large"
+}

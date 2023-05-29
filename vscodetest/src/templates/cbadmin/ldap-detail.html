@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load tab_tags %}
+
+{% block title %}LDAP Authentication Settings{% endblock %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+    <h1>{{ ldap }}</h1>
+    {% draw_tabs tabs %}
+{% endblock content %}

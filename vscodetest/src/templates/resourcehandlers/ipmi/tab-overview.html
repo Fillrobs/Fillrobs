@@ -1,0 +1,29 @@
+{% extends 'resourcehandlers/tab-overview.html' %}
+{% load i18n %}
+
+{% block actions %}
+<a class="btn btn-default open-dialog"
+    href="{% url 'resourcehandler_settings' handler.id %}">
+    <span class="icon-edit"></span>
+    {% trans 'Edit Settings' %}
+</a>
+<a class="btn btn-default open-dialog"
+    href="{% url 'resourcehandler_delete' handler.id %}">
+    <span class="icon-delete"></span>
+    {% trans 'Delete' %}&hellip;
+</a>
+{% endblock actions %}
+
+{% block handler_details %}
+
+  <dt>{% trans 'Name:' %}</dt>
+  <dd>{{ handler.name}}</dd>
+  <dt>{% trans 'Provision power check:' %}</dt>
+  <dd>
+      {% if handler.stop_if_server_on %}
+      {% trans "Only provision powered OFF servers" %}
+      {% else %}
+      {% trans "Force provision even if server is ON" %}
+      {% endif %}
+  </dd>
+{% endblock handler_details %}

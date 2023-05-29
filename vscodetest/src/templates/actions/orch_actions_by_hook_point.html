@@ -1,0 +1,32 @@
+{% load helper_tags %}
+
+<li>
+    <h4>
+        <span class="pull-right">
+            <a class="btn btn-sm btn-default open-dialog add-hook"
+                href="{% url 'add_action_trigger' hook_point.name %}"
+                data-hook-type="{{ hook_point.label }}">
+                <span class="icon-add"></span>
+                Add an Action
+            </a>
+        </span>
+        {{ hook_point.label }}
+        {% infotip hook_point.description %}
+        {% if hook_point.name == "pre_order_execution" %}
+            {% videotip '357891783' 'Order Approval Workflows' 'orchestration-actions.html#order-trigger-points' 'Read about the CloudBolt-provided sample order approval workflows <a href="https://github.com/CloudBoltSoftware/cloudbolt-forge/blob/master/actions/cloudbolt_plugins/multi_user_approval/README.md" target="_blank">in the cloudbolt-forge <i class="fas fa-external-link-alt"></i></a>' %}
+        {% endif %}
+    </h4>
+
+    <ol class="action-group list-unstyled">
+        {% for action in orch_actions %}
+            <li>
+            {% if "Terraform" in hook_point.label %}
+                {% include "actions/action_details_panel.html" with url_prefix='action_trigger' enable_endpoint='orchestration' reload_page_on_toggle=True %}
+            {% else %}
+                {% include "actions/action_details_panel.html" with url_prefix='action_trigger' enable_endpoint='orchestration' reload_page_on_toggle=False %}
+            {% endif %}
+            </li>
+        {% endfor %}
+    </ol>
+    <div class="clearfix"></div>
+</li>

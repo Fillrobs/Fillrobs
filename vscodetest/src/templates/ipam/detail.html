@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load tab_tags %}
+{% block title %}IPAM Settings{% endblock %}
+{% block topnav %}ipams{% endblock %}
+
+{% block content %}
+    <h1> {{ ipam.name }} </h1>
+
+    {% draw_tabs tabs %}
+{% endblock content %}
+

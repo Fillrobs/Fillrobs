@@ -1,0 +1,50 @@
+{% load helper_tags %}
+{% load i18n %}
+{% load itsm_tags %}
+
+<div class="btn-toolbar">
+
+    <a class="btn btn-default open-dialog"
+        href="{% url 'cmdb_data_add' cmdb.id %}">
+        <span class="icon-add"></span>
+        {% trans "Add" %}
+    </a>
+
+</div>
+
+<div id="cmdb-data">
+    <div id="msg"></div>
+    <table id="cmdb-data-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Key Name" %}</th>
+                <th>{% trans "Value" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for param in params %}
+            <tr>
+                <td>
+                    {{ param.cmdb_ci_field }}
+                </td>
+
+                <td>
+                    {{ param.cloudbolt_ci_value }}
+                </td>
+
+                <td class="param-options">
+                    <div class="editlink pull-left">
+                        <a class="icon-edit open-dialog"
+                                    href="{% url 'cmdb_data_edit' param.id %}"
+                                    id="edit_preconfig_options"></a>
+                    </div>
+
+                    <a class="icon-delete open-dialog" href="{% url 'cmdb_data_delete' param.id %}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

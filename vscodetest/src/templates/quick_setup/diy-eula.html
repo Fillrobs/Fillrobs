@@ -1,0 +1,54 @@
+{% extends "quick_setup/base.html" %}
+{% load static %}
+
+{% block head %}
+<script>
+    $(function () {
+        'use strict';
+
+        var $agreeCheckbox = $("#eula-agree-checkbox");
+
+        // true if user has agreed to the EULA
+        var userHasAgreed = function () {
+            return $agreeCheckbox.prop('checked');
+        };
+
+        var enableOrDisableNext = function () {
+            window.wizards.enableStep(1, userHasAgreed());
+        }
+
+        enableOrDisableNext();
+        $agreeCheckbox.on('click', enableOrDisableNext);
+    });
+</script>
+{% endblock head %}
+
+{% block panel_heading %}CloudBolt End User License Agreement{% endblock %}
+{% block top_right %}
+    {% include 'common/docs_link.html' with icon_only=True url="quick-setup-wizard.html" %}
+{% endblock %}
+
+{% block extra_content %}
+    <p class="alert alert-info">
+    Read this end user license agreement in full and only proceed if you agree with the terms.
+    </p>
+
+    {% with pdf_file='CloudBolt-Software-EULA.pdf' %}
+
+        <object data="{% static pdf_file %}" type="application/pdf"
+            style="border: 1px solid #666; width:100%; height:370px;">
+            <p><a href="{% static pdf_file %}">Download PDF</a></p>
+        </object>
+
+    {% endwith %}
+{% endblock extra_content %}
+
+{% block setup_footer %}
+    <p class="text-center">
+        <label class="checkbox-inline">
+            <input type="checkbox" id="eula-agree-checkbox">
+            I have read and accept the EULA
+        </label>
+    </p>
+    {{ block.super }}
+{% endblock %}

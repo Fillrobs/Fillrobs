@@ -1,0 +1,173 @@
+{% load helper_tags %}
+{% load i18n %}
+{% load infrastructure_tags %}
+
+    <div class="btn-toolbar">
+    {% if group_or_env_str == 'group' %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'group_add_parameter' group_or_env.id %}">
+            <span class="icon-add"></span>
+            {% trans "Add" %}
+        </a>
+    {% else %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'env_add_parameter' group_or_env.id %}">
+            <span class="icon-add"></span>
+            {% trans "Add" %}
+        </a>
+    {% endif %}
+        <button
+            class="btn btn-default"
+            data-toggle="popover"
+            data-html="true"
+            data-content-selector="#parameters-popover-content">
+            <span class="infotip"></span>
+        </button>
+        <div class="popover-content-el" id="parameters-popover-content">
+            <p>
+            {% blocktrans trimmed %}Customize the order form and provisioning process for this
+            {{ group_or_env_str }} by defining additional parameters and
+            preconfigurations.  These can be required or optional fields,
+            as well as hidden data passed along to the resource handler
+            without cluttering the order form.{% endblocktrans %}
+            </p>
+            <h3>{% trans "Simple parameters" %}</h3>
+            <p>
+            {% blocktrans trimmed %}Examples: Constrain "CPUs" parameter to 1, 2, or 4; require an expiration
+            date on orders; or pass {{ group_or_env_str }}-specific information as
+            hidden fields on every order.{% endblocktrans %}
+            </p>
+            <h3>{% trans "Preconfigurations" %}</h3>
+            <p>
+                 {% portal_label as portal_lbl %}
+                 {% blocktrans %}Add any preconfiguration created by your {{ portal_lbl }} administrators.{% endblocktrans %}</p>
+            <p>
+            {% blocktrans trimmed %}Reduce complexity for users by adding parameter configurations.  For
+            example, <b>server size</b> (e.g. small, medium, large) avoid the need to
+            specify individual values for CPU, RAM, and disk size.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+
+<div id="editable-preconfigs">
+    <div id="msg"></div>
+    {% if group_or_env_str == 'group' and group_or_env.parent and inherit_group_parameters %}
+        <hr>
+        <h3>{% trans 'Locally Set Parameters' %}</h3>
+    {% endif %}
+    <table id="preconfig-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Parameter" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Options" %}</th>
+                <th>{% trans "Constraints" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for param in params %}
+            <tr>
+                <td>
+                    {% if param.is_preconfig %}
+                        <span class="icon-preconfig"></span>
+                    {% else %}
+                        <span class="icon-param"></span>
+                    {% endif %}
+
+                    {{ param|rich_display:profile }}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        {% trans "Preconfiguration" %}
+                    {% else %}
+                        {{ param.get_type_display }}
+                    {% endif %}
+                </td>
+                <td class="param-options">
+                    {% if param.is_preconfig %}
+                        <div class="editlink pull-left">
+                            {% if group_or_env_str == 'group' %}
+                                <a class="icon-edit open-dialog"
+                                    href="{% url 'group_edit_preconfig_options' group_or_env.id param.id %}"
+                                    id="edit_preconfig_options"></a>
+                            {% else %}
+                                <a class="icon-edit open-dialog"
+                                    href="{% url 'env_edit_preconfig_options' group_or_env.id param.id %}"
+                                    id="edit_preconfig_options"></a>
+                            {% endif %}
+                        </div>
+
+                        <ul class="options list-unstyled pull-left">
+                            {% for opt in param.options %}
+                                <li>{% preconfig_option opt %}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% if param.type != 'DT' %}
+                            <div class="editlink pull-left">
+                                {% if group_or_env_str == 'group' %}
+                                    <a class="icon-edit open-dialog"
+                                        {# A bit wider to fit 80 col textareas #}
+                                        data-dialog-width="650px"
+                                        href="{% url 'group_edit_customfield_options' group_or_env.id param.id %}"></a>
+                                {% else %}
+                                    <a class="icon-edit open-dialog"
+                                        {# A bit wider to fit 80 col textareas #}
+                                        data-dialog-width="650px"
+                                        href="{% url 'env_edit_customfield_options' group_or_env.id param.id %}"></a>
+                                {% endif %}
+
+                                {% if param.has_generated_options_support %}
+                                    {% infotip _("Options set here will be used to filter the options generated at runtime.") %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% get_field_options_as_str group_or_env.custom_field_options param %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        <i>{% trans "Not Applicable" %}</i>
+                    {% else %}
+                        <div class="pull-left">
+                            {% if group_or_env_str == 'group' %}
+                                <a class="icon-edit open-dialog"
+                                    href="{% url 'group_edit_param_constraints' group_or_env.id param.id %}"
+                                    id="edit_param_constraints"></a>
+                            {% else %}
+                                <a class="icon-edit open-dialog"
+                                    href="{% url 'env_edit_param_constraints' group_or_env.id param.id %}"
+                                    id="edit_param_constraints"></a>
+                            {% endif %}
+                        </div>
+
+                        {% group_or_env_param_constraints group_or_env_str group_or_env.id param.id %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        {% if group_or_env_str == 'group' %}
+                            <a class="icon-delete open-dialog"
+                                href="{% url 'group_delete_preconfig' group_or_env.id param.id %}"></a>
+                        {% else %}
+                            <a class="icon-delete open-dialog"
+                                href="{% url 'env_delete_preconfig' group_or_env.id param.id %}"></a>
+                        {% endif %}
+                    {% else %}
+                        {% if group_or_env_str == 'group' %}
+                            <a class="icon-delete open-dialog"
+                                href="{% url 'group_delete_customfield' group_or_env.id param.id %}"></a>
+                        {% else %}
+                            <a class="icon-delete open-dialog"
+                                href="{% url 'env_delete_customfield' group_or_env.id param.id %}"></a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

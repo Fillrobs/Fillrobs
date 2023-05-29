@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load tab_tags %}
+{% block topnav %}os-builds{% endblock %}
+
+{% block content %}
+    <h1>{{ osb.name }}</h1>
+    {% draw_tabs tabs %}
+{% endblock content %}

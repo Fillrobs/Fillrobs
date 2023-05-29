@@ -1,0 +1,416 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% load i18n %}
+{% block title %}{{ job|job_descriptive_title }}{% endblock %}
+{% block topnav %}job-detail{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script type="text/javascript" src="{{ STATIC_URL }}js/vue.min.js"></script>
+{% endblock javascript %}
+
+{% block content %}
+{% comment %}
+This H1 is the following siblink of .uplink, thus part of the breadcrumb.
+It is updated by `update` in static_src/angular/app/jobs/job-detail-controller.js.
+{% endcomment %}
+<h1 id="job-title">{{ job.title }}</h1>
+
+<div id="app" class="job-detail">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            <a href="{% url 'job_cancel' job.id %}" class="btn btn-default open-dialog"
+               v-if="job.profile_can_cancel && job.isRunning">
+                <i class="fas fa-ban"></i>
+                {% trans "Cancel" %}
+            </a>
+
+            <a href="{% url 'job_clone' job.id %}" class="btn btn-default"
+               v-if="job.rerun_allowed && job.profile_can_rerun">
+                <i class="fas fa-redo"></i>
+                {% trans "Rerun this job" %} {{ rerun_extra_msg }}
+            </a>
+
+            <a href="{% url 'job_log_download' job.id %}"
+               v-if="job.profile_can_view_job_logs && job.job_has_log"
+                class="btn btn-default no-tooltip-affordance"
+                data-toggle="tooltip"
+                title="Detailed job log (zip)">
+                <i class="glyphicon glyphicon-compressed"></i>
+                {% trans "Download log" %}
+            </a>
+            <a href="{% url 'job_log_download_txt' job.id %}"
+               v-if="job.profile_can_view_job_logs && job.job_has_log"
+                target="_blank"
+                class="btn btn-default no-tooltip-affordance"
+                data-toggle="tooltip"
+                title="Detailed job log (txt)">
+                <i class="icon-file-text"></i>
+                {% trans "View log" %}
+            </a>
+            <template v-if="job.status == 'PAUSED' && job.execution_state">
+                <a id="run-button"
+                   class="btn btn-default"
+                   data-post="click"
+                   v-on:click="resume">
+                    <i class="fas fa-play"></i>
+                    {% trans "Run" %}
+                </a>
+                <select id="run-type">
+                    <option value="STEP" checked="True">this line (stepping into any method calls)</option>
+                    <option value="NEXT">this line (stepping over any method calls)</option>
+                    <option value="RETURN">until the current method ends</option>
+                    <option value="RUNNING">until the end or next break point</option>
+                </select>
+            </template>
+            <template v-if="job.status == 'PAUSED' && !job.execution_state ">
+                <a id="continue-job-button"
+                   class="btn btn-primary"
+                   data-post="click"
+                   v-on:click="continue_job">
+                    <i class="fas fa-play"></i>
+                    {% trans "Continue Job" %}
+                </a>
+            </template>
+        </div>
+    </div>
+
+    <div class="panel panel-default" v-if="job.execution_state"> <!-- panel for debug info -->
+        <div class="row padding">
+            <div class="col-lg-7">
+                <h4>Code ([[ job.execution_state.relative_filename ]]:[[ job.execution_state.lineno ]])</h4>
+                <div>
+                    <pre id="job-code">[[source]]</pre>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div>
+                    <h4>Call Stack</h4>
+                        <div id="job-stack" class="job-progress pre output result-text" v-html="call_stack"></div>
+                </div>
+                <div>
+                    <h4>Variables</h4>
+                    <table id="variables" class="stats">
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Type</th>
+                          <th>Value</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                       <tr v-for="variable in job.execution_state.frame_locals" v-if="job.execution_state.frame_locals">
+                           <td>[[variable.name]]</td>
+                           <td>[[variable.type]]</td>
+                           <td><pre>[[variable.value]]</pre></td>
+                       </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row"> <!-- row for progress bar and times -->
+                <div class="col-lg-12">
+                    <div class="progress progress-lg with-times"
+                         v-bind:class="{'progress-striped': job.isRunning, active: job.isRunning}">
+                        <div class="progress-bar"
+                             v-bind:style="progBarStyle"
+                             v-bind:class="progBarClass"
+                             aria-valuenow="job.percentDone"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                            <span v-html="job.duration"></span>
+                        </div>
+                    </div>
+                    <div class="pull-left progress-time" v-html="job.startDate"></div>
+                    <div class="pull-right progress-time" v-html="job.endDate"></div>
+                </div>
+            </div>
+
+            <div class="row padding"> <!-- row for output, errors, progress, & context panels -->
+                <div class="col-lg-7">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4>[[ job.resultsTitle ]]</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div id="job-output" class="pre output result-text"
+                                 v-if="job.output"
+                                 v-html="job.output"></div>
+                            <div id="job-errors" class="pre errors result-text"
+                                 v-if="job.errors"
+                                 v-html="job.errors"></div>
+                            <div id="job-progress" class="job-progress" v-html="job.progressStrings"></div>
+                            <div v-if="job.helpMessage" v-html="job.helpMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="panel panel-default" style="min-height:10em;">
+                        <div class="panel-heading">
+                            <h4>
+                                {% trans "Context" %}
+                                {% if job.parent_job %}
+                                    {% infotip _("Shows the ancestors and descendants of the current job. To see siblings and others, click on the parent job") %}
+                                {% endif %}
+                            </h4>
+                        </div>
+                        <div class="panel-body">
+                            <div v-html='job.ownerLink' class="pull-right"></div>
+
+                            <h5 v-if="job.orderLink">
+                                <b>{% trans "Order:" %}</b> <span v-html="job.orderLink"></span>
+                            </h5>
+                            <h5 v-if="job.recurringJobLink">
+                                <b>{% trans "Spawned from:" %}</b> <span v-html="job.recurringJobLink"></span>
+                            </h5>
+                            <h5 v-if="job.testLink">
+                                <b>{% trans "CIT Test:" %}</b> <span v-html="job.testLink"></span>
+                            </h5>
+                            <h5 v-if="job.actionLink">
+                                <b>{% trans "Action:" %}</b> <span v-html="job.actionLink"></span>
+                            </h5>
+                            <div class="clearfix"></div>
+
+                            <div v-if="job.jobTree" v-html="job.jobTree"></div>
+
+                            <div v-if="job.externalJobNames && job.externalJobNames.length > 0">
+                                <p v-for="jobName in job.externalJobNames" v-html="jobName"></p>
+                            </div>
+
+                            <div v-if="job.rerunJobLink">
+                                {% trans "Rerun as: " %}<span v-html="job.rerunJobLink"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed remote script outputs -->
+                <div class="col-lg-7 job-progress-section" style="display:none;" v-for="output in job.archivedRemoteScriptOutputs" :id="output.id">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <button class="btn btn-default close-output" onclick="$(this).closest('.job-progress-section').hide();">Close</button>
+                            <h4 v-html="output.title"></h4>
+                        </div>
+                        <div class="panel-body" class="remote-script-archive-texareas">
+                            <textarea class="job-progress terminal" rows=12 readonly v-html="output.outputString"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display single output whose content we manage manually -->
+                <div class="currentOutput col-lg-7" v-if="job.remoteScriptOutputs && job.remoteScriptOutputs.length > 0">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 v-html="job.remoteScriptOutputs[0].title"></h4>
+                        </div>
+                        <div class="panel-body remote-script-progress">
+                            <textarea class="job-progress terminal stay-at-bottom" rows=12 readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end row for progress & context panels -->
+
+            <div v-for="field in job.extrasFields">
+                <b>[[field.label]]</b>: [[field.value]]
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" v-if="job.resources && job.resources.length > 0">
+        <div class="panel-heading">
+            <h3> {% trans "Resources" %} </h3>
+        </div>
+        <div class="panel-body">
+            <div class="inline-cards">
+                <span v-for="resource in job.resources">
+                    <div v-html="resource.card"></div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel panel-default" v-if="job.serversTargeted && job.serversTargeted.length > 0">
+        <div class="panel-heading">
+            <h3> {% trans "Servers" %} </h3>
+        </div>
+        <div class="panel-body">
+            <div class="inline-cards">
+                <span v-for="server in job.serversTargeted">
+                    <a v-bind:href="server.url" v-html="server.card"></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(function() {
+    var app = new Vue({
+      el: '#app',
+      delimiters: ['[[', ']]'],
+      data: {
+          job: [],
+          marker: null,
+          filename: "",
+          source: "",
+          editor: null,
+          line: null,
+          call_stack: null,
+      },
+      computed: {
+        progBarStyle: function () {
+            return {'width': this.job.percentDone + '%'}
+        },
+        progBarClass: function () {
+            var style = (function(status) {
+              switch(status) {
+                case 'SUCCESS':
+                  return "success";
+                case "WARNING":
+                  return "warning";
+                case "FAILURE":
+                  return "danger";
+                default:
+                  return "info";
+              }
+            })(this.job.status);
+
+            return 'progress-bar-' + style;
+        }
+      },
+      created: function() {
+        this.set_timer();
+        // just so the user isn't waiting for the first interval before data shows up
+        this.refresh_job_data();
+      },
+      watch: {
+          source: function(val) {
+              if (this.editor == null) {
+                  this.basic_ace_init();
+              }
+              this.editor.session.setValue(val);
+              this.highlight_line_in_ace();
+          },
+          line: function(val) {
+              this.highlight_line_in_ace();
+           },
+          call_stack: function(val) {
+              this.$nextTick(() => {
+                var jobstack = $('#job-stack').get(0);
+                c2.scrolling.scrollToBottom(jobstack);
+              })
+          },
+      },
+      methods: {
+          sleep: function(ms) {
+             return new Promise(resolve => setTimeout(resolve, ms));
+          },
+          set_timer: function(event) {
+              this.timer = setInterval(this.refresh_job_data, 2000);
+          },
+          continue_job: function(event) {
+              // console.log('IN CONTINUE METHOD');
+              $('#continue-job-button').attr("disabled", true);
+              fetch("/jobs/{{ job.id }}/resume/RUNNING/")
+                  .then(response => {
+                      this.set_timer();
+                    });
+          },
+          resume: function(event) {
+              $('#run-button').attr("disabled", true);
+              var run_type = $('#run-type option:selected').val();
+              fetch("/jobs/{{ job.id }}/resume/" + run_type + "/")
+                  .then(response => {
+                      this.set_timer();
+                    });
+          },
+          refresh_job_data: function() {
+              fetch("/jobs/{{ job.id }}/status/")
+                  .then(response => response.json())
+                  .then((data) => {
+                    this.job = data;
+                    if (this.job.execution_state) {
+                        $('#run-button').attr("disabled", false);
+                        if (this.job.execution_state.filename != this.filename) {
+                            // Also fetch the new source code file
+                            this.filename = this.job.execution_state.filename;
+                            fetch("/jobs/{{ job.id }}/code/")
+                             .then(response => response.json())
+                             .then((data) => {
+                                 this.source = data;
+                             });
+                        }
+                        this.line = this.job.execution_state.lineno;
+                        this.call_stack = this.job.execution_state.call_stack;
+                    }
+                    c2.jobs.refreshJobPage(this.job);
+                    if (! this.job.isRunning || this.job.status == 'PAUSED') {
+                      // The job is complete or paused, stop refreshing the data every 2s
+                      clearInterval(this.timer);
+                    }
+                  });
+          },
+          basic_ace_init: function() {
+            // Bypass CB's usual initialization of Ace, it adds unnecessary, complicating logic
+            this.editor = ace.edit("job-code");
+            this.editor.setTheme("ace/theme/twilight");
+            this.editor.session.setMode("ace/mode/python");
+            this.editor.setOptions({readOnly: true});
+            this.sleep(100).then(() => {
+               // scrolling doesn't work right after Ace is initialized, give it a moment.
+               this.highlight_line_in_ace();
+             });
+          },
+          highlight_line_in_ace: function() {
+            if (this.editor == null) {
+                return;
+            }
+            // Scroll to the debugger active line
+            var line = this.job.execution_state.lineno;
+            // Subtract 3 from active line number so that Ace shows preceding lines for context
+            this.editor.scrollToLine(line - 3);
+            this.editor.clearSelection();
+            // Highlight the debugger active line
+            var Range = ace.require('ace/range').Range;
+            if (this.marker) {
+                this.editor.session.removeMarker(this.marker);
+             }
+            this.marker = this.editor.session.addMarker(
+                new Range(line - 1, 0, line - 1, 100), "myMarker", "fullLine");
+          },
+      }
+    });
+
+    c2.dataTables.init();
+
+    $(function() {
+        var $jobDetail = $('.job-detail');
+        c2.blueprints.handleCardClicks($jobDetail);
+
+        showing = window.location.hash;
+        $(showing).show();
+    });
+
+  $(document).on('click', '#job-progress a', function(e) {
+    e.preventDefault();
+    var href = $(this).data('href');
+    if(history.pushState) {
+      history.pushState(null, null, href);
+    } else {
+      window.location.hash = href;
+    }
+    $(href).show();
+   });
+  });
+</script>
+
+{% endblock %}

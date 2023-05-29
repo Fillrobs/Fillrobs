@@ -1,0 +1,14 @@
+{% comment %}
+Used by views that show content from the Content Library that can be imported.
+`item` variable should be passed by the calling template and have a
+`name_exists_locally` (bool) and `name` properties.
+{% endcomment %}
+
+{% load i18n %}
+
+{% if item.name_exists_locally %}
+    <i class="warning fas fa-exclamation-triangle no-tooltip-affordance"
+        data-toggle="tooltip"
+        title="{% blocktrans with item_name=item.name %}'{{ item_name }}' already exists locally. Importing the remote one will overwrite the local item.{% endblocktrans %}">
+    </i>
+{% endif %}

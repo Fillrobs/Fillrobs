@@ -1,0 +1,85 @@
+{% comment %}
+At DataTable initialization, this will be moved into the top-left of
+the DataTable header area and un-hidden (because we identify it to the
+table as the toolbar element via 'data-table-toolbar').
+{% endcomment %}
+{% load i18n %}
+<div id="servers-table-toolbar" style="display:none" class="btn-toolbar" role="toolbar">
+
+    <div class="btn-group">
+        {% include 'common/datatable-selection-info-dropdown.html' %}
+
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'servers_batch_attributes' %}"
+            data-dialog-width="800px" {# accomodate the preview table, esp long env, group, or hostnames #}
+            title="{% trans 'Change owner, group, environment, or OS...' %}">
+            <span class="icon-edit"></span>
+        </button>
+
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'servers_batch_power_schedule' %}"
+            data-dialog-width="800px" {# accomodate the preview table, esp long env, group, or hostnames #}
+            title="{% trans 'Control power schedule on servers...' %}">
+            <span class="fas fa-calendar-alt"></span>
+        </button>
+
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'edit_tags_on_servers' %}"
+            data-dialog-width="800px" {# accomodate the preview table, esp long env, group, or hostnames #}
+            title="{% trans 'Manage labels on servers...' %}">
+            <span class="fas fa-tag"></span>
+        </button>
+
+        <div class="btn-group btn-wrapper" data-toggle="tooltip" title="{% trans 'Power on, off, or reboot...' %}">
+            <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                class="edit-action btn btn-default dropdown-toggle selection-action disabled">
+            <span class="icon-power"></span>
+            <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+            <li>
+                <a tabindex="-1" data-href="{% url 'servers_batch_power' %}" data-action="on">{% trans 'Power on' %}</a>
+            </li>
+            <li>
+                <a tabindex="-1" data-href="{% url 'servers_batch_power' %}" data-action="off">{% trans 'Power off' %}</a>
+            </li>
+            <li>
+                <a tabindex="-1" data-href="{% url 'servers_batch_power' %}" data-action="reboot">{% trans 'Reboot' %}</a>
+            </li>
+            </ul>
+        </div>
+
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'servers_batch_server_actions' %}"
+            title="{% trans 'Run server actions...' %}">
+            <span class="icon-cogs"></span>
+        </button>
+
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'servers_batch_install_apps' %}"
+            data-dialog-width="800px" {# accomodate the preview table, esp long env, group, or hostnames #}
+            title="{% trans 'Install applications...' %}">
+            <span class="icon-install-apps"></span>
+        </button>
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'servers_batch_decom' %}"
+            title="{% trans 'Delete...' %}">
+            <span class="icon-delete"></span>
+        </button>
+        <button type="button" class="btn btn-default open-dialog"
+            data-href="{% url 'customize_server_table' %}"
+            data-toggle="tooltip"
+            data-dialog-width="800px"
+            data-html="true"
+            title="{% trans 'Customize the columns shown in all of your server tables' %}">
+            <span class="fas fa-ellipsis-h"></span>
+        </button>
+    </div>
+
+</div>

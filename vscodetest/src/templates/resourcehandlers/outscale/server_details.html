@@ -1,0 +1,15 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load tab_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl><dt>{% trans "Instance Type" %}:</dt><dd>{{ details.instance_type }}</dd></dl>
+        <dl><dt>{% trans "Availability Zone" %}:</dt><dd>{{ details.availability_zone }}</dd></dl>
+        <dl><dt>{% trans "Keypair Name" %}:</dt><dd>{{ details.keypair_name }}</dd></dl>
+    </div>
+</div>

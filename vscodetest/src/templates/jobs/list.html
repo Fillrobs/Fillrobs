@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% load order_tags %}
+{% load i18n %}
+{% block topnav %}{%trans 'jobs' %}{% endblock %}
+
+{% block content %}
+    <h1>{%trans 'Jobs' %}</h1>
+
+    <div class="row" id="job-list-filters">
+        <div class="col-lg-4">
+            <p>
+            <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option {% if filter_jobtype == "" %}selected{% endif %} value="{% url 'job_list' %}?job_status={{ filter_jobstatus}}">{%trans 'All job types' %}</option>
+                {% for jobtype, label in job_types %}
+                    <option {% if jobtype == filter_jobtype %}selected{% endif %} value="{% url 'job_list' %}?job_type={{ jobtype }}&job_status={{ filter_jobstatus}}&childjobs={{ filter_childjobs }}">{{ label }}</option>
+                {% endfor %}
+            </select></p>
+        </div>
+
+        <div class="col-lg-4">
+            <p>
+            <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option {% if filter_jobstatus == "" %}selected{% endif %} value="{% url 'job_list' %}?&job_type={{ filter_jobtype}}">{%trans 'All job statuses' %}</option>
+                {% for jobstatus, label in job_statuses %}
+                    <option {% if jobstatus == filter_jobstatus %}selected{% endif %} value="{% url 'job_list' %}?job_status={{ jobstatus }}&job_type={{ filter_jobtype}}&childjobs={{ filter_childjobs }}">{{ label }}</option>
+                {% endfor %}
+            </select></p>
+        </div>
+
+        <div class="col-lg-4">
+            <p>
+            <select onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                <option {% if filter_childjobs == "yes" %}selected{% endif %} value="{% url 'job_list' %}?&childjobs=yes&job_status={{ filter_jobstatus}}&job_type={{ filter_jobtype}}">{%trans 'Top-level and sub-jobs' %}</option>
+                <option {% if filter_childjobs == "no" %}selected{% endif %} value="{% url 'job_list' %}?&childjobs=no&job_status={{ filter_jobstatus}}&job_type={{ filter_jobtype}}">{%trans 'Only top-level jobs' %}</option>
+            </select></p>
+        </div>
+    </div>
+
+<div id="jobs-table-toolbar" style="display:none" class="btn-toolbar" role="toolbar">
+
+    <div class="btn-group">
+    {% include 'common/datatable-selection-info-dropdown.html' %}
+
+    {% if profile.is_cbadmin or profile.global_viewer %}
+    {# The selection-action class, among other things, typically causes the button to #}
+    {# open a dialog. In this case, we instead want to just temporarily open a new tab #}
+        <button type="button" class="btn btn-default selection-action selection-action-new-tab disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'bulk_job_log_download' %}"
+            title="{%trans 'Download job logs (zip)' %}">
+            <span class="glyphicon glyphicon-compressed"></span>
+        </button>
+    {% endif %}
+    {% if profile.is_cbadmin %}
+        <button type="button" class="btn btn-default selection-action disabled"
+            data-toggle="tooltip"
+            data-href="{% url 'cancel_multiple_jobs' %}"
+            title="{%trans 'Cancel Jobs' %}">
+            <span class="icon-delete"></span>
+        </button>
+    {% endif %}
+    </div>
+
+</div>
+
+    <table id="jobs"
+        data-table
+        {# Because we add checkboxes here, sorting by the ID column requires using column 1 #}
+        data-table-sort="1,desc"
+        {# disable sorting on the Order column for now, as it confuses the server side view #}
+        {# also, sorting by the checkbox doesn't make sense #}
+        data-table-sort-disabled="0,5"
+        data-table-source="{% url 'job_list_json' %}?job_type={{ filter_jobtype}}&job_status={{ filter_jobstatus}}&childjobs={{ filter_childjobs }}&with_checkboxes=1"
+        data-table-no-auto-init>
+        <thead>
+            <tr>
+            <th><input class="check-column" type="checkbox" /></th>
+            <th>{%trans 'Job' %}</th>
+            <th>{%trans 'Status' %}</th>
+            <th>{%trans 'Type' %}</th>
+            <th>{%trans 'Start Date' %}</th>
+            <th>{%trans 'Order' %}</th>
+            <th>{%trans 'Owner' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# will be populated by dataTable based on AJAX responses #}
+        </tbody>
+    </table>
+{% endblock content %}
+
+{% block onReady %}
+    c2.selectize("#job-list-filters select");
+
+    var $table = $('table#jobs');
+    $table.attr('data-table', 'clickable');
+
+    // Prepare our custom toolbar DOM fragment with all client-side
+    // behavior and pass it along to the c2 DataTable API.
+    var $toolbar = $('#jobs-table-toolbar');
+    c2.dataTables.setupToolbarBehavior($table, $toolbar);
+    $table.data('table-toolbar', $toolbar);
+
+    c2.dataTables.init('#jobs');
+{% endblock onReady %}

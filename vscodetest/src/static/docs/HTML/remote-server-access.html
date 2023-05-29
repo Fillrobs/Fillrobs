@@ -1,0 +1,880 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('remote-server-access',true);});
+//--></script><title>Remote Server Access</title><script type="text/javascript">//<!--
+var articleTitleText='Remote Server Access';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Remote Server Access</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="servers.html">Servers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Remote Server Access</span></span>
+  </div><p>
+</p>
+<h1 id="h1_27047685" data-has-heading-anchor="true">
+  Remote Server Access<a href="remote-server-access.html#h1_27047685" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1><p class="lead">Learn about Remote Server Access in CloudBolt.<br/><br/></p><hr/><h2 id="h2__1296687178" data-has-heading-anchor="true">Introduction<a href="remote-server-access.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2><p>The Remote Server Access features (Console and RDP/SSH) allow users to connect to their servers remotely via three options:</p>
+<ul>
+  <li>
+    <b>Console</b>  on VMware and OpenStack
+  </li>
+  <li>
+    <b>Microsoft Remote Desktop Protocol (RDP)</b> on Windows servers 
+  </li>
+  <li>
+    <b>Secure Shell (SSH)</b> on servers that support SSH. 
+  </li>
+</ul>
+<p>
+  Click <b>Console</b>, <b>Remote Desktop</b>, or <b>SSH</b>&nbsp;buttons on a server’s details menu.<ul class=""><li class="CHMiniToc_heading2"><a href="remote-server-access.html#h2__1296687178">Introduction</a></li><li class="CHMiniToc_heading2"><a href="remote-server-access.html#h2__1087950724">Remote Server Access Prerequisites</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3_1784619132">Resource Technology Support Matrix</a></li><li class="CHMiniToc_heading2"><a href="remote-server-access.html#h2_1244584652">RDP/SSH Setup</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3_1429216568">Console Prerequisites</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3_771728957">VMware Console Requirements</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3__2006922251">OpenStack Console Requirements</a></li><li class="CHMiniToc_heading2"><a href="remote-server-access.html#h2_1396339363">Using Remote Server Access</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3__1059033">Using SSH/RDP</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3_345098922">Username and SSH Key</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3__1825290951">Logging in using Console</a></li><li class="CHMiniToc_heading3"><a href="remote-server-access.html#h3__179295250">Keyboard Limitations</a></li></ul> 
+</p>
+<h2 id="h2_71411133">
+  
+    </h2><hr/><h2 id="h2__1087950724" data-has-heading-anchor="true">Remote Server Access Prerequisites
+  <a href="remote-server-access.html#h2__1087950724" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2><div id="remote-server-access-prerequisites">
+  
+    The Console and RDP/SSH features require  setup. Some platforms provide more or less support for these features.
+  
+  <div id="resource-technology-support-matrix">
+    <br/><h3 id="h3_1784619132" data-has-heading-anchor="true">Resource Technology Support Matrix
+    <a href="remote-server-access.html#h3_1784619132" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <div class="wy-table-responsive" style="color: #404040; font-family: Lato, proxima-nova, &quot;Helvetica Neue&quot;, Arial, sans-serif; text-decoration-color: initial; box-sizing: border-box; margin-bottom: 24px; max-width: 100%; overflow: auto;">
+      <table class="docutils" style="box-sizing: border-box; border-collapse: collapse; border-spacing: 0px; margin-bottom: 24px; border: 1px solid #e1e4e5;" border="1">
+        <colgroup style="box-sizing: border-box;">
+          <col style="box-sizing: border-box;" width="37%"/>
+          <col style="box-sizing: border-box;" width="25%"/>
+          <col style="box-sizing: border-box;" width="19%"/>
+          <col style="box-sizing: border-box;" width="19%"/>
+        </colgroup>
+        <thead style="box-sizing: border-box; text-align: left; white-space: nowrap;" valign="bottom">
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid; border-left-width: 0px;">
+              Resource Technology
+            </th>
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid;">
+              Console&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">1</sup>
+            </th>
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid;">
+              SSH&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">2</sup>
+            </th>
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid;">
+              RDP&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">2</sup>
+            </th>
+          </tr>
+        </thead>
+        <tbody style="box-sizing: border-box;" valign="top">
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              AWS
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              AWS China
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              AWS Govcloud
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Azure
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Azure Stack
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              CenturyLink Cloud
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Google Compute
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Hyper-V
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              IBM Cloud
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              VMware vSphere&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">3</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Nutanix Acropolis
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              OpenStack&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">4</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              QEMU-KVM
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RHEV (Red Hat)
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              SCVMM
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO&nbsp;
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              Xen
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              <em style="box-sizing: border-box;">Other Private Clouds</em>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              NO
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              <em style="box-sizing: border-box;">Other Public Clouds</em>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              N/A&nbsp;<sup style="box-sizing: border-box; font-size: 10.8px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              YES
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <ul class="simple" style="color: #404040; font-family: Lato, proxima-nova, &quot;Helvetica Neue&quot;, Arial, sans-serif; text-decoration-color: initial; box-sizing: border-box; max-width: 100%; overflow: auto; margin: 0px 0px 24px; padding: 0px;">
+      <li style="box-sizing: border-box; margin-left: 24px;">
+        <sup style="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">1</sup>: See&nbsp;<em style="box-sizing: border-box;"><a href="remote-server-access.html#h3_1429216568">Console Prerequisites</a></em>
+      </li>
+      <li style="box-sizing: border-box; margin-left: 24px;">
+        <sup style="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">2</sup>: See&nbsp;<em style="box-sizing: border-box;"><a href="remote-server-access.html#h3__1141549862">RDP/SSH Prerequisites</a></em>
+      </li>
+      <li style="box-sizing: border-box; margin-left: 24px;">
+        <sup style="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">3</sup>: See&nbsp;<em style="box-sizing: border-box;"><a href="remote-server-access.html#h3_771728957">VMware Console Requirements</a></em>
+      </li>
+      <li style="box-sizing: border-box; margin-left: 24px;">
+        <sup style="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">4</sup>: See&nbsp;<em style="box-sizing: border-box;"><a href="remote-server-access.html#h3__2006922251">OpenStack Console Requirements</a></em>
+      </li>
+      <li style="box-sizing: border-box; margin-left: 24px;">
+        <sup style="box-sizing: border-box; font-size: 12px; line-height: 0; position: relative; vertical-align: baseline; top: -0.5em;">5</sup>: Platform did not provide Console support at time of publishing.
+      </li>
+    </ul>
+  </div>
+  
+  
+</div>
+<h2 id="h2__1300309929">
+  </h2><hr/><h2 id="h2_1244584652" data-has-heading-anchor="true">RDP/SSH Setup
+<a href="remote-server-access.html#h2_1244584652" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<div id="remote-server-access-prerequisites">
+  
+  <p>
+    RDP and SSH configuration requires the following setup steps and conditions:
+  </p>
+  <ol>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">Ensure your desired Resource Handler is compatible with RDP/SSH. See the&nbsp;</span><a href="remote-server-access.html#h3_1784619132">Resource Technology Support Matrix</a><i>.</i>
+    </li>
+    <li>
+      Enable the&nbsp;<span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; box-sizing: border-box;">RDP/SSH feature</span><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"> on the server’s <a href="resource-handlers.html">Resource Handler</a></span><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">. This can be managed from&nbsp;</span><b><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; box-sizing: border-box;">Miscellaneous Settings</span></b><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">&nbsp;or from the Resource Handler’s&nbsp;</span><b><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; box-sizing: border-box;">Overview</span></b><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">&nbsp;tab.</span>
+    </li>
+    <li>
+      Grant  <a href="groups-permissions.html">permission</a> to the intended user&nbsp;(<i>server.remote_terminal</i> or be a CloudBolt Super Admin).
+    </li>
+    <li>
+      The remote server must be online.
+    </li>
+    <li>
+      The remote server must have an&nbsp;<em style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; box-sizing: border-box;">IP Address</em><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">&nbsp;shown in its Server Details page.</span>
+    </li>
+    <li>
+      That IP address must be routable from the CloudBolt server.
+    </li>
+    <li>
+      TCP port 22 (SSH) or 3389 (RDP) must be open between the CloudBolt server and the remote server.
+    </li>
+    <li>
+      The SSH server must be configured to accept password-based connections or key-based connections.
+    </li>
+    <li>
+      If the remote server is configured to use Network Level Authentication (NLA; common starting with Windows Server 2008 R2), the server must have the <i>nla_for_rdp</i>&nbsp;parameter set in CloudBolt.
+    </li>
+    <li>
+      The user must use a modern browser (supported browsers are the latest versions of Chrome, Firefox, Safari, and Internet Explorer) with JavaScript enabled.
+    </li>
+  </ol>
+  
+    <p>
+      See&nbsp;<a href="remote-server-access.html#h4_1459248520">Using SSH Keys</a>&nbsp;for setup and use steps specifically for SSH Key support.
+    </p>
+  
+  
+  <div class="section" id="console-prerequisites" style="color: #404040; text-decoration-color: initial; box-sizing: border-box;">
+    <h3 style="box-sizing: border-box; margin-top: 0px; font-size: 20px;" id="h3_1429216568" data-has-heading-anchor="true">
+      Console Prerequisites
+    <a href="remote-server-access.html#h3_1429216568" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+      Console configuration requires the following conditions:
+    </p>
+    <ol>
+      <li>
+        The feature must be supported on the specific resource technology. See the&nbsp;<a href="remote-server-access.html#h3_1784619132" style="font-family: Lato, proxima-nova, &quot;Helvetica Neue&quot;, Arial, sans-serif;">Resource Technology Support Matrix</a><i style="font-family: Lato, proxima-nova, &quot;Helvetica Neue&quot;, Arial, sans-serif;">.</i>
+      </li>
+      <li>
+        The&nbsp;<span style="box-sizing: border-box;">Console feature</span>&nbsp;must be enabled on the server’s&nbsp;<a href="resource-handlers.html">Resource Handler</a>.&nbsp;This can be managed from&nbsp;<b><span style="box-sizing: border-box;">Miscellaneous Settings</span></b>&nbsp;or from the resource handler’s&nbsp;<b><span style="box-sizing: border-box;">Overview</span></b>&nbsp;tab.
+      </li>
+      <li>
+        The end-user’s browser must be able to communicate to the CloudBolt server over TCP ports 5900-6900 (configurable range, see&nbsp;<em style="box-sizing: border-box;">Firewall Considerations</em>&nbsp;below) for VMware and 6080 for OpenStack (see&nbsp;<em style="box-sizing: border-box;">OpenStack Specific Requirements</em>&nbsp;below).
+      </li>
+      <li>
+        The resource technology (e.g. ESX and OpenStack servers) must be configured to accept such connections.
+      </li>
+      <li>
+        The remote server must be online.
+      </li>
+    </ol>
+  </div>
+  <div class="section" id="vmware-console-requirements" style="color: #404040; text-decoration-color: initial; box-sizing: border-box;">
+    
+    
+    <div class="showMoreLabel nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+      [+]
+      <a href="javascript:void(0)">VMware Console Requirements</a>
+    </div>
+    <div class="hideLabel Article_hiddenBlock nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+      [-]
+      <a href="javascript:void(0)">VMware Console Requirements</a>
+    </div>
+    <div class="showMoreContent Article_hiddenBlock" style="padding-left: 20px">
+      <p>
+      </p>
+      <h3 id="h3_771728957" style="box-sizing: border-box; margin-top: 0px; font-size: 20px;" data-has-heading-anchor="true">
+        VMware Console Requirements
+      <a href="remote-server-access.html#h3_771728957" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+      <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+        All console related traffic is sent to the ESX/ESXi server hosting the virtual machine by way of CloudBolt. CloudBolt must be enabled to have direct connectivity with each ESX/ESXi host.
+      </p>
+      <div class="section" id="firewall-considerations" style="box-sizing: border-box;">
+        <h4 id="h4__586222793" style="box-sizing: border-box; margin-top: 0px; font-size: 18.4px;" data-has-heading-anchor="true">
+          Firewall Considerations
+        <a href="remote-server-access.html#h4__586222793" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+        <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+          The considerations below apply to vCenter versions 6.0 and below. Console in vCenter 6.5+ uses the HTML Console and only requires port 443 to be open on CloudBolt and the ESXi host.
+        </p>
+        <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+          CloudBolt listens for connections that should be routed for console access in ports 5900 to 6900 by default, and this can be controlled by adding parameters to /var/opt/cloudbolt/customer_settings.py (/var/opt/cloudbolt/proserv/customer_settings.py for versions &lt; 5.1):
+        </p>
+        <div class="highlight-sh notranslate" style="box-sizing: border-box; border: 1px solid #e1e4e5; overflow-x: auto; margin: 1px 0px 24px;">
+          <div class="highlight" style="box-sizing: border-box; background: #ffffff; overflow-x: auto;">
+            <pre style="box-sizing: border-box; font-size: 12px; margin: 0px; padding: 12px; overflow: auto; line-height: 1.4;"><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span class="nv" style="box-sizing: border-box; color: #aa0000;">LOW_CONSOLE_PORT</span><span class="o" style="box-sizing: border-box;">=</span>XXXX <span class="nv" style="box-sizing: border-box; color: #aa0000;">HIGH_CONSOLE_PORT</span><span class="o" style="box-sizing: border-box;">=</span>YYYY </span> 
+</pre>
+          </div>
+        </div>
+        <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+          It’s also important that each ESX/ESXi be configured to allow incoming connections on the TCP ports used for console. This can be accomplished with the following steps:
+        </p>
+        <ol>
+          <li>
+            Open the configuration for each ESX/ESXi host.
+          </li>
+          <li>
+            Select “Security Profile” under the “Software” heading.
+          </li>
+          <li>
+            Open the Firewall properties.
+          </li>
+          <li>
+            Check to enable “VM serial port connected over network”.
+          </li>
+        </ol>
+      </div>
+    </div>
+    <div class="section" id="firewall-considerations" style="box-sizing: border-box;">
+      <ol>
+      </ol>
+    </div>
+  </div>
+  <div id="openstack-console-requirements">
+    <div class="CHBoxShowMore">
+      <div class="showMoreLabel nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+        [+]
+        <a href="javascript:void(0)">OpenStack Console Requirements</a>
+      </div>
+      <div class="hideLabel Article_hiddenBlock nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+        [-]
+        <a href="javascript:void(0)">OpenStack Console Requirements</a>
+      </div>
+      <div class="showMoreContent Article_hiddenBlock" style="padding-left: 20px">
+        <h3 id="h3__2006922251" data-has-heading-anchor="true"><br/>OpenStack Console Requirements
+        <a href="remote-server-access.html#h3__2006922251" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+        <p>
+          CloudBolt delegates console access to the nova-novncproxy on your OpenStack resource handler. It is therefore a requirement that the user’s browser have the ability to reach the novnc proxy on the port listening for console related connection – usually port 6080.
+        </p>
+        <p>
+          For more information on the nova-novncproxy and help setting it up refer to the&nbsp;<a href="http://docs.openstack.org/admin-guide-cloud/content/nova-vncproxy-replaced-with-nova-novncproxy.html" target="_top">OpenStack Documentation</a>.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="using-remote-server-access">
+  <h2 id="h2_1396339363">
+    </h2><hr/><h2 id="h2_1396339363" data-has-heading-anchor="true">Using Remote Server Access
+  <a href="remote-server-access.html#h2_1396339363" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    As long as the prerequisites specified above have been met, a&nbsp;<b>Console</b>,&nbsp;<b>Remote Desktop</b>, or&nbsp;<b>SSH</b>&nbsp;button will appear on the server’s Server Details menu. 
+  </p>
+  <img src="../Storage/cloudbolt-docs/9-4-2/cmp_942_server-details.png" alt="Server details menu showing Console and SSH buttons." style="width: 250px; height: 424px;"/>
+  <br/>
+  <br/>
+</div>
+<div id="using-remote-server-access">
+  <p>
+    Click one of the&nbsp;buttons to&nbsp;initiate the remote connection to the server, either via the resource technology or directly. 
+  </p>
+</div>
+<div id="using-remote-server-access">
+  <table class="infoBox" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+        </td>
+        <td class="infoBoxText">
+          The window size will be based on the current size of your browser window or tab, and cannot be resized after the session has been initiated​
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="h3__1059033" data-has-heading-anchor="true">
+    Using SSH/RDP
+  <a href="remote-server-access.html#h3__1059033" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Access your server remotely with SSH/RDP. 
+  </p>
+  
+    
+There are two ways to authorize your server credentials: 
+    <ol>
+      <li>
+        Username and password.
+      </li>
+      <li>
+        Username and SSH key.</li></ol>
+  
+  
+  <h4 id="h4_1863077917" data-has-heading-anchor="true">
+    <span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">Username and&nbsp;Password Login</span>
+  <a href="remote-server-access.html#h4_1863077917" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <div>
+    <ol>
+      <li>
+        Click &gt; <b>_SSH</b> or <b>RDP</b>.
+      </li>
+      <li>
+        A login prompt will appear.
+      </li>
+    </ol>
+    <table class="infoBox tipBox" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="infoBoxImageCell">
+            <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+          </td>
+          <td class="infoBoxText">
+            SSH connections prompt you for username and password prior to attempting the connection to the remote server. If you enter valid credentials and all you get is a black screen and a disconnection message, the RDP/SSH Prerequisites may not have been fully met. You can perform some simple diagnostics from the CloudBolt server as described in the RDP/SSH Troubleshooting section.&nbsp;</td></tr></tbody></table><br/>
+<h3 id="h3_345098922" data-has-heading-anchor="true">Username and SSH Key
+      <a href="remote-server-access.html#h3_345098922" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+      <p>
+        Activate RDP/SSH Key authentication for a given server. When enabled, a private key is used in place of a&nbsp;password.&nbsp;
+      </p>
+      <ol>
+        <li>
+          Navigate to the Resource Handler with SSH enabled. See <a href="remote-server-access.html#h3__1141549862">RDP/SSH Setup</a> for steps.
+        </li>
+        <li>
+          ​From the Resource Handler Overview tab, click <b>Servers.</b>
+        </li>
+        <li>
+          Click the server you would like SSH Keys enabled for.
+        </li>
+        <li>
+          On the <b>Parameters</b> tab of the server, click <b>+Add</b>.
+        </li>
+        <li>
+          Enable <i>Use private key for SSH sessions. </i>Set the Parameter to <b>True</b>&nbsp;in the dropdown.
+        </li>
+        <li>
+          On the <b>Server Details</b>&nbsp;page, click <b>&gt;_ SSH.</b>
+        </li>
+        <li>
+          Enter username and private key&nbsp;for the server, including a passphrase if required.
+        </li>
+      </ol>
+      <table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td class="infoBoxImageCell">
+              <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+            </td>
+            <td class="infoBoxText">
+              Enable the <i>Use private key for SSH sessions </i>parameter at the Environment level to enable for all servers provisioned in that Environment.</td></tr></tbody></table>
+
+    
+  </div>
+  <h3 id="h3__1825290951" data-has-heading-anchor="true">
+    Logging in using Console
+  <a href="remote-server-access.html#h3__1825290951" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <div>
+    When using Console, you may need to move the mouse or press a benign key to get the screen to refresh if the console session has blanked out. To close the session, simply close the window or tab. To restart a disconnected session, simply reload the window or tab.
+    
+  </div>
+  <ul>
+  </ul>
+  <div id="keyboard-limitations">
+    <h3 id="h3__179295250" data-has-heading-anchor="true">
+      Keyboard Limitations
+    <a href="remote-server-access.html#h3__179295250" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      This table lists keyboard commands that are known not to work under Console and/or RDP/SSH. If you absolutely require any of these keyboard shortcuts to work in the browser, contact CloudBolt Support to file a feature request. If you find other keyboard shortcuts that do not work properly, you may send that information to support as well and we can update this document (and file a feature request on your behalf).
+    </p>
+    <div class="wy-table-responsive" style="box-sizing: border-box; margin-bottom: 24px; max-width: 100%; overflow: auto;">
+      <table class="docutils" style="box-sizing: border-box; border-collapse: collapse; border-spacing: 0px; margin-bottom: 24px; border: 1px solid #e1e4e5;" border="1">
+        <colgroup style="box-sizing: border-box;">
+          <col style="box-sizing: border-box;" width="7%"/>
+          <col style="box-sizing: border-box;" width="18%"/>
+          <col style="box-sizing: border-box;" width="75%"/>
+        </colgroup>
+        <thead style="box-sizing: border-box; text-align: left; white-space: nowrap;" valign="bottom">
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid; border-left-width: 0px;">
+              Feature
+            </th>
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid;">
+              Shortcut
+            </th>
+            <th class="head" style="box-sizing: border-box; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-color: #e1e4e5; border-bottom-width: 2px; border-bottom-style: solid;">
+              Notes
+            </th>
+          </tr>
+        </thead>
+        <tbody style="box-sizing: border-box;" valign="top">
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Win+M</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              Opens the Start menu on Windows instead of minimizing all windows.
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Shift+Left</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              &nbsp;
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Shift+Right</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              &nbsp;
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Cmd+`</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              Switches same-app windows on OSX, but is passed through to the remote server.
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">RightCtrl</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              Remapped to LeftCtrl
+            </td>
+          </tr>
+          <tr class="row-odd" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Ctrl+a Left</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; border-bottom: 1px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              &nbsp;
+            </td>
+          </tr>
+          <tr class="row-even" style="box-sizing: border-box;">
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 0px solid #e1e4e5;">
+              RDP/SSH
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              <kbd class="kbd docutils literal notranslate" style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 1em;">Ctrl+a Right</kbd>
+            </td>
+            <td style="box-sizing: border-box; vertical-align: middle; white-space: nowrap; font-size: 14.4px; padding: 8px 16px; background-color: #f3f6f6; border-bottom: 0px solid #e1e4e5; border-left: 1px solid #e1e4e5;">
+              &nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div>
+  <br/>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="server-rates.html" class="articleActions_link CHNavLinkPrevious">Server Rates</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="snapshots.html" class="articleActions_link CHNavLinkNext">Snapshots</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

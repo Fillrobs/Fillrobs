@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% block topnav %}{% trans 'catalog' %}{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="grunticon" content="{{ STATIC_URL }}img/" />
+
+    <script src="{{ STATIC_URL }}js/initial.js"></script>
+
+    <!-- Optional; remove if IE <= 8 styling isn’t a priority -->
+    <!--[if lt IE 9]>
+                <script src="{{ STATIC_URL }}js/lib/html5shiv.js"></script>
+            <![endif]-->
+
+{% endblock %}
+
+{% block extrastyle %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/catalog.css" />
+{% endblock %}
+
+{% block extra_header %}
+    <header>
+        <a class="a11y" href="#content">Skip to main content</a>
+
+        <nav>
+            <!-- Insert CloudBolt primary navigation here -->
+        </nav>
+
+        <div class="pg-title">
+            <div class="pg-title--inner layout">
+                <h1 class="hed--page">Content Library</h1>
+
+                <div class="blueprints-new collapsible collapsible-collapsed" data-collapsible-hover>
+                    <h2 class="hed--section blueprints-new--title">New Blueprints
+                        <span>:</span>
+                    </h2>
+
+                    <ul class="blueprints-new--list">
+                        <li class="blueprints-new--item">
+                            <a class="btn btn--has-icon blueprints-new--btn catalog-icon-plus open-dialog" href="{% url 'add_blueprint' %}">Create</a>
+                        </li>
+                        <li class="blueprints-new--item">
+                            <a class="btn btn--has-icon blueprints-new--btn catalog-icon-upload open-dialog" href="{% url 'upload_blueprint' %}">Upload</a>
+                        </li>
+                        <li class="blueprints-new--item">
+                            <a class="btn btn--has-icon blueprints-new--btn catalog-icon-import" href="{% url 'service_catalog' %}">View Existing</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- /end .pg-title -->
+    </header>
+{% endblock %}
+
+{% block content %}
+    <main class="pg-main" id="content">
+
+        <section class="layout">
+            <div class="tile--header">
+                <p>
+                    {% blocktrans with connection_phrase="from the "|add:connection_name%}Import a blueprint {{ connection_phrase }} to create a local
+                    copy, configure it to work within your infrastructure, and then make it available to groups by granting them
+                    <i>deploy</i> permission. Only users with permission to create blueprints can access this view.{% endblocktrans %}
+                </p>
+                <br>
+            </div>
+        </section>
+
+        <!-- Catalog grid -->
+        <section class="catalog-main layout">
+
+            <div class="catalog-container">
+
+                <ol class="tile-list">
+                    {% for blueprint in object_list %}
+                    <li class="tile-item tile--is-minimal">
+                        <a href="{% url 'import_blueprint_from_content_library' %}?pkg={{ blueprint.url }}" class="tile open-dialog">
+                            <h3 class="tile--title">
+                                <div class="tile--logo-wrapper">
+                                    <img class="tile--logo" src="{% if blueprint.list_image %}{{ blueprint.list_image.url }}{% else %}{{ STATIC_URL }}img/icons/blueprint.svg{% endif %}" alt="" />
+                                </div>
+                                {{blueprint.name}}
+                            </h3>
+                            <!-- <div>{{blueprint.rendered_description|bleach_filter|truncatechars:200}}</div> -->
+                            <footer class="tile--footer">
+                                <span class="btn btn--has-icon blueprints-new--btn catalog-icon-plus">Download</span>
+                            </footer>
+                        </a>
+
+                    </li>
+                    {% endfor %}
+                </ol>
+                <!-- /end .tile-list -->
+
+                {% if not object_list %}
+                    <div class="tile-list-controls">No blueprints found.</div>
+                {% endif %}
+
+            </div>
+            <!-- /end .catalog--container -->
+
+        </section>
+        <!-- /end catalog grid -->
+
+    </main>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ STATIC_URL }}js/catalog.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            function getQuerystring() {
+                var querydict = {};
+
+                var current_search_term = $('#catalog-search').val();
+                if (typeof current_search_term != 'undefined' & current_search_term != ''){
+                    querydict['q'] = current_search_term
+                }
+                var current_sort = $('#options--grid-sort').val();
+                if (typeof current_sort != 'undefined') {
+                    querydict['sort'] = current_sort
+                }
+                var current_filters = $('aside.catalog-filters input:checked').map(function () {return this.id.replace('filter-', '');}).toArray().join(',')
+                if (typeof current_filters != 'undefined') {
+                    querydict['filters'] = current_filters
+                }
+
+                var querystring = Object.keys(querydict).map(function (key) {
+                    return [key, querydict[key]].join("=");
+                }).join("&");
+                return querystring
+            };
+
+            var latestReloadRequested = undefined;
+            function reloadPage(delay, url){
+                // Reload the page with the currently selected options, but with a 1 second delay
+                // so the page doesn't load as someone is checking several options.
+                var delay = delay === undefined ? 1000 : delay;
+
+                let reloadRequested = new Date();
+                latestReloadRequested = reloadRequested;
+                // Wait a second, and only reload the page if another request hasn't come in since this one.
+                if (typeof url == "undefined"){
+                    url = window.location.origin + window.location.pathname + '?';
+                } else {
+                    url += '&';
+                }
+                setTimeout(function () {
+                    if (latestReloadRequested.getTime() === reloadRequested.getTime()) {
+                        window.location.href = url + getQuerystring();
+                    }
+                }, (delay));
+            }
+
+            // Hook up the remove buttons on the active filters
+            $('#filters-active--list li a.catalog-icon-close').on('click', function () {
+                event.preventDefault();
+                currentFilterID = $(this).attr('filterid');
+                $(this).parent('li').remove();
+                $('aside.catalog-filters input#filter-' + currentFilterID).prop("checked", false);
+                reloadPage();
+            });
+            // The close all button on the active filters
+            $('.filter--head a.catalog-icon-close-dark').on('click', function () {
+                event.preventDefault();
+                $('#filters-active--list li').remove();
+                $('aside.catalog-filters input').prop("checked", false);
+                reloadPage();
+            });
+            // The checkboxes on all available filters
+            $('aside.catalog-filters input').on('click', function(){
+                reloadPage();
+            })
+            // The sort choices
+            $('select#options--grid-sort').change(function () {
+                if($(this).val() != "{{sort}}") {
+                    reloadPage(delay=0);
+                }
+            })
+            // The pagination links
+            $('a.nav-link').on('click', function () {
+                event.preventDefault();
+                reloadPage(delay=0, url=this.href);
+            });
+            // The search field, while typing
+            $('#catalog-search').on('keyup', function () {
+                if (this.value.length > 2) {
+                    reloadPage();
+                }
+            });
+            // The search field, on hitting enter
+            $('form.form--grid-search').on('submit', function () {
+                event.preventDefault();
+                reloadPage(delay=0);
+            });
+        });
+    </script>
+
+{% endblock %}

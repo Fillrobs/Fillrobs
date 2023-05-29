@@ -1,0 +1,69 @@
+{% extends 'servers/nic_detail.html' %}
+
+{% load helper_tags %}
+{% load rh_tags %}
+
+
+{% comment %}
+VPC networking uses Elastic Network Interfaces (ENI)
+
+References
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html
+http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#best-practices-for-configuring-network-interfaces
+
+In AWS each virtual NIC can have the following attributes:
+    * one primary private IP
+    * 0+ secondary private IP addresses
+    * one EIP per private IP
+    * one public IP address
+    * one or more security groups
+    * a MAC address
+    * a description
+{% endcomment %}
+
+
+{% block nic-info %}
+    {% if server.ec2serverinfo.vpc_id %}
+        <dt>Private IP:</dt>
+        <dd>
+            <a href="http://{{ nic.private_ip }}/">{{ nic.private_ip|clippable }}</a>
+        </dd>
+
+        <dt>Public IP:</dt>
+        <dd>
+            {% if nic.ip %}
+
+                <a href="http://{{ nic.ip }}/">{{ nic.ip|clippable }}</a>
+
+                {% if "server.manage_nics" in profile.permissions and server.status == 'ACTIVE' and nic.mac %}
+                    {% if nic.ip in server.ec2serverinfo.all_eips_in_region %}
+                        <a class="btn btn-default js-dialog-link"
+                            href="{% url 'disassociate_vpc_elastic_ip' server.id nic.mac %}"
+                            >Disassociate Elastic IP</a>
+                    {% else %}
+                            <a class="btn btn-default js-dialog-link"
+                                data-dialog-width="700"
+                                href="{% url 'associate_vpc_elastic_ip' server.id nic.mac %}"
+                                >Associate Elastic IP</a>
+                    {% endif %}
+                {% endif %}
+
+            {% endif %}
+        </dd>
+
+        <dt>MAC:</dt>
+        <dd>{{ nic.mac|clippable }}</dd>
+
+        <dt>Network:</dt>
+        {% if nic.network %}
+            <dd style="width: 80%">
+                {% include 'servers/nic_network_subpanel.html' with network=nic.network %}
+            </dd>
+        {% else %}
+            <dd><i>None</i></dd>
+        {% endif %}
+
+    {% else %}
+        {{ block.super }}
+    {% endif %}
+{% endblock %}

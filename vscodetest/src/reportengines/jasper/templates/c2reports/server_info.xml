@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report>
+    <reportDetails>
+        <report_title>{{ report_title }}</report_title>
+        <custom_banner_url>{{ custom_banner_url }}</custom_banner_url>
+         <group_name>{{ group_name }}</group_name>
+    </reportDetails>
+    <servers>
+        {% for server in servers %}    
+        <server>
+            <id>{{ server.id }}</id>
+            <hostname>{{ server.hostname }}</hostname>
+            <ip>{{ server.ip }}</ip>
+            <cpu_cnt>{{ server.cpu_cnt|default:0 }}</cpu_cnt>
+            <disk_size>{{ server.disk_size|default:0 }}</disk_size>
+            <mem_size>{{ server.mem_size|default:0 }}</mem_size>
+            <os_build>{{ server.os_build }}</os_build>
+            <group>{{ server.group }}</group>
+            <owner>{{ server.owner }}</owner>
+            <get_rate>{{ server.get_rate }}</get_rate>
+            <rate_display>{{ server.rate_display }}</rate_display>
+        </server>
+        {% endfor %}
+    </servers>
+</report>

@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load ip_tags %}
+
+<div class="modal-dialog">
+    <div class="modal-content text-center">
+        <div class="modal-header">
+            <img height=48 src="/static/logos/cb-logo.svg">
+        </div>
+        <div class="modal-body">
+            <dl class="dl-horizontal">
+                <dt>{% trans "Version" %}</dt>
+                <dd>{{ version }}{% if enable_champion %} - Roth {% endif %}</dd>
+
+                <dt>{% trans "Build" %}</dt>
+                <dd>{{ build }}</dd>
+
+                <dt>{% trans "Release Date" %}</dt>
+                <dd>{{ release_date }}</dd>
+
+                <dt>{% trans "Local IP" %}</dt>
+                <dd>{% local_ip %}</dd>
+            </dl>
+            {% if enable_champion %}
+                <div style="display: flex; margin: 1em 4em;">
+                    <div style="flex: 1 1 auto; text-align: left;">
+                        <!-- If image use these styles. -->
+                        <!-- <img src="/static/img/[filename.jpg]" alt="[Champion Name Here]" class="img-rounded"  style="width: 60%; margin: 0 auto 1rem; display: block;"> -->
+                        <p>CloudBolt 9.4 – Roth gets its name from Product Champion Jason Roth from IHG, a CloudBolt customer since 2015. InterContinental Hotels Group (IHG) is an English multinational hotels company headquartered in Denham, UK. IHG has more than 5,000 hotels and nearly 750,000 guest rooms in almost 100 countries around the world.</p>
+                        <p>Thank you, Jason, for championing CloudBolt at IHG. We at CloudBolt are proud to name this release after you.</p>
+                    </div>
+                </div>
+            {% endif %}
+            <a href="{{ STATIC_URL }}docs/HTML/release-notes.html" target="_blank">
+                {% trans "What's New in " %}{{ version }}</a>
+            <p>&copy;{% now "Y" %} <a href="http://www.cloudbolt.io/" target="_blank">CloudBolt
+                Software, Inc.</a></p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+        </div>
+    </div>
+</div>

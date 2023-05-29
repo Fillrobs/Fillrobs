@@ -1,0 +1,44 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="panel panel-default activity">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            {% trans 'Recent Activity' %}
+            {% blockinfotip %}
+            {% blocktrans with count=activity|length %}Last {{ count }} history events for servers belonging to your groups{% endblocktrans %}
+            {% endblockinfotip %}
+        </h2>
+    </div>
+    <div class="panel-body">
+        {% for event in activity %}
+        <div>
+            <div class="pull-right">{{ event.action_time|how_long_ago }}</div>
+
+            {% if event.server %}
+            <strong>{{ event.server|render_link }}</strong>
+            {% endif %}
+
+            <p>{{ event.sanitized_event_message|linebreaksbr }}</p>
+        </div>
+        {% empty %}
+        <div>
+            {% trans 'There is no activity to display.' %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script>
+$(function() {
+    function link_to_history_tab() {
+        /* Appending the anchor dynamically to the href of each server link
+         * because render_link doesn't provide a way to do so.
+         */
+        $('.panel.activity a').each(function() {
+            var $this = $(this);
+            $this.attr('href', $this.attr('href') + "#tab-history");
+        });
+    }
+    link_to_history_tab();
+});
+</script>

@@ -1,0 +1,29 @@
+{% extends 'dialogs/dialog.html' %}
+
+{% block non_form_content %}
+<p>These Puppet groups are on your Puppet Enterprise server but have not been imported
+into CB. Importing will make them available as applications that CB can
+install.<p>
+{% endblock non_form_content %}
+
+{% block form_content %}
+<table id='puppet-groups-for-import' data-table="dialog clickable">
+    <thead>
+        <tr>
+            <th class="shrink">Import?</th>
+            <th class="expand">Group Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in groups %}
+        <tr>
+            <td class="shrink"><input type="checkbox" name="{{ CLASS_PREFIX }}|{{ group.uuid }}|{{ group.name }}"></td>
+            <td class="expand">{{ group.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    c2.dataTables.init();
+</script>
+{% endblock form_content %}

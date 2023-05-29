@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block topnav %}managetenants{% endblock %}
+
+{% block content %}
+    <section class="intro">
+        <p>
+            {% blocktrans %}
+            Tenants are a way of subdividing your CloudBolt so that you can assign administrative
+            privileges to users, but only within their area. Users within different tenants will not
+            see each other's environments, resource handlers, etc. If the users also belong to
+            different groups, they also will not see each other's servers, resources, and blueprints.
+            Tenants can be used in conjunction with portals to create different branding for each
+            tenant.
+            {% endblocktrans %}
+        </p>
+    </section>
+
+<h1>
+    {% trans "Tenant List" %}
+</h1>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'tenant_add' %}"
+        data-dialog-width="500px"
+        data-test="tenant-add-btn">
+        <span class="icon-add"></span>
+        Add a tenant
+    </a>
+</div>
+
+<table id="tenants-table" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Portal</th>
+            <th>Users</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for tenant in tenants %}
+        <tr>
+            <td>
+                <a href="{% url "tenant_detail" tenant.id %}" data-test="tenant-link">
+                    {{ tenant.label|default:tenant.id }}
+                </a>
+            </td>
+            <td>
+                {% if tenant.portal__id %}
+                    {# Can't use link_or_label due to values in view, but only CB Admins can see this #}
+                    {# page so it can always be a link #}
+                    <a href="{% url "portal_detail" tenant.portal__id %}" data-test="tenant-portal-link">
+                        {{ tenant.portal__name|default:tenant.portal__id }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+            <td>
+                {{ tenant.user_count }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<h1>
+    {% trans "Tenant Roles" %}
+</h1>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'tenant_role_add' %}"
+        data-dialog-width="500px"
+        data-test="tenant-role-add-btn">
+        <span class="icon-add"></span>
+        Add a tenant role
+    </a>
+</div>
+
+<table id="tenant-roles-table" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Users</th>
+            <th>Permissions</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for role in tenant_roles %}
+        <tr>
+            <td>
+                {{ role.label }}
+            </td>
+            <td>
+                {{ role.description }}
+            </td>
+            <td>
+
+                {% for user in role.user_profiles.all %}
+                    <a href={% url 'user_detail' user.id %}>{{ user.full_name }}</a>
+                    ({{ user.tenant|link_or_label_blank_none:profile|default:"No tenant" }})<br>
+                {% endfor %}
+            </td>
+            <td>
+                {{ role.permissions.all |render_list }}
+            </td>
+            <td class="shrink">
+                <div class="btn-group">
+                    <a class="icon-edit btn btn-default btn-sm open-dialog"
+                        href="{% url 'tenant_role_edit' role.id %}"
+                        data-test="tenant-role-edit-btn"></a>
+                    <a class="icon-delete btn btn-default btn-sm open-dialog"
+                        href="{% url 'tenant_role_delete' role.id %}"
+                        data-test="tenant-role-delete-btn"></a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}

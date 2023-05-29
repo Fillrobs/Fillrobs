@@ -1,0 +1,68 @@
+{% load i18n %}
+
+{% if will_exceed_quotas %}
+  <div class="alert alert-warning">
+    {% trans "This group's quotas will be exceeded." %}
+  </div>
+{% endif %}
+<div>
+  <span class="collapsed" data-toggle="collapse" data-target="#quota-impact">
+    {% trans "View details" %} <span class="glyphicon glyphicon-chevron-down"></span>
+  </span>
+  <div id="quota-impact" class="collapse">
+    {% if quota_error_msg %}
+      <div class="error">
+        {{ quota_error_msg }}
+      </div>
+    {% else %}
+      <table class="table numeric-stats">
+        <thead>
+          <tr>
+            <th>{% trans "Resource" %}</th>
+            <th>{% trans "Net Change" %}</th>
+            {% if show_projection %}
+              <th>{% trans "Projected Availability" %}</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>{% trans "Rate" %}</th>
+            <td>{{ rate_diff }}</td>
+            {% if show_projection %}
+              <td>{{ rate_avail_new }}</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th>{% trans "Servers" %}</th>
+            <td>{{ vm_diff }}</td>
+            {% if show_projection %}
+              <td>{{ vm_avail_new }}</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th>{% trans "CPU" %}</th>
+            <td>{{ cpu_diff }}</td>
+            {% if show_projection %}
+              <td>{{ cpu_avail_new }}</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th>{% trans "Memory GB" %}</th>
+            <td>{{ mem_diff }}</td>
+            {% if show_projection %}
+              <td>{{ mem_avail_new }}</td>
+            {% endif %}
+          </tr>
+          <tr>
+            <th>{% trans "Disk GB" %}</th>
+            <td>{{ disk_diff }}</td>
+            {% if show_projection %}
+              <td>{{ disk_avail_new }}</td>
+            {% endif %}
+          </tr>
+        </tbody>
+      </table>
+    {% endif %}
+  </div>
+</div>

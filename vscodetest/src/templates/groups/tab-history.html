@@ -1,0 +1,79 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% if history_data.message %}
+    <h4>{{ history_data.message }}</h4>
+{% else %}
+    <div id="histgraph" style="height:400px;"></div>
+{% endif %}
+
+<script>
+    function drawHistoryChart() {
+        var $histgraph = $('#histgraph');
+
+        // return early if there is nothing to draw to --- otherwise,
+        // highcharts will raise http://www.highcharts.com/errors/13
+        if ($histgraph.length === 0) { return; }
+
+        var server_history = {{ history_data.servers|to_json }};
+        // Create series data with microsecond epoch times for X values
+        var server_series = [];
+        for (var i = 0; i < server_history.length; i++) {
+            server_series.push([server_history[i][0], server_history[i][1]]);
+        }
+
+        $histgraph.highcharts({
+            title: {
+                text: {% blocktrans with days_in_period=history_data.days_in_period %}
+                          "Server usage in the past {{ days_in_period }} days"
+                      {% endblocktrans %}
+            },
+            subtitle: {
+                text: document.ontouchstart === undefined ?
+                    '{% trans "Click and drag in the plot area to zoom in" %}' :
+                    '{% trans "Pinch the chart to zoom in" %}'
+            },
+            chart: {
+                zoomType: 'x'
+            },
+            xAxis: {
+                // This causes labels to be date strings converted from epoch values
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: '{% trans "Servers" %}'
+                }
+            },
+            tooltip: {
+                formatter: function() {
+                    return Highcharts.dateFormat('%b %e %Y', this.x)  +'<br/>'
+                        + '<b>'+ this.y +' servers</b>';
+                }
+            },
+            series: [
+                {
+                    name: '{% trans "Servers" %}',
+                    type: 'area',
+                    data: server_series
+                }    
+            ],
+            credits: {
+                enabled: false
+            },
+        });
+    }
+
+    // This call is really only needed when the history tab is already active
+    // on page load; otherwise the shown event below will take effect.
+    drawHistoryChart();
+
+    $('a[href="#tab-history"]').one('shown.bs.tab', function (e) {
+        // Cause chart to be re-sized to the tab-pane width when it is first
+        // visited. Otherwise, if page is loaded with another tab active, the
+        // chart will think its container is narrower than it really is and
+        // only become properly sized when browser is resized.
+        drawHistoryChart();
+    });
+
+</script>

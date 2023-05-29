@@ -1,0 +1,44 @@
+{% load helper_tags %}
+
+<table id="keys"
+    data-table
+    data-table-sort="1,asc">
+    <thead>
+        <tr>
+            <th>Key Name</th>
+            <th>Environments</th>
+            <th>Key Material {% infotip 'In order to perform actions like running remote scripts using a particular SSH key, the material must be available to CB. If it is not, upload the key material to make it usable.' %} </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key in keys %}
+        <tr>
+            <td class="name">{{ key.name }}</td>
+            <td>
+                {% for env in key.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </td>
+            <td>
+                {% if key.have_material %}
+                    <p>Available to CB</p>
+                {% else %}
+                    <p style="color:red">Not Available to CB</p>
+                {% endif %}
+            </td>
+            <td>
+                <a title="Upload key material for '{{ key.name }}'"
+                   href="{% url 'upload_key_material' rh.id key.slug %}"
+                   class="icon-edit open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,29 @@
+{% load crispy_forms_tags %}
+
+<form id="ami-filters" class="form-horizontal" method="get">
+    <div id="fields-placeholder">
+        {% crispy filters_form %}
+    </div>
+</form>
+
+<div id="ami-filters-submit" class="btn-toolbar text-center">
+    <button type="submit" class="btn btn-default">
+        <span class="icon-filter"></span>
+        Apply filters
+    </button>
+</div>
+
+<script>
+$(function(){
+    var $fields = $('#ami-filters .form-group');
+    var $row = c2.forms.splitElementsIntoColumns($fields, 3, 'md');
+    $('#fields-placeholder').replaceWith($row);
+    $('#ami-filters input').clearable();
+
+    {% comment %}
+    For some weird reason, the button element keeps being moved outside of the form after the above
+    morphing, which breaks submitting. Moving it back in manually to fix it.
+    {% endcomment %}
+    $('#ami-filters').append($('#ami-filters-submit'));
+});
+</script>

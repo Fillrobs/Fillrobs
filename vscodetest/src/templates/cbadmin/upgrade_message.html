@@ -1,0 +1,8 @@
+{% load helper_tags %}
+
+{% if cb_info %}
+    <div class="alert alert-info alert-dismissable">
+        {% portal_label %} <b>{{ cb_info.version }}</b> is available!
+        <a href="{% url 'version_detail'  %}">Click here for more info</a>.
+    </div>
+{% endif %}

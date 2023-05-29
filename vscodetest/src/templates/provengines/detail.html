@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Provisioning engine: {{ provengine.name }} {% endblock %}
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<h1>{{ provengine.name }}</h1>
+
+<ul class="nav nav-boxed-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab-overview">Overview</a></li>
+    <li><a data-toggle="tab" href="#tab-servers">Servers</a></li>
+    <li><a data-toggle="tab" href="#tab-osbuilds">OSBuilds</a></li>
+</ul>
+<div class="tab-content">
+
+    <div id="tab-overview" class="active tab-pane">
+        {% include 'provengines/tab-overview.html' %}
+    </div>
+
+    <div id="tab-servers" class="tab-pane">
+        {% include 'provengines/tab-servers.html' %}
+    </div>
+
+    <div id="tab-osbuilds" class="tab-pane">
+        {% include 'provengines/tab-osbuilds.html' %}
+    </div>
+
+</div>
+{% endblock content %}
+
+
+{% block onReady %}
+{% endblock onReady%}

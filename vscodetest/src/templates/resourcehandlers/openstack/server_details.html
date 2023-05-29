@@ -1,0 +1,40 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} {% trans "Details" %}</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>{% trans "Tenant" %}:</dt>
+            <dd>{{ details.location }}</dd>
+            <dt>{% trans "Availabilty Zone" %}:</dt>
+            <dd>{{ details.availability_zone }}</dd>
+        </dl>
+        {% if details.tags_as_list %}
+            <dl>
+                <dt>{% trans "Tags" %}:</dt>
+                <dd>
+                    {% for tag in details.tags_as_list %}
+                        <span class="cb-tag">{{ tag }}</span>
+                    {% endfor %}
+                    <dt>{% trans "Snapshots" %}:</dt>
+                    <dd>
+                    {% for snapshot in details.snapshots.all %}
+                    {{ snapshot.get_name_with_date_created }}
+
+                    <a class="open-dialog"
+                        href="{% url 'server_delete_snapshot' server.id snapshot.id %}"
+                        id="delete_snapshot">
+                        <span class="icon-delete"></span>
+                    </a>
+                    {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </dd>
+                </dd>
+            </dl>
+        {% endif %}
+    </div>
+</div>

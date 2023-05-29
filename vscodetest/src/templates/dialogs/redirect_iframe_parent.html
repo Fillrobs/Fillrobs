@@ -1,0 +1,9 @@
+<!-- This page is returned by the iframe dialog views when they
+   would like the parent page to redirect to a given URL -->
+<html><body>
+<script type="text/javascript">
+    window.onload = function() {
+        window.top.location.href = "{{ url }}";
+    };
+</script>
+</body></html>

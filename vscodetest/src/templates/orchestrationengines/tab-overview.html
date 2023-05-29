@@ -1,0 +1,42 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load oe_tags %}
+
+<div class="btn-toolbar">
+{% block actions %}
+    <a class="btn btn-default open-dialog"
+        href="#">
+        <span class="icon-credentials"></span>
+        Edit Credentials
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="#">
+        <span class="icon-edit"></span>
+        Edit Settings
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="#">
+        <span class="icon-verify-connection"></span>
+        Verify Connection
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'orchestrator_delete' engine.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+{% endblock actions %}
+</div>
+
+<dl>
+  <dt>Technology:</dt>
+  <dd>{{ engine|orchestrator_icon }} {{ engine.technology.name }}</dd>
+{% block engine_details %}
+  <dt>Name:</dt>
+  <dd>{{ engine.name}}</dd>
+  <dt>IP Address:</dt>
+  <dd>{{ engine.host }}</dd>
+  <dt>Username:</dt>
+  <dd>{{ engine.serviceaccount }}</dd>
+{% endblock engine_details %}
+</dl>

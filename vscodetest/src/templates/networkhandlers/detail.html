@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load admin_list %}
+{% load item_list %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load account_tags %}
+
+{% block title %}Network handler: {{ handler.name }} {% endblock %}
+{% block topnav %}networkhandlers{% endblock %}
+
+{% block content %}
+
+<h1>{{ handler.display_name }}</h1>
+
+<ul class="nav nav-boxed-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab-overview">Overview</a></li>
+    <li><a data-toggle="tab" href="#tab-routers">Routers and Trans. Zones</a></li>
+    <li><a data-toggle="tab" href="#tab-resourcehandlers">Resource Handler Links</a></li>
+    <li><a data-toggle="tab" href="#tab-networks">Networks</a></li>
+</ul>
+<div class="tab-content">
+
+    <div id="tab-overview" class="active tab-pane">
+        {% include 'networkhandlers/tab-overview.html' %}
+    </div>
+
+    <div id="tab-routers" class="tab-pane">
+        {% include 'networkhandlers/tab-routers.html' %}    
+    </div>
+
+    <div id="tab-resourcehandlers" class="tab-pane">
+        {% include 'networkhandlers/tab-resourcehandlers.html' %}
+    </div>
+    
+    <div id="tab-networks" class="tab-pane">
+        {% include 'networkhandlers/tab-networks.html' %}
+    </div>
+
+</div>
+{% endblock content %}
+
+
+{% block onReady %}
+{% endblock onReady%}

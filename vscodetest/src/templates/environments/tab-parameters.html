@@ -1,0 +1,6 @@
+{% load helper_tags %}
+
+{% with group_or_env=environment group_or_env_str='environment' %}
+    {% feedback %}
+    {% include 'parameters/parameters_table.html' %}
+{% endwith %}

@@ -1,0 +1,17 @@
+{% load connector_tags %}
+
+<div id="chooseConnector" class="text-center">
+    {% if connectors %}
+    <div class="btn-group-vertical" id="choose_technology">
+        {% for connector in connectors %}
+        <a href="{% url 'create_provider_dialog' connector.get_slug %}"
+           class="btn btn-default js-dialog-link">
+            {% connector_icon connector %}
+             <span>{{ connector.class_title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No connectors are installed.</p>
+    {% endif %}
+</div>

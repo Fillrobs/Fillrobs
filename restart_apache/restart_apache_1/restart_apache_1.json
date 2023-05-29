@@ -1,0 +1,17 @@
+{
+    "commandline-args": null,
+    "credentials": "YOUR_CREDENTIALS",
+    "description": "Restarts the apache process on the server",
+    "execution-timeout": 120,
+    "max-retries": 0,
+    "name": "Restart Apache (1)",
+    "remove-after-run": true,
+    "resource-technologies": [],
+    "run-with-sudo": true,
+    "script-filename": "remote_script_E0fQe5l",
+    "shared": "False",
+    "target-os-families": [
+        "Linux"
+    ],
+    "type": "Remote Script"
+}

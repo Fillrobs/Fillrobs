@@ -1,0 +1,81 @@
+{% extends 'dialogs/dialog.html' %}
+{% load i18n %}
+
+{% comment %}
+This dialog has no form, header or footer.
+{% endcomment %}
+{% block form_content %}{% endblock %}
+{% block modalHeader %}{% endblock %}
+{% block modalFooter %}{% endblock %}
+
+{% block non_form_content %}
+<div>
+    <h1 class="h4">{% trans "Keyboard Shortcuts" %}</h1>
+    <p class="help-block"></p>
+    <table class="table unruled definitions keyboard-shortcuts">
+        <tbody>
+            <tr>
+                <th>
+                    <code>?</code> or <code>h</code>
+                </th>
+                <td>{% trans "Global help (this dialog) " %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>/</code>
+                </th>
+                <td>{% trans "Global search" %}</td>
+            </tr>
+            {% comment %}
+            Some customers hide the Docs menu completely. This global key only
+            works if that menu is visible and has a link. See c2/accessibilty.js
+            {% endcomment %}
+            <tr id="doc-link-shortcut-key" style="display:none">
+                <th>
+                    <code>d</code>
+                </th>
+                <td>{% trans "Open docs" %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>.</code>
+                </th>
+                <td>{% trans "Bookmark this page" %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>g</code> + <code>1-9</code> {% trans "or" %} <code>&uarr;</code> <code>&darr;</code>
+                </th>
+                <td>{% trans "Open bookmarks menu and jump to a particular one" %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>Tab</code>
+                    <code>&#x21E7;Tab</code>
+                    <code>Space</code>
+                </th>
+                <td>{% trans "Navigate all interactive elements" %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>&larr;</code> <code>&rarr;</code> <code>&uarr;</code> <code>&darr;</code>
+                </th>
+                <td>{% trans "Navigate navbar and all menu items" %}</td>
+            </tr>
+            <tr>
+                <th>
+                    <code>ESC</code>
+                </th>
+                <td>{% trans "Close a dialog or menu" %}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var $link = $('[data-topnav="help"] a.help-link');
+    if ($link.is(':visible')) {
+        $('#doc-link-shortcut-key').show();
+    }
+</script>
+{% endblock %}
+

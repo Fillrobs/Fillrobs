@@ -1,0 +1,101 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default"
+            href="{% url 'discover_azure_arm_storageaccounts_for_env' environment.id %}">
+            <span class="icon-import"></span>
+            {% trans "Sync existing storage accounts" %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_azure_arm_storageaccount' environment.id %}">
+            <span class="icon-add"></span>
+            {% trans "Add" %}
+        </a>
+
+        <button
+            class="btn btn-default"
+            data-toggle="popover"
+            data-html="true"
+            data-content-selector="#storageaccounts-popover-content">
+            <span class="infotip"></span>
+        </button>
+        <div class="popover-content-el" id="storageaccounts-popover-content">
+            <p>{% blocktrans %}Azure Storage Accounts contain configuration for provisioning disks 
+            within the Azure Resource Manager. They are specific to a region, so 
+            importing them means associating them with a specific Environment.
+            To sync any Storage Accounts that haven't already been synced, click
+            on the "Sync existing storage accounts" button. This will also remove
+            any Storage Accounts that have been deleted from the Azure portal.{% endblocktrans %}
+            </p>
+            <p>{% blocktrans %}All Storage Accounts are available by default when provisioning a
+            server or configuring a Blueprint. To hide an existing storage account,
+            toggle its Availability to 'Disabled'.{% endblocktrans %}
+            </p>
+            <p>{% blocktrans %}Deleting a Storage Account will also delete it in Azure, which will 
+            delete any disks associated with it. That action cannot be undone.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+
+<div>
+    <div id="msg"></div>
+
+    <table id="storageaccount-list">
+        <thead>
+            <tr>
+                <th>{% trans "Availability" %} {% infotip _("Enable which storage accounts are available when provisioning a server or configuring a Blueprint.") %}</th>
+                <th>{% trans "Storage Account" %}</th>
+                <th>{% trans "Resource Group" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td>
+                    <input class="toggleProperty" type="checkbox"
+                      data-href="{% url 'toggle_boolean_storageaccount' object.id %}" name="is_active"
+                      {% if object.is_active %}checked="checked"{% endif %}
+                      {% if not profile.is_cbadmin %} disabled{% endif %}>
+                </td>
+                <td>
+                    {{ object }}
+                </td>
+                <td>
+                    {{ object.resource_group|default:'<i>unknown</i>' }}
+                </td>
+                <td>
+                    <a class="icon-delete open-dialog"
+                        href="{% url 'delete_azure_arm_storageaccount' object.id %}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+$(function() {
+    var $form = $('#storageaccount-list');
+
+    // Convert all checkboxes into toggle switches
+    $form.find('input[type=checkbox]').each(function() {
+        var $box = $(this);
+        $box.data('post-url', $box.attr('data-href') + "?prop=" + $box.attr('name'));
+        $box.bootstrapToggle({
+            'width': 100,
+            'on': '{% trans "Enabled" %}',
+            'off': '{% trans "Disabled" %}'
+        });
+    });
+
+    // Initialize now instead of with the html prop, so the checkboxes
+    // are formatted first.
+    $form.dataTable();
+
+    c2.toggles.enablePostOnChange('input[type=checkbox]');
+});
+</script>

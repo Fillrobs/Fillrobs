@@ -1,0 +1,81 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link open-dialog"
+        href="{% url 'ansible_playbook_create' provider.id %}">
+        <span class="icon-add"></span>
+        Add a Playbook
+    </a>
+</div>
+
+<table id="playbooks-table" data-table>
+    <thead>
+        <tr>
+            <th>Path</th>
+            <th><span class="sr-only">Run Buttons</span></th>
+            <th><span class="sr-only">Edit Buttons</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in playbooks %}
+        <tr>
+            <td class="playbook-name">{{ obj.path }}</td>
+            <td>
+                <a class="no-tooltip-affordance"
+                    href="{% url 'ansible_playbook_run' provider.id obj.id %}"
+                    title="Run playbook from {% portal_label %}"
+                    ><i class="fas fa-play"></i> Run Playbook</a>
+            </td>
+            <td>
+                <a class="icon-edit open-dialog no-tooltip-affordance"
+                    href="{% url 'ansible_playbook_update' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Edit playbook"
+                    ></a>
+                <a class="icon-delete open-dialog no-tooltip-affordance"
+                    href="{% url 'ansible_playbook_delete' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove playbook from {% portal_label %}"
+                    ></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    c2.dataTables.init();
+
+    var $objectsTable = $('#connector-{{ object_type }}');
+
+    $objectsTable.dataTable({
+        "aaSorting": [[ 0, "asc" ]],
+        "oLanguage": {
+            "sEmptyTable": "No {{ object_type }} has been added"
+        }
+    });
+
+    $objectsTable.on('click', '.js-post-link', function (e) {
+        e.preventDefault();
+        c2.block.block();
+        $.post(e.target.href).done(function () {
+            var $target = $(e.target);
+            var $row = $target.closest('tr');
+
+            // tooltips must be destroyed before deleting the row
+            // because otherwise the tooltip will stick around
+            // forever, never knowing that the mouse left the trigger
+            $target.tooltip('destroy');
+            // Bootstrap doesn't do a very good job of cleaning up...
+            $('#tooltip-container').empty();
+            $objectsTable.fnDeleteRow($row[0]);
+        }).fail(function () {
+            // Show a dismissable alert then fade out after 15s
+            c2.alerts.addGlobalAlert('The {{ object_type }} could not be removed.', 'error', true, 15000);
+        }).always(function () {
+            c2.block.unblock();
+        });
+    });
+});
+</script>

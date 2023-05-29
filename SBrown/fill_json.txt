@@ -1,0 +1,44 @@
+{
+ "title": "CMP Environment",
+ "logoPosition": "right",
+ "completedHtml": "<h3>Thank you for completing the Form</h3>",
+ "completedBeforeHtml": "<h3>Our records show that you have already completed this Form.</h3>",
+ "loadingHtml": "<h3>Loading Form...</h3>",
+ "pages": [
+  {
+   "name": "page1",
+   "elements": [
+    {
+     "type": "dropdown",
+     "name": "CI_aws_environment_id",
+     "title": "Select Environment",
+     "choicesByUrl": {
+      "url": "http://localhost:8001/api/v3/cmp/inboundWebHooks/IWH-ak08vlyv/run/?token=e6-oBDVkTp2RzPcBHo4w8CmFPM48qI3854ysXHkUzZM",
+      "valueName": "id",
+      "titleName": "name"
+     }
+    },
+    {
+     "type": "text",
+     "name": "CI_awsEnvName",
+     "visible": false,
+     "visibleIf": "{CI_aws_environment_id} notempty",
+     "title": "Environment Name"
+    }
+   ]
+  }
+ ],
+ "triggers": [
+  {
+   "type": "runexpression",
+   "expression": "{CI_aws_environment_id} notempty",
+   "setToName": "CI_awsEnvName",
+   "runExpression": "={CI_aws_environment_id}"
+  }
+ ],
+ "showTitle": false,
+ "showPageTitles": false,
+ "startSurveyText": "Next",
+ "completeText": "Submit",
+ "firstPageIsStarted": true
+}

@@ -1,0 +1,36 @@
+{% load helper_tags %}
+{% if flows %}
+    <table id="discovered_flows">
+        <thead>
+            <tr>
+            <th></th>
+            <th>Name</th>
+            <th>UUID</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for flow in flows %}
+            <tr>
+                <td class="selected">
+                    <input class="selector" name="flow" type="checkbox" value="{{ flow.uuid }}"/>
+                </td>
+                <td>{{ flow.name }}</td>
+                <td>{{ flow.uuid }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    No flows found in {{ engine }} in path {{ engine.flow_repo_path }}.
+{% endif %}
+
+<script>
+$(function () {
+    var $table = $('#discovered_flows');
+    $table.dataTable({
+        'fnDrawCallback': function () {
+            $table.clickable();
+        }
+    });
+});
+</script>

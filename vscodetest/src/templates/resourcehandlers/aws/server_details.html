@@ -1,0 +1,74 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>Instance Type:</dt>
+            <dd>{{ details.instance_type}}</dd>
+
+            {% comment %}
+                VPC instances use elastic network interfaces which are shown
+                on the Networks tab.
+            {% endcomment %}
+            {% if not details.vpc_id %}
+                <dt>Elastic IP:</dt>
+                <dd>
+                    {% if details.elastic_ip %}
+                        {{ details.elastic_ip|clippable }}
+                    {% else %}
+                        {% if server.status == 'ACTIVE' %}
+                            <a class="js-dialog-link"
+                                href="{% url 'associate_elastic_ip' server.id %}"
+                                >Associate Elastic IP</a>
+                        {% endif %}
+                    {% endif %}
+                </dd>
+
+                <dt>Public IP Address:</dt>
+                <dd>{{ details.ip_address|clippable }}</dd>
+
+                <dt>Public DNS Name:</dt>
+                <dd>{{ details.public_dns_name|clippable }}</dd>
+            {% endif %}
+
+            <dt>Private DNS Name:</dt>
+            <dd>{{ details.private_dns_name|clippable }}</dd>
+
+            <dt>Private IP Address:</dt>
+            <dd>{{ details.private_ip_address|clippable }}</dd>
+
+            <dt>Region:</dt>
+            <dd>{{ details.ec2_region }} &mdash; {{ details.ec2_region|region_display_name }}</dd>
+
+            <dt>Availability Zone:</dt>
+            <dd>{{ details.availability_zone }}</dd>
+
+            <dt>Security Groups:</dt>
+            <dd>{{ details.security_groups|to_csv }}</dd>
+
+            <dt>Key Pair Name:</dt>
+            <dd>{{ details.key_name|key_name_with_availability:rh }}</dd>
+
+            <dt>IAM Profile ARN:</dt>
+            <dd>{{ details.profile_arn }}</dd>
+
+            {% if details.host_id %}
+                <dt>Dedicated Host:</dt>
+                <dd>{{ details.host_id }}</dd>
+            {% endif %}
+
+            {% if details.host_group_arn %}
+                <dt>Dedicated Host Group:</dt>
+                <dd>{{ details.host_group_arn }}</dd>
+            {% endif %}
+        </dl>
+
+        {% if details.tags %}
+            {% include 'tags/server_details_tags.html' %}
+        {% endif %}
+    </div>
+</div>

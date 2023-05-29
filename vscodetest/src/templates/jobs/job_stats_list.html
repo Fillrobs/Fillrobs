@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+
+<h1>Job Statistics</h1>
+
+<table id="job-stats-table" class="stats">
+    <thead>
+        <tr>
+            <th>Job Type</th>
+            <th>Total Jobs</th>
+            <th>Total Failures</th>
+            <th>Last Success</th>
+            <th>Last Failure</th>
+            <th>Last Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for stat in stats %}
+        <tr>
+            <td>
+                <span class="icon-job-type-{{ stat.job_type }}"></span>
+                <a href="{{ stat.job_type_url }}">{{ stat.job_type_label }}</a>
+            </td>
+            <td>
+                {{ stat.num_jobs }}
+            </td>
+            <td>
+                {{ stat.num_failures }}
+            </td>
+            <td>
+                {% if stat.last_successful_job %}
+                    {{ stat.last_successful_job|render_job_date_link }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stat.last_failed_job %}
+                    {{ stat.last_failed_job|render_job_date_link }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if stat.last_job %}
+                    {{ stat.last_job.get_duration }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

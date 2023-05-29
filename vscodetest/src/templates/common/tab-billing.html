@@ -1,0 +1,162 @@
+{% load i18n helper_tags %}
+
+<p class="help-block" style="margin:10px">{{ top_message }}</p>
+<div class="container">
+    <div class="row">
+        {% block button_row %}
+            {# To add a row with buttons to select a timeline on the graph. #}
+        {% endblock %}
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        {# Chart divs - only show if we have relevant data #}
+        {% if daily_categories %}
+            <div id="chart-daily" class="panel panel-default" style="height: 400px"></div>
+        {% endif %}
+
+        {% if monthly_categories %}
+            <div id="chart-monthly" class="panel panel-default" style="height: 400px"></div>
+        {% endif %}
+
+        {% if yearly_categories %}
+            <div id="chart-yearly" class="panel panel-default" style="height: 400px"></div>
+        {% endif %}
+    </div>
+    <div class="col-lg-4">
+        {% if daily_categories %}
+            {% block summary_table %}
+                {# To add a custom table or other summary data #}
+            {% endblock %}
+        {% endif %}
+    </div>
+</div>
+
+<script src="{{ STATIC_URL }}js/highcharts/modules/exporting.js"></script>
+<script src="{{ STATIC_URL }}js/rgbcolor.js"></script>
+<script src="{{ STATIC_URL }}js/canvg.js"></script>
+<script>
+    {% if daily_categories %}
+        {% block highcharts_options %}
+          {# define the series var in the template extension #}
+          var dailySeries = [];
+          var yAxis = {
+            labels: {
+              format: '{{ currency_symbol }} {value:.2f}'
+            },
+            title: {
+              text: 'Cost ({{ rate_currency_unit }})'
+            }
+          };
+        {% endblock %}
+
+        // Collect other chart data from context
+        var dailyCategories = {{ daily_categories|to_json }};  // list of days
+
+        $('#chart-daily').highcharts(_.merge(
+        c2.charts.billingSeriesDefaults,
+        {
+            tooltip: {
+              headerFormat: '<b>{point.x:%e %b %Y}</b> <br>',
+              pointFormat: '{series.name}: <b>{{ currency_symbol }} {point.y:.3f}</b>'
+            },
+            title: {
+              text: 'Cost By Day'
+            },
+            xAxis: {
+              type: 'datetime',
+              tickInterval: 5,
+              labels: {
+                format: '{value:%e %b %Y}'
+              },
+              categories: c2.charts.getCategoriesAsDates(dailyCategories),
+            },
+            yAxis: yAxis,
+            series: dailySeries
+        }
+        ));
+      {% endif %}
+
+      {% if monthly_categories %}
+        var monthlyCategories = {{ monthly_categories|to_json }};  // list of days, expected from server and group
+
+        $('#chart-monthly').highcharts(_.merge(
+          {
+            chart: {
+              type: 'column'
+            },
+            plotOptions: {
+              column: {
+                series: {
+                  animation: false
+                }
+              }
+            },
+            title: {
+              text: 'Cost By Month'
+            },
+            xAxis: {
+              categories: c2.charts.getCategoriesAsDates(monthlyCategories),
+              labels: {
+                format: '{value:%b %Y}'
+              },
+            },
+            yAxis: {
+              labels: {
+                format: '{{ currency_symbol }} {value:.2f}'
+              },
+              title: {
+                text: 'Cost ({{ rate_currency_unit }})'
+              }
+            },
+            series: monthlySeries,
+            tooltip: {
+              headerFormat: '<b>{point.x:%b %Y}</b> <br>',
+              pointFormat: '{series.name}: <b>{{ currency_symbol }} {point.y:.2f}</b>'
+            }
+          }
+        ));
+      {% endif %}
+
+      {# Currently only supported for groups, not servers. #}
+      {% if yearly_categories %}
+        var yearlyCategories = {{ yearly_categories|to_json }};
+
+        $('#chart-yearly').highcharts(_.merge(
+          {
+            chart: {
+              type: 'column'
+            },
+            plotOptions: {
+              column: {
+                series: {
+                  animation: false
+                }
+              }
+            },
+            title: {
+              text: 'Cost By Year'
+            },
+            xAxis: {
+              categories: c2.charts.getCategoriesAsDates(yearlyCategories),
+              labels: {
+                format: '{value:%Y}'
+              },
+            },
+            yAxis: {
+              labels: {
+                format: '{{ currency_symbol }} {value:.2f}'
+              },
+              title: {
+                text: 'Cost ({{ rate_currency_unit }})'
+              }
+            },
+            series: yearlySeries,
+            tooltip: {
+              headerFormat: '<b>{point.x:%Y}</b> <br>',
+              pointFormat: '{series.name}: <b>{{ currency_symbol }} {point.y:.2f}</b>'
+            }
+          }
+        ));
+      {% endif %}
+</script>

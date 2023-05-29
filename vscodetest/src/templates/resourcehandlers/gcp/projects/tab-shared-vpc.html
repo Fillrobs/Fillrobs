@@ -1,0 +1,40 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default"
+        href="{% url 'gcp_project_sync_shared_vpc_subnets' handler_id project.id %}"
+        id="import-shared-vpc-subnets">
+        <span class="icon-handler-gcp"></span>
+        Sync shared subnets
+    </a>
+</div>
+{% if host_project %}
+    Host project {{ host_project }} is sharing its subnets with this project.
+{% elif is_host %}
+    {{ project }} is a host project.
+    It’s sharing subnets with any attached projects.
+{% else %}
+    {{ project }} is not configured as a host project or as a service project.
+{% endif %}
+<br /><br />
+
+{% if usable_subnets %}
+    <table id="usable_subnets" data-table style="table-layout: fixed;">
+        <thead>
+            <th>Network</th>
+            <th>Region</th>
+            <th>IP addresses ranges</th>
+        </thead>
+        <tbody>
+            {% for subnet in usable_subnets %}
+                <tr>
+                <td>{{ subnet.parent_network }}</td>
+                <td>{{ subnet.region }}</td>
+                <td>{{ subnet.cidr_block }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+<div class="clearfix"></div>For more info on Shared VPC, please see the <a href="https://cloud.google.com/vpc/docs/shared-vpc">GCP documentation</a> on this feature.

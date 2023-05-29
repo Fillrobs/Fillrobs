@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% block title %}LDAP Authentication Settings{% endblock %}
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<h1>LDAP Authentication Settings</h1>
+
+<div id="msg"></div>
+
+<h2>LDAP Utilities</h2>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'new_ldap_utility_dialog' %}">
+        <span class="icon-add"></span>
+        New LDAP Utility
+    </a>
+</div>
+
+<table id="ldap-utilities-table" data-table>
+    <thead>
+        <tr>
+        <th>Domain</th>
+        <th>Imported users</th>
+        <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for ldap in ldap_utilities %}
+        <tr>
+            <td>
+                {{ ldap|link_or_label:profile }}
+            </td>
+
+            <td>
+                {{ ldap.userprofile_set.count }}
+            </td>
+
+            <td>
+                {{ ldap.ip }}:{{ ldap.port }}
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<dl class="width-auto">
+    <dt>
+        {% text_tooltip 'Local credential store' 'Determines whether local user accounts created on this server instance are allowed to log in.<br><br>  Disabling this does not delete or modify local accounts.' %}:
+    </dt>
+
+    <dd
+        {% if ldap_utilities.count == 0 and enable_local_credentials_store %}
+            class="no-tooltip-affordance"
+            data-toggle="tooltip"
+            title="To disable the local credentials store, first create at least one LDAP utility."
+        {% endif %}
+    >
+
+        <input type=checkbox name="enable_local_credentials_store" id="local-credentials"
+            data-toggle="toggle"
+            data-on="Enabled"
+            data-off="Disabled"
+            data-width="150"
+            data-post-url="{% url 'toggle_enable_local_credentials_store' %}"
+            {% if ldap_utilities.count == 0 and enable_local_credentials_store %}disabled{% endif %}
+            {% if enable_local_credentials_store %}checked{% endif %} />
+    </dd>
+
+
+    <dt>
+        {% if default_ldap %}
+            Default domain for login page: {{ default_ldap|link_or_label:profile }}
+        {% else %}
+            No default domain is defined for the login page.
+        {% endif %}
+    </dt>
+    <dd>
+        <a class="icon-edit open-dialog" href="{% url 'edit_default_domain' %}"></a>
+    </dd>
+</dl>
+
+{% endblock content %}

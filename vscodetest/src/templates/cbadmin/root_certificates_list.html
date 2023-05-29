@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<form {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+    id="misc-settings-form"
+    class="form-horizontal bootstrap3"
+    {# The DOM manipulations below take a while, so initially hide from user #}
+    style="display: none"
+    method="post" action=".">
+
+    <div class="panel panel-default">
+
+        {% csrf_token %}
+
+        <div class="panel-body">
+            {% crispy bool_settings_form %}
+        </div>
+
+    </div>{# end .panel #}
+
+</form>
+
+
+<section class="intro">
+    <p>
+    {% blocktrans %}
+    Use this page to manage Root Certificates used for validating the trustworthiness of TLS hosts
+    when making HTTPS requests made by {% endblocktrans %}{% portal_label %}. {% blocktrans %} Certificates added below
+    will be appended to the
+    default certificates provided by the Certificate library, which is updated regularly with a collection
+    of Root Certificates. More documentation is available {% endblocktrans %}<a href="https://github.com/certifi/python-certifi">{% trans 'here' %}</a>.
+    </p>
+    <p>
+    {% blocktrans %}
+    To completely disable SSL certificate verification, toggle the property above. To disable SSL certificate verification for a particular Resource Handler, toggle the verification property on that handler's credentials form.
+    {% endblocktrans %}
+    </p>
+</section>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'root_certificate_add' %}">
+                <span class="icon-add"></span>
+                {% blocktrans %}
+                New Root Certificate
+                {% endblocktrans %}
+            </a>
+        </div>
+        {% if object_list %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Status</th>
+                    <th>Contents</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        {% if object.active %}
+                            <span class="icon-job-status-success"></span> Active
+                        {% else %}
+                            <span class="icon-job-status-failure"></span> Inactive
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ object.certificate|truncatechars:100 }}
+                    </td>
+
+                    <td class="shrink">
+                        <div class="btn-group">
+                            <a class="icon-edit btn btn-default btn-sm open-dialog"
+                                href="{% url 'root_certificate_edit' object.id %}"></a>
+                            <a class="icon-delete btn btn-default btn-sm open-dialog"
+                                href="{% url 'root_certificate_delete' object.id %}"></a>
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+$(function() {
+    var $form = $('#misc-settings-form');
+
+    c2.forms.moveOffsetLabelsToLeftCol($form);
+
+    // Convert all checkboxes into toggle switches
+    $form.find('input[type=checkbox]').each(function() {
+        var $box = $(this);
+        $box.data('post-url', "{% url 'toggle_global_pref' %}?prop=" + $box.attr('name'));
+        $box.bootstrapToggle({
+            'width': 100,
+            'on': 'Enabled',
+            'off': 'Disabled'
+        });
+    });
+    $form.fadeIn();
+
+    c2.toggles.enablePostOnChange('input[type=checkbox]');
+});
+</script>
+
+{% endblock content %}

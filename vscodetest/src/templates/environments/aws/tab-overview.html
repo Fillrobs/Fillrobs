@@ -1,0 +1,21 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% if env_aws_region %}
+    <dt>{% trans "AWS Region:" %}</dt>
+    <dd>
+        {% if env_aws_region != "-" %}
+            {{ env_aws_region }}
+        {% else %}
+            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+            <a class="icon-edit open-dialog"
+                href="{% url 'edit_env_region' environment.id %}"></a>
+        {% endif %}
+    </dd>
+{% endif %}
+{% if env_aws_vpc_id %}
+    <dt>{% trans "VPC ID" %}</dt>
+    <dd>
+        {{ env_aws_vpc_id|clippable }}
+    </dd>
+{% endif %}

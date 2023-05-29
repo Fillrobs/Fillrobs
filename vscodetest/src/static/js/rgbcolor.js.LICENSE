@@ -1,0 +1,121 @@
+Delivered-To: taylor@cloudbolt.io
+Received: by 10.64.66.194 with SMTP id h2csp711765iet;
+        Sun, 26 Feb 2017 11:04:43 -0800 (PST)
+X-Received: by 10.36.58.197 with SMTP id m188mr10775925itm.36.1488135883425;
+        Sun, 26 Feb 2017 11:04:43 -0800 (PST)
+Return-Path: <ssttoo@ymail.com>
+Received: from sonic315-54.consmr.mail.ne1.yahoo.com (sonic315-54.consmr.mail.ne1.yahoo.com. [66.163.190.180])
+        by mx.google.com with ESMTPS id m6si7836704ite.6.2017.02.26.11.04.42
+        for <taylor@cloudbolt.io>
+        (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 26 Feb 2017 11:04:43 -0800 (PST)
+Received-SPF: pass (google.com: domain of ssttoo@ymail.com designates 66.163.190.180 as permitted sender) client-ip=66.163.190.180;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@ymail.com;
+       spf=pass (google.com: domain of ssttoo@ymail.com designates 66.163.190.180 as permitted sender) smtp.mailfrom=ssttoo@ymail.com;
+       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=ymail.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ymail.com; s=s2048; t=1488135882; bh=Kna5Mz8TrXiL7pe6MIWqSlwFJQq/iEtQ0Av67u/s+O4=; h=Date:From:Reply-To:To:In-Reply-To:References:Subject:From:Subject; b=QkB68x976hhRii3vfzUc5e2rElolhdUAM4BtLAMWEVPgAMnezalep9M5LH/LhOypPzfNc6kEUYiG9CfmnL0t5guIsMKWgC9xX6Isu/Z9P9cYyCqmIwJ5k25jBiR9R7wqgJ8LDXDjmU6tH1F9y0zuuVuyAqAzsIiLR3fhxbx7IVsOpf+rbGlJ0VNG003uzkod/TsvKHDg2OPc9McYvb3kuEWltSqYiOyISDdlCZEuS5vA0/pVBRfbK38YtLznBv15J/EA4RhfKO6L0iqe0F+r+xzaI4YJbZE9F4V8MU6X2z0+SHdCETrNx2D8CAjSWD14X80cqyz8J2ggLri9Xj9TRA==
+X-YMail-OSG: 8hbN0YAVM1l0tUVJaShuKx57GG36GnvfrKatqDGZgKhT7T8kcBsalE9wYM8ygMB fRHYXeIY7KTdGCPNeY4s9fDPEbdy3SiAeBeUWE46duPfNXCIYbAXhuer8_mMhKo1eLYbNaxZ5R9f e5oRRF8QKHA.jUMawjqwzpGvjWICa39dgL3AOH7JnvnV5NmdQe9AlzX4eYlcV6dQhz9HAYl0znJD Jl6yXtU6_FqDNY3tfT62J41cNjXgNm5uYQ1RDen9hAQ5CdePSM3t0hEk3mKkZfF4y4yxERpncGZp l10.IwhXYX4NZkAKwtf0TIqfkO2OsmWrWmX0jcjiU.yeMjxfNC5I79tZVw45sRefS09Bc_ENHtaO nzgpdvcXfEs_lKOTsPNGCleTu7qRMLr6kjkc6bWhrIbnkbWDKM1Gbm_sE6IyN28u56mLMytXSuTf TyvwiGkcdFY3yo7ri0QCZZDSa_KTk4KlYulpIFMav8yY7Fu_cWoMyW7tf3pvRrD6Rho25MzzwK9r 1qAdZD2w1lsxYf7z.Qc2MoZtS5wdbrYjae5JVuDwmukqjYmeXg.FWVYvMuXTkyS8u
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic315.consmr.mail.ne1.yahoo.com with HTTP; Sun, 26 Feb 2017 19:04:42 +0000
+Date: Sun, 26 Feb 2017 19:00:41 +0000 (UTC)
+From: Stoyan Stefanov <ssttoo@ymail.com>
+Reply-To: Stoyan Stefanov <ssttoo@ymail.com>
+To: Taylor Meek <taylor@cloudbolt.io>, "ssttoo@gmail.com" <ssttoo@gmail.com>
+Message-ID: <965445032.1279265.1488135641506@mail.yahoo.com>
+In-Reply-To: <CAH5hmPx6L19Mo2HC8P-w5g7pRBrb=BXECkwPsJkvCsFA50p_wA@mail.gmail.com>
+References: <CAH5hmPx6L19Mo2HC8P-w5g7pRBrb=BXECkwPsJkvCsFA50p_wA@mail.gmail.com>
+Subject: Re: rgbcolor.js
+MIME-Version: 1.0
+Content-Type: multipart/alternative; boundary="----=_Part_1279264_958663282.1488135641504"
+Content-Length: 5195
+
+------=_Part_1279264_958663282.1488135641504
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hey Taylor,
+I agree to license rgbcolor.js to CloudBolt Software under MIT license.
+Furthermore I updated the code to spell out the MIT license.
+Hope this helps and thanks for the kind words. BTW, your lawyers are not th=
+e first to be confused by the the original text, hopefully they're the last=
+ :)
+Best,Stoyan
+
+=C2=A0--
+Stoyan Stefanov
+http://phpied.com
+
+      From: Taylor Meek <taylor@cloudbolt.io>
+ To: ssttoo@ymail.com; ssttoo@gmail.com=20
+ Sent: Friday, February 24, 2017 5:09 PM
+ Subject: rgbcolor.js
+  =20
+Hi Stoyan,
+We use rgbcolor.js in our application (both for highcharts, but also for ca=
+nvg), and very much appreciate the article you originally posted here. I've=
+ been going back and forth with my lawyers about this, but they say "Use it=
+ if you like it" is not a valid license that we can include, and they told =
+me I should reach out to you.
+Would you be willing to either license it formally under MIT or agree to li=
+cense it to us under MIT via email? (An email stating that you agree to lic=
+ense it to us under MIT would suffice.)
+Thanks,
+Taylor J. MeekCloudBolt Software
+
+  =20
+------=_Part_1279264_958663282.1488135641504
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<html><head></head><body><div style=3D"color:#000; background-color:#fff; f=
+ont-family:Courier New, courier, monaco, monospace, sans-serif;font-size:13=
+px"><div id=3D"yui_3_16_0_1_1488075722301_19366">Hey Taylor,</div><div id=
+=3D"yui_3_16_0_1_1488075722301_19377"><br></div><div id=3D"yui_3_16_0_1_148=
+8075722301_19315" dir=3D"ltr">I agree to license rgbcolor.js to CloudBolt S=
+oftware under MIT license.</div><div dir=3D"ltr" id=3D"yui_3_16_0_1_1488075=
+722301_19387"><br></div><div dir=3D"ltr" id=3D"yui_3_16_0_1_1488075722301_1=
+9424">Furthermore I updated the code to spell out the MIT license.</div><di=
+v dir=3D"ltr" id=3D"yui_3_16_0_1_1488075722301_19423"><br></div><div dir=3D=
+"ltr" id=3D"yui_3_16_0_1_1488075722301_19422">Hope this helps and thanks fo=
+r the kind words. BTW, your lawyers are not the first to be confused by the=
+ the original text, hopefully they're the last :)</div><div dir=3D"ltr" id=
+=3D"yui_3_16_0_1_1488075722301_19444"><br></div><div dir=3D"ltr" id=3D"yui_=
+3_16_0_1_1488075722301_19446">Best,</div><div dir=3D"ltr" id=3D"yui_3_16_0_=
+1_1488075722301_19445">Stoyan<br></div><div dir=3D"ltr" id=3D"yui_3_16_0_1_=
+1488075722301_19389"><br></div><div id=3D"yui_3_16_0_1_1488075722301_19314"=
+>&nbsp;</div><div class=3D"signature" id=3D"yui_3_16_0_1_1488075722301_1931=
+3">--<br>Stoyan Stefanov<br>http://phpied.com</div><div class=3D"qtdSeparat=
+eBR" id=3D"yui_3_16_0_1_1488075722301_19309"><br><br></div><div class=3D"ya=
+hoo_quoted" id=3D"yui_3_16_0_1_1488075722301_19245" style=3D"display: block=
+;">  <div style=3D"font-family: Courier New, courier, monaco, monospace, sa=
+ns-serif; font-size: 13px;" id=3D"yui_3_16_0_1_1488075722301_19244"> <div s=
+tyle=3D"font-family: HelveticaNeue, Helvetica Neue, Helvetica, Arial, Lucid=
+a Grande, sans-serif; font-size: 16px;" id=3D"yui_3_16_0_1_1488075722301_19=
+243"> <div dir=3D"ltr" id=3D"yui_3_16_0_1_1488075722301_19308"> <font id=3D=
+"yui_3_16_0_1_1488075722301_19316" size=3D"2" face=3D"Arial"> <hr id=3D"yui=
+_3_16_0_1_1488075722301_19425" size=3D"1"> <b><span style=3D"font-weight:bo=
+ld;">From:</span></b> Taylor Meek &lt;taylor@cloudbolt.io&gt;<br> <b><span =
+style=3D"font-weight: bold;">To:</span></b> ssttoo@ymail.com; ssttoo@gmail.=
+com <br> <b><span style=3D"font-weight: bold;">Sent:</span></b> Friday, Feb=
+ruary 24, 2017 5:09 PM<br> <b><span style=3D"font-weight: bold;">Subject:</=
+span></b> rgbcolor.js<br> </font> </div> <div class=3D"y_msg_container" id=
+=3D"yui_3_16_0_1_1488075722301_19242"><br><div id=3D"yiv2260180850"><div di=
+r=3D"ltr" id=3D"yui_3_16_0_1_1488075722301_19241"><div id=3D"yui_3_16_0_1_1=
+488075722301_19367">Hi Stoyan,</div><div id=3D"yui_3_16_0_1_1488075722301_1=
+9307"><br></div><div id=3D"yui_3_16_0_1_1488075722301_19240">We use rgbcolo=
+r.js in our application (both for highcharts, but also for canvg), and very=
+ much appreciate the article you originally posted here. I've been going ba=
+ck and forth with my lawyers about this, but they say "Use it if you like i=
+t" is not a valid license that we can include, and they told me I should re=
+ach out to you.</div><div id=3D"yui_3_16_0_1_1488075722301_19246"><br></div=
+><div id=3D"yui_3_16_0_1_1488075722301_19312">Would you be willing to eithe=
+r license it formally under MIT or agree to license it to us under MIT via =
+email? (An email stating that you agree to license it to us under MIT would=
+ suffice.)</div><div id=3D"yui_3_16_0_1_1488075722301_19310"><br></div><div=
+ id=3D"yui_3_16_0_1_1488075722301_19311">Thanks,</div><div id=3D"yui_3_16_0=
+_1_1488075722301_19373"><br></div><div id=3D"yui_3_16_0_1_1488075722301_193=
+72">Taylor J. Meek</div><div id=3D"yui_3_16_0_1_1488075722301_19374">CloudB=
+olt Software</div>
+</div></div><br><br></div> </div> </div>  </div></div></body></html>
+------=_Part_1279264_958663282.1488135641504--
+

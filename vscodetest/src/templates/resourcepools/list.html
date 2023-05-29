@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Resource Pools{% endblock %}
+{% block topnav %}admin{% endblock %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block content %}
+    <h1>Resource Pools</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'resourcepool_add' %}">
+            <span class="icon-add"></span>
+            Add a resource pool
+        </a>
+    </div>
+
+    <p>
+    Resource pools allow you to create collections of values and manage access
+    to them.  Values can be hostnames, IP and MAC addresses, or values for
+    parameter you've defined.
+    </p>
+
+    <table id="resourcepools-table" data-table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                {% if profile.show_tenant_info %}
+                    <th>Tenant</th>
+                {% endif %}
+                <th>Scope</th>
+                <th>Parameters</th>
+                <th>Environments</th>
+                <th>Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for resource_pool, params, usage_str in resource_pools %}
+            <tr>
+                <td class="name">
+                    {{ resource_pool|link_or_label:profile }}
+                </td>
+
+                {% if profile.show_tenant_info %}
+                    <td>
+                        {{ resource_pool.tenant|link_or_label_none_global:profile }}
+                    </td>
+                {% endif %}
+
+                <td>
+                    {{ resource_pool.global_scope|yesno:"Global,Local" }}
+                </td>
+
+                <td>
+                    {{ params|render_list:profile }}
+                </td>
+
+                <td>
+                    {{ resource_pool.environment_set.all|render_list:profile }}
+                </td>
+
+                <td>
+                    {{ usage_str }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

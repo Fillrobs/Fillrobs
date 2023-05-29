@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+
+{% block title %}Orchestration engine: {{ engine.name }} {% endblock %}
+{% block topnav %}orchestrationengines{% endblock %}
+{% block content %}
+
+<h1>{{ engine.name }}</h1>
+
+<ul class="nav nav-boxed-tabs">
+
+    {% for tab in tabs %}
+        <li{% if forloop.first %} class="active"{% endif %}>
+            <a data-toggle="tab" href="#{{ tab.id }}">{{ tab.title }}</a>
+        </li>
+    {% endfor %}
+
+</ul>
+<div class="tab-content">
+
+    {% for tab in tabs %}
+        <div id="{{ tab.id }}" class="{% if forloop.first %}active {% endif %}tab-pane">
+            {% include tab.template %}
+        </div>
+    {% endfor %}
+
+</div>
+{% endblock content %}
+
+
+{% block onReady %}
+{% endblock %}

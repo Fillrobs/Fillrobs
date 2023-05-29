@@ -1,0 +1,15 @@
+{# base template for dashboard cards #}
+
+<div id="{% block card_id %}{% endblock %}"
+    class="panel panel-default">
+    <div class="panel-heading widget__header cb__grid">
+        <div class="widget__heading col-sm--8 cb__grid">
+            <h2 class="panel-title heading--3">{% block heading %}{% endblock %}</h2>
+        </div>
+        <small class="pull-right col-sm--3">{% block heading_right %}{% endblock %}</small>
+    </div>
+    <div class="panel-body clearfix">
+        {% block card_body %}{% endblock %}
+    </div>
+    {% block footer %}{% endblock %}
+</div>

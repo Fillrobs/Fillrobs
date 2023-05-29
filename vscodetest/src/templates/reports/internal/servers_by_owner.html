@@ -1,0 +1,35 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+var categories = {{ categories|to_json }};
+var serverCounts = {{ server_counts|to_json }};
+
+$('#chart_div').highcharts(_.merge(c2.charts.serverBarChartDefaults, {
+    title: {
+        text: '{% trans "Users owning the most servers" %}'
+    },
+    subtitle: {
+        text: '{% trans "Includes all members of groups you have permission to view." %}'
+    },
+    xAxis: {
+        categories: categories
+    },
+    series: [
+        {
+            name: '{% trans "Servers" %}',
+            data: serverCounts
+        }
+    ],
+    exporting: {
+        filename: 'C2_Servers_by_Owner',
+        toCSV: function() {
+            return c2.downloads.arrayToCSV(
+                ['{% trans "Owner" %}', '{% trans "Server Count" %}'],
+                _.zip(categories, serverCounts));
+        }
+    }
+}));
+{% endblock %}

@@ -1,0 +1,9 @@
+{% if portal.login_banner %}
+    <img class="banner"
+         height="50"
+        src="{{ portal.login_banner.url }}">
+{% else %}
+    <img class="banner"
+        width=200 height=49
+        src="{{ STATIC_URL }}logos/cb-logo.svg">
+{% endif %}

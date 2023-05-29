@@ -1,0 +1,73 @@
+
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: servicenow_credential01
+    description: servicenow_credential01
+    username: admin
+    password: VmwareS0v
+    endpoint_type: servicenow
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - servicenowendpoint
+    workspace: 1
+    type: servicenow
+    name: servicenow_endpoint01
+    description: servicenow_endpoint01
+- model: naming.servicenowendpoint
+  pk: 1
+  fields:
+    instance: 'https://fake.servicenow.com'
+    credential: 1
+    workspace: 1
+- model: fuse_servicenow.servicenowconnectorpolicy
+  pk: 1
+  fields:
+    name: ServiceNow_dev01_OF1
+    description: ServiceNow Connector Policy for Catalog Creation
+    inputs: '[{"name": "environment", "required": true}]'
+    endpoint: 1
+    workspace: 1
+- model: naming.jobmetadata
+  pk: 1
+  fields:
+    job_type: Run ServiceNow Connector Deployment Provision
+    job_state: Successful
+    job_id: aacd8e5d-ff9e-4455-99b4-528736ff793f
+    job_tracking_id: 75df511c-962e-4a93-906c-2632b96b4104
+    source: api
+    requester: admin
+    module: ServiceNow Connector Deployment
+    _start_time: 2021-04-19 17:39:02.312247
+    _end_time: 2021-04-19 17:48:45.241670
+    duration: 10405
+    policy_name: ServiceNow_dev01_OF1
+    _request_info: '{"http":"POST","scheme":"http","uri":"/api/v3/onefuse/servicenowConnectorDeployments/",
+            "parameters":{"Encoding":"utf-8","Mutable":false},"headers":{"Store":{"content-length":
+            ["Content-Length","514"],"content-type":["Content-Type","application/json"],"authorization":
+            ["Authorization","Basic YWRtaW46YWRtaW4="],"user-agent":["User-Agent","PostmanRuntime/7.26.10"],
+            "accept":["Accept","*/*"],"cache-control":["Cache-Control","no-cache"],"postman-token":
+            ["Postman-Token","2740599e-5035-4d63-9d86-e06645bf3926"],"host":["Host","localhost:8000"],
+            "accept-encoding":["Accept-Encoding","gzip, deflate, br"],"connection":["Connection","keep-alive"]}},
+            "method":"POST","localAddress":"172.24.0.1","localHostName":"72551c58b734","characterEncoding":null,
+            "payload":"{\"policy\": \"api/v3/onefuse/servicenowConnectorPolicies/1/\", \"templateProperties\": {},
+            \"workspace\": \"/api/v3/onefuse/workspaces/1/\"}"}'
+    _response_info: '{"httpStatus":201,"headers":{"content-type":["Content-Type","text/html; charset=utf-8"],
+            "job-id":["JOB-ID","aacd8e5d-ff9e-4455-99b4-528736ff793f"],"tracking-id":["Tracking-Id",
+            "75df511c-962e-4a93-906c-2632b96b4104"]},"payload":"{\"_links\": {\"self\": {\"href\":
+            \"/api/v3/onefuse/servicenowConnectorDeployments/1/\", \"title\": \"Service Now Connector Deployment id
+            1\"}, \"workspace\": {\"href\": \"/api/v3/onefuse/workspaces/1/\", \"title\": \"Default\"}, \"policy\":
+            {\"href\": \"/api/v3/onefuse/servicenowConnectorPolicies/1/\", \"title\": \"ServiceNow_dev01_OF1\"},
+            \"jobMetadata\": {\"href\": \"/api/v3/onefuse/jobMetadata/940/\", \"title\": \"Job Metadata Record id 940\"}}, \"id\": 1}"}'
+    workspace: 1
+- model: fuse_servicenow.servicenowconnectordeployment
+  pk: 1
+  fields:
+    id: 1
+    policy: 1
+    job_metadata: 1
+    workspace: 1

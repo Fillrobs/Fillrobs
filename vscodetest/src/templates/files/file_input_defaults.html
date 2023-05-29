@@ -1,0 +1,45 @@
+{% comment %}
+Used to show file input default values and allow admins to edit them for
+places that use files (so far: InstallPodServiceItem)
+{% endcomment %}
+{% load helper_tags %}
+
+{% if obj_with_file.input_mappings.all %}
+    {% if use_dt_dd %}
+    <dt>
+    {% else %}
+    <h5>
+    {% endif %}
+      File Inputs:
+      {% infotip "This file takes inputs. Assign default values for these parameters below. <p><p>To change anything else about these inputs, go edit the underlying file." %}
+    {% if use_dt_dd %}
+    </dt>
+    {% else %}
+    </h5>
+    {% endif %}
+    {% if use_dt_dd %}
+    <dd>
+    {% endif %}
+    <ul>
+        {% for input in obj_with_file.input_mappings.all %}
+            <li>
+                {% with input_label=input.file_input.label %}
+                    {{ input_label }}:
+
+                    {% if input.default_value_id %}
+                        <code>{{ input.default_value.display_value }}</code> 
+                    {% endif %}
+
+                    <a href="{% url edit_url obj_with_file.id %}"
+                        class="open-dialog no-tooltip-affordance"
+                        data-toggle="tooltip"
+                        data-dialog-width="800px"
+                        title="Edit the default value for {{ input_label }}"><i class="icon-edit"></i></a>
+                {% endwith %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% if use_dt_dd %}
+    </dd>
+    {% endif %}
+{% endif %}

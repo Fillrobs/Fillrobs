@@ -1,0 +1,202 @@
+get rh
+
+wrapper to commvault
+
+function within  https://github.com/CloudBoltSoftware/cloudbolt/blob/develop/src/dataprotection/commvault/services.py
+add to protection plan
+
+vmname = 'prtst0015'
+
+vm = Server.objects.get(hostname=vmname, status='Active')
+
+
+from dataprotection.commvault.commvault_wrapper import TechnologyWrapper, Job
+from dataprotection.models import DataProtection, ProtectionPlan
+
+/////
+
+dp = DataProtection.objects.get(name='Commvault')
+
+# to replace  - iterate through the list and pick type commvault
+from dataprotection.models import parse_dataprotection_plan_specifier
+dataprotection_plan = server.dataprotection_plan
+(dataprotection_instance, protection_plan_instance) = parse_dataprotection_plan_specifier(dataprotection_plan)
+dpname = protection_plan_instance
+dp = dataprotection_instance
+/////
+
+https://cloudbolt.atlassian.net/wiki/spaces/PROD/pages/1536360471/CommVault+Feature+Guide
+
+
+service = dp.cast().get_service_object()
+wrapper = service.get_api_wrapper()
+
+
+
+# old way
+client = dp.api_client = TechnologyWrapper(dp.ip, dp.serviceaccount, dp.servicepasswd)
+
+
+vmg = client.get_vm_groups()[10]
+
+planArr = vmg.name.split("::")
+client_name = planArr[0]
+instance_name = planArr[1]
+vm_group_name = planArr[2]
+
+vm_group = client._get_vm_group(client_name, instance_name, vm_group_name)
+
+for v in vm_group._vmContent.get("children"):
+    print(v)
+
+vmg = client.get_vm_groups()
+   or
+
+dp.api_client.get_vm_groups()
+   
+
+
+"""
+Result
+[VMGroup(id='23', name="azure::azure resource manager::matt's azure group"),
+ VMGroup(id='66', name='qa azure::azure resource manager::default'),
+ VMGroup(id='150', name='qa azure::azure resource manager::qatest'),
+ VMGroup(id='107', name='qa aws::amazon::cv test'),
+ VMGroup(id='111', name='cblabdev::vmware::cblabdev test group'),
+ VMGroup(id='151', name='vcenter::vmware::default'),
+ VMGroup(id='153', name='vcenter::vmware::qatest'),
+ VMGroup(id='155', name='vcenterqa::vmware::default'),
+ VMGroup(id='157', name='vcenterqa::vmware::vcenterqa'),
+ VMGroup(id='166', name='cblabcs::vmware::default'),
+ VMGroup(id='168', name='cblabcs::vmware::cblabcs_vm_group')]
+
+
+"""
+
+# this works if there is a record in Commvault
+snapshots = client.get_snapshots(vm.hostname)
+"""
+Result
+[Job(id='5424', end_time=datetime.datetime(2022, 1, 31, 2, 29, 12), job_type='Full (Backup)'),
+ Job(id='5439', end_time=datetime.datetime(2022, 1, 31, 21, 2, 55), job_type='Incremental (Backup)')]
+
+add_to_protection_plan
+"""
+
+get_jobs_for_server_no_jobs
+
+
+# VMGroup(id='155', name='vcenterqa::vmware::default'),
+selvmg = vmg[5]
+
+
+selvmg.name
+Out[131]: 'vcenter::vmware::default'
+client_name  ^   instance_name  ^vm_group_name    	
+client_name = 'vcenter'
+instance_name = 'vmware'
+vm_group_name = 'default'
+
+client.add_server_to_vm_group(
+                    vm.hostname, client_name, instance_name, vm_group_name
+                )
+	      
+vm_group = client._get_vm_group(client_name, instance_name, vm_group_name)	    
+
+vm_group
+Out[43]: Subclient class instance for Subclient: "cblabcs_vm_group" of Backupset: "defaultbackupset"
+
+current_servers = [
+    ...:             vm.get("displayName") for vm in vm_group._vmContent.get("children")
+    ...:                     ]
+
+In [45]: current_servers
+Out[45]: ['PRTST0004', 'prtst0012', 'prtst0013']
+
+from commvaultContent
+PRTST0004
+Virtual machine equals prtst0012
+Virtual machine equals prtst0013
+
+I deleted all records from the Commvault: cblabcs::vmware::cblabcs_vm_group
+
+12:41 prtst00019 build starts
+
+BUG: with no records
+Error adding server to data protection plan "Commvault: cblabcs::vmware::cblabcs_vm_group": 'NoneType' object is not iterable
+
+12:46 Built with the above warning
+
+I then manually added it to Commvault: cblabcs::vmware::cblabcs_vm_group
+
+
+12:47 prtst00020 build starts
+12:49 prtst00020 build complete with success
+
+log shows: 
+Adding prtst00020 to data protection plan: "Commvault: cblabcs::vmware::cblabcs_vm_group"
+
+Virtual machine equals prtst00020 shown in Commvault
+from dataprotection.commvault.commvault_wrapper import TechnologyWrapper, Job
+from dataprotection.models import DataProtection, ProtectionPlan
+
+
+dp = DataProtection.objects.get(name='Commvault')
+
+client = dp.api_client = TechnologyWrapper(dp.ip, dp.serviceaccount, dp.servicepasswd)
+vmg = client.get_vm_groups()[10]
+
+planArr = vmg.name.split("::")
+client_name = planArr[0]
+instance_name = planArr[1]
+vm_group_name = planArr[2]
+
+vm_group = client._get_vm_group(client_name, instance_name, vm_group_name)
+
+for v in vm_group._vmContent.get("children"):
+    print(v)
+    
+{'equalsOrNotEquals': True, 'guestCredentialAssocId': 0, 'displayName': 'prtst00019', 'allOrAnyChildren': True, 'type': 9, 'path': '', 'name': '50309e17-cb39-a615-e000-28fed6ee19a3'}
+{'equalsOrNotEquals': True, 'guestCredentialAssocId': 0, 'displayName': 'prtst00020', 'allOrAnyChildren': True, 'type': 9, 'path': '', 'name': ''}
+    
+    
+    
+Maxis MySQL Lead
+    
+
+#######################################################################
+from dataprotection.models import parse_dataprotection_plan_specifier
+server = Server.objects.get(hostname='prtst00020')
+dataprotection_plan = server.dataprotection_plan
+
+(dataprotection_instance, protection_plan_instance) = parse_dataprotection_plan_specifier(dataprotection_plan)
+
+# cblabcs::vmware::cblabcs_vm_group
+dpname = protection_plan_instance
+
+# need to create client_name, instance_name, vm_group_name from this tuple
+client_name, instance_name, vm_group_name = dpname.name.split("::")
+
+
+# <DataProtection: Commvault>
+dp = dataprotection_instance
+
+service = dp.cast().get_service_object()
+
+wrapper = service.get_api_wrapper()
+vm_group = wrapper._get_vm_group(client_name, instance_name, vm_group_name)
+serverGUID = ''
+for v in vm_group._vmContent.get("children"):
+      #print(v)
+      if v['displayName'] == server.hostname:
+	serverGUID = v['name']
+      if serverGUID:
+	print(f"Located {server.hostname} with client_guid {serverGUID}")
+	
+# Trying
+res = wrapper.backup_client(server.hostname)
+
+print(res.response)
+
+
+

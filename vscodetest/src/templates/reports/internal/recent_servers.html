@@ -1,0 +1,35 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% block report_content %}
+    <h3 class="h5">
+        {% portal_label as portal_lbl %}
+        {% blocktrans %}Showing servers added to {{ portal_lbl }} via creation or discovery in the last {{ days }} days.
+        Includes all servers in groups you have permission to view{% endblocktrans %}
+    </h3>
+
+    <table id="recent-servers" ng-app="cb"
+        data-table
+        data-table-sort="2,desc"
+        data-table-sort-disabled="0,1,2,3,4,5,6"
+        data-table-source="{% url 'recent_servers_json' %}?d={{ days }}"
+        >
+        <thead>
+            <tr>
+                <th>
+                    {% server_pictograph_legend %}
+                </th>
+                <th>{% trans "Server" %}</th>
+                <th>{% trans "Added" %} {% blockinfotip %} {% trans "Date the server was discovered or created by CB" %}{% endblockinfotip %}</th>
+                <th>{% trans "Rate" %}</th>
+                <th>{% trans "Owner" %}</th>
+                <th>{% trans "Group" %}</th>
+                <th>{% trans "Environment" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock report_content %}

@@ -1,0 +1,857 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('release-notes-9-4-6',true);});
+//--></script><title>Release Notes: 9.4.6.2</title><script type="text/javascript">//<!--
+var articleTitleText='Release Notes: 9.4.6.2';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Release Notes: 9.4.6.2</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="introduction.html">Introduction to CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="supported-versions.html">Releases</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Release Notes: 9.4.6.2</span></span>
+  </div><h1 id="h1_1691719522" data-has-heading-anchor="true">
+  Release Notes
+<a href="release-notes-9-4-6.html#h1_1691719522" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about changes to the CloudBolt CMP product.
+</p>
+<hr/>
+<h2 id="h2__491873518" data-children-count="2" data-has-heading-anchor="true">
+  Version 9.4.6.2&nbsp;- Roth
+<a href="release-notes-9-4-6.html#h2__491873518" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<div>
+  <h3 id="h2__606762105" style="" data-has-heading-anchor="true"><br/>Upgrade Notes
+  <a href="release-notes-9-4-6.html#h2__606762105" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    When upgrading CloudBolt, please review all Upgrade Notes between the version of CloudBolt that you are currently running and the target version that you are upgrading to.
+    <br/>
+  </p>
+  <div class="alert alert-warning">
+    <p>
+      <b>Deprecation Warning</b>
+    </p>
+    <ul>
+      <li>
+        Several features have been deprecated in this version. See <a href="http://docs.cloudbolt.io/articles/project-cloudbolt-docs/release-notes/a/h4_27138663">Deprecation Warning</a> for the list.
+      </li>
+      <li>
+        The Physical Server Scan feature will be removed for new CloudBolt users as of 9.4.6 and newer. Existing CloudBolt customers upgrading to 9.4.6 or newer will keep this functionality.
+      </li>
+    </ul>
+  </div>
+  <div class="alert alert-primary">
+    <p>
+      <b>LDAP Domains during Login</b>
+    </p>
+    
+    <ul>
+      <li>
+        If you’ve unexpectedly gained additional LDAP Domain(s) as options on the login screen, go to the Domain(s) from <b>Admin &gt; <a href="ldap-authentication.html" target="_blank">LDAP Authentication Settings</a></b> and use the Settings button on their details page to disassociate them from the unwanted Branded Portal(s). 
+      </li>
+      <li>
+        Alternatively, you could go to the affected Portal(s) from Admin &gt; <a href="branded-portals-api.html" target="_blank">Branding and Portals</a> and use their Edit button to update the associations from that direction.
+      </li>
+    </ul>
+    <p>
+      <b>Package Updates</b>
+    </p>
+    
+    <ul>
+      <li>
+        Oracle SDK upgraded to version 2.33.0.
+      </li>
+      <li>
+        Python has been upgraded to version 3.9.4. If you are using custom code, you may want to test it against Python version 3.9.4.
+      </li>
+      <li>
+        Django has been upgraded to Django LTS 3.2.3. This could impact users who use the deprecated module staticfiles in your XUIs.
+      </li>
+    </ul>
+    <p>
+      <b>Changes to GCPProject id field</b>
+    </p>
+    <ul>
+      <li>
+        Moved the text data from the <span class="inlineCode">id</span> field to the&nbsp;<span class="inlineCode">gcp_id</span> field on the <span class="inlineCode">GCPProject</span> model.
+      </li>
+      <li>
+        Standard numerical key added to the <span class="inlineCode">id</span> field.
+      </li>
+      <li>
+        <span class="inlineCode">GCPHandler.get_env_location</span> returns <span class="inlineCode">GCPProject.id</span> data as described above.
+      </li>
+      <li>
+        <span class="inlineCode">GCPHandler.get_env_project</span> returns the <span class="inlineCode">GCPProject</span> instance instead of <span class="inlineCode">GCPProject.id</span>.
+      </li>
+    </ul>
+    <p>
+      If you are using the <span class="inlineCode">get_api_wrapper</span> method of a GCP Resource Handler in any of your Actions or other custom code, be advised that you may need to update it so it gets passed the primary key ID of the GCPProject object, rather than the string identifier of the project (e.g., 1 instead of “my-project”).”
+    </p>
+  </div>
+  <hr/>
+  <h2 id="h2__491873518" data-children-count="2" data-has-heading-anchor="true">
+    Version 9.4.6.2
+  <a href="release-notes-9-4-6.html#h2__491873518" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    This patch upgrade includes security fixes/improvements from 9.4.6.1.
+  </p>
+  <hr/>
+  <h2 id="h2__491873518" data-children-count="2" data-has-heading-anchor="true">
+    Version 9.4.6.1
+  <a href="release-notes-9-4-6.html#h2__491873518" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    This patch upgrade includes a Django upgrade and some high-priority bug fixes/improvements from 9.4.6.
+  </p>
+  <ul>
+    <li>
+      Upgraded Django from 3.2.4&nbsp;→ 3.2.5.&nbsp;<font color="#c0c0c0">DEV-20248</font>
+    </li>
+    
+    <li>
+      Oracle Cloud Infrastructure Resource Handler was failing to order a Server and returning "AttributeError: 'OCIImage' object has no attribute 'global_key_name'".&nbsp;<font color="#c0c0c0">DEV-20399</font>
+    </li>
+    
+    <li>
+      Added support for additional network backends in vCenter.&nbsp;<font color="#c0c0c0">DEV-20055</font>
+    </li>
+    
+    <li>
+      Removed the "Use Template" option for Azure Resource Group Names. Now, the requirement for templatized Azure Group names will be met when selecting "Auto Create Resource Group" rather than the "Use Templatized" option that was introduced in 9.4.6. As long as there is a template applied, the template will be used when creating a new Azure Resource Group. See&nbsp;<a href="provisioning.html#h4__1980239390" target="_blank">Azure Resource Group Template</a>.&nbsp;<font color="#c0c0c0">DEV-20115</font>
+    </li>
+    <li>
+      Resolved foreign key constraints issues during migrations. <font color="#c0c0c0">DEV-20237</font>
+    </li>
+    <li>
+      Single Sign-On (SSO) was not handling logging out of multiple SSO sessions. <font color="#c0c0c0">DEV-20339</font>
+    </li>
+    <li>
+      Fixed an issue creating VMs with GCloud API when SubnetMode = Custom that resulted in the error "Subnetwork should be specified for custom subnetmode network". <font color="#c0c0c0">DEV-20341</font>
+    </li>
+    <li>
+      Blueprint deployments were failing when the Blueprint had disabled Build Item(s). <font color="#c0c0c0">DEV-20363</font>
+    </li>
+  </ul>
+  <hr/>
+  <h2 id="h2__1258541938" data-has-heading-anchor="true">
+    9.4.6 New Version Highlights
+  <a href="release-notes-9-4-6.html#h2__1258541938" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <h4 id="h4_1804341789" data-has-heading-anchor="true">
+    Introducing Multi-Tenancy in CloudBolt
+  <a href="release-notes-9-4-6.html#h4_1804341789" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    <a href="multi-tenancy-in-cloudbolt.html" target="_blank"><span style="color: #3c4257; text-decoration-color: initial;">CloudBolt's Multi-Tenancy capabilities allow a single CloudBolt instance to host multiple distinct customers, who can each administer their own Resource Handlers, Environments, Container Orchestrators, and more, without ever seeing each other's information.&nbsp;</span>Multi-Tenancy in CloudBolt</a>.
+    <br/>
+  </p>
+  <h4 id="h4_1804341789" data-has-heading-anchor="true">
+    UI Refresh
+  <a href="release-notes-9-4-6.html#h4_1804341789" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    This release introduces many updates to the look and feel of the UI, including:
+  </p>
+  <ul>
+    <li>
+      An updated navigation bar style with left and right hand justified buttons.
+    </li>
+    <li>
+      New login page UI with refreshed font, fields, and password toggle icon.
+    </li>
+    <li>
+      Out-of-the-box colors received a makeover for the header and footer, including a hover and on-click color change to indicate which area of the UI you are currently accessing. To enable these new colors, see <a href="branded-portals-api.html" target="_blank">Branded Portals</a> for steps.
+    </li>
+    <li>
+      Admin Menu updates:
+      <ul>
+        <li>
+          Removed "Recent Users" under Security
+        </li>
+        <li>
+          Removed "Recently Added Servers" under Activity
+        </li>
+        <li>
+          Renamed "External Systems" to "Integrations"&nbsp;
+        </li>
+        <li>
+          Reordered sections on the page
+        </li>
+        <li>
+          Changed "Actions" to "All Actions"
+        </li>
+        <li>
+          Moved "Server", "Resource", and "Orchestration" links to be sub-links under "Actions"
+        </li>
+        <li>
+          Renamed "Django Database Browser" to "Database Browser"
+        </li>
+      </ul>
+    </li>
+    <li>
+      Updates to the Catalog page and its Blueprints, Categories, sub-Categories, Filter feature, and Ribbon view.&nbsp;
+    </li>
+  </ul>
+  <h4 id="h4__55703718" data-has-heading-anchor="true">
+    GCP Resource Handler 
+  <a href="release-notes-9-4-6.html#h4__55703718" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    CloudBolt's <a href="google-cloud-platform.html" target="_blank">GCP</a> integration received some TLC this release with added functionality and updates, including:
+  </p>
+  <ul>
+    <li>
+      A New OAuth model that requires the use of user/password instead of service account. After upgrading to 9.4.6, Edit the GCP Credentials and provide the new OAuth JSON.
+    </li>
+    <li>
+      The SSL Verification checkbox is now required to be enabled on the Resource Handler form.
+    </li>
+    <li>
+      Import Shared Images across Projects. <font color="#c0c0c0">DEV-17899</font>&nbsp;
+    </li>
+    <li>
+      Added a  Stats tab for GCP Servers. <font color="#c0c0c0">DEV-18424</font>
+    </li>
+    <li>
+      Added support for GCP Labels, which are called Tags in CloudBolt. <font color="#c0c0c0">DEV-19581</font>
+    </li>
+    <li>
+      Added support for passing startup scripts to VMs as Environment Parameters. <font color="#c0c0c0">DEV-19448</font>
+    </li>
+    <li>
+      Added the ability to set custom hostnames on GCP VMs as an Environment Parameter. <font color="#c0c0c0">DEV-18880</font>
+    </li>
+    <li>
+      Introducing a GCP Bigtable&nbsp;Blueprint. <font color="#c0c0c0">DEV-19412</font>
+    </li>
+    <li>
+      Updated the Google Storage Cloud existing Blueprint to support GCP. <font color="#c0c0c0">DEV-16198</font>
+    </li>
+    <li>
+      Create GCP Projects in CloudBolt's UI, using the Create GCP Projects Blueprint. <font color="#c0c0c0">DEV-19401</font>
+    </li>
+    <li>
+      Added the ability to select GCP Disk Type during provisioning and when adding additional Disks to an existing Server. <font color="#c0c0c0">DEV-19472</font>
+    </li>
+  </ul>
+  <h4 id="h4__241367929" data-has-heading-anchor="true">
+    (Beta) New Terraform Configuration Deployment Item on Blueprints
+  <a href="release-notes-9-4-6.html#h4__241367929" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <a href="terraform-configuration-in-cloudbolt.html" target="_blank">Terraform Configuration in CloudBolt</a>
+  <br/>
+  <p>
+    This feature is a Beta feature with 9.4.6 and will continue to develop with future versions.
+  </p>
+  <ul>
+    <li>
+      Add a Terraform Blueprint Item to a Blueprint from the Build tab. Then link the Terraform Blueprint Item to your <span class="inlineCode">.tf</span> config file using one of the following methods:
+      <ul>
+        <li>
+          A git repository from a URL.
+        </li>
+        <li>
+          A configuration uploaded as a zip file.
+        </li>
+        <li>
+          A zip file containing configurations from a URL.
+        </li>
+        <li>
+          A configuration directory on the CloudBolt server's filesystem.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Map Parameters to the Terraform Blueprint Item that will then appear on the Order form. The default variable dropdown fields are defined in the <span class="inlineCode">.tf</span> file.
+    </li>
+    <li>
+      Define and Map custom <b>key:value</b> pairs of Resource Handler variables to Terraform variables. One use case for this is so customers can pass the Resource Handler’s credentials down into the Terraform operating environment.
+    </li>
+    <li>
+      Optionally fetch from remote source on every Terraform Blueprint Item order using Refresh on order.
+    </li>
+    <li>
+      Option to preserve the configuration directory to allow one instance of your Terraform code to be used across multiple Terraform Blueprint Items.
+    </li>
+    <li>
+      Configure one Terraform Blueprint Item across multiple Environments.
+    </li>
+    <li>
+      <b>Override working directory:</b> When Preserve config dir is enabled, the directory entered here will be where CloudBolt will store files used by multiple Blueprint Items. If a user creates a second Blueprint Item, the directory entered here will override the working directory and both Blueprint Items will use the same code.
+    </li>
+  </ul>
+  <h4 id="h4__241367929" data-has-heading-anchor="true">
+    Resource Types (XaaS)
+  <a href="release-notes-9-4-6.html#h4__241367929" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    Improvements to <a href="resource-types-xaas.html" target="_blank">Resource Types</a> are coming with this release, including:
+  </p>
+  <ul>
+    <li>
+      All User types can now see the Resources navigation menu item; helper text explains which users are able to access Resources.
+    </li>
+    <li>
+      Added a Resource Icon that can be changed with the Edit Attributes button. Icon shows:
+      <ul>
+        <li>
+          Next to the Resource Type in the list of Resource Types.
+        </li>
+        <li>
+          Next the plural Resource Type Name in its list of instances.
+        </li>
+        <li>
+          Above the Actions in the view for a specific Resource instance.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Updating&nbsp;the looks of the Action buttons:
+      <ul>
+        <li>
+          Include a consistent margin between the Action buttons and the main page content like in a Server management page.
+        </li>
+        <li>
+          Allow for a larger text area within each button by wrapping the text.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Updating&nbsp;the content:
+      <ul>
+        <li>
+          Show the “Scale” action for Resources that have a Blueprint and hide it for Resources that do not have a Blueprint.
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <h4 id="h4__629640937" data-has-heading-anchor="true">
+    Custom Resource Report
+  <a href="release-notes-9-4-6.html#h4__629640937" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  The <a href="custom-resource-report.html" target="_blank">Custom Resource Report</a> is a new Report in CloudBolt that, when run with specified inputs, returns a list of Resources by Resource Type. Select one or multiple Resource Types to be included in the Report results. Choose which columns display in the results table.
+</div>
+<div>
+  <br/>
+</div>
+<h4 id="h4_343466177" data-has-heading-anchor="true">
+  CloudBolt Cost Management UI Extension
+<a href="release-notes-9-4-6.html#h4_343466177" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  <span style="text-align: left; background-color: #ffffff;">Use the <a href="cloud-cost-management.html" target="_blank">Cloud Cost Management (Kumolus) UI Extension</a> to keep track of your Resource Handler's spend and efficiency within CloudBolt's UI.</span>
+  <br/>
+</p>
+<div>
+  <hr/>
+  <h2 id="h2__230916525" data-has-heading-anchor="true">
+    Additional Improvements
+  <a href="release-notes-9-4-6.html#h2__230916525" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <h3 id="h3_750375105" data-has-heading-anchor="true">
+    Enhancements
+  <a href="release-notes-9-4-6.html#h3_750375105" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    <b>API v3</b>
+  </p>
+  <ul>
+    <li>
+      The following Resource Handler APIs have been updated to support an additional body parameter: "skipVerification": true which allows you to skip connection verification and ensure all Resource Handlers have verify connection validation.&nbsp;<font color="#c0c0c0">DEV-17960</font>
+    </li>
+    <li>
+      Endpoints were added or updated this release:
+    </li>
+    <ul>
+      <li>
+        Manage Images functionality was added to OSImages.
+      </li>
+      <li>
+        Miscellaneous Settings endpoint created.
+      </li>
+      <li>
+        IPAM endpoint created.
+      </li>
+      <li>
+        Preconfigurations endpoint created.
+      </li>
+      <li>
+        RADIUS Utility endpoint created.
+      </li>
+      <li>
+        Rates endpoint updated.
+      </li>
+      <li>
+        Deploy Custom Action for Blueprint functionality added for Blueprint endpoint.
+      </li>
+      <li>
+        IBM Cloud Resource Handler endpoint created.
+      </li>
+      <li>
+        Resources endpoint created.
+      </li>
+      <li>
+        Rates endpoint created for Application, Parameter, and OS Build Rate types.
+      </li>
+      <li>
+        Environment Networks and Parameters added.
+      </li>
+      <li>
+        Azure Resource Handler endpoint created.
+      </li>
+      <li>
+        SCVMM Resource Handler endpoint created.
+      </li>
+      <li>
+        Chef Configuration Manager endpoint created with nodes, cookbooks, and roles.
+      </li>
+      <li>
+        Nutanix Resource Handler endpoint created.
+      </li>
+      <li>
+        VMware Cloud Resource Handler endpoint created.
+      </li>
+    </ul>
+  </ul>
+  <p>
+    <b>Multi-Tenancy</b>
+  </p>
+  <ul>
+    <li>
+      OS Builds List
+      <ul>
+        <li>
+          Tenant Admins can see the Tenant on the OS Build list and details page.
+        </li>
+        <li>
+          The list of Environments on the Edit OS Build dialog is unfiltered.
+        </li>
+        <li>
+          Tenant Admin can see OS Builds that are Global or in their Tenant, but not OS Builds in other Tenants.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Global Viewer can see "Console Feature" and "RDP/SSH Terminal" values but cannot modify them directly nor view the <b>Edit Settings</b> form.
+      <ul>
+        <li>
+          CB Admin can edit the values directly in "Overview" and view the <b>Edit Settings</b> form.
+        </li>
+        <li>
+          Tenant Admin can edit the values directly in "Overview" and view the <b>Edit Settings </b>form.
+        </li>
+      </ul>
+    </li>
+    <li>
+      SSH Keys object added for Multi-Tenancy.
+    </li>
+  </ul>
+  <p>
+    <b>General Enhancements</b>
+  </p>
+  <ul>
+    <li>
+      Renaming Networks is now supported for GCP Shared VPC networks. <font color="#c0c0c0">DEV-18839</font>
+    </li>
+    
+    <li>
+      Improved OS Family detection for AWS. <font color="#c0c0c0">DEV-19435</font>
+    </li>
+    
+    <li>
+      Alibaba Cloud now supports the ability to choose a Disk Category as an Alibaba Cloud Parameter. <font color="#c0c0c0">DEV-19379</font>
+    </li>
+    
+    <li>
+      Attempting to delete an Environment Parameter Option that is attached to a Blueprint provision server service item (PSSI) now displays a warning message, when the "Allow deletion of objects that are predefined for use" checkbox is set to True.&nbsp;<font color="#c0c0c0">DEV-18405</font>
+    </li>
+    <li>
+      Added more Network information for brownfield servers on the Network Tab for IBM Cloud Servers. <font color="#c0c0c0">DEV-18813</font>
+    </li>
+    <li>
+      Introduced a Legal Notice Caption (enable in Miscellaneous Settings) for Users to agree to before being able to use CloudBolt. Set as one time agree or to appear every login. <font color="#c0c0c0">DEV-14754</font>
+    </li>
+    <li>
+      LDAP Utilities should now be immediately associated with a Branded Portal, either a default or the one(s) selected, so they can be used to log in after creation without any further configuration. <font color="#c0c0c0">DEV-19138</font>
+    </li>
+    <li>
+      <font>Resource Types of&nbsp;'Service' that have&nbsp;no Server attached to it&nbsp;will not have a Servers tab.&nbsp;<font color="#c0c0c0">DEV-18650</font></font>
+    </li>
+    <li>
+      Added Azure Tech-Specific Script Execution for Azure Environments. <font color="#c0c0c0">DEV-18894</font>
+    </li>
+    <li>
+      A new Miscellaneous Setting, "Require New Users to Self-Assign Passwords", will allow Users to designate their own passwords when an account is created for them, rather than the Admin designating the password. <font color="#c0c0c0">DEV-19557</font>
+    </li>
+    <li>
+      The enforcement of Action constraints to prevent running Actions in certain contexts has been made stricter. If an Action that used to run fails to do so&nbsp;after upgrade, double-check its constraints. <font color="#c0c0c0">DEV-16207</font>
+    </li>
+    <li>
+      Added more Network information for all Resource Handlers. <font color="#c0c0c0">DEV-18813</font>
+    </li>
+    <li>
+      <font>Added Runtime color descriptions&nbsp;to the Job Engine on the System Status page. <font color="#c0c0c0">DEV-14666</font></font>
+    </li>
+    <li>
+      (Beta) Introducing Azure Backups as a Data Protection Plan option. <font color="#c0c0c0">DEV-19308</font>
+    </li>
+    <li>
+      Added the ability to edit Connection Info header field in the UI. <font color="#c0c0c0">DEV-19521</font>
+    </li>
+    <li>
+      <font color="#c0c0c0"></font>Set settings.ENCRYPT_CONSOLE = True by default for vCenter VM Console feature. <font color="#c0c0c0">DEV-18844</font>
+    </li>
+    <li>
+      Show up to 5 Environments on the OS Build list page, with additional Environments available to view on the individual OS Build page. <font color="#c0c0c0">DEV-18785</font>
+    </li>
+    <li>
+      Improved accessibility by allowing "Enter" to be used to submit most forms in Quick Setup. <font color="#c0c0c0">DEV-19137</font>
+    </li>
+    <li>
+      Added the copy clipboard functionality for Hostname on a Server's details view. <font color="#c0c0c0">DEV-14933</font>
+    </li>
+    <li>
+      Improved error handling when submitting an invalid Parameter name in a CloudBolt Plug-in. <font color="#c0c0c0">DEV-18682</font>
+    </li>
+    <li>
+      Allow Users to show/hide the Server Summary Chart on Server pages using the <b>Show/Hide Summary Charts </b>button. <font color="#c0c0c0">DEV-18877</font>
+    </li>
+    <li>
+      On new CloudBolt instances (not upgrades), the out-of-the-box "CloudBolt" Portal will be set as the default Portal. <font color="#c0c0c0">DEV-18690</font>
+    </li>
+    <li>
+      Adding and removing a User on a Tenant is now supported in ShellPlus. <font color="#c0c0c0">DEV-18712</font>
+    </li>
+    <li>
+      Added support for encrypted assertion data for SSO/SAML configurations. <font color="#c0c0c0">DEV-17753</font>
+    </li>
+    <li>
+      When the logout service is enabled in Okta and an SSO authenticated User logs out of CloudBolt, they are now logged out of SSO completely as well. <font color="#c0c0c0">DEV-18453</font>
+    </li>
+    <li>
+      <font>Embedded Mode now allows the User to select which Global Role(s) can interact with embedded iFrame pa</font><font>ges. <font color="#c0c0c0">DEV-18728</font></font>
+    </li>
+    <li>
+      Specify the name of an Azure Availability Set instead of using auto-generated names. <font color="#c0c0c0">DEV-18673</font>
+    </li>
+    <li>
+      Specify the name of an Azure Resource Group using a template on the Order Form. <font color="#c0c0c0">DEV-19297</font>
+    </li>
+  </ul>
+  <h3 id="h3__1939129002" data-has-heading-anchor="true">
+    Bug Fixes
+  <a href="release-notes-9-4-6.html#h3__1939129002" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <b>UI</b>
+  <ul>
+    <li>
+      Dashboard: The Configuration widget was appearing at the top of the dashboard. <font color="#c0c0c0">DEV-18862</font>
+    </li>
+    <li>
+      The login page background image (set in Branded Portals &gt; Login background image) did not fill the entire white space. <font color="#c0c0c0">DEV-19577</font>
+    </li>
+    <li>
+      Very long Resource Handler names would overlap neighboring text in the Admin menu dropdown. <font color="#c0c0c0">DEV-18590</font>
+    </li>
+    <li>
+      Accessibility: Tab was stopping on widget decorations. <font color="#c0c0c0">DEV-17330</font>
+    </li>
+    <li>
+      The "Add Name &amp;&nbsp;Annotation tags to new servers" checkbox was disabled on the <i>Create a Resource Handler for Amazon Web Services</i> modal window. <font color="#c0c0c0">DEV-19445</font>
+    </li>
+  </ul>
+  <p>
+    <b>Provisioning</b>
+  </p>
+  <ul>
+    <li>
+      Provisioning a GCP Server was failing after changing the name of an OS Build attached to that GCP Image. <font color="#c0c0c0">DEV-19066</font>
+    </li>
+    <li>
+      Ordering a Server Action&nbsp;that was marked "Requires Approval" was resulting in an Order with no Order name when viewed from the Orders List page. <font color="#c0c0c0">DEV-19018</font>
+    </li>
+    <li>
+      VMware Provisions for RHEL were always using the `root` User regardless of the username parameter, when provisioning a non-Ubuntu, non-Suse Linux template. <font color="#c0c0c0">DEV-17466</font>
+    </li>
+    <li>
+      Editing a CloudBolt Order was inadvertently removing Custom Field Values from the Order Item. This caused issues with tracking ServiceNow items, as the identifying information was removed. <font color="#c0c0c0">DEV-19012</font>
+    </li>
+    <li>
+      vCenter VMs were being filtered into a Resource Handler&nbsp;based on Category, not Tags. <font color="#c0c0c0">DEV-17964</font>
+    </li>
+    <li>
+      Attempting to order a vCenter Blueprint with "Skip Network Configuration" checked was resulting in an error due to CloudBolt attempting to change the root password without VMware tools installed. <font color="#c0c0c0">DEV-17107</font>&nbsp;
+    </li>
+    <li>
+      Removed hard-coded fault domain in Azure Availability Set creation. <font color="#c0c0c0">DEV-19410</font>
+    </li>
+    <li>
+      Updated Blueprint Validation Orchestration Action script to support error messages on second tier and higher server actions. The updated script will replace the default script in CloudBolt's next release.&nbsp;<font color="#c0c0c0">DEV-19364</font>
+    </li>
+    <li>
+      CloudBolt was not deleting Managed Disks in Azure. <font color="#c0c0c0">DEV-17621</font>
+    </li>
+    <li>
+      In some specific scenarios, clicking the Action icon on a Server would return an internal error. <font color="#c0c0c0">DEV-18669</font>
+    </li>
+  </ul>
+  <p>
+    <b>APIv3</b>
+  </p>
+  <ul>
+    <li>
+      Users were not able to upload key material to SSH Keys that were associated with Resource Handlers via SSHKey API. <font color="#c0c0c0">DEV-18748</font>
+    </li>
+    
+    <li>
+      Attempting to import Actions with Inputs via APIv3 was not working. <font color="#c0c0c0">DEV-19818</font>
+    </li>
+  </ul>
+  <p>
+    <b>General Bug Fixes</b>
+  </p>
+  <ul>
+    <li>
+      The History tab was being repeated at the bottom of every other tab when the Billing tab contained AWS Billing Data with the "<i>Displaying billing data for AWS servers in this group. For more info, refer to the docs on Importing Billing Data for AWS" </i>message. <font color="#c0c0c0">DEV-16895</font>
+    </li>
+    
+    <li>
+      Ensured the "Unrestricted" option for a sub-Blueprint's Execution Scope will apply across all types of Actions in the sub-Blueprint. <font color="#c0c0c0">DEV-16207</font>
+    </li>
+    
+    <li>
+      Bearer Tokens were not being saved for new Kubernetes connections created in a Container Orchestrator. <font color="#c0c0c0">DEV-18784</font>
+    </li>
+    <li>
+      <font>Some buttons were available to Users without the allowed permissions, and would return an error when clicked.</font><font color="#c0c0c0"> DEV-17721</font>
+      <ul>
+        <li>
+          <font>Order New Server button</font>
+        </li>
+        <li>
+          <font>New Blueprint button</font>
+        </li>
+      </ul>
+    </li>
+    <li>
+      When a Plug-in was added to a Blueprint with Action Inputs, the dropdown of the Plug-in showed the <b>Edit</b><i> </i>icon next to each input even when the logged-in User did not have permission to Edit. Clicking the<b>&nbsp;Edit </b>icon was resulting in an error. <font color="#c0c0c0">DEV-19563</font>
+    </li>
+    <li>
+      Terraform Orchestration Action was allowing more than one hook per hook point, causing issues. <font color="#c0c0c0">DEV-19430</font>
+    </li>
+    <li>
+      The Quick Setup "connecting" modal was persisting even after credentials failed. <font color="#c0c0c0">DEV-18787</font>
+    </li>
+    <li>
+      <font color="#c0c0c0"></font>CloudBolt was not importing all custom images across multiple Projects in GCP. <font color="#c0c0c0">DEV-19020</font>
+    </li>
+    <li>
+      "Manage User Parameters" functionality was unavailable for CB Admin Users. <font color="#c0c0c0">DEV-16342</font>
+    </li>
+    <li>
+      The CB Admin email field in Miscellaneous Settings was showing an error when there was more than one email address in the list. <font color="#c0c0c0">DEV-18278</font>
+    </li>
+    <li>
+      Users were unable to edit the Razor OS Builds. <font color="#c0c0c0">DEV-18990</font>
+    </li>
+  </ul>
+  <h3 id="h3_225444205" data-has-heading-anchor="true">
+    Security Improvements
+  <a href="release-notes-9-4-6.html#h3_225444205" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <ul>
+    <li>
+      There are no security-related changes in version 9.4.6.
+    </li>
+  </ul>
+  <h3 id="h3_358065328" data-has-heading-anchor="true">
+    Deprecation Warning
+  <a href="release-notes-9-4-6.html#h3_358065328" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <div class="alert alert-warning">
+    <i class="mdi mdi-alert"></i> The following features have been deprecated from CloudBolt in version 9.4.6:
+  </div>
+  <ul>
+    <li>
+      Terremark Resource Handler
+    </li>
+    <li>
+      Century Link Resource Handler
+    </li>
+    <li>
+      HPSA Provisioning Engine
+    </li>
+    <li>
+      Cobbler Provisioning Engine
+    </li>
+    <li>
+      Azure Classic Resource Handler (see <a href="https://azure.microsoft.com/en-us/updates/azure-portal-updates-for-classic-portal-users/" target="_blank">Microsoft's update</a>)
+    </li>
+    <li>
+      RHEV Resource Handler
+    </li>
+    <li>
+      Oracle Resource Handler
+    </li>
+  </ul>
+  <br/>
+  
+  
+  
+  
+  <h2 id="h2_787877098">
+  </h2>
+  <h2 id="h2_787877098">
+  </h2>
+  
+  <ul>
+  </ul>
+  
+  
+  
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="release-notes-9-4-7.html" class="articleActions_link CHNavLinkPrevious">Release Notes: 9.4.7</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="release-notes-9-4-5-1.html" class="articleActions_link CHNavLinkNext">Release Notes: 9.4.5.1</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

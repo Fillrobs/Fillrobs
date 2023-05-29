@@ -1,0 +1,149 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+
+    <a href="{% url 'group_cost_report_dialog' 'summary' %}?group={{ group.id }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}"
+        class="btn btn-primary open-dialog">
+        {% trans "Change Report" %}
+    </a>
+
+    <a class="btn btn-default"
+        href="{% url 'export_internal_report' %}?report=group_environments_cost_summary&rep_format=csv&group={{ group.id }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}&filename={{ report_slug|urlencode }}"
+        >
+        <i class="fas fa-download"></i>
+        {% trans "Export as CSV" %}
+    </a>
+
+    <a class="btn btn-default open-dialog"
+        href="{% url 'email_report' %}?report=group_environments_cost_summary&pagetitle={{ report_slug }}&rep_format=csv&group={{ group.id }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}&filename={{ report_slug|urlencode }}"
+        >
+        <i class="fas fa-mail"></i>
+        {% trans "Email Report" %}
+    </a>
+
+</div>
+<div class="clearfix"></div>
+
+<div class="row">
+    <div id="chart_div" class="col-sm-5" style="height: 450px;"></div>
+    <div id="env_summaries" class="col-sm-7">
+        <div class="tabs">
+            {# These tabs are hidden, but click is triggered on them to show their pane #}
+            <ul class="nav nav-boxed-tabs nav-stacked hidden">
+            {% for env in environments_data %}
+                 <li><a href="#e{{env.id}}" data-toggle="tab">{{env.name}}</a></li>
+            {% endfor %}
+            </ul>
+
+            <div class="tab-content">
+            {% for env in environments_data %}
+                 <div id="e{{ env.id }}" class="tab-pane">
+                     {% include "reports/internal/group_env_cost_summary.html" with e=env %}
+                 </div>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(function() {
+    var categories = {{ categories|to_json }};
+    var envRates = {{ env_totals|to_json }};
+    var envIds = {{ env_ids|to_json }};
+
+    var rows = _.zip(categories, envRates);
+
+    // Radialize the colors
+    Highcharts.getOptions().colors = _.map(Highcharts.getOptions().colors, function(color) {
+        return {
+            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.2).get('rgb')] // darken
+            ]
+        };
+    });
+
+    c2.charts.distributeMonochromePieColors({{ categories|length }});
+
+
+    function selectTab(index) {
+        var envId = envIds[index];
+        $('[href="#e' + envId + '"]').trigger('click');
+    }
+
+    $('#chart_div').highcharts(_.merge(c2.charts.serverPieChartDefaults, {
+            title: {
+                text: '{% trans "All Environments:" %}' +  ' {{rcu}}{{group_total|floatformat:2}}'
+            },
+            subtitle: {
+            text: ''
+            },
+            legend: {
+                enabled: true,
+                //layout: 'vertical',
+                //floating: true,
+                //align: 'left',
+                //verticalAlign: 'top',
+                backgroundColor: "#FFF",
+                x: 5,
+                y: 0,
+                labelFormatter: function () {
+                    return '<b>'+ this.name +'</b>: {{ rcu }}' + this.y.toFixed(2);
+                }
+            },
+            plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                depth: 35,
+                // size: "80%",
+                dataLabels: {
+                enabled: false,
+                },
+                showInLegend: true
+            }
+            },
+            series: [{
+                events: {
+                        afterAnimate: function () {
+                            (this.data[0] && this.data[0].select());
+                            selectTab(0);
+                        }
+                },
+                type: 'pie',
+                name: '{% trans "Environment Cost Breakdown" %}',
+                data: rows,
+                point: {
+                    events: {
+                        legendItemClick: function () {
+                            if (this.selected) {
+                                return false; // disable unselecting it
+                            }
+                            this.select();
+                            selectTab(this.series.data.indexOf(this));
+                            return false; // returning false will cancel the default action
+                        },
+                        click: function(event) {
+                            if (this.selected) {
+                                return false; // disable unselecting it
+                            }
+                            selectTab(this.series.data.indexOf(this));
+                        }
+                    }
+                },
+            }],
+            exporting: {
+                filename: '{{ report_slug }}',
+                toCSV: function() {
+                    return c2.downloads.arrayToCSV(['{% trans "Environment" %}', '{% trans "Cost" %}'], rows);
+                }
+            },
+    }));
+
+    c2.tabs.init();
+});
+</script>

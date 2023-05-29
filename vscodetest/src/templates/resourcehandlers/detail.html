@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load rh_tags %}
+{% load tab_tags %}
+
+{% block title %}Resource handler: {{ handler.name }} {% endblock %}
+{% block topnav %}resourcehandlers{% endblock %}
+
+{% block content %}
+
+<h1>{{ handler|resource_handler_icon }} {{ handler.display_name }}</h1>
+{% draw_tabs tabs %}
+
+{% endblock content %}

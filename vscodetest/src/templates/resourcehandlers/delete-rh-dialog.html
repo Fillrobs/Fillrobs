@@ -1,0 +1,85 @@
+{% extends 'dialogs/dialog.html' %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block form_content %}
+    {% if env_count or server_count %}
+        <div class="alert alert-info">
+            {% if env_count %}
+                <p>
+                    {% blocktrans count counter=env_count %}
+                        An environment is still using this handler.
+                    {% plural %}
+                        <b>{{ env_count }}</b> environments are still using this handler.
+                    {% endblocktrans %}
+                </p>
+            {% endif %}
+
+            {% if server_count %}
+                <p>
+                    {% if server_count == 1 %}
+                        A server is
+                    {% else %}
+                        <b>{{ server_count }}</b> servers are
+                    {% endif %}
+                    still using this handler.
+                </p>
+            {% endif %}
+
+            <div class="controls">
+                <label class="checkbox">
+                    <p>
+                    <input id="id_clear" type="checkbox" name="clear_related_items"/>
+                        First
+                        {% if server_count %}
+                            mark these server records 'historical' in {% portal_label %}{% if not env_count %}
+                            .{% endif %}
+                        {% endif %}
+
+                        {% if env_count %}
+                            {% if server_count %} and {% endif %}
+                            remove these environments from {% portal_label %}.
+                        {% endif %}
+                        {% if server_count %}
+                            {% infotip 'The actual servers in '|add:handler.resource_technology.name|add:' will not be affected' %}
+                        {% endif %}
+                    </p>
+
+                    <p><i>This may take a few moments.</i></p>
+                </label>
+            </div>
+
+        </div>
+
+        <script>
+        $(function(){
+            var $submit = $('#dialog-modal .btn-primary');
+
+            function enableOrDisableSubmit() {
+                if ($(this).prop('checked')) {
+                    $submit.prop('disabled', '').unwrap();
+                } else {
+                    $submit.prop('disabled', 'disabled')
+                        .wrap('<div data-toggle="tooltip" ' +
+                            'style="display:inline-block; margin-left:5px;" class="no-tooltip-affordance" ' +
+                            'title="The issues mentioned above must be resolved first"></div>');
+                    c2.tooltip.init($('#dialog-modal'));
+                }
+            }
+
+            $('#id_clear').on('change', enableOrDisableSubmit);
+            enableOrDisableSubmit();
+
+            $submit.on('click', function(){
+                c2.block.block('#dialog-modal .modal-content');
+            });
+        });
+        </script>
+
+    {% else %}
+        <p>
+        Are you sure you want to delete this resource handler?
+        </p>
+    {% endif %}
+
+{% endblock %}

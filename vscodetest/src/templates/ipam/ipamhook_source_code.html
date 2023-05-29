@@ -1,0 +1,117 @@
+{% load helper_tags %}
+
+<div id="action-source-code-{{ editor_id }}">
+    {% if not file_error %}
+        <a href="{% url 'action_download_module' hook.id %}"
+            class="no-tooltip-affordance">
+            <span class="glyphicon glyphicon-download"></span>
+            Download
+        </a>
+
+        {% if not hook.source_code_url %}
+            {# Non-CB admins should not be allowed to edit the code of plugins #}
+            {# or other actions that are shared #}
+            {% if hook.type_slug != "plugin" and not hook.shared or profile.is_cbadmin %}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{% url 'ipamhook_inline_module_edit' ipam.id hook.id %}"
+                    data-dialog-width="1000"
+                    data-prevent-esc-closing="true"
+                    class="no-tooltip-affordance open-dialog">
+                    <span class="glyphicon glyphicon-edit"></span>
+                    Customize
+                </a>&nbsp;&nbsp;
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    <a
+        {% if action_provenance == 'ootb' %}
+            class="disabled"
+        {% else %}
+            style="cursor:pointer"
+            onClick="c2.ace.toggleOotbCode('#action-source-code-{{ editor_id }}');"
+        {% endif %}
+        >
+        <span class="far fa-eye"></span>
+        <span class="show-or-hide">Show</span> default {{ ipam.ipam_technology }} orchestration
+        {% if action_provenance == 'ootb' %}
+            {% infotip ipam.ipam_technology ' has orchestration provided out-of-the-box, which is currently being used. If you customize it, you will be able to view the default orchestration and compare to your version.' %}
+        {% else %}
+            {% infotip ipam.ipam_technology ' has orchestration provided out-of-the-box, which can be viewed and compared to the customized code currently being used.' %}
+        {% endif %}&nbsp;&nbsp;
+    </a>
+
+    <span id="revert-code"
+            {% if action_provenance == 'ootb' %} class="hidden" {% else %} class="" {% endif %}>
+        <a href="{% url "revert_action_code_to_ootb" hook.id %}"
+                    data-dialog-width="1000"
+                    data-prevent-esc-closing="true"
+                    class="no-tooltip-affordance open-dialog">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            Revert customizations </a>
+        {% infotip "Back out any customizations you've made and use the default orchestration." %}
+    </span>
+
+    <div class="source-code-row">
+        <div>
+            {% if include_ootb_pieces %}
+                <h5 style="display:none"> Current </h5>
+            {% endif %}
+            {% if file_error %}
+                <p class="text-danger">The file could not be read.
+                {% if hook.source_code_url %}
+                    Check your action's source code URL.
+                {% else %}
+                    Edit the action and upload a new file.
+                {% endif %}
+                </p>
+                <pre class="text-danger">{{ file_error }}</pre>
+            {% else %}
+                <textarea id="{{ editor_id }}"
+                    name="{{ editor_id }}-textarea"
+                    class="ace-lg">
+                    {{ file_content }}
+                </textarea>
+            {% endif %}
+        </div>
+
+        {% if include_ootb_pieces %}
+            <div style="display:none">
+                <h5> Default {{ ipam.ipam_technology }} orchestration</h5>
+                {% if ootb_file_error %}
+                    <pre class="text-danger">{{ ootb_file_error }}</pre>
+                {% else %}
+                    <textarea id="{{ ootb_code_id }}"
+                        name="{{ ootb_code_id }}-textarea"
+                        class="ace-lg">
+                        {{ ootb_file_content }}
+                    </textarea>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+$(function() {
+  var $editor = $('#{{ editor_id }}');
+  if ($editor.closest('.panel.action-details').length == 0) {
+    {% if file_content %}
+        // Not inside an action panel, so instantiate Ace for this immediately.
+        // Otherwise c2.ace.initializeAceInPanel is in charge.
+        c2.ace.init('{{ editor_id }}', {
+            aceOptions: {
+            readOnly: true
+            }
+        });
+    {% endif %}
+    {% if ootb_file_content %}
+        c2.ace.init('{{ ootb_code_id }}', {
+            aceOptions: {
+            readOnly: true
+            }
+        });
+    {% endif %}
+  }
+});
+</script>

@@ -1,0 +1,8 @@
+The folder /opt/cloudbolt is the CloudBolt product directory.
+Please note that it will be overwritten on each CB upgrade.
+
+If you have any customizations, extensions, or scripts that you've made,
+put then under /var/opt/cloudbolt instead.
+
+For more information on all things CloudBolt, our current docs can be found at
+docs.cloudbolt.io, or by clicking the life preserver link in your CB UI.

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+<!-- {% block title %}System Status{% endblock %} -->
+
+{% block extrastyle %}
+    <style>
+        {# Orange #}
+        td.status_3 {
+            background-color: #f90;
+            width: 2px;
+            padding: 0px;
+            margin: 0px;
+        }
+        {# Yellow #}
+        td.status_2 {
+            background-color: #ff0;
+            width: 2px;
+            padding: 0px;
+            margin: 0px;
+        }
+        {# Green #}
+        td.status_1 {
+            background-color: #0a0;
+            width: 2px;
+            padding: 0px;
+            margin: 0px;
+        }
+        {# Red #}
+        td.status_0 {
+            background-color: #a00;
+            width: 2px;
+            padding: 0px;
+            margin: 0px;
+        }
+        .status-container .refresh {
+            margin: .5em 0;
+        }
+        .mode-container {
+            margin: 1em 0;
+        }
+        .job-chart {
+            width:50%;
+            padding:1em;
+            float:left;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="mode-container">
+        <h1>CloudBolt Mode</h1>
+        {% if gp.admin_only_mode %}
+            <a class="btn btn-default open-dialog" tabindex="-1" data-href=
+                    "{% url 'health_check:change_admin_only_mode' %}">
+                <i class="fa fa-unlock"></i>
+                Disable admin-only mode
+            </a>
+        {% else %}
+            <a class="btn btn-default open-dialog" tabindex="-1" data-href=
+                    "{% url 'health_check:change_admin_only_mode' %}">
+                <i class="fa fa-lock"></i>
+                Enable admin-only mode
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="status-container dataTables_wrapper">
+        <h1>Job Engine</h1>
+        <div data-include="{% url 'health_check:jobengine' %}{% if verbose %}?verbose={{verbose}}{% endif %}">
+            <div class="clearfix"></div>
+            <p class="text-center">Loading Job Engine status...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div class="status-container dataTables_wrapper">
+        <h1>Health Checks</h1>
+        <div data-include="{% url 'health_check:services' %}{% if verbose %}?verbose={{verbose}}{% endif %}">
+            <div class="clearfix"></div>
+            <p class="text-center">Loading results...</p>
+            <div class="spinner"></div>
+        </div>
+    </div>
+{% endblock %}

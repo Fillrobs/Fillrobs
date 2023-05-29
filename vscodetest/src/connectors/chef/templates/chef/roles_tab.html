@@ -1,0 +1,15 @@
+{% extends 'objects_tab.html' %}
+{% load helper_tags %}
+
+{% block buttons %}
+<a class="btn btn-default js-dialog-link"
+    href="{% url 'chef_connector_import_roles' provider.id %}"
+    id="import-apps">
+    <span class="icon-import"></span>
+    Import Roles from Chef Server
+</a>
+{% endblock buttons %}
+
+{% block objects_table %}
+    {% include 'connectors/common/objects_table.html' with object_type='role' objects=provider.chefrole_set.all %}
+{% endblock objects_table %}

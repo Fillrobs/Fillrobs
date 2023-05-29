@@ -1,0 +1,12 @@
+#!/bin/bash
+pubkey="{{public_key}}"
+
+echo "Adding the following public key to this instance:"
+echo $pubkey
+
+# Check for ssh client structure and create if needed
+test ! -d ~/.ssh && mkdir ~/.ssh && chmod 700 ~/.ssh
+test ! -f ~/.ssh/authorized_keys && touch ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys
+
+# Add this public ssh key to authorized keys if it doesnt already exist
+grep "$pubkey" ~/.ssh/authorized_keys || echo "$pubkey" >> ~/.ssh/authorized_keys

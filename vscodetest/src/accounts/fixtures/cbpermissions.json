@@ -1,0 +1,339 @@
+[
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "order.view",
+        "label": "View Orders",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "order.submit",
+        "label": "Submit Orders",
+        "description": "Allows the user to order servers and blueprints"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.control_power",
+        "label": "Control Power on Servers",
+        "description": "Power on, power off, reboot, and pause servers"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_snapshots",
+        "label": "Manage Snapshots",
+        "description": "Create, delete, and restore from server snapshots"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.add_disks",
+        "label": "Add Disks",
+        "description": "Allows the user to add disks to a server"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.remove_disks",
+        "label": "Remove Disks",
+        "description": "Allows the user to remove disks from a server"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.resize_disks",
+        "label": "Resize Disks",
+        "description": "Allows the user to resize disks on a server"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_nics",
+        "label": "Manage NICs",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.change_resources",
+        "label": "Change Resources",
+        "description": "Change CPU & memory on VMs"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.console",
+        "label": "Console",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.remote_terminal",
+        "label": "Remote Terminal",
+        "description": "SSH/RDP access to servers from the CloudBolt UI"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_applications",
+        "label": "Manage Apps",
+        "description": "[Un]Install config manager applications on servers"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.change_attributes",
+        "label": "Change Attributes",
+        "description": "Change env, group, OS family, and OS build associates for servers"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_labels",
+        "label": "Manage Labels",
+        "description": "Add and remove labels on servers"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_parameters",
+        "label": "Manage Server Parameters",
+        "description": "Add, remove, and modify parameters (AKA custom fields) on servers"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.delete",
+        "label": "Delete Server",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_credentials",
+        "label": "Manage Server Credentials",
+        "description": "Allows the user to view and manage the credentials used to execute remote actions on servers."
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.view_handler_specific_details",
+        "label": "View Handler-Specific Details",
+        "description": "Allows the user to see resource handler specific details for servers. Ex. The VMware cluster, the AWS region, etc."
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.all_actions",
+        "label": "Run All Server Actions",
+        "description": "Allows the user to execute any Server Action available on the server"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "order.approve",
+        "label": "Approve Orders",
+        "description": "Allows the user to approve and deny orders"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "order.change_attributes",
+        "label": "Change Order Attributes",
+        "description": "Change the order name"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.view",
+        "label": "View Servers",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "resource.view",
+        "label": "View Resources",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "resource.change_attributes",
+        "label": "Change Resource Attributes",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "resource.manage_parameters",
+        "label": "Manage Resource Parameters",
+        "description": "Add, remove, and modify parameters (AKA custom fields) on resources"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "pk": 24,
+    "fields": {
+        "name": "resource.all_actions",
+        "label": "Run All Resource Actions",
+        "description": "Allows the user to execute any Resource Action available on the resource"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.view",
+        "label": "View Group Details",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.change_attributes",
+        "label": "Change Group Attributes",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.delete",
+        "label": "Delete Group",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.create_subgroup",
+        "label": "Create Subgroup",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.manage_members",
+        "label": "Manage Group Memberships",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.manage_networks",
+        "label": "Manage Group Networks",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.manage_parameters",
+        "label": "Manage Group Parameters",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "group.manage_subgroup_quotas",
+        "label": "Manage Subgroup Quotas",
+        "description": "Allows the user to manage quotas for subgroups of this group"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "blueprint.manage",
+        "label": "Manage Blueprints",
+        "description": "Allows the user to manage the creation/deletion/modification of Blueprints"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "blueprint.create_parameters",
+        "label": "Create Blueprint Parameters",
+        "description": "Allows the user to create just Blueprint Parameters"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "job.view",
+        "label": "View Jobs",
+        "description": ""
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "job.view_logs",
+        "label": "View Job Logs",
+        "description": "Allows the user to view and download job logs."
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "job.cancel",
+        "label": "Cancel Jobs",
+        "description": "Allows the user to cancel jobs in progress."
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "job.rerun",
+        "label": "Re-run Jobs",
+        "description": "Allows the user to re-run failed jobs."
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.view_power_schedule",
+        "label": "View Server's Power Schedule",
+        "description": "Allows the user the see the schedule for recurring power control on the server"
+    }
+},
+{
+    "model": "accounts.cbpermission",
+    "fields": {
+        "name": "server.manage_power_schedule",
+        "label": "Manage Server's Power Schedule",
+        "description": "Allows the user the edit the schedule for recurring power control on the server"
+    }
+}
+]

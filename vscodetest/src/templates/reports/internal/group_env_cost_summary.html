@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<h3>{{ e.name }} ({{ e.servers_cnt }} {% trans "servers" %})</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>{% trans "Resources" %}</th>
+      <th class="numerical">{% trans "Cost" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td>{% trans "Hardware Cost (Off)" %}</td>
+        <td class="numerical">{{ rcu }}&nbsp;{{ e.hw_cost_off|floatformat:2 }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Hardware Cost (On)" %}</td>
+        <td class="numerical">{{ rcu }}&nbsp;{{ e.hw_cost_on|floatformat:2 }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Software Cost" %}</td>
+        <td class="numerical">{{ rcu }}&nbsp;{{ e.sw_cost|floatformat:2 }}</td>
+    </tr>
+    <tr>
+        <td>{% trans "Extra Cost" %}</td>
+        <td class="numerical">{{ rcu }}&nbsp;{{ e.extra_cost|floatformat:2 }}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><b>{% trans "Total" %}</b></td>
+      <td class="numerical"><b>{{ rcu }}&nbsp;{{ e.total|floatformat:2 }}</b></td>
+    </tr>
+  </tfoot>
+</table>

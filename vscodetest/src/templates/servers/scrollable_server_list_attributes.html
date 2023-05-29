@@ -1,0 +1,42 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% if show_default_message %}
+    <p>
+    {% blocktrans trimmed count num_servers=servers|length %}
+      The following {{ num_servers }} server has been selected:
+    {% plural %}
+      The following {{ num_servers }} servers have been selected:
+    {% endblocktrans %}
+    </p>
+{% endif %}
+
+<div class="scrollable-table-container" style="max-height: {{ max_height }};">
+  <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>{% trans 'Hostname' %}</th>
+          <th>{% trans 'Owner' %}</th>
+          <th>{% trans 'Group' %}</th>
+          <th>{% trans 'Env' %}</th>
+          <th>{% trans 'OS' %}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for server in servers %}
+        <tr>
+          <td> {{ server.hostname}} </td>
+          <td> {% if server.owner %} 
+                   {{ server.owner }}
+               {% else %}
+                   {% trans "None" %} 
+               {% endif %}
+          </td>
+          <td> {{ server.group }} </td>
+          <td> {{ server.environment }} </td>
+          <td> {{ server.os_family|os_family_icon }} </td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>

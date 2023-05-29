@@ -1,0 +1,12 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+
+<h3>{% trans "Tags" %}</h3>
+<dl id="server-tags">
+{% for tag, value in details.tags.items %}
+    <dt id="tag-name">{{ tag }}:</dt>
+    <dd id="tag-value">{{ value }}</dd>
+{% endfor %}
+</dl>

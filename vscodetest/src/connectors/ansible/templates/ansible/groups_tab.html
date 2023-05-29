@@ -1,0 +1,13 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link open-dialog"
+        href="{% url 'ansible_group_create' provider.id %}">
+        <span class="icon-add"></span>
+        Add an Inventory Group
+    </a>
+</div>
+
+{% block objects_table %}
+     {% include 'ansible/groups_table.html' with object_type='ansiblegroup' objects=provider.ansiblegroup_set.all %}
+{% endblock objects_table %}

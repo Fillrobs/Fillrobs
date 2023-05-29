@@ -1,0 +1,48 @@
+{% extends 'dialogs/dialog.html' %}
+{% load i18n %}
+
+{% block non_form_content %}
+<p>
+{% if hooks %}
+    {% url 'orchestration_actions' as orchestration_url %}
+    {% blocktrans %}Run sync on external user <b>{{ user }}</b>? Submitting this dialog will
+    execute the action trigger
+        <a href="{{ orchestration_url }}#tab-job-type-None">
+            External Users Sync</a>.
+    This includes these actions:{% endblocktrans %}
+{% else %}
+    {% blocktrans %}There are no actions to run at the trigger point
+    <a href="{{ orchestration_url }}#tab-job-type-None">
+            External Users Sync</a>.
+        Enable actions to execute them here.{% endblocktrans %}
+{% endif %}
+</p>
+{% endblock non_form_content %}
+
+{% block form_content %}
+{% if hooks %}
+<table data-table="dialog">
+    <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for hook in hooks %}
+            <tr>
+                <td class="name">
+                    {% if hook.name %}
+                        {{ hook.name }}
+                    {% else %}
+                        {% trans "<i>(no name)</i>" %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    c2.dataTables.init()
+</script>
+{% endif %}
+{% endblock form_content %}

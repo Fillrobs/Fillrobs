@@ -1,0 +1,137 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% load pe_tags %}
+{% load connector_tags %}
+{% load i18n %}
+
+<div id="env-overview">
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'env_overview_form_post' environment.id %}">
+                <span class="icon-edit"></span>
+                {% trans "Edit" %}
+            </a>
+
+            {% if profile.can_manage_environment %}
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'env_clone' environment.id %}"
+                    id="clone_env">
+                    <span class="icon-duplicate"></span>
+                    {% trans "Clone" %}
+                </a>
+            {% endif %}
+            {% if profile.is_cbadmin %}
+                {# TODO: allow tenant admins to export environments #}
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'export_environment_password_dialog' environment.id %}">
+                    <span class="fas fa-file-export"></span>
+                    {% trans "Export" %}&hellip;
+                </a>
+            {% endif %}
+            {% if profile.can_manage_environment %}
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'env_delete' environment.id %}"
+                    id="delete_env">
+                    <span class="icon-delete"></span>
+                    {% trans "Delete" %}&hellip;
+                </a>
+            {% endif %}
+        </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <dl class="dt-25">
+
+                <dt>{% trans "Description:" %}</dt>
+                <dd>
+                    <div {% if environment.description %} class="well well-sm" {% endif %}>
+                        {{ environment.description|default:_("<i>No description</i>") }}
+                    </div>
+                </dd>
+
+                <dt>{% trans 'Resource handler:' %}</dt>
+                {% if environment.resource_handler %}
+                    <dd>{{ environment.resource_handler|resource_handler_icon }} {{ environment.resource_handler|link_or_label:profile }}
+                {% else %}
+                    <dd><i class="error">{% trans "None (must configure to use this environment)" %}</i>
+                {% endif %}
+                </dd>
+
+                <dt>{% trans 'Container Orchestrator:' %}</dt>
+                <dd>{{ container_orchestrator_display }}</dd>
+
+                <dt>{% trans "Provision engine:" %}</dt>
+                <dd>{{ environment.provision_engine|provengine_icon }} {{ environment.provision_engine|link_or_label:profile }}</dd>
+
+                {% if connector %}
+                    <dt>{% trans "Configuration Manager:" %}</dt>
+                    <dd>{% connector_conf_link_with_icon connector profile %}</dd>
+                {% endif %}
+
+                <dt>{% trans "Resource pool:" %}</dt>
+                <dd>{{ environment.resource_pool|link_or_label:profile }}</dd>
+
+                <dt>
+                    <span data-toggle="tooltip" title=" {{ AUTO_APPROVAL_TIP }} ">{% trans "Auto Approval" %}</span>:
+                </dt>
+                <dd>
+                    {% if environment.auto_approval %} {% trans "On" %} {% else %} {% trans "Off" %} {% endif %}
+                </dd>
+                <dt>
+                    <span data-toggle="tooltip"
+                          title="{% trans "Used to access this Environment in the API" %}">
+                        {% trans "Global ID" %}</span>:
+                </dt>
+                <dd>{{ environment.global_id }}</dd>
+
+
+                {% if environment.resource_handler.cast.supports_locations %}
+                    <dt>{% trans "Location:" %}</dt>
+                    <dd>
+                        {% if environment.node_location %}
+                            {{ environment.node_location }}
+                        {% else %}
+                            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+                            <a class="icon-edit open-dialog"
+                                href="{% url 'edit_env_location' environment.id %}"></a>
+                        {% endif %}
+                    </dd>
+                {% endif %}
+
+
+                {% if profile.show_tenant_info %}
+                    <dt>{% trans "Tenant:" %}</dt>
+                    <dd>{{ environment.tenant|link_or_label_none_global:profile }}</dd>
+                {% endif %}
+
+                {% if tech_specific_overview %}
+                    {% include tech_specific_overview %}
+                {% endif %}
+
+            </dl>
+
+        </div>
+        <div class="col-lg-6">
+
+            <dl class="dt-25">
+                <dt> {% trans "Servers:" %}</dt>
+                <dd>
+                    {{ server_count }} &nbsp;<i class="icon-server"></i>
+                </dd>
+
+                {% if enable_rates_feature %}
+                    <dt>
+                        <span data-toggle="tooltip" title="{% trans 'Total cost of all active servers in this environment' %}">{% trans "Rate" %}</span>:
+                    </dt>
+                    <dd>
+                        {{ environment.rate_display_with_tooltip }}
+                    </dd>
+                {% endif %}
+            </dl>
+
+        </div>
+    </div>
+</div>

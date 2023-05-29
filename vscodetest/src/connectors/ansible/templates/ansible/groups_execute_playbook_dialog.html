@@ -1,0 +1,16 @@
+{% extends 'dialogs/dialog.html' %}
+
+{% block non_form_content %}
+<p>
+    <a href="{{adhoc_url}}">Run an ad-hoc command instead</a>
+</p>
+{% endblock non_form_content %}
+
+{% block dialog_footer %}
+
+    <button class="pull-left btn btn-default open-dialog" href="{{adhoc_url}}" >Adhoc
+    </button>
+
+    {{ block.super }}
+
+{% endblock dialog_footer %}

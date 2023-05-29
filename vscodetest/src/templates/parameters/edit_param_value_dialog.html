@@ -1,0 +1,43 @@
+{% extends 'dialogs/dialog.html' %}
+{% load helper_tags %}
+{% load i18n %}
+{% block form_content %}
+<div id="edit_server_param_form" ng-non-bindable {# allow template-type strings containing curly braces #}>
+    {% for field in form.hidden_fields %}
+        {{ field }}
+    {% endfor %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+            {{ form.value.errors }}
+        </div>
+    {% endif %}
+
+    <p>
+    {% trans "Set value for parameter" %} <b>{% text_tooltip field.label field.description %}</b>: <br>
+    </p>
+
+    <span>
+        {{ form.value }} {{ field.units_string }}
+    </span>
+
+    {% if form.value.help_text %}
+        <span class="helptext">
+            {{ form.value.help_text }}
+        </span>
+    {% endif %}
+    <br>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+
+    // We need to format date the same way as it is rendered by our form: 2013-05-02 00:00:00
+    $('#edit_server_param_form .render_as_datepicker').datepicker({
+        dateFormat: "yy-mm-dd",
+    });
+
+});
+</script>
+{% endblock form_content %}

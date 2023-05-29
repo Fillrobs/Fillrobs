@@ -1,0 +1,44 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{%  block item_details_row %}
+    {% with flow_action=service_item.hook.cast %}
+    <div class="row">
+        <div class="col-sm-6">
+
+            <dl class="vertical">
+                <dt>{% trans 'Flow action:' %}</dt>
+                <dd>
+                    {% if managing %}
+                        <a href="{{ flow_action.get_absolute_url }}"
+                            class="no-tooltip-affordance" data-toggle="tooltip"
+                            title={% blocktrans with flow_action_type_slug=flow_action.type_slug flow_action_name=flow_action.name %}"Manage this {{ flow_action_type_slug }}">
+                            {{ flow_action_name }}{% endblocktrans %}
+                        </a>
+                    {% else %}
+                        {{ flow_action.name }}
+                    {% endif %}
+
+                    {% infotip flow_action.description %}
+                </dd>
+
+                <dt>External flow name:</dt>
+                <dd>{{ flow_action.orchestration_flow.name }}</dd>
+
+                <dt>External orchestrator:</dt>
+                <dd>{{ flow_action.orchestration_flow.engine|link_or_label:profile }}</dd>
+
+            </dl>
+
+            {% include 'actions/action_input_defaults.html' with action=service_item edit_url="edit_service_item" %}
+
+        </div><!-- col 1 -->
+        <div class="col-sm-6">
+            {% include 'servicecatalog/action_sequencing_options.html' %}
+        </div><!-- col 2 -->
+    </div><!-- row -->
+    {% endwith %}
+{%  endblock item_details_row %}

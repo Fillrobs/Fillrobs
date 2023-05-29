@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if managing %}
+    <input type=checkbox name=restrict_sub_blueprint_scope
+        data-toggle="toggle"
+        data-on="{% trans 'Restricted' %}"
+        data-off="{% trans 'Unrestricted' %}"
+        data-width="180"
+        data-post-url="{% url 'toggle_restrict_sub_blueprint_scope' service_item.id %}"
+        {% if service_item.restrict_sub_blueprint_scope %}checked{% endif %}
+        {% if blueprint.remote_source_url %}disabled{% endif %} />
+{% else %}
+    {% if service_item.restrict_sub_blueprint_scope %}
+        {% trans 'Restricted' %}
+    {% else %}
+        {% trans 'Unrestricted' %}
+    {% endif %}
+{% endif %}

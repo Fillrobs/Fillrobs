@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% load pe_tags %}
+{% load connector_tags %}
+{% load i18n %}
+{% block topnav %}environments{% endblock %}
+
+{% block content %}
+<h1><i class="fas fa-globe"></i> {% trans "Environments" %}</h1>
+
+    <section class="intro">
+        <p>
+        {% blocktrans %}An environment is a logical set of resources.  It may be defined by
+        geographic location, purpose (<i>test vs.  production</i>), technology,
+        or other attributes.  Admins may tailor each environment to suit its
+        purpose, for example defining more advanced orchestration actions in a
+        development environment, or more OS builds in a test environment.{% endblocktrans %}
+        {% include "common/docs_link.html" with url="environments.html" %}
+        </p>
+
+        <p><i>{{ tenant_msg }}</i></p>
+    </section>
+
+    <div class="btn-toolbar btn-group btn-wrapper">
+        <button type="button" data-toggle="dropdown" aria-haspopup="true"
+            class="edit-action btn btn-default dropdown-toggle selection-action">
+            {% trans "Add an Environment" %}&nbsp;&nbsp;<span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li>
+                <a class="default open-dialog" tabindex="-1"
+                   data-href="{% url 'env_add' %}">
+                   <span class="icon-add"></span>
+                   {% trans "Create New" %}
+                </a>
+            </li>
+            <li>
+                <a class="open-dialog" tabindex="-1"
+                   data-href="{% url 'upload_environment' %}">
+                   <span class="fas fa-upload"></span>
+                   {% trans "Upload Environment" %}
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    {% with show_config_mgmt=enable_connectors %}
+    <table id="environments" data-table>
+        <thead>
+          <tr>
+            <th>{% trans "Name" %}</th>
+            {% if profile.show_tenant_info %}
+                <th>{% trans 'Tenant' %}</th>
+            {% endif %}
+            {% if enable_rates_feature %}
+                <th>
+                  <span data-toggle="tooltip" title="{% blocktrans %}Spend per {{ units }}{% endblocktrans %}">{% trans "Rate" %}</span>
+                </th>
+            {% endif %}
+            <th>{% trans "Resource Handler" %}</th>
+            <th>{% trans "Container Orchestrator" %}</th>
+            {% if show_config_mgmt %}
+                <th>{% trans "Config Mgmt" %}</th>
+            {% endif %}
+            {% if show_prov_engines %}
+                <th>{% trans "Provision Engine" %}</th>
+            {% endif %}
+            <th>{% trans "Active Servers" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for env in environments %}
+                <tr>
+                    <td class="name"> <a href={% url 'env_detail' env.id %}>{{ env.name |default:_("<i>(no name)</i>") }}</a></td>
+                    {% if profile.show_tenant_info %}
+                        <td>
+                            {# Since objects.values() is passed in, we use have to use __label to get the name of tenant #}
+                            {# and can't rely on the usual link_or_label_none_global filter. #}
+                            {# However, the people with show_tenant_info all get a link so that helps #}
+                            {% if env.tenant__id %}
+                                <a href={% url 'tenant_detail' env.tenant__id %}>{{ env.tenant__label }}</a>
+                            {% else %}
+                                <i>Global</i>
+                            {% endif %}
+                        </td>
+                    {% endif %}
+                    {% if enable_rates_feature %}
+                        <td>{% render_rate env.rate None %}</td>
+                    {% endif %}
+                    <td class="resource_handler">{{ env.rh_display }}</td>
+                    <td>
+                        {{ env.co_display }}
+                    </td>
+                    {% if show_config_mgmt %}
+                        <td class="connectors">
+                            {{ env.connector_display }}
+                        </td>
+                    {% endif %}
+                    {% if show_prov_engines %}
+                        <td class="prov_engines">
+                            {{ env.prov_engine_display }}
+                        </td>
+                    {% endif %}
+                    <td class="servers">
+                        {% if env.active_servers_count > 0 %}
+                        {{ env.active_servers_count }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endwith %}
+
+{% if profile.is_cbadmin and profile.view_initial_tour %}
+    <script>
+        var profile_id = '{{ profile.id }}';
+    </script>
+    <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+    <script src="{{ STATIC_URL }}js/tours/environmentsTour.js"></script>
+    <script>
+        c2.environmentsTour.init().start();
+    </script>
+{% endif %}
+
+{% endblock %}

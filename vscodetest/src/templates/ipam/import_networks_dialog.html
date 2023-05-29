@@ -1,0 +1,39 @@
+{% load helper_tags %}
+
+{% if available_ipam_networks %}
+    <p>
+        {{ available_ipam_networks|length }} networks are available for import.
+    </p>
+    <table id="discovered_networks" data-table="dialog clickable">
+        <thead>
+        {% block network_columns %}
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th>Network CIDR</th>
+        {% endblock %}
+        </thead>
+        <tbody>
+        {% block network_rows %}
+            {% for network in available_ipam_networks %}
+                <tr>
+                    <td><input name="network" type="checkbox" value="{% if network.id %}{{ network.id }}{% else %}{{ network.network }}{% endif %}"/></td>
+                    <td class="name">{{ network.network }}{% if network.section_name %} - {{ network.section_name }}{% endif %}</td>
+                </tr>
+            {% endfor %}
+        {% endblock %}
+        </tbody>
+    </table>
+{% else %}
+    {% block no_networks %}
+        <p>
+            Unable to locate any new networks at this time.
+        </p>
+    {% endblock %}
+{% endif %}
+
+<script type="text/javascript">
+    $(function() {
+        c2.dataTables.init('#discovered_networks');
+    });
+</script>

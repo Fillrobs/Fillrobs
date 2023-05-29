@@ -1,0 +1,38 @@
+{% load helper_tags %}
+{% load i18n %}
+<div id="histgraph" style="height:400px;"></div>
+<script>
+    function drawHistoryChart() {
+        var $histgraph = $('#histgraph');
+
+        $histgraph.highcharts({
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: {{ event_times|to_json }}
+        },
+        yAxis: {
+            title: {
+                text: '{% trans "Total Servers" %}'
+            },
+        },
+        series: {{ series|to_json }}
+    });
+
+
+    }
+
+    // This call is really only needed when the history tab is already active
+    // on page load; otherwise the shown event below will take effect.
+    drawHistoryChart();
+
+    $('a[href="#tab-history"]').one('shown.bs.tab', function (e) {
+        // Cause chart to be re-sized to the tab-pane width when it is first
+        // visited. Otherwise, if page is loaded with another tab active, the
+        // chart will think its container is narrower than it really is and
+        // only become properly sized when browser is resized.
+        drawHistoryChart();
+    });
+
+</script>

@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% load order_tags %}
+{% load i18n %}
+{% block topnav %}jobs{% endblock %}
+
+{% block content %}
+    <h1>
+        <i class="fas fa-redo"></i>
+        {% trans 'Recurring Jobs' %}
+    </h1>
+<div class="pull-right">
+
+    {% if show_content_library %}
+    <a class="btn btn-default no-tooltip-affordance" href="{% url 'library' %}?type=recurring-jobs"
+        data-toggle="tooltip" data-placement="left"
+        title="{% blocktrans %}View and import Recurring Jobs from the Content Library{% endblocktrans %}">
+        {% trans 'Import from the Content Library' %}
+        <i class="fas fa-cloud-download-alt"></i>
+    </a>
+    {%endif%}
+</div>
+
+<div class="tab-content">
+    <div id="local-content-view" class="tab-pane active">
+
+        <div class="btn-toolbar">
+            <div class="btn-group btn-wrapper">
+                <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                    class="edit-action btn btn-default dropdown-toggle selection-action">
+                    <i class="icon-add"></i>
+                    {% trans 'Add a Recurring Job' %} &nbsp;&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a class="default open-dialog" tabindex="-1"
+                            style="cursor:pointer;cursor:hand;"
+                            data-href="{% url 'add_recurring_job' %}">
+                            <span class="icon-add"></span>
+                            {% trans 'Add from Job' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="default open-dialog" tabindex="0"
+                            style="cursor:pointer;cursor:hand;"
+                            data-href="{% url 'add_action_trigger' 'recurring_job' %}">
+                            <span class="icon-add"></span>
+                            {% trans 'Add from Action' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="open-dialog" tabindex="-1"
+                                data-href="{% url 'upload_action_trigger' 'recurring_job' %}">
+                            <span class="fas fa-upload"></span> {% trans 'Upload Recurring Job' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <table id="recurring-jobs-list-table"
+            data-table
+            data-table-sort="0,desc"
+            data-table-sort-disabled="7,8"
+            data-table-source="{% url 'recurring_job_list_json' %}">
+            <thead>
+                <tr>
+                    <th><span data-toggle="tooltip" title="Status of the most recently spawned job">{% trans 'Status' %}</span></th>
+                    <th>{% trans 'Name' %}</th>
+                    <th>{% trans 'Type' %}</th>
+                    <th>{% trans 'Schedule' %}</th>
+                    <th>{% trans 'Next Run' %}</th>
+                    <th>{% trans 'Creator' %}</th>
+                    <th>{% trans 'Added' %}</th>
+                    <th>{% trans 'History' %}</th>
+                    <th>{% trans 'Actions' %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# will be populated by dataTable based on AJAX responses #}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    {# Set up an onChange handler for the enable/disable toggles that updates the correct "Next Run" table entry. #}
+    $('#recurring-jobs-list-table').on('change', 'input[data-toggle="toggle"][name="enabled"]', function(e) {
+        var $target = $(e.target);
+        var $spanToUpdate = $target.closest('tr').find('.next-run');
+
+        $(document).off('ajaxComplete');
+        $(document).ajaxComplete(function(event, jqXHR, settings) {
+            var responseJSON = jqXHR.responseJSON;
+            var postURLForToggle = $target.data('post-url');
+            if (settings.url === postURLForToggle && responseJSON.nextRunHTML) {
+              $spanToUpdate.html(responseJSON.nextRunHTML);
+            }
+        });
+    });
+</script>
+
+{% endblock content %}
+
+{% block onReady %}
+    $('#recurring-jobs-table').on('click', '.cb-tag', function(e) {
+        e.preventDefault();
+        var $tag = $(e.target);
+        $('.dataTables_filter').find('input').val($tag.text().trim()).trigger('keyup');
+    });
+{% endblock %}

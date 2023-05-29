@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load account_tags %}
+{% load order_tags %}
+{% load tab_tags %}
+
+{% block topnav %}groups{% endblock %}
+{% block content %}
+
+    <h1> {{group.type}}: {{ group.standalone_name }} </h1>
+
+    {% draw_tabs tabs %}
+
+{% endblock content %}

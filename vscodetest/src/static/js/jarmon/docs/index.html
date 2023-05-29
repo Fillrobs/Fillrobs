@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="utf-8">
+    <title>Jarmon Help File</title>
+
+    <h1>Jarmon User Guide</h1>
+    <p>Jarmon is a browser based graph rendering system.
+    <h2>Contents</h2>
+    <ol>
+        <li><a href="#browser-compatibility">Browser Compatibility</a></li>
+        <li><a href="#api-documentation">API documentation</a></li>
+        <li><a href="#release-process">Release process and tools</a></li>
+        <li><a href="#automated-tests">Running automated tests</a></li>
+    </ol>
+    <h2 id="browser-compatibility">Browser Compatibility</h2>
+    <p>Jarmon depends upon the <a href="http://code.google.com/p/flot/">Flot
+    graphing library</a> which makes use of the
+    <a href="http://www.w3.org/TR/html5/the-canvas-element.html">HTML5 canvas
+    element</a>. The canvas element is only supported in certain web browsers.
+
+    <table>
+        <tr><th>Browser             <th>Minimum Supported Version
+        <tr><td>Firefox             <td>3.0
+        <tr><td>Safari              <td>3.2
+        <tr><td>Chrome              <td>3.0
+        <tr><td>Opera               <td>10.1
+        <tr><td>Internet Explorer   <td>6 (see caveats below)
+    </table>
+
+    <h3>Internet Explorer Caveats</h3>
+    <dl>
+        <dt>Internet Explorer (&lt;= IE8)
+        <dd>This version of IE does not have native support the HTML canvas (see
+        Internet Explorer workarounds below)
+        element.
+
+        <dt>Internet Explorer 9
+        <dd>Due to be released in late 2010 this new version of IE will provide
+        <a href="http://blogs.msdn.com/b/ie/archive/2010/06/23/html5-native-third-ie9-platform-preview-available-for-developers.aspx">
+        native canvas support</a> and will be able to render Jarmon graphs as
+        fast (if not faster) than other browsers.
+    </dl>
+
+    <h3>Internet Explorer Workarounds</h3>
+    <dl>
+        <dt>Excanvas
+        <dd>This is the default IE compatibility workaround. Jarmon bundles the
+        <a href="http://code.google.com/p/explorercanvas/">excanvas library</a>
+        which translates canvas api calls into VML, but this is much slower
+        than the native canvas support in other browsers. In the absence of
+        other workarounds, Jarmon will transparently use the excanvas library.
+
+        <dt>Chrome Frame
+        <dd><a href="http://code.google.com/chrome/chromeframe/">Chrome
+        Frame</a> is an IE plugin developed by Google. Once installed, it
+        replaces the standard IE rendering module with the more performant
+        Chrome rendering module.</dd>
+        <dd>When first visiting a Jarmon page using &lt;= IE8, you will be
+        prompted with an advisory message, explaining the performance penalty of
+        using the standard excanvas compatibility layer.
+        <dd>You will be asked whether you want to Install and use Chrome Frame.
+        You will be presented with the following options:
+            <dl>
+                <dt>Yes
+                <dd>After you choose this option the message will be hidden and
+                you will be guided through the steps necessary to install
+                Chrome Frame after which you can continue to use Jarmon
+                normally.</dd>
+                <dt>Remind me later
+                <dd>After you choose this option, the message will be hidden
+                and you can continue to use Jarmon.</dd>
+                <dd>Your preference will be saved in a cookie and the warning
+                message will not re-appear for 1 month.</dd>
+                <dt>Never
+                <dd>After you choose this option, the message will be hidden
+                and you can continue to use Jarmon.</dd>
+                <dd>Your preference will be saved in a cookie and the warning
+                message will never re-appear (unless the preference cookie is
+                deleted or expires).</dd>
+            </dl>
+    </dl>
+
+    <h2 id="api-documentation">API Documentation</h2>
+    <p>Jarmon includes <a href="apidocs/index.html">comprehensive API
+    documentation</a>
+    <p>This API documentation is generated automatically by the release command,
+    but you can also build it yourself by issuing the
+    <code>./bin/build apidoc</code> command from within a Jarmon source tree.
+    The documentation will be saved in a build subfolder.</p>
+
+    <h2 id="release-process">Release Process and Tools</h2>
+    <p>Jarmon includes tools to automate source archive releases. First check
+    out the source code, then issue the
+    <code>./bin/build -V 10.8 release</code> command from within the source
+    tree.</p>
+
+    <h2 id="automated-tests">Running automated tests</h2>
+    <p>Jarmon includes unit tests which are used to exercise the library
+    code, to check for compatibility with various platforms and web client
+    software and to check for regressions as the library evolves.</p>
+    <p>The unit tests are designed to be run inside a web browser using the
+    <a href="http://developer.yahoo.com/yui/yuitest/">YUI test harness</a>.</p>
+    <ol>
+        <li>Generate test data by running the following command
+        <code>./bin/build testdata</code> from within the source tree.
+        <li>Start a web server to serve the test page. Eg
+        <code>$ nginx -p . -c docs/examples/nginx.conf.example</code></li>
+        <li>Use a web browser to load
+        <a href="http://localhost:8080/test.html">the test page</a>
+        (<a href="http://localhost:8080/test.html">
+        http://localhost:8080/test.html</a>)</li>
+    </ol>
+    <h3>Measure code coverage</h3>
+    <p>There are number of tools available to measure the
+    <a href="http://en.wikipedia.org/wiki/Code_coverage">code coverage</a> of
+    Javascript unit tests.</p>
+    <p>One such tool is <a href="http://siliconforks.com/jscoverage/">
+    JSCoverage</a>. It is very easy to install JSCoverage on a Debian / Ubuntu
+    system and use it to measure the coverage of the Jarmon unit tests.</p>
+    <ol>
+        <li><code>sudo aptitude install jscoverage</code> - install
+        jscoverage.</li>
+        <li><code>jscoverage-server</code> - run the JSCoverage web server from
+        the root of the Jarmon source tree.</li>
+        <li>Visit <a href="http://localhost:8080/jscoverage.html?test.html">
+        http://localhost:8080/jscoverage.html?test.html</a> to run the unit
+        tests through the JSCoverage server. The server will automatically
+        <a href="http://en.wikipedia.org/wiki/Instrumentation_%28computer_programming%29">
+        instrument</a> the Jarmon code and present a web interface which reports
+        how much of the code has been exercised.</li>
+    </ol>

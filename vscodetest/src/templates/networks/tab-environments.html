@@ -1,0 +1,27 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    {% if not network.tied_to_region %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'edit_network_envs' network.id %}">
+            <span class="icon-edit"></span>
+            Edit
+        </a>
+    {% endif %}
+</div>
+
+
+<table id="network-envs" data-table>
+    <thead>
+        <tr>
+            <th>Environment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for env in current_envs %}
+        <tr>
+            <td class="name">{{ env|link_or_label:profile }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

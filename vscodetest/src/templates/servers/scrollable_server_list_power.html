@@ -1,0 +1,43 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% if show_default_message %}
+    <p>
+    {% blocktrans trimmed count num_servers=servers|length %}
+      The following {{ num_servers }} server has been selected:
+    {% plural %}
+      The following {{ num_servers }} servers have been selected:
+    {% endblocktrans %}
+    </p>
+
+{% endif %}
+
+ <p class="alert alert-warning">
+    {% blocktrans %}When bulk editing power schedules, items below with power schedule indicator will have an existing power schedule overwritten.{% endblocktrans %}
+</p>
+
+<div class="scrollable-table-container" style="max-height: {{ max_height }};">
+  <table class="table table-condensed">
+      <thead>
+        <tr>
+          <th>{% trans 'OS' %}</th>
+          <th>{% trans 'Hostname' %}</th>
+          <th>{% trans 'IP' %}</th>
+          <th>{% trans 'Power' %}</th>
+          <th>{% trans 'Power Schedule' %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for server in servers %}
+        <tr>
+          <td> {{ server.os_family|os_family_icon }} </td>
+          <td> {{ server.hostname}} </td>
+          <td> {{ server.ip}} </td>
+          <td> {{ server.power_status|icon_for_power_status }} </td>
+          <td> {% if server.has_power_schedule %}<i  class="fas fa-check"></i> {% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+  </table>
+</div>

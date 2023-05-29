@@ -1,0 +1,25 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<table id="kubeClusterNodeDetailsTable"
+       data-table
+       data-table-no-auto-init
+       data-table-source="{% url 'node_table_view' kube_id %}" >
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Ready" %}</th>
+        <th>{% trans "Roles" %}</th>
+        <th>{% trans "Version" %}</th>
+        <th>{% trans "Memory Requests (bytes)" %}</th>
+        <th>{% trans "Memory Limits (bytes)" %}</th>
+        <th>{% trans "CPU Requests (cores)" %}</th>
+        <th>{% trans "CPU Limits (cores)" %}</th>
+        <th>{% trans "Age" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# will be populated by dataTable based on AJAX responses #}
+    </tbody>
+</table>
+

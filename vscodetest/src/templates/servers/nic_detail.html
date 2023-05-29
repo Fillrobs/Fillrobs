@@ -1,0 +1,70 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="panel-heading">
+    <h4>
+        <i class="icon-32 icon-nic-32"></i>
+        {{ nic.display }}
+    </h4>
+</div>
+<div class="panel-body">
+    <dl>
+        {% block nic-info %}
+
+            <dt>{% trans 'IP:' %}</dt>
+            <dd>
+                {% if nic.ip == "dhcp" %}
+                    {% trans 'DHCP' %}
+                {% else %}
+                    {{ nic.ip|clippable }}
+                {% endif %}
+            </dd>
+
+            {% if nic.private_ip %}
+                <dt>{% trans 'Private IP:' %}</dt>
+                <dd>
+                    {{ nic.private_ip|clippable }}
+                </dd>
+            {% endif %}
+
+            {% if nic.mac %}
+                <dt>{% trans 'MAC:' %}</dt>
+                <dd>{{ nic.mac|clippable }}</dd>
+            {% endif %}
+
+
+            {% if nic.bootproto and nic.bootproto != 'none'%}
+                <dt>{% trans 'Boot protocol:' %}</dt>
+                <dd>{{ nic.get_bootproto_display }}</dd>
+            {% endif %}
+
+            {% if nic.additional_ips and nic.additional_ips != 'none'%}
+                <dt>{% trans 'Additional IPs:' %}</dt>
+                <dd>{{ nic.additional_ips }}</dd>
+            {% endif %}
+
+            <dt>Network:</dt>
+            {% if nic.network %}
+                <dd style="width: 80%">
+                    {% include 'servers/nic_network_subpanel.html' with network=nic.network %}
+                </dd>
+            {% else %}
+                <dd><i>None</i></dd>
+            {% endif %}
+
+            {% if "server.manage_nics" in profile.permissions and rh_can_manage_nics %}
+                <dt>{% trans 'Actions:' %}</dt>
+                <dd>
+                    <a class="icon-edit open-dialog"
+                    href="{% url 'server_edit_nic' server.id nic.id %}"></a>
+                    <a class="icon-delete open-dialog"
+                    href="{% url 'server_delete_nic' server.id nic.id %}"></a>
+                </dd>
+            {% endif %}
+
+        {% endblock %}
+
+        {% block extra-nic-info %}{% endblock %}
+    </dl>
+</div>

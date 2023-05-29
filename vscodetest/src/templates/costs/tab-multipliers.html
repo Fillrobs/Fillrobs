@@ -1,0 +1,60 @@
+<span class="pull-right">
+  <a class="js-dialog-link icon-add btn btn-default"
+    data-dialog-width="800px"
+    href="{% url 'add_disk_type_multiplier' %}"
+    title="Add disk type multiplier"
+    data-toggle="tooltip"></a>
+</span>
+<h2>Disk Types</h2>
+<p>To get started with disk types, go to the Storage tab of a VMware resource handler.</p>
+<table id="disk-types-table" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Environment</th>
+      <th>Name</th>
+      <th>Rate to multiply</th>
+      <th class="text-right">Disks</th>
+      <th class="text-right">Multiplier</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for multiplier in disk_type_multipliers %}
+      <tr>
+        <td>
+          {% if multiplier.environment %}
+            {{ multiplier.environment }}
+          {% else %}
+            All environments
+          {% endif %}
+        </td>
+        <td>{{ multiplier.label }}</td>
+        <td>{{ multiplier.rate_to_multiply }}</td>
+        <td class="numerical align-to-sort-heading">
+          {{ multiplier.num_disks }}
+        </td>
+        <td class="numerical align-to-sort-heading">
+          {{ multiplier.multiplier|floatformat:2 }}x
+        </td>
+        <td>
+          <a class="icon-edit js-dialog-link"
+            data-dialog-width="800px"
+            href="{% url 'edit_disk_type_multiplier' multiplier.id %}"></a>
+          <a class="icon-delete js-dialog-link"
+            data-dialog-width="800px"
+            href="{% url 'delete_disk_type_multiplier' multiplier.id %}"></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#disk-types-table").dataTable({
+    aoColumnDefs: [
+      {sType: 'currency', aTargets: [2]}
+    ]
+  });
+});
+</script>

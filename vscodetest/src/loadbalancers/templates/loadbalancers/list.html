@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load lb_tags %}
+{% load i18n %}
+{% block topnav %}loadbalancers{% endblock %}
+
+{% block content %}
+    <h1>{% trans 'Load Balancers' %}</h1>
+
+      <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'loadbalancer_add' %}">
+            <span class="icon-add"></span>
+            {% trans 'Add a load balancer' %}
+        </a>
+      </div>
+
+    <table id="loadbalancers" data-table>
+        <thead>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Technology' %}</th>
+            <th>{% trans 'IP Address' %}</th>
+            <th>{% trans 'IP Pool' %}</th>
+        </thead>
+        <tbody>
+            {% for loadbalancer in loadbalancers %}
+                <tr>
+                    <td>{{ loadbalancer|render_link }}</td>
+                    <td>{{ loadbalancer|loadbalancer_icon }}{{ loadbalancer.technology.name }}</td>
+                    <td>{{ loadbalancer.connection_info.ip }}</td>
+                    <td>{% if loadbalancer.ip_pool %}
+                            <span class="icon-check"></span>
+                        {% else %}
+                            <span class="icon-job-status-failure"></span>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

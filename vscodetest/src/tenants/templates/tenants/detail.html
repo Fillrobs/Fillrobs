@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+{% block topnav %}tenants{% endblock %}
+
+{% block content %}
+    <h1> {{ tenant.label }} </h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'tenant_edit' tenant.id %}"
+            data-dialog-width="1000px"
+            data-test="tenant-edit-btn">
+            <span class="icon-edit"></span>
+            {% trans "Edit" %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'tenant_delete' tenant.id %}"
+            data-test="tenant-delete-btn">
+            <span class="icon-delete"></span>
+            {% trans "Remove&hellip;" %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'tenant_add_users' tenant.id %}"
+            id="tenant_add_users"
+            data-test="tenant-add-users-btn">
+            <span class="fas fa-user-plus"></span>
+            {% trans "Add Users" %}
+        </a>
+        {% if tenant.user_profiles.exists %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'tenant_remove_users' tenant.id %}"
+                id="tenant_remove_users"
+                data-test="tenant-remove-users-btn">
+                <span class="fas fa-user-times"></span>
+                {% trans "Remove Users" %}
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-8">
+
+                    <dl class="vertical">
+                        <dt>Name:</dt>
+                        <dd>{{ tenant.label}}</dd>
+                    </dl>
+                    <dl class="vertical">
+                        <dt>Users:</dt>
+                        <dd>
+                            {% for user in users %}
+                                <a href={% url 'user_detail' user.id %}>{{ user.full_name }}</a>
+                                ({{ user.tenant_roles.all |to_csv|default:"No tenant roles" }})<br>
+                            {% empty %}
+                                No Users
+                            {% endfor %}
+                        </dd>
+                    </dl>
+                    <dl class="vertical">
+                        <dt>{{ GROUP_LABEL }}: {% infotip GROUP_HELP %}</dt>
+                        <dd>
+                            {{ tenant.default_group.name }}
+                        </dd>
+                    </dl>
+                    <dl class="vertical">
+                        <dt>{{ ENV_LABEL }}: {% infotip ENV_HELP %}</dt>
+                        <dd>
+                            {{ tenant.default_environment.name }}
+                        </dd>
+                    </dl>
+                    {%  if tenant.portal %}
+                        <dl class="vertical">
+                            <dt>Portal:</dt>
+                            <dd>{{ tenant.portal|link_or_label:profile }}</dd>
+                        </dl>
+                    {% endif %}
+                </div>
+                <div class="col-xs-4">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

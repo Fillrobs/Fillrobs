@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}
+    {% trans "Missing Blueprint" %}
+{% endblock title %}
+
+{% block content %}
+    <h1>"{{ blueprint_name }}" {% trans "Blueprint Not Found" %}</h1>
+
+    {% if profile.is_cbadmin %}
+        {% if inactive_blueprint %}
+            <p>{% blocktrans %}A deleted blueprint named "{{ blueprint_name }}" was found and can be restored.{% endblocktrans %}</p>
+            <p><a class="btn btn-primary" href="{% url 'restore_new_server_blueprint' %}">{% trans "Restore deleted blueprint" %}</a></p>
+            <p>{% blocktrans %}Or, you can recreate "{{ blueprint_name }}" from the default New Server blueprint.{% endblocktrans %}</p>
+            <p><a class="btn btn-default" href="{% url 'recreate_new_server_blueprint' %}">{% trans "Recreate default blueprint" %}</a></p>
+        {% else %}
+            <p>{% blocktrans %}You can recreate "{{ blueprint_name }}" from the default New Server blueprint.{% endblocktrans %}</p>
+            <p><a class="btn btn-primary" href="{% url 'recreate_new_server_blueprint' %}">{% trans "Recreate default blueprint" %}</a></p>
+        {% endif %}
+        <p>{% trans "If you'd like to remove the New Server link, go to <a href='/admin/misc_settings/'>Miscellaneous Settings</a> and disable the 'New Server button' option." %}</p>
+    {% else %}
+        <p>{% trans "Please contact your administrator." %}</p>
+    {% endif %}
+{% endblock content %}
+

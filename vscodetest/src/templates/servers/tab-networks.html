@@ -1,0 +1,18 @@
+{% load i18n %}
+{% if "server.manage_nics" in profile.permissions and rh_can_manage_nics and nics|length < 10 %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'server_add_nic' server.id %}"
+            ><span class="icon-add"></span>
+            {% trans 'Add a NIC' %}
+        </a>
+    </div>
+{% endif %}
+
+{% for nic in nics %}
+    <div class="panel panel-default">
+        {% with nic.cast as nic %}
+            {% include server.resource_handler.cast.server_nic_template %}
+        {% endwith %}
+    </div>
+{% endfor %}

@@ -1,0 +1,21 @@
+<div class="results-{{ cl.type_id }}">
+    <h3>{{ cl.list_heading }}</h3>
+
+    <table width=100% cellspacing="0" id="result_list-{{ cl.type_id }}" class="stats">
+        <thead>
+        <tr>
+            {% for header in result_headers %}
+                <th scope="col">
+                    {{ header|capfirst }}
+                </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for order_item in cl.order_items %}
+        <tr class="{% cycle 'row1' 'row2' %}">{% for field_text in order_item %} <td>{{ field_text }}</td>{% endfor %}</tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

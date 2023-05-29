@@ -1,0 +1,175 @@
+{% load helper_tags %}
+{% load i18n %}
+<div class="editor-wrap">
+    <div id="action-source-code-{{ editor_id }}">
+        {% if not file_error and not binary_file %}
+            <a href="{% url 'action_download_module' hook.id %}"
+               class="no-tooltip-affordance">
+                <span class="glyphicon glyphicon-download"></span>
+                Download
+            </a>
+        {% endif %}
+
+        {% if include_ootb_pieces %}
+            <a
+                    id="{{ editor_id }}-show_ootb_link"
+                    {% if action_provenance == 'ootb' %}
+                    class="disabled"
+                    {% else %}
+                    style="cursor:pointer"
+                    onClick="c2.ace.toggleOotbCode('#action-source-code-{{ editor_id }}');"
+                    {% endif %}
+            >
+                <span class="far fa-eye"></span>
+                <span class="show-or-hide">Show</span> Out-of-the-box Code
+                {% infotip 'If this code has been modified from the out-of-the-box version, click here to see a side by side comparison.' %}
+            </a>
+
+            <span id="{{ editor_id }}-revert-code"
+                    {% if action_provenance == 'ootb' %} class="hidden" {% else %} class="" {% endif %}>
+                <a href="{% url "revert_action_code_to_ootb" hook.id %}"
+                   data-dialog-width="1000"
+                   data-prevent-esc-closing="true"
+                   class="no-tooltip-affordance open-dialog">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                    Revert Changes </a>
+                {% infotip "Erase any saved changes you've made to the plugin and use the OOTB code." %}
+            </span>
+        {% endif %}
+
+        {% if binary_file %}
+            <i>Binary file</i>
+        {% else %}
+            <div class="source-code-row">
+            <div>
+                {% if include_ootb_pieces %}
+                    <h5 style="display:none"> Current Code: </h5>
+                {% endif %}
+                {% if file_error %}
+                    <p class="text-danger">The file could not be read.
+                        {% if hook.source_code_url %}
+                            Check your action's source code URL.
+                        {% else %}
+                            Edit the action and upload a new file.
+                        {% endif %}
+                    </p>
+                    <pre class="text-danger">{{ file_error }}</pre>
+                {% else %}
+                    <textarea id="{{ editor_id }}"
+                              name="{{ editor_id }}-textarea"
+                              class="ace-lg"
+                              hook_id="{{ hook.id }}">
+                            {{ file_content }}
+                        </textarea>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if include_ootb_pieces %}
+            <div style="display:none">
+                <h5> Out-of-the-box Code: </h5>
+                {% if ootb_file_error %}
+                    <pre class="text-danger">{{ ootb_file_error }}</pre>
+                {% else %}
+                    <textarea id="{{ ootb_code_id }}"
+                              name="{{ ootb_code_id }}-textarea"
+                              class="ace-lg">
+                            {{ ootb_file_content }}
+                        </textarea>
+                {% endif %}
+            </div>
+        {% endif %}
+        </div>
+    </div>
+
+    <div class="btn-toolbar">
+        <button id="{{ editor_id }}-save_button" class="btn btn-default" disabled> Save Code</button>
+        {% if snippet_controls %}
+            <div class="btn-group pull-right snippets">
+
+                <select id="{{ editor_id }}-objects" class="compact">
+                    <option value="">Insert an object&hellip;</option>
+                    {% for object_name in snippet_controls.object_names %}
+                        <option value="{{ object_name }}">{{ object_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select id="{{ editor_id }}-attrs" class="compact" placeholder="Choose attribute&hellip;">
+                    {# Will be populated after the first dropdown changes, via c2.combobox.chain#}
+                </select>
+            </div>
+        {% endif %}
+
+        {% if language_controls %}
+            <div class="btn-group">
+                {% trans "Syntax highlighting" %}:
+                <select id="{{ editor_id }}-language"></select>
+                &nbsp;
+                <label>
+                    <input class="pull-left" type="checkbox" id="{{ editor_id }}-other-langs"
+                           name="{{ editor_id }}-other-langs" value="1"/>
+                    <span class="help-block nowrap">&nbsp;{% trans "Show Other Languages" %}</span>
+                </label>
+            </div>
+        {% endif %}
+        <div class="help-block">
+            For details on the objects and methods available, see the
+            <a href="/alladmin/doc/" target="_blank" title="">
+                CloudBolt Internal API docs
+                <i class="fas fa-external-link-alt"></i>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+$(function() {
+  var $editor = $('#{{ editor_id }}');
+    if ($editor.closest('.panel.action-details').length == 0) { 
+    {% if file_content %}
+        // Not inside an action panel, so instantiate Ace for this immediately.
+        // Otherwise c2.ace.initializeAceInPanel is in charge.
+        var editor = c2.ace.init('{{ editor_id }}', {
+            aceOptions: {
+                readOnly: false,
+            }
+        });
+        var edited_code = null
+        // Listen for changes to code. Enable save button and update edited_code when code changes are made
+        editor.on("change", function(e){
+            edited_code = editor.getValue();
+            $('#{{ editor_id }}-save_button').attr("disabled", false)
+            $('#{{ editor_id }}-save_button').text('Save Code')
+        })
+        // When save changes button is clicked, send info to function that makes an ajax call and resets the dom elements 
+          $('#{{ editor_id }}-save_button').click(function(){
+              var hook_id = '{{ hook.id }}';
+              var editor_id = '{{ editor_id }}';
+              c2.ace.saveUpdatedCode(hook_id, editor_id, edited_code);
+          })
+        // enable "insert an object" drop down 
+        {% if snippet_controls %}
+            c2.ace.setupSnippets(editor);
+        {% endif %}
+        // enable "Syntax highlighting" dropdown
+        {% if language_controls %}
+            c2.ace.setupLanguages(
+                editor,
+                {#'ace/mode/{{ language }}',#}
+                {{ default_to_powershell|to_json }}
+            );
+        {% endif %}
+    {% endif %}
+        // create editor to view ootb code when "Show out-of-the-box code" is clicked
+    {% if ootb_file_content %}
+        c2.ace.init('{{ ootb_code_id }}', {
+            aceOptions: {
+            readOnly: true
+            }
+        });
+    {% endif %}
+  }
+
+});
+</script>

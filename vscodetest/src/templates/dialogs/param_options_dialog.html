@@ -1,0 +1,176 @@
+{% extends 'common/datatable_form_dialog.html' %}
+{% comment %}
+Param options dialog for a group or env.
+
+See also common.views.parameter_options_dialog and common.forms.CFOsForm.
+{% endcomment %}
+
+{% block form_content %}
+    <div id="dialog_datatable_form">
+        {{ form }}
+    </div>
+
+    <i>{{ extra_msg }}</i>
+
+<script>
+
+  $(function() {
+    'use strict';
+
+    function addCFVToDataTable(cfv) {
+      var $table = $('table#checkbox-select-multiple').dataTable();
+      var inputId = 'new-cfv-' + cfv.id;
+
+      // check that this value/CFV isn't already in the table
+      var $matchingCheckbox = $table.$('input[name=custom_field_options][value=' + cfv.id + ']');
+      if ($matchingCheckbox.length) {
+        // ensure the user's intention is honored by checking the checkbox
+        if (!$matchingCheckbox.is(':checked')) {
+          $matchingCheckbox.trigger('click');
+        }
+        return;
+      }
+
+      var checkbox = '<input name="custom_field_options" type="checkbox"' +
+                     ' value="' + cfv.id + '" id="' + inputId + '">';
+      $table.fnAddData([checkbox, cfv.displayValue]);
+
+      // Select the newly added row
+      $('input#' + inputId).trigger('click');
+    }
+
+
+    /**
+     * Submit the addCFVForm.
+     * If `options` is an object with property `doneCallback`, that should be
+     * a function; it's called with true or false to indicate whether the
+     * option value was valid and actually added to the table.
+     */
+    function submitAddOptionForm(options) {
+      var $form = $('#addCFVForm');
+      var url = $form.attr('action');
+      var formData = $form.serialize();
+      var jqXHR = $.post(url, formData);
+      var doneCallback = options.doneCallback;
+
+      jqXHR.done(function (data) {
+        if (data.cfv) {
+          // The POST succeeded; add to DataTable
+
+          // clear input fields so another value can be entered
+          addCFVToDataTable(data.cfv);
+          // clear form now because it is not reloaded
+          clearCfvField($form);
+
+          // Indicate success
+          doneCallback && doneCallback(true);
+        } else {
+          // Render the form
+          var $formContainer = $('#addOptionForm');
+          $formContainer.html(data);
+
+          // Make it easy for user to correct their value by selecting the
+          // invalid value
+          selectCfvField($formContainer);
+
+          // Indicate failure
+          doneCallback && doneCallback(false);
+
+        }
+      });
+
+      return false;
+    }
+
+    function clearCfvField($container) {
+      var $ace = $container.find('.ace_editor');
+      if ($ace.length) {
+        // Ace editor content is cleared via its API
+        var editor = ace.edit($ace.attr('id'));
+        editor.setValue('');
+      } else {
+        $container.find('input[type=text],input[type=password],textarea').val('');
+      }
+
+      $container.find('.errorlist').remove();
+    }
+
+    function selectCfvField($container) {
+      var $ace = $container.find('.ace_editor');
+      if ($ace.length) {
+        // Ace editor content is selected via its API
+        var editor = ace.edit($ace.attr('id'));
+        editor.selectAll();
+      } else {
+        // Regular fields are selected via jQuery
+        $container.find('input[type=text],textarea').select();
+      }
+    }
+
+
+    function isCFVFormEmpty() {
+      var value = '';
+      var $newOption = $('#id_value');
+      var $ace;
+
+      if ($newOption.length && $newOption[0].tagName == 'INPUT') {
+        value = $newOption.val();
+      } else {
+        // Look for an Ace editor instance
+        $ace = $('#editor-value');
+        if ($ace.length) {
+          value = ace.edit($ace[0]).getValue();
+        }
+      }
+
+      return (value === '');
+    }
+
+
+    /**
+    * When dialog is submitted, first check if user typed a value but forgot
+    * to add it to the table. If that's the case, add it automatically before
+    * submitting the dialog.
+    */
+    function autoAddValueIfNeeded(e) {
+      e.preventDefault();
+      var $actionForm = $('#action_form');
+      var $table = $('#checkbox-select-multiple').dataTable();
+
+      if (isCFVFormEmpty()) {
+        // Submit the dialog straight away, including hidden DT rows
+        $actionForm.data('altPostData', c2.forms.serializeFormAndTableSelection($actionForm, $table));
+        c2.dialogs.submitForm();
+      } else {
+        // Trigger a submit on the "Add option" form, and if the value was added
+        // (i.e. no validation error occurred), submit the dialog.
+        submitAddOptionForm({
+          doneCallback: function(wasAdded) {
+            if (wasAdded) {
+              // Submit after serializing the datatable, including hidden DT rows
+              $actionForm.data('altPostData', c2.forms.serializeFormAndTableSelection($actionForm, $table));
+              c2.dialogs.submitForm();
+            }
+          }
+        });
+      }
+    }
+
+    // Use delegation here because the addCFVForm is fetched asynchronously
+    $('#dialog-modal .modal-dialog').on('submit', '#addCFVForm', submitAddOptionForm);
+
+    // Whenever the dialog is submitted, check if there's a value that the user
+    // forgot to add manually and try to auto-add it to the data table before
+    // submitting the dialog.
+    $('#dialog-modal').data('customFormSubmissionHandler', autoAddValueIfNeeded);
+
+
+    $.get('{% url "add_cfv_form" field.id model obj_id %}', function(response) {
+      var addOptionForm = $('<div id="addOptionForm"></div>').html(response);
+      $('form#action_form').before(addOptionForm);
+      $('form#action_form').before('<br>');
+    });
+
+  });
+</script>
+{% endblock form_content %}

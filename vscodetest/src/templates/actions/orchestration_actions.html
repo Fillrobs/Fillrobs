@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% load order_tags %}
+{% load hook_tags %}
+{% load i18n %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+<h1>Orchestration Actions</h1>
+
+<div class="pull-right">
+
+    {% if show_content_library %}
+    <a class="btn btn-default no-tooltip-affordance" href="{% url 'library' %}?type=orchestration-actions"
+        data-toggle="tooltip" data-placement="left"
+        title="{% blocktrans %}View and import Orchestration Actions from the Content Library{% endblocktrans %}">
+        Import from the Content Library
+        <i class="fas fa-cloud-download-alt"></i>
+    </a>
+    {%endif%}
+</div>
+
+<div class="tab-content">
+    <div id="local-content-view" class="tab-pane active">
+
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'upload_action_trigger' 'action_trigger' %}">
+                <span class="fas fa-upload"></span> Upload Orchestration Action
+            </a>
+        </div>
+
+        <p>
+        Orchestration actions are triggered during jobs, the ordering process, and other processes.
+        Define actions below and make them available at particular trigger points and
+        enable them on some or all environments.
+        Actions of any type are supported.
+        </p>
+
+        <h2 class="h4">
+            Job/Process:
+        </h2>
+
+        <div class="row">
+            <div class="col-lg-6">
+                {# Selected jobtype is initialized in c2.orchestrationActions #}
+                <select id="jobtype">
+                    {% for jobtype, label in job_types %}
+                        {% if forloop.first %}
+                            <option value="type-all">All Job/Process Types</option>
+                        {% endif %}
+                        <option value="type-{{ jobtype }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <br>
+
+        {# Hidden here to avoid flash of panel that isn't the active panel #}
+        <div id="orchestrationCategories" class="hidden">
+            {% for jobtype, job_label, orch_actions_by_point in hooks_by_jobtype %}
+                <div id="type-{{ jobtype }}" class="panel panel-default">
+                    <div class="panel-heading">
+                        {% if job_label == 'Other' %}
+                            <h2 class="h3">Other Trigger Points</h2>
+                        {% elif  job_label == 'Order Related' %}
+                            <h2 class="h3"><em>Order</em> Trigger Points</h2>
+                        {% elif  job_label == 'Power Related' %}
+                            <h2 class="h3"><em>Power Change</em> Trigger Points</h2>
+                        {% elif  job_label == 'Terraform Related' %}
+                            <h2 class="h3"><em>Terraform Related</em> Trigger Points</h2><p class="helper-box">Toggling options will reload the page, only one hook can be enabled per trigger point.</p>
+                        {% else %}
+                            <h2 class="h3"><em>{{ job_label }}</em> Trigger Points</h2>
+                        {% endif %}
+                    </div>
+                    <div class="panel-body">
+                        <ol class="bullets li-spacing-4">
+                            {% for hook_point, orch_actions in orch_actions_by_point.items %}
+                                {% include 'actions/orch_actions_by_hook_point.html' %}
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
+
+{% block onReady %}
+    c2.orchestrationActions.init('#orchestrationCategories');
+    c2.sortable.sortablePanels('.action-group', '{% url "sort_orch_actions" %}');
+    c2.collapsible.init('#orchestrationCategories');
+{% endblock onReady %}

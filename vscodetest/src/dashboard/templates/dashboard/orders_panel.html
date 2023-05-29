@@ -1,0 +1,19 @@
+{% load order_tags %}
+{% load i18n %}
+
+{# This panel depends on the icon click handler provided in dashboard/index.html #}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <small class="pull-right">
+            {% if my_orders and my_orders|length < all_my_orders_count %}
+            {% blocktrans with count=my_orders|length total_count=all_my_orders_count %}Showing {{ count }} of {{ total_count }}{% endblocktrans %}
+            &emsp;
+            {% endif %}
+            <a href="{% url 'order_list' %}">{% trans 'All Orders' %}</a>
+        </small>
+        <h2 class="panel-title">{% trans 'My Orders' %}</h2>
+    </div>
+    <div class="panel-body">
+        {% mini_orders_table my_orders with_actions=0 hide="Owner" table_classes="simple" %}
+    </div>
+</div>

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+{% block title %}Extensions Management{% endblock %}
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<h1>Extensions Management</h1>
+
+<div class="pull-right">
+    
+        {% if show_content_library %}
+        <a class="btn btn-default no-tooltip-affordance" href="{% url 'library' %}?type=ui-extension-packages" data-toggle="tooltip"
+            data-placement="bottom"
+            title="{% blocktrans %}View and import UI Extensions from the Content Library{% endblocktrans %}">
+            Import from the Content Library
+            <i class="fas fa-cloud-download-alt"></i>
+        </a>
+        {%endif%}
+</div>
+
+<div class="tab-content">
+    <div id="local-content-view" class="tab-pane active">
+
+        <div class="btn-toolbar">
+            <a data-href="{% url 'upload_extension' %}"
+                class="btn btn-default open-dialog" data-toggle="tooltip"
+                title="Upload new extension package or replace an existing one">
+                <span class="fas fa-upload"></span>
+                Upload a package
+            </a>
+            <a data-href="{% url 'create_extension' %}"
+                class="btn btn-default open-dialog" data-toggle="tooltip"
+                title="Create new extension package">
+                <span class="fas fa-plus"></span>
+                Create a package
+            </a>
+        </div>
+
+        <table id="extensions-table"
+            {% comment %}
+            This directive lets us first hook up a custom draw callback below,
+            before initializing the DataTable.
+            {% endcomment %}
+            data-table-no-auto-init>
+            <thead>
+                <tr>
+                    <th class="expand"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for package_dir,package in packages.items %}
+                <tr>
+                    <td>
+                        {% include 'extensions/package.html' with package=package %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+{% block onReady %}
+var $table = $('#extensions-table');
+$table.on('table:draw', function (e, oSettings) {
+    // restore open panels after a table page is drawn
+    c2.collapsible.init($table);
+});
+c2.dataTables.init('#extensions-table');
+{% endblock %}

@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('create-terraform-plan-action',true);});
+//--></script><title>Create a Terraform Plan Action</title><script type="text/javascript">//<!--
+var articleTitleText='Create a Terraform Plan Action';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Create a Terraform Plan Action</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">Using CloudBolt</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="orchestration.html">Orchestration</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="terraform-plan-actions.html">Terraform Plan Actions</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Create a Terraform Plan Action</span></span>
+  </div><h1 id="h1_1164623615" data-has-heading-anchor="true">
+  Create a Terraform Plan Action
+<a href="create-terraform-plan-action.html#h1_1164623615" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn how to create a Terraform Action and add Plan files.
+</p>
+<h2 id="h2__134955213">
+  
+  <br/>
+</h2>
+<hr/>
+<h2 id="h2__134955213" data-has-heading-anchor="true">
+  Terraform Actions
+<a href="create-terraform-plan-action.html#h2__134955213" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">Before&nbsp;adding a Terraform Plan in CloudBolt, ensure there is at least one existing Terraform Plan Action.</span>
+</p>
+<p>
+</p>
+<div class="image-row">
+  <div class="image-set">
+    <a href="../Storage/cloudbolt-docs/9-4-3/cmp_943_ui-terraform-action.png" data-lightbox="terraform-actions-overview" data-title="List of Terraform Actions in CloudBolt." target="_top">
+      <img src="../Storage/cloudbolt-docs/9-4-3/cmp_943_ui-terraform-action.png" alt="" style="width: 500px; height: 315px;"/>
+    </a>
+  </div>
+</div>
+<p>
+</p>
+<h3 id="h3__219260814" data-has-heading-anchor="true">
+  <br/>
+  Check for an Existing Terraform Plan Action
+<a href="create-terraform-plan-action.html#h3__219260814" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    In CloudBolt, click <b>Admin &gt; Actions.</b>
+  </li>
+  <li>
+    Search for <b>Terraform.</b>
+  </li>
+  <li>
+    <font face="Arial, Helvetica Neue, Helvetica, sans-serif">The list of Plug-in Actions will show, followed by the Terraform Plan Action if it exists. </font>
+  </li>
+  <li>
+    <font face="Arial, Helvetica Neue, Helvetica, sans-serif">Skip to <a href="create-terraform-plan-action.html#Upload a Terraform Plan">Upload a Terraform Plan</a> if the Plan Action exists. Follow <a href="create-terraform-plan-action.html#h3_1004923350">Create a Terraform Plan Action</a> below if one does not exist.</font>
+  </li>
+</ol>
+<h3 id="h3_1004923350" data-has-heading-anchor="true">
+  <br/>
+  Create a Terraform Plan Action
+<a href="create-terraform-plan-action.html#h3_1004923350" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    In CloudBolt, click <b>Catalog &gt; Blueprints &gt; Create New Blueprint, </b>or open the Blueprint from which you will run Terraform Actions.
+  </li>
+  <li>
+    In the Blueprint, click the <b>Build tab.</b>
+  </li>
+  <li>
+    Click<b> </b><span class="button"><b>+</b> Action</span>
+  </li>
+  <li>
+    In the <b>Add Action Blueprint Item </b>window, click <b>Terraform Plan.</b>
+  </li>
+  <li>
+    Click <span class="button"><b>+ </b>Create a new Terraform Plan action now</span>
+  </li>
+  <li>
+    Enter a <b>Name </b>for this Plan, then follow <a href="create-terraform-plan-action.html#h2__1370697003">Upload a Terraform Plan</a>.
+  </li>
+</ol>
+<table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="infoBoxImageCell ">
+        <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+      </td>
+      <td class="infoBoxText ">
+        When creating a new Terraform plan, specify the full path to your plan directory under plan path, i.e. /var/opt/cloudbolt/terraform/plans/<br/>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<hr/>
+<h2 id="h2__1370697003" data-has-heading-anchor="true">
+  Upload a Terraform Configuration<a href="create-terraform-plan-action.html#h2__1370697003" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  There are four ways that you can add a Terraform configuration:
+</p>
+<ul>
+  <li>
+    Fetch a git repository from a URL.
+  </li>
+  <li>
+    Upload a config as a zip file.
+  </li>
+  <li>
+    Fetch a zip file containing configurations&nbsp;from a URL.
+  </li>
+  <li>Directory on the CloudBolt server's filesystem.
+  </li>
+</ul>
+<img src="../Storage/cloudbolt-docs/9-4-3/cmp_944_ui-tf-plan-add.png" alt="" style="width: 500px; height: 544px;"/>
+<br/>
+<br/>
+<div id="fetching-a-git-repository">
+  <h3 id="h3__1399048011" data-has-heading-anchor="true">
+    Fetching a Git Repository
+  <a href="create-terraform-plan-action.html#h3__1399048011" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    You can use a HTTP(s) URL with an optional sub-directory as the source of a Terraform Plan. When the Terraform Plan Action is created (or edited) the git repository is shallow-cloned onto the CloudBolt host.
+  </p>
+  <p>
+    For authentication, you can either encode the credentials in the URL, or create a CloudBolt Connection Info for the given host using the <a href="connection-info.html#h2__903876181">Git Connection Info form.</a>
+  </p>
+  <ol>
+    <li>
+      The first option looks like this:&nbsp;<code class="path">https://my-user:my-git-auth-token@github.com/myco/my-terraform-plans.git.</code> Note this only works with the .git file type, not .tf.
+    </li>
+    <li>
+      The Connection Info option requires the following fields to be filled out:
+    </li>
+  </ol>
+  <ul style="margin-left: 40px;">
+    <li>
+      Name (Any name, the IP and Protocol are used to automatically pick this up)
+    </li>
+    <li>
+      Host (e.g.,&nbsp;<code>github.com)</code>
+    </li>
+    <li>
+      Protocol (e.g.,&nbsp;<code>https)</code>
+    </li>
+    <li>
+      Username (e.g.,&nbsp;<code>my-user)</code>
+    </li>
+    <li>
+      Auth Token (e.g.,&nbsp;<code>my-git-password-or-token)</code>
+    </li>
+    <li>
+      Label&nbsp;<code>terraform-plan-source</code>.&nbsp;This label is required.&nbsp;The ConnectionInfo may include other labels, but it<b> must </b>include this label.
+    </li>
+  </ul>
+  <div>
+    <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">
+    </span><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">
+    </span><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">
+	  </span>
+    <table class="infoBox" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="infoBoxImageCell">
+            <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+          </td>
+          <td class="infoBoxText">
+            <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">If multiple Connection Infos with the same&nbsp;</span><code>host</code>&nbsp;have the&nbsp;<code>terraform-plan-source</code>&nbsp;label, the&nbsp;<span style="font-family: &quot;Andale Mono&quot;, AndaleMono, monospace; font-size: 10pt;">protocol</span>&nbsp;field is used to filter further. If multiple Connection Infos are still found, CloudBolt chooses the first one based on Connection Info ID.&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="warningBox">
+      <tbody>
+        <tr>
+          <td class="warningBoxImageCell">
+            <img alt="Warning" src="../Storage/cloudbolt-docs/warning.png" style=""/>
+          </td>
+          <td class="warningBoxText">
+            <p>
+              This feature only supports HTTPS&nbsp;and HTTP for repositories requiring authentication. (e.g.,&nbsp;<code>https://github.com/myco/my-terraform-plans.git)</code>
+            </p>
+            <p>
+              This feature does&nbsp;<strong>not</strong>&nbsp;support SSH git sources. (e.g.,&nbsp;<code>git@github.com:myco/terraform-plans.git)</code>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="uploading-zip-files">
+  <h3 id="h3_57447081" data-has-heading-anchor="true">
+    Uploading zip files
+  <a href="create-terraform-plan-action.html#h3_57447081" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    You can add zipped Terraform Plans in two ways:
+  </p>
+  <ul>
+    <li>
+      Upload a zip file.
+    </li>
+    <li>
+      Fetch a zip from a URL.
+    </li>
+  </ul>
+  <p>
+    <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"> </span>
+  </p>
+  <table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+        </td>
+        <td class="infoBoxText">
+          When uploading a zip file, you have the option to point to a subdirectory within the compressed directory, specified under Plan Files Subdirectory in the form. This is optional, and CloudBolt will use the directory created by extracting the zip by default as the plan directory.
+          <br/>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+  </p>
+  <ul>
+  </ul>
+  <p>
+    From the UI, these options will show up under ‘Plan Files’ on the form for adding a new plan. By default, CloudBolt assumes that you will upload a zip file containing plan files within it.
+  </p>
+  <p>
+    Example
+  </p>
+  <div data-children-count="1">
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>my_plan.zip <br><br><br>|- some-stuff.tf <br><br><br>|- my-other-stuff.tf </pre></td></tr></table>
+    <pre></pre>
+  </div>
+  <p>
+    When uploading a zip file, you have the option to point to a directory within the compressed directory, specified under Plan Files Subdirectory&nbsp;in the form.
+  </p>
+  <p>
+    Example: (where plan directory = ‘my-plan’)
+  </p>
+  <div data-children-count="1">
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>my_plans.zip <br><br><br>|- my-plan/   <br><br><br>|- some-stuff.tf   <br><br><br>|- my-other-stuff.tf </pre></td></tr></table>
+    <pre></pre>
+  </div>
+</div>
+<div id="add-plan-files-to-the-local-filesystem">
+  <h3 id="h3__2114045277" data-has-heading-anchor="true">
+    <br/>
+    Add plan files to the local filesystem
+  <a href="create-terraform-plan-action.html#h3__2114045277" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    CloudBolt recommends adding Terraform plans via one of the above ZIP file workflows. Otherwise, you may take advantage of this option to add plans directly to the filesystem if you have a very complicated plan or are unable to compress your plan files.
+  </p>
+  <p>
+    Create a directory in <code class="path">/var/opt/cloudbolt/terraform/plans/</code> and add plan files there. If your Terraform files are hosted on source control, you may clone your repo here.
+  </p>
+  <div data-children-count="1">
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>cd /var/opt/cloudbolt/terraform/plans/ <br>mkdir &lt;new-plan-directory&gt; <br>cd &lt;new-plan-directory&gt; <br>scp &lt;your-remote-plan-files&gt; . <br># or <br>git clone &lt;plan-repo&gt;</pre></td></tr></table>
+    <br/>
+    
+  </div>
+  <div>
+    <table class="infoBox" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="infoBoxImageCell">
+            <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+          </td>
+          <td class="infoBoxText">
+            <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; text-align: left;">All Terraform State files in this plan directory will be ignored when the plan is ordered.</span>&nbsp;
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br/>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="initial-setup.html" class="articleActions_link CHNavLinkPrevious">Terraform Version and Upgrading</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="creating-and-deleting-terraform-resources.html" class="articleActions_link CHNavLinkNext">Creating and Deleting Terraform Resources</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

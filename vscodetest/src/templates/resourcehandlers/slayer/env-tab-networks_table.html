@@ -1,0 +1,91 @@
+{% load helper_tags %}
+{% load i18n %}
+{% trans "An IBM Cloud Environment must have at least one PRIVATE network assigned to it in order to be used" as help_text %}
+{% if editable %}
+
+    <div id="msg"></div>
+    <form id="editNetworksForm" method="post" action="">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div class="btn-toolbar padding">
+            <button class="btn btn-default cancel">{% trans "Cancel" %}</button>
+            <button class="btn btn-primary" type="submit">{% trans "Save changes" %}</button>
+            {% if not current_networks  %}
+                <i class="fas fa-exclamation-triangle state-warning no-tooltip-affordance" title="" data-toggle="tooltip" data-html="true" data-placement="bottom" data-original-title="">{{ help_text }}</i>
+            {% endif %}
+        </div>
+
+        <table id="networks" data-table="formset">
+            <thead>
+                <tr>
+                <th class="expand">{% trans "IBM Cloud Network" %}</th>
+                {% if formset.can_delete %}
+                    <th>{% trans "Remove" %}</th>
+                {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="network_form_template" style="display:none">
+                    <td class="network">
+                        {{ blank_networks_form.network_id }}
+                    </td>
+                    {% if formset.can_delete %}
+                        <td>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% for form in formset %}
+                <tr class="{{ form.id }}">
+                    <td class="network">{{ form.network_name.value }} {{ form.network_id }}</td>
+                    {% if formset.can_delete %}
+                        <td>
+                            {{ form.DELETE }}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <script type="text/javascript">
+        {# Make network options available to c2.networkTableAndFormset #}
+        $('body').data('possibleNetworks', {{ possible_networks|to_json }});
+    </script>
+
+{% else %}
+    <div id="networkListBox">
+        {% if user_can_edit_networks %}
+            <div class="btn-toolbar padding">
+                <a href="javascript:void(0)" class="btn btn-default convertToForm">
+                    <span class="icon-edit"></span>
+                    {% trans "Make changes" %}
+                </a>
+            {% if not current_networks  %}
+                <i class="fas fa-exclamation-triangle state-warning no-tooltip-affordance" title="" data-toggle="tooltip" data-html="true" data-placement="bottom" data-original-title="">{{ help_text }}</i>
+            {% endif %}
+            </div>
+        {% endif %}
+
+        <table id="networks" data-table>
+            <thead>
+                <tr>
+                    <th class="expand">{% trans "IBM Cloud Network" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for net, _ in current_networks.items %}
+                <tr>
+                    <td class="name">{{ net|link_or_label:profile }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <script type="text/javascript">
+        {# One-time setup for the buttons and formset #}
+        c2.networkTableAndFormset.init('{{ table_url }}', '{{ vpc_id }}');
+    </script>
+{% endif %}

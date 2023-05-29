@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block title %}{% trans 'Upload Resource Pool Values' %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans 'Upload Resource Pool Values' %}</h1>
+{% trans 'Please select a CSV file of values to upload:' %}
+<form enctype="multipart/form-data" method="post"
+    action="{% url 'resourcepool_upload_csv' resource_pool.id %}">{% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="btn btn-default">
+        <span class="icon-upload"></span>
+        {% trans 'Upload' %}
+    </button>
+</form>
+
+<div class='csvexample'>
+<pre>
+{% trans 'Example CSV:' %}
+
+hostname,ip,mem_size,os_build,mac,cpu_cnt,disk_size,applications
+blah1,1.1.1.3,1,RHEL 5.5 x86_64,00:00:00:00:00:00,1,10,Apache;Mysql
+blah2,1.1.1.2,1,RHEL 5.5 x86_64,00:00:00:00:00:00,1,10,Apache
+
+</pre>
+</div>
+{% endblock content %}

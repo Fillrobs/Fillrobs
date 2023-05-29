@@ -1,0 +1,92 @@
+{% load wizards_tags %}
+{% load crispy_forms_tags %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+
+    <title>{% block title %}Quick Setup - CloudBolt{% endblock %}</title>
+
+    {% include "common/head_css_includes.html" %}
+    {% include "common/head_javascript_includes.html" %}
+
+    {% block head %}{% endblock %}
+</head>
+<body class="quick-setup quick-setup-step-{{ wizard.steps.current }}">
+    <img height=64 src="/static/logos/cb-horizontal.svg">
+    <form action="" method="post" enctype="multipart/form-data" class="setup form-horizontal bootstrap3">
+      {% include 'common/fake_password_field.html' %}
+
+      <div id="quick-setup-panel" class="panel panel-default">
+        <div class="panel-heading">
+            <div class="pull-right">
+                {% block top_right %}
+                {% endblock %}
+            </div>
+            <h1>{% block panel_heading %}{% endblock %}</h1>
+        </div>
+
+        <div class="panel-body">
+          <div class="box-shrink">
+            {% block setup_content %}
+            {% block setup_form %}
+
+                {% csrf_token %}
+                {{ wizard.management_form }}
+
+                {% if wizard.form.forms %}
+                    {{ wizard.form.management_form }}
+                    {% for form in wizard.form.forms %}
+                        <!-- form-errors: {{ form.errors }} -->
+                        {% crispy form %}
+                    {% endfor %}
+                {% else %}
+                    <!-- non_field_errors: {{ wizard.form.non_field_errors }} -->
+                    <!-- form-errors: {{ wizard.form.errors }} -->
+                    {% crispy form %}
+                {% endif %}
+
+                {% block extra_content %}{% endblock %}
+
+            {% endblock setup_form %}
+            {% endblock setup_content %}
+          </div>
+        </div>
+          <div>
+          {% block pre_footer %}{% endblock %}
+          </div>
+
+        <div class="panel-footer">
+            {% block setup_footer %}
+                <div class="btn-toolbar text-center">
+                    {% wizard_pagination wizard disabled_steps %}
+                </div>
+            {% endblock %}
+        </div>
+      </div>
+    </form>
+
+
+    <script>
+        $(function () {
+            {% block onReady %}
+            // Make sure enter key moves to next step, not prev
+            $('form.setup').bind('keydown', function (e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    $('.wizard-pagination-next').trigger('click');
+                }
+            });
+
+            // Block the panel between steps
+            $('form.setup').on('submit', function (e) {
+                c2.block.block('#quick-setup-panel');
+            });
+            {% endblock onReady %}
+        });
+    </script>
+</body>
+</html>

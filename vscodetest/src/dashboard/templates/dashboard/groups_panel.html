@@ -1,0 +1,52 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <small class="pull-right">
+            {% if my_groups and my_groups|length < all_my_groups_count %}
+            {% blocktrans with count=my_groups|length total_count=all_my_groups_count %}Showing {{ count }} of {{ total_count }}{% endblocktrans %}
+            &emsp;
+            {% endif %}
+            <a href="{% url 'list_groups' %}">{% trans 'All Groups' %}</a>
+        </small>
+        <h2 class="panel-title">
+            {% trans 'My Groups' %}
+            {% trans 'Groups that you are a member of' as infotip_content %}
+            {% infotip infotip_content %}
+        </h2>
+    </div>
+    <div class="panel-body">
+        <table class="simple">
+            <thead>
+                <tr>
+                <th></th>
+                <th class="numerical">
+                    <span class="icon-server no-tooltip-affordance"
+                        data-toggle="tooltip"
+                        title="{% trans 'Includes servers in subgroups' %}"></span>
+                </th>
+                <th class="numerical">
+                    <span class="icon-user no-tooltip-affordance"
+                        data-toggle="tooltip" title="{% trans 'Members in group' %}"></span>
+                </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in my_groups %}
+                <tr>
+                    <td>
+                        {{ group|render_link }}
+                    </td>
+                    <td class="numerical">
+                        {{ group.server_count }}
+                    </td>
+                    <td class="numerical">
+                        {{ group.get_active_members|length }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

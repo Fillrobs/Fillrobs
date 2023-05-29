@@ -1,0 +1,15 @@
+{% load i18n %}
+
+{% if request_profile.is_cbadmin %}
+    <div class="btn-toolbar">
+        <a data-test="user-add-parameter-btn" class="btn btn-default open-dialog"
+            href="{% url 'user_add_parameter' the_profile.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Add' %}
+        </a>
+    </div>
+{% endif %}
+
+<div>
+    {% include 'users/parameters_table.html' %}
+</div>

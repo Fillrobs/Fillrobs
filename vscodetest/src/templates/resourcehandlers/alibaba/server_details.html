@@ -1,0 +1,20 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl><dt>{% trans "Instance Type" %}:</dt><dd>{{ details.instance_type }}</dd></dl>
+        <dl><dt>{% trans "Zone" %}:</dt><dd>{{ details.zone }}</dd></dl>
+        <dl><dt>{% trans "Security Group" %}:</dt><dd>{{ details.security_group }}</dd></dl>
+        <dl><dt>{% trans "Resource Group" %}:</dt><dd>{{ details.resource_group|default:"(Default)" }}</dd></dl>
+        <dl><dt>{% trans "Keypair Name" %}:</dt><dd>{{ details.keypair_name }}</dd></dl>
+        <dl><dt>{% trans "Disk Category" %}:</dt><dd>{{ details.disk_category }}</dd></dl>
+        {% if details.tags %}
+            {% include 'tags/server_details_tags.html' %}
+        {% endif %}
+    </div>
+</div>

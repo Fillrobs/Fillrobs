@@ -1,0 +1,10 @@
+{
+    "description": null,
+    "enabled": true,
+    "label": "Node Size Cache",
+    "last_updated": "2022-07-15",
+    "name": "node_size_cache",
+    "package_contents": [
+        "node_size_cache.py",
+    ]
+}

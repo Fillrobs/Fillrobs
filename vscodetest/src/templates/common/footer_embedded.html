@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="box-shrink">
+    <div id="footer" class="grad full-container text-center"
+        role="contentinfo" aria-label="Footer">
+        {% if page_stats %}
+            <div class="debug-stats">
+                <a href="./?frame=false" class="btn btn-primary">Exit Embedded Mode</a><br />
+                {{ page_stats }}
+            </div>
+        {% endif %}
+    </div>
+</div>

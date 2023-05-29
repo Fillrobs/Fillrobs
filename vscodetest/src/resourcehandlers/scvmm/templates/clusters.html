@@ -1,0 +1,42 @@
+{% comment %}
+    Used by import_cluster dialog view
+{% endcomment %}
+
+{% if clusters_added %}
+        <p>
+        Found {{ clusters_added|length }} cluster{{ clusters_added|pluralize }} not
+        yet configured for use with {{ handler.name|default:"this handler" }}.
+        </p>
+
+        <table id="discovered_clusters" data-table="dialog clickable">
+            <thead>
+                <tr>
+                    <th><input class="check-column" type="checkbox" /></th>
+                    <th>Cluster</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cluster in clusters_added %}
+                <tr>
+                    <td>
+                        <input name="cluster" type="checkbox" value="{{ cluster }}"/>
+                    </td>
+                    <td>
+                        {{ cluster }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% else %}
+        <p>
+        All available clusters already added.
+        </p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init();
+});
+</script>

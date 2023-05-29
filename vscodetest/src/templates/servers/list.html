@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% block topnav %}resources{% endblock %}
+
+{% block content %}
+
+    <h1>{% trans 'Servers' %}</h1>
+    {% load render_bundle from webpack_loader %}
+
+    <div id="serversSummary"></div>
+    {% render_bundle 'chunk-vendors' %}
+    {% render_bundle 'serversServerStats' %}
+
+    <div class="pull-left">
+        <div class="btn-toolbar">
+            {% new_server_button profile=profile %}
+
+            <span class="collapsed" data-toggle="collapse" data-target="#filters-panel">
+                <a class="btn btn-default" id="filters-panel-toggle" tabindex="0">
+                    <span class="collapsed-indicator no-tooltip-affordance"></span>
+                    <span class="icon-filter"></span>
+                    <span class="filters-panel-toggle-btn-text">{% trans "Show Filters" %}</span>
+                    <span id="filtersInUse"></span>
+                </a>
+            </span>
+            <a href="#" id="export-to-csv" class="btn btn-default"
+              data-toggle="tooltip"
+              title="{% trans "Export this server list to CSV" %}">
+              <i class="fas fa-file-alt"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+
+    <div id="filters-panel" class="panel panel-default collapse">
+        <div class="panel-body" style="height: 190px;">
+        </div>
+    </div>
+
+    {% servers_table servers show=server_columns sort_by_column=2 source="/servers/json/" server_params_fn="c2.dataTables.addListFilters" server_response_callback="c2.dataTables.updateFiltersInUseFromResponse" %}
+
+    <div id="action-dialog"></div>
+
+{% endblock content %}
+
+{% block onReady %}
+    c2.dataTables.initListFilters('table#servers');
+{% endblock %}

@@ -1,0 +1,315 @@
+{% load helper_tags %}
+{% load order_tags %}
+{% load hook_tags %}
+{% load i18n %}
+
+<h2> {{ hook_type }} </h2>
+
+<div class="btn-toolbar">
+    {# Non-CB admins can't edit shared actions #}
+    {% if profile.is_cbadmin or not hook.shared %}
+        <a class="btn btn-default open-dialog"
+           href="{% url 'action_edit' hook.id %}"
+           data-dialog-width="800"
+           id="edit-button">
+            <span class="icon-edit"></span>
+            {% trans 'Edit' %}
+        </a>
+    {% endif %}
+    {% if hook.type_slug == 'terraform_plan' %}
+        {% if hook.from_remote %}
+            <a class="btn btn-default"
+                href="{% url 'action_refresh_from_remote' hook.id %}"
+                id="refresh-from-remote-button"
+            >
+                <span class="icon-sync"></span>
+                {% trans 'Fetch Remote Code' %}
+            </a>
+        {% endif %}
+    {% endif %}
+    <a class="btn btn-default open-dialog"
+       href="{% url 'action_export_dialog' hook.id %}">
+        <i class="fas fa-file-export"></i>
+        {% trans 'Export' %}</a>
+    {% if profile.is_cbadmin or not hook.shared %}
+        <a class="btn btn-default open-dialog"
+           href="{% url 'action_delete' hook.id %}">
+            <span class="icon-delete"></span>
+            {% trans 'Remove' %}&hellip;
+        </a>
+    {% endif %}
+</div>
+
+<div class="row">
+    {# First column #}
+    <div class="col-sm-6">
+        <dl class="vertical">
+            <dt></dt>
+            <dd>
+                <p>
+                    {% trans 'No description' as no_description  %}
+                    {{ hook.description|default:no_description }}
+                </p>
+            </dd>
+            {% if hook.groups.exists %}
+                <dt>{% trans 'Groups:' %}</dt>
+                <dd>
+                    <p>
+                        {{ hook.groups.all|render_list:profile }}
+                    </p>
+                </dd>
+            {% endif %}
+            {% if hook.environments.exists %}
+                <dt>{% trans 'Environments:' %}</dt>
+                <dd>
+                    <p>
+                        {{ hook.environments.all|render_list:profile }}
+                    </p>
+                </dd>
+            {% endif %}
+            {% if hook.resource_technologies.exists %}
+                <dt>{% trans 'Resource technologies:' %}</dt>
+                <dd>
+                    <p>
+                        {{ hook.resource_technologies.all|render_list:profile }}
+                    </p>
+                </dd>
+            {% endif %}
+            {% if hook.configuration_managers.exists %}
+                <dt>{% trans 'Configuration managers:' %}</dt>
+                <dd>
+                    <p>
+                        {{ hook.configuration_managers.all|render_list:profile }}
+                    </p>
+                </dd>
+            {% endif %}
+            {% if hook.max_retries > 0 %}
+                <dt>{% trans 'Max retries:' %}</dt>
+                <dd>
+                    {{ hook.max_retries }}
+                </dd>
+            {% endif %}
+            {% if hook.custom_fields.exists %}
+                <dt>{% trans 'Parameters:' %}</dt>
+                <dd>
+                    {{ hook.custom_fields.all|render_list:profile }}
+                </dd>
+            {% endif %}
+            {% if hook.type_slug == 'script' or hook.type_slug == 'plugin' %}
+                {# Always show for scripts, only if set for plugins #}
+                {% if hook.type_slug == 'script' or hook.os_families.exists %}
+                    <dt>{% trans 'Target OS families:' %}</dt>
+                    <dd>
+                        {% with families=hook.os_families.all %}
+                            {% if families %}
+                                <ul class="list-unstyled">
+                                    {% for family in families %}
+                                        <li>{{ family|os_family_icon }} {{ family }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <i>{% trans 'All OS families' %}</i>
+                            {% endif %}
+                        {% endwith %}
+                    </dd>
+                {% endif %}
+            {% endif %}
+            {% if hook.type_slug == 'script' %}
+                <dt>{% trans 'Run with sudo on *nix:' %}</dt>
+                <dd>
+                    <input type=checkbox name=run_with_sudo
+                           data-toggle="toggle"
+                           data-on="{% trans 'Yes' %}"
+                           data-off="{% trans 'No' %}"
+                           data-width="110"
+                           data-post-url="{% url 'make_action_run_with_sudo' hook.id %}"
+                           {% if hook.run_with_sudo %}checked{% endif %}{% if not profile.is_cbadmin and hook.shared%} disabled{% endif %} />
+                </dd>
+                <dt>{% trans 'Run on Server:' %} {% infotip hook.RUN_ON_SERVER_HELP_TEXT %}</dt>
+                <dd>
+                    {% if hook.run_on_server %}
+                        {{ hook.run_on_server|link_or_label:profile }}
+                    {% else %}
+                        <i>{% trans 'The server(s) in context' %}</i>
+                    {% endif %}
+                </dd>
+                <dt>{% trans 'Remove after running:' %}</dt>
+                <dd>
+                    <input type=checkbox name=remove_after_run
+                           data-toggle="toggle"
+                           data-on="{% trans 'Yes' %}"
+                           data-off="{% trans 'No' %}"
+                           data-width="110"
+                           data-post-url="{% url 'make_action_remove_after_run' hook.id %}"
+                           {% if hook.remove_after_run %}checked{% endif %}
+                           {% if not profile.is_cbadmin and hook.shared %}disabled{% endif %} />
+                </dd>
+                {% trans 'Credentials:' as credentials_title %}
+                {% trans 'The credentials that CB will attempt to use when running this script, overriding other configured credentials' as credentials_description %}
+                <dt>{% text_tooltip credentials_title credentials_description %}</dt>
+                <dd>
+                    {% credentials hook profile %}
+                </dd>
+            {% endif %}
+            {% if hook.input_fields.exists %}
+                <dt>{% trans 'Action Inputs:' %}</dt>
+                <ol id="sequenced-action-inputs" class="compact-sortables">
+                    {% for ai in action_inputs %}<li class="{% if forloop.first %} first{% endif %}">
+                        <div class="panel panel-default" data-id="{{ ai.id }}">
+                            <div class="panel-heading">
+                                {{ ai|rich_display:profile }}
+                                {% if profile.is_cbadmin or not hook.shared %}
+                                    <a class="icon-edit open-dialog"
+                                       href="{% url 'edit_action_input' ai.id  %}"></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+            {% if hook.orchestration_flow %}
+                <dt>{% trans 'External flow name:' %}</dt>
+                <dd>
+                    {{ hook.orchestration_flow.name }}
+                </dd>
+                <dt>{% trans 'Parameter mappings:' }%</dt>
+                <dd>
+                    {% include 'orchestrationengines/flow_parameter_mappings.html' with flow=hook.orchestration_flow %}
+                </dd>
+                <dt>External orchestrator:</dt>
+                <dd>
+                    {{ hook.orchestration_flow.engine|render_link }}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+    {# Second column #}
+    <div class="col-sm-6">
+        <dl class="vertical">
+            <dt></dt>
+            <dd>
+                <input type=checkbox name=shared
+                       data-toggle="toggle"
+                       data-on="{% trans 'Shared' %}"
+                       data-off="{% trans 'Not shared' %}"
+                       data-width="110"
+                       data-post-url="{% url 'share_action' hook.id %}"
+                       {% if hook.shared %}checked{% endif %}{% if not profile.is_cbadmin %} disabled{% endif %} />
+                {% blockinfotip %}{% trans "Sharing this action makes it reusable in other contexts. Only CloudBolt Admins can toggle this property." %}{% endblockinfotip %}
+                <p>{% action_dependents hook profile dependents hook_type %}</p>
+            </dd>
+            {% if hook.type_slug == 'plugin' %}
+                <dt></dt>
+                <dd>
+                    <input type=checkbox name=debugger_enabled
+                           data-toggle="toggle"
+                           data-on="{% trans 'Debugger enabled' %}"
+                           data-off="{% trans 'Debugger disabled' %}"
+                           data-width="175"
+                           data-post-url="{% url 'toggle_debugger_enabled' hook.id %}"
+                           {% if hook.debugger_enabled %}checked{% endif %}{% if not profile.is_cbadmin %} disabled{% endif %} />
+                    {% blockinfotip %}{% trans "Enabling debug mode will cause the plug-in execution to pause before the first line is run, then allow CloudBolt Admins to see the state of the variables and step through the execution one line at a time. Only CloudBolt Admins can toggle this property." %}{% endblockinfotip %}
+                    {% videotip '354279047' 'The Plug-In Debugger' 'resources-for-writing-plug-ins.html#plug-in-debugger' %}
+                </dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>
+{# Full-width content #}
+<dl class="vertical">
+    {% if hook.type_slug == 'emailhook' %}
+        <dt>Recipients:</dt>
+        <dd>
+            {% for address in hook.recipients_list %}
+                {{ address }}<br \>
+            {% endfor %}
+        </dd>
+        <dt>From Address:</dt>
+        <dd>
+            {{ hook.from_address }}
+        </dd>
+        <dt>Subject:</dt>
+        <dd>
+            <pre>{{ hook.subject }}</pre>
+        </dd>
+        <dt>Body:</dt>
+        <dd>
+            <pre>{{ hook.body }}</pre>
+        </dd>
+    {% endif %}
+    {% if hook.type_slug == 'webhook' %}
+        <dt>{% trans 'URL' %} ({{ hook.http_method|upper }}):</dt>
+        <dd>
+            {{ hook.url|clippable }}
+        </dd>
+        <dt>{% trans 'Payload' %} ({{ hook.content_type }}):</dt>
+        <dd>
+            <pre><code>{{ hook.payload }}</code></pre>
+        </dd>
+        {% if hook.custom_headers %}
+            <dt>{% trans 'Custom Headers:' %}</dt>
+            <dd>
+                <pre><code>{{ hook.custom_headers }}</code></pre>
+            </dd>
+        {% endif %}
+    {% endif %}
+    {% if hook.execution_timeout %}
+        <dt>{% trans 'Timeout:' %}</dt>
+        <dd>{{ hook.execution_timeout }} {% trans 'seconds' %}</dd>
+    {% endif %}
+    {% if hook.commandline_args %}
+        <dt>Command line args:</dt>
+        <dd>
+            <pre><code>{{ hook.commandline_args }}</code></pre>
+        </dd>
+    {% endif %}
+    {% if hook.type_slug == 'terraform_plan' %}
+        <dt>Service Items:</dt>
+        <dd>
+            {% for si in hook.runterraformplanhookserviceitem_set.all %}
+                <p>{{ si.name }}</p>
+            {% endfor %}
+        </dd>
+        <dt>
+            {% text_tooltip "State Files Using This Plan" "State files created by running this action during a blueprint order." %}
+        </dt>
+        <dd>
+            {% if hook.associated_state_files %}
+                {% for state_file_path in hook.associated_state_files %}
+                    {{ state_file_path }}
+                {% endfor %}
+            {% else %}
+                <i>None</i>
+            {% endif %}
+        </dd>
+        <dt>Plan Path:</dt>
+        <dd>
+            <p>{{ hook.local_path }}</p>
+        </dd>
+        <dt>Plan Tree:</dt>
+        <dd>
+            <div style="font-family: monospace;">
+                {{ hook.local_path_tree_html }}
+            </div>
+        </dd>
+    {% endif %}
+    {% if hook.supports_source_code %}
+        {% if hook.source_code_url %}
+            <dt>Source URL:</dt>
+            <dd>
+                <a href="{{ hook.source_code_url }}">{{ hook.source_code_url }}</a>
+            </dd>
+        {% endif %}
+        <dt><dt>
+        <dd>
+            {% action_source_code hook profile %}
+        </dd>
+    {% endif %}
+</dl>
+
+<script type="text/javascript">
+    $(function () {
+        c2.sortable.sortablePanels('#sequenced-action-inputs', '{% url "resequence_action_inputs" hook.id %}');
+    });
+</script>

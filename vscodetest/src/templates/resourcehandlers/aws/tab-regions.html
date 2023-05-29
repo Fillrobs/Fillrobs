@@ -1,0 +1,45 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'create_aws_region' handler.id %}"
+        id="import-regions">
+        <span class="icon-import"></span>
+        {% trans 'Import regions' %}
+    </a>
+</div>
+
+<table id="regions"
+    data-table
+    data-table-sort="1,asc">
+    <thead>
+        <tr>
+            <th>{% trans 'Region' %}</th>
+            <th>{% trans 'Title' %}</th>
+            <th>{% trans 'Environments' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for region in regions %}
+        <tr>
+            <td class="name">{{ region.name }}</td>
+            <td>{{ region.title }}</td>
+            <td>
+                {% for env in region.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    {% trans 'None' %}
+                {% endfor %}
+                <a title= "{% trans "Create an environment in region '{{ region.name }}'" %}"
+                   href="{% url 'create_aws_env' handler.id region.name %}"
+                   class="icon-add open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

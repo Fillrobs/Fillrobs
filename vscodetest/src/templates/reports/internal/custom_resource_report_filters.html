@@ -1,0 +1,69 @@
+{% load i18n %}
+{% comment %}
+
+BestPractice: dynamic formsets
+There are a few things that need to be  to get this working:
+
+1. The formset factory should have extra=0.  Unfortunately, we cannot rely on
+extra=1 to show the first form from which others are cloned, because $.formset
+doesn't assign IDs correctly (they end up like "fs_prefix-1-id_fs_prefix-0-values").
+
+2. Because of #1, add a hidden row containing the blank form template *after*
+the formset loop.  $.formset will use the last row in the table to clone from.
+No need to specify `formTemplate` option to $.formset.  Set
+`style="display:none"` on this row; using a class to hide it won't work because
+cloned forms get that class too.
+
+3. Set up dynamic behaviors such as selectize *after* the row is added. Doing
+this in the Django form will cause the supporting js to use the wrong element
+IDs since those are altered by $.formset for each row.
+
+4. Don't forget to include the formset management form.  Without this nothing
+works.
+
+5. The formset prefix must be used in the formset factory and passed in the
+$.formset() call.
+
+{% endcomment %}
+
+{{ filters_formset.management_form }}
+<table id="filters" class="table">
+    <thead>
+        <tr>
+            <th class="expand">{% trans "Resource Attribute" %}</th>
+            <th class="expand"></th>
+            <th class="expand">{% trans "Value" %}</th>
+            <th class="shrink"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for filter in filters_formset %}
+            <tr>
+                <td class="attr"> {{ filter.attr }} </td>
+                <td class="operator"> {{ filter.operator }} </td>
+                <td class="values"> {{ filter.values }} </td>
+                <td class="delete"> {{ filter.DELETE }} </td>
+            </tr>
+        {% endfor %}
+
+        <tr style="display: none;">
+            <td class="attr"> {{ blank_filter_form.attr }} </td>
+            <td class="operator"> {{ blank_filter_form.operator }} </td>
+            <td class="values"> {{ blank_filter_form.values }} </td>
+            <td class="delete"> {{ blank_filter_form.DELETE }} </td>
+        </tr>
+    </tbody>
+</table>
+<script>
+$(function() {
+
+    c2.customResourceReport.init('{{ filters_formset_prefix }}');
+    c2.customResourceReport.reloadFormOnAttrChange('{% url "custom_resource_report_filter_form" %}');
+
+    // If the formset has initial filters, set up the selectize and styles
+    $('#filters tbody tr:visible').each(function() {
+        c2.customResourceReport.setupFieldStylesAndBehaviors($(this));
+    });
+
+});
+</script>

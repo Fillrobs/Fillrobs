@@ -1,0 +1,244 @@
+{% comment %}
+A widget to be used for power schedule input, so users don't have to interact with the
+real values being submitted, which are arrays of ints.
+When editing the field, a modal is used to present a table of dropdowns, with columns
+for On and Off times for each day of the week.
+If a schedule is selected, a Highcharts table is presented with a graph of when power
+is to be turned on or off.
+{% endcomment %}
+<input id="id_{{ name }}" type="text" name="{{ name }}" value="{% if value %}{{ value }}{% endif %}" class="form-control hidden" />
+
+<button id="editPowerSchedule" type="button" class="btn btn-default" data-toggle="modal" data-target="#scheduleModal">
+    <span class="icon-add"></span> Add schedule
+</button>
+
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="scheduleModalLabel">Edit Power Schedule</h4>
+      </div>
+      <div class="modal-body">
+        {% include 'power_schedule/power_schedule_form.html' %}
+      </div>
+      <div class="modal-footer">
+        {% comment %} Both of these buttons just close the modal, and the result is managed by the js below. {% endcomment %}
+        <button type="button" class="btn btn-default" id="scheduleModalDismiss">Cancel</button>
+        <button type="button" class="btn btn-primary" id="scheduleModalSave">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="powerScheduleChart" style="height:160px; width: 320px;"></div>
+
+<script>
+$(function(){
+
+    var field = $('#id_{{ name }}');
+    var modal_form_selects = $('#scheduleModal').find('select');
+
+    var initializeScheduleChart = function(){
+        /*
+        Initialize the Highchart with the data from the hidden input field.
+        Given an array of on/off times, determine the dataset to pass to a
+        chart of type columnrange. Because an 'On' time could be chosen after
+        that day's 'Off' time, the time a server would be on for a given day
+        could be split into two separate sections. The first segment would be
+        from midnight until the Off time, and the second would be from the On
+        time until the end of that day.
+        */
+        schedule_strings = field.val().split(",");
+        var scheduleData = []
+        var splitDayScheduleData = []
+        var currentStatusIsOn = false;
+
+        /*
+        Before constructing the day schedules, first determine if the power is
+        On or Off at the start of the week according to how the week ends.
+        */
+        for (i=0; i<schedule_strings.length; i=i+2){
+            on_time = parseInt(schedule_strings[i]);
+            off_time = parseInt(schedule_strings[i+1]);
+
+            if (on_time >= 0 && off_time >= 0 && on_time > off_time){
+                currentStatusIsOn = true;
+            } else {
+                if (on_time >= 0) {
+                    currentStatusIsOn = true;
+                }
+                if (off_time >= 0) {
+                    currentStatusIsOn = false;
+                }
+            }
+        }
+
+        /*
+        Each day will have both a normal daySchedule and a splitDaySchedule,
+        regardless of if it is needed. This is because the columnrange series
+        need a value for each xAxis category.
+        The default schedules are [24, 24], which will not display on the chart.
+        */
+        for (i=0; i<schedule_strings.length; i=i+2){
+            on_time = parseInt(schedule_strings[i]);
+            off_time = parseInt(schedule_strings[i+1]);
+
+            daySchedule = [24, 24];
+            splitDaySchedule = [24, 24];
+
+            /*
+            If the On time is set to after the Off time, we should
+            define two day schedules.
+            */
+            if (on_time >= 0 && off_time >= 0 && on_time > off_time){
+                /*
+                If the On time is later than Off time, this is a split day.
+                The logic is fairly simple, since we know the day ends with
+                the power on.
+                */
+                if (currentStatusIsOn) {
+                    daySchedule = [0, off_time];
+                }
+                currentStatusIsOn = true;
+                splitDaySchedule = [on_time, 24];
+            } else {
+                // Figure out the start of the day's schedule
+                if (currentStatusIsOn) {
+                    daySchedule[0] = 0;
+                } else {
+                    if (on_time >= 0){
+                        currentStatusIsOn = true;
+                        daySchedule[0] = on_time;
+                    } else {
+                        daySchedule[0] = 24;
+                    }
+                }
+                // Figure out the end of the day's schedule
+                if (currentStatusIsOn) {
+                    if (off_time >= 0){
+                        currentStatusIsOn = false;
+                        daySchedule[1] = off_time;
+                    }
+                }
+            }
+            scheduleData.push(daySchedule);
+            splitDayScheduleData.push(splitDaySchedule);
+        }
+
+        $('#powerScheduleChart').highcharts({
+            chart: {
+                type: 'columnrange',
+                inverted: true
+            },
+            credits: {enabled: false},
+            legend: {enabled: false},
+            title: {text: ''},
+            plotOptions: {
+                columnrange: {
+                    grouping: false,
+                }
+            },
+            xAxis: {
+                categories: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                title: {
+                    enabled: false,
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value + ':00';
+                    }
+                },
+                tickInterval: 6,
+                min: 0,
+                max: 24,
+            },
+            tooltip: {
+                valueSuffix: ':00'
+            },
+            series: [
+                {
+                    name: 'Power Schedule',
+                    groupPadding: 0,
+                    data: scheduleData,
+                    color: '#3DC449',
+                    animation: false,
+                },
+                {
+                    name: 'Power Schedule',
+                    groupPadding: 0,
+                    data: splitDayScheduleData,
+                    color: '#3DC449',
+                    animation: false,
+                }
+            ]
+        });
+
+    }
+
+    var updateEditButtonAndHighchart = function(){
+        // Update the edit button and the highchart according to if there is
+        // a valid value in the field.
+        var editScheduleButton = $('#editPowerSchedule');
+        var scheduleChart = $('#powerScheduleChart');
+        if (['', ',,,,,,,,,,,,,'].indexOf(field.val()) >= 0){
+            editScheduleButton.html('<span class="icon-add"></span> Add schedule');
+            scheduleChart.hide();
+        } else {
+            editScheduleButton.html('<span class="icon-edit"></span> Edit schedule');
+            initializeScheduleChart();
+            scheduleChart.show();
+        }
+    }
+
+    var updateScheduleModalfromField = function () {
+        // Parse the field and assign it to the modal fields
+        schedule_strings = field.val().split(",");
+
+        for (i =0; i < modal_form_selects.length; i++) {
+            if (schedule_strings[i] !== undefined && schedule_strings[i] !== ''){
+                modal_form_selects[i].value = schedule_strings[i];
+            }
+        }
+        // If a schedule exists, make the edit button use the right verb
+        updateEditButtonAndHighchart();
+    }
+
+    var updateScheduleFieldfromModal = function () {
+        // Serialize the modal fields and assign it to the field
+        var field_string = ""
+        for (i =0; i < modal_form_selects.length; i++) {
+            if (i>0) {
+                field_string += ",";
+            }
+            field_string += modal_form_selects[i].value;
+        }
+
+        var onlyContainsCommas = (str) => /^,+$/.test(str)
+        if (onlyContainsCommas(field_string)) field_string = ""
+        field.val(field_string).change();
+
+        // If a schedule was created, make the edit button use the right verb
+        updateEditButtonAndHighchart();
+    }
+
+    /*
+    Initialize the schedule editor modal from the initial field value
+    */
+    updateScheduleModalfromField();
+
+    $('#scheduleModalDismiss').on('click', function () {
+        updateScheduleModalfromField();
+        $('#scheduleModal').modal('hide');
+
+    });
+
+    $('#scheduleModalSave').on('click', function () {
+        updateScheduleFieldfromModal();
+        $('#scheduleModal').modal('hide');
+    });
+
+});
+</script>

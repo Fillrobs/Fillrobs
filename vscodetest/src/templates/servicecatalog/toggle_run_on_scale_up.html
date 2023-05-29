@@ -1,0 +1,19 @@
+{% load i18n %}
+
+{% if managing %}
+    <input type=checkbox name=run_on_scale_up
+        data-toggle="toggle"
+        data-on="{% trans 'Yes' %}"
+        data-off="{% trans 'No' %}"
+        data-width="150"
+        data-post-url="{% url 'toggle_run_on_scale_up' service_item.id %}"
+        {% if service_item.run_on_scale_up %}checked{% endif %}
+        {% if blueprint.remote_source_url %}disabled{% endif %} />
+{% else %}
+    {% if service_item.run_on_scale_up %}
+        {% trans 'Yes' %}
+    {% else %}
+        {% trans 'No' %}
+    {% endif %}
+{% endif %}
+

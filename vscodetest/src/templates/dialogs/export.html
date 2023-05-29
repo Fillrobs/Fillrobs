@@ -1,0 +1,49 @@
+{% extends "dialogs/dialog.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block form_content %}
+    <p>
+        {% portal_label as portal_lbl %}
+        {% blocktrans with resource_name=resource.name %}Download a Zip archive of this {{ resource_name }} that can
+            be imported in other {{ portal_lbl }} instances or shared
+            with the user community. {% endblocktrans %}
+    </p>
+
+    <div>
+        <a class="btn btn-primary"
+           href="/api/v2/{{ resource.collection }}/{{ resource.id }}/export/?password_id={{ password_id }}">
+            <i class="fas fa-file-export"></i>
+            {% blocktrans with resource_name=resource.name %}Export {{ resource_name }} in sanitized
+                format{% endblocktrans %}
+        </a>
+    </div>
+
+    <br>
+
+    <div>
+        <a class="btn btn-default"
+           href="/api/v2/{{ resource.collection }}/{{ resource.id }}/export/?instance-specific-info=1&password_id={{ password_id }}">
+            <i class="fas fa-file-export"></i>
+            {% blocktrans with truncated_portal_label=portal_lbl|truncatechars:20 %}
+                Export with instance-specific info from this {{ truncated_portal_label }}
+            {% endblocktrans %}
+        </a>
+
+        <div class="help-block">
+            {% blocktrans %}Useful for migrating content between your own
+                {{ portal_lbl }} instances, e.g. <b>from 'dev' to 'prod'</b>. This format may
+                include {% endblocktrans %}
+            <span class="bg-danger">
+             {{ resource.danger_message }}
+            </span>
+        </div>
+
+    </div>
+
+    <script>
+      $('.modal-dialog a.btn').on('click', function (e) {
+        $('#dialog-modal').modal('hide');
+      });
+    </script>
+{% endblock %}

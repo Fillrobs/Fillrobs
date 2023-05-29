@@ -1,0 +1,28 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<dl class="vertical">
+    <div class="hide-if-last">
+        <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+        <dd>
+            {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+        </dd>
+        {% if managing and not service_item.is_teardown_item %}
+            <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+            <dd>
+                {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+            </dd>
+        {% endif %}
+        <dt>{% trans 'If this action fails:' %}</dt>
+        <dd>
+            {% include 'servicecatalog/toggle_continue_on_failure.html' %}
+        </dd>
+
+        {% if service_item.blueprint.resource_type and not service_item.is_teardown_item %}
+            <dt>{% trans 'Run during scale up:' %}</dt>
+            <dd>
+                {% include 'servicecatalog/toggle_run_on_scale_up.html' %}
+            </dd>
+        {% endif %}
+    </div>
+</dl>

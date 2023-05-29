@@ -1,0 +1,13 @@
+<html><body>
+    <div class="padding ui-state-{{ state|default:'error' }}">
+        {{ msg }}
+    </div>
+
+    {% if exception %}
+        <p>An error occurred:</p>
+        <textarea disabled cols=80 rows=10>
+            {{ exception }}
+        </textarea>
+    {% endif %}
+
+</body></html>

@@ -1,0 +1,88 @@
+{% load i18n %}
+<form method="post" action="">
+    {{ formset.management_form }}
+    {{ formset.non_form_errors }}
+    <table id="apps_list">
+        <thead>
+            <tr>
+                <th>{% trans 'Install' %}</th>
+                <th>{% trans 'Application' %}</th>
+                <th>{% trans 'Rate' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for form in formset %}
+            <tr>
+                <td>
+                    {{ form.install }}
+
+                    {# hidden fields #}
+                    {{ form.app_id }}
+                    {{ form.server_ids }}
+                </td>
+                <td>
+                    {{ form.app_name.value}}
+                    <div class="hidden">{{ form.app_name }}</div>
+                </td>
+                <td>
+                    $<span class="rate">{{ form.rate.value }}</span>/{{units}}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p>{% trans 'Total rate increase for this modification:' %}
+        <strong>$<span id="total_rate">0.00</span>/{{units}}</strong></p>
+    <p><em>{{bottom_msg}}</em></p>
+</form>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var $table = $('#apps_list');
+    $table.dataTable(_.defaults({
+        'fnDrawCallback': function () {
+            $table.clickable();
+        }
+    }, c2.dataTables.dialogDefaults));
+
+    $('#apps_list :checkbox').on('change', function() {
+        var total = 0.0;
+        $("#apps_list tr").each(function() {
+            if( $(this).find(":checkbox").is(':checked') ) {
+                var value = $(this).find("span.rate").text();
+                total += parseFloat(value);
+            }
+        });
+        $('#total_rate').text(total.toFixed(2));
+    });
+
+
+    /* Tell the dialog framework to use different submit behavior:
+     * serialize the table so all rows are posted.
+     */
+    $('#dialog-modal').data('customFormSubmissionHandler', function (e) {
+        var postData = $('#action_form').serialize(),
+            val,
+            $input;
+        e.preventDefault();
+
+        // Since the formset expects all rows to be posted, serialize fields
+        // from all rows in the datatable.  Also ensure unchecked checkboxes
+        // are serialized with empty values so they're properly ignored.
+        $table.$('tr').find('input').each(function(i) {
+            $input = $(this);
+            if ($input.is(':checkbox')) {
+                val = $input.prop('checked') ? 'on' : '';
+            } else {
+                val = $input.val();
+            }
+            postData += '&' + $input.attr('name') + '=' + val;
+        });
+
+        // Replace what the action form will post and trigger submit
+        $('#action_form').data('altPostData', postData);
+        c2.dialogs.submitForm();
+    });
+});
+</script>

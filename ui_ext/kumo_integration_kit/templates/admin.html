@@ -1,0 +1,263 @@
+{% extends "base.html" %}
+
+{% load helper_tags %}
+{% load static %}
+{% block topnav %}Cost and Security Management{% endblock %}
+{% block title %}Cost and Security Management{% endblock %}
+
+{% block content %}
+
+<head>
+    <meta id="handler_details" data-handler="{{ handler_type }}" data-handlerid="{{ rh_id }}">
+    <link rel="stylesheet" type="text/css" href="{% static 'kumo_integration_kit/css/admin.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'kumo_integration_kit/css/common.css' %}">
+    <script src="{% static 'kumo_integration_kit/js/_mixpanel.js' %}" type="text/javascript"></script>
+</head>
+
+<body>
+    <div id="admin-tab">
+        <admin-tab>
+            {% include 'kumo_integration_kit/templates/_cbloader.html' %}
+        </admin-tab>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-xl">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Kumolus API key generation - Guide</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="slider">
+
+                            <a href="#slide-1">1</a>
+                            <a href="#slide-2">2</a>
+                            <a href="#slide-3">3</a>
+                            <a href="#slide-4">4</a>
+                            <a href="#slide-5">5</a>
+
+                            <div class="slides">
+                                <div id="slide-1">
+                                    <img src="{% static 'kumo_integration_kit/images/Step-1.png' %}" style="width: 75%;height: 100%;">
+                                </div>
+                                <div id="slide-2">
+                                    <img src="{% static 'kumo_integration_kit/images/Step-2.png' %}" style="width: 75%;height: 100%;">
+                                </div>
+                                <div id="slide-3">
+                                    <img src="{% static 'kumo_integration_kit/images/Step-3.png' %}" style="width: 75%;height: 100%;">
+                                </div>
+                                <div id="slide-4">
+                                    <img src="{% static 'kumo_integration_kit/images/Step-4.png' %}" style="width: 75%;height: 100%;">
+                                </div>
+                                <div id="slide-5">
+                                    <img src="{% static 'kumo_integration_kit/images/Step-5.png' %}" style="width: 75%;height: 100%;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <span class="uplink"><a href="{% url 'admin_home' %}">Admin</a></span>
+        <h1>Cost and Security Management</h1>
+
+        <nav class="nav-boxed-tabs tabs tabs--js">
+            <ul class="nav nav-boxed-tabs ul-links">
+                <li class="tab active"><a href="#getting-started" data-toggle="tab">Getting Started</a></li>
+                <li class="tab"><a href="#resource-handlers" data-toggle="tab">Resource Handlers</a></li>
+            </ul>
+        </nav>
+        <div class="tab-content form-horizontal">
+            <div id="getting-started" class="tab-pane active">
+                <h3><img src="{% static 'kumo_integration_kit/images/kumolus.png' %}" width="3%"> Welcome to Cost and Security Management Platform!
+                </h3>
+                <div class="show-refresh" style="display: none;">
+                    <form id="refreshPageForm">
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <p>Please restart the Apache server MANUALLY to get started with this UI Extension.</p>
+                                <p>Kindly follow the below steps to do it:</p>
+                                <ul>
+                                    <li>SSH to each web node in your CloudBolt appliance.</li>
+                                    <li>Run command: <strong>systemctl restart httpd</strong> in each web node.</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-12" style="top: 20px;">
+                                <button class="btn btn-success" id="refresh-page" type="submit">Refresh Page</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="hide-refresh" style="display: none;">
+                    <form id="saveCredsForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2 section-name">Integration
+                                Settings <i class="fas fa-edit" id="yes-edit" style="color: gray;font-weight: 200;"></i></label>
+                            <div class="col-sm-5"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Kumolus domain URL *:</label>
+                            <div class="col-sm-5 input-group no-creds">
+                                <span class="input-group-addon site-start">https://</span>
+                                <input class="form-control" name="kumo-domain-url" maxlength="255"
+                                    placeholder="Enter Your Website Name" type="text" required>
+                                <span class="input-group-addon site-end">.kumolus.net</span>
+                            </div>
+                            <div class="col-sm-5 form-group yes-creds">
+                                <input class="form-control site-host disabled" type="text" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Kumolus API Key *:</label>
+                            <div class="col-sm-5 input-group no-creds" style="margin-bottom: 15px;">
+                                <input class="form-control" type="password" name="kumo-api-key"
+                                    placeholder="Enter the API key" required>
+                            </div>
+                            <label class="control-label no-creds col-sm-4"></label>
+                            <span class="no-creds"><i class="fas fa-info-circle"></i> If you want help in <strong>How
+                                    to create API key in Kumolus'</strong>, Please <a data-toggle="modal"
+                                    data-target="#myModal">click here</a>!</span>
+                            <div class="col-sm-5 form-group yes-creds">
+                                <input class="form-control api-key disabled" type="password" rows="5" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group hide-button">
+                            <label class="control-label col-sm-4"></label>
+                            <div class="col-sm-5 form-group">
+                                <button class="btn btn-success validate" type="submit">Validate</button>
+                                <label id="validationStatus"></label>
+                            </div>
+                        </div>
+                        <div class="form-group hide-button" style="display: inline-flex;">
+                            <div class="col-sm-12">
+                                <button class="btn btn-default save-creds disabled" type="button" disabled>Save
+                                    Credentials</button>
+                                <label id="savingStatus"></label>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-success" type="button" id="cancel-edit">Cancel Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <hr style="display: none;">
+                <div class="hide-refresh" style="display: none;">
+                    <form id="saveConfigForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2 section-name">AWS Configuration Setting <i class="fas fa-edit" id="edit-setting" style="color: gray;font-weight: 200;"></i></label>
+                            <div class="col-sm-5"></div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-group combo">
+                                <div class="col-sm-12 sub-headings">
+                                    <label>RightSizing:</label>
+                                </div>
+                                <div class="col-sm-12 sub-combo">
+                                    <label class="control-label"><input class="form-check-input enabling" type="checkbox" id="idle_running_rs" disabled> Show IDLE Running Services in RightSizing</label>
+                                </div>
+                                <div class="col-sm-12">
+                                    <label class="control-label"><input class="form-check-input enabling" type="checkbox" id="idle_stopped_rs" disabled> Show IDLE Stopped Services in RightSizing</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group combo">
+                                <div class="col-sm-12 sub-headings">
+                                    <label>RDS Snapshots:</label>
+                                </div>
+                                <div class="col-sm-12 sub-combo">
+                                    <label class="control-label"><input class="form-check-input enabling" type="checkbox" id="rds_snapshot_no" disabled> Show RDS Snapshot with no RDS</label>
+                                </div>
+                                <div class="col-sm-12" style="display: flex;">
+                                    <label class="control-label">RDS Snapshot older than</label>
+                                    <input class="enabling" type="number" min="0" id="rds_snapshot_after" disabled>
+                                    <select class="form-control enabling selectize" id="rds-no-of-days" disabled>
+                                        <option value="1">Days</option>
+                                        <option value="30">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group combo">
+                                <div class="col-sm-12 sub-headings">
+                                    <label>Volume Snapshots:</label>
+                                </div>
+                                <div class="col-sm-12 sub-combo">
+                                    <label class="control-label"><input class="form-check-input enabling" type="checkbox" id="volume_snapshot_no" disabled> Show Volume Snapshot with no volume</label>
+                                </div>
+                                <div class="col-sm-12" style="display: flex;">
+                                    <label class="control-label">Volume Snapshot older than</label>
+                                    <input class="enabling" type="number" min="0" id="volume_snapshot_after" disabled>
+                                    <select class="form-control enabling selectize" id="volume-no-of-days" disabled>
+                                        <option value="1">Days</option>
+                                        <option value="30">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="form-group combo">
+                                <div class="col-sm-12 sub-headings">
+                                    <label>IDLE Services:</label>
+                                </div>
+                                <div class="col-sm-12 sub-combo" style="display: flex;">
+                                    <label class="control-label">Running Services IDLE older than</label>
+                                    <input class="enabling" type="number" min="0" id="idle_running_after" disabled>
+                                    <select class="form-control enabling selectize" id="idle-running-no-of-days" disabled>
+                                        <option value="1">Days</option>
+                                        <option value="30">Months</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-12" style="display: flex;">
+                                    <label class="control-label">Stopped Services IDLE older than</label>
+                                    <input class="enabling" type="number" min="0" id="idle_stopped_after" disabled>
+                                    <select class="form-control enabling selectize" id="idle-stopped-no-of-days" disabled>
+                                        <option value="1">Days</option>
+                                        <option value="30">Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group hide-button-edit" style="display: inline-flex;">
+                            <div class="col-sm-12">
+                                <button class="btn btn-default" type="button" id="update-config">Update Configuration</button>
+                                <label id="update-configuration"></label>
+                            </div>
+                            <div class="col-sm-12">
+                                <button class="btn btn-success" type="button" id="cancel-edit-config">Cancel Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="resource-handlers" class="tab-pane">
+                <h3>Common Resource Handlers from CMP & Kumolus</h3>
+                <div>
+                    <form id="rhStatusForm">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" style="font-weight: bold;">Resouce Handler's
+                                List</label>
+                            <div class="col-sm-5"></div>
+                        </div>
+                        <div>
+                            <span class="hidden" id="no-rh-list"></span>
+                            <div class="panel-group rh-list-group">
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="{% static 'kumo_integration_kit/js/admin.js' %}"></script>
+</body>
+
+{% endblock content %}

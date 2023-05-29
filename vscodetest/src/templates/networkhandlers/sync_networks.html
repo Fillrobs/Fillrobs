@@ -1,0 +1,67 @@
+{% extends 'dialogs/dialog.html' %}
+{% comment %}
+    Used by Network Handler -> Networks tab
+{% endcomment %}
+
+
+{% block form_content %}
+    {% if networks_added %}
+        <p>
+            {{ networks_added|length }} new network{{ networks_added|pluralize }} were discovered.
+        </p>
+
+        <table id="discovered_networks" class="stats">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>Network name</th>
+                    <th>Transport Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for network in networks_added %}
+                <tr>
+                    <td><input name="network" type="checkbox" value="{{ network.uuid }}"/></td>
+                    <td class="name">{{ network.display }}</td>
+                    <td>{{ network.trans_type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>
+        Unable to locate any new networks at this time.
+        </p>
+    {% endif %}
+
+    {% if networks_removed %}
+        <br>
+        <div class="ui-corner-all ui-helper-clearfix ui-state-highlight padding">
+            <p>
+                The following {{ network|pluralize }} were removed because they no longer exist on "{{ handler }}":
+            </p>
+            <ul class="removed">
+                {% for network in networks_removed %}
+                    <li><b>{{ network.network }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock form_content %}
+
+
+{% block on_ready %}
+    {% if networks_added %}
+    var $table = $('#discovered_networks');
+    $table.dataTable({
+        "aaSorting": [[ 1, "asc" ]],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0] }
+        ] ,
+        'fnDrawCallback': function () {
+            $table.clickable();
+        }
+    });
+    {% endif %}
+{% endblock on_ready %}

@@ -1,0 +1,36 @@
+{% comment %}
+This template overrides the template table for generic RHs to also include the
+VMware tools status and content library (if applicable) for each VMware image.
+
+This is included by templates/resourcehandlers/discover_templates.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<table id="discovered_templates" data-table="dialog clickable">
+    <thead>
+        {% block template_columns %}
+        <th>
+            <input class="check-column" type="checkbox" />
+        </th>
+        <th>{{template_label|default:"image"|title}} name</th>
+        <th>Reported OS</th>
+        <th>VMware Tools Status</th>
+        <th>Content Library</th>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% block template_rows %}
+            {% for template in templates_added %}
+            <tr>
+
+                <td><input name="template" type="checkbox" value="{{ template.value }}"/></td>
+                <td class="name">{{ template.name }}</td>
+                <td>{{ template.os_family|os_family_icon }} {{ template.os_family.name }}</td>
+                <td>{{ template.toolsStatus }}</td>
+                <td>{{ template.content_library_name }}</td>
+            </tr>
+            {% endfor %}
+        {% endblock %}
+    </tbody>
+</table>

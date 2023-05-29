@@ -1,0 +1,25 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-4x8">
+            <dt>Location:</dt>
+            <dd>{{ details.location }}</dd>
+
+            <dt>Resource Group:</dt>
+            <dd>{{ details.resource_group }}</dd>
+
+            {% if details.storage_account %}
+                <dt>Auto-created Storage Accounts:</dt>
+                <dd>{{ details.storage_account }}</dd>
+            {% endif %}
+
+            <dt>Extensions:</dt>
+            <dd>{{ details.extensions.all|join:", "|default:"None" }}</dd>
+        </dl>
+    </div>
+</div>

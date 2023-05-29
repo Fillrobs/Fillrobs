@@ -1,0 +1,86 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+<div id="resource-details-overview" class="row">
+    <div class="col-lg-6">
+        <dl class="dt-20">
+            <dt>{% trans "Blueprint" %}:</dt>
+            <dd>
+                {% blueprint_card resource.blueprint size='mini' %}
+                <script>
+                    c2.blueprints.handleCardClicks($('#resource-details-overview'));
+                </script>
+            </dd>
+
+            <dt>{% trans "Owner" %}:</dt>
+            <dd>{{ resource.owner|link_or_label:profile }}</dd>
+
+            <dt>{% trans "Group" %}:</dt>
+            <dd>{{ resource.group|link_or_label:profile }}</dd>
+
+            <dt>{% trans "Status" %}:</dt>
+            <dd>{{ resource.get_lifecycle_display }}</dd>
+
+            <dt>{% trans "Installed" %}:</dt>
+            <dd>{{ resource.created|how_long_ago }}</dd>
+
+            {% if resource.parent_resource %}
+                <dt>{% blocktrans with parent_resource_type=resource.parent_resource.resource_type.label %}Parent {{ parent_resource_type }}:{% endblocktrans %}</dt>
+                <dd>{{ resource.parent_resource|link_or_label:profile }}</dd>
+            {% endif %}
+
+            {% if load_balancer_url != '' %}
+            <dt>{% trans "Load Balancer" %}:</dt>
+            <dd>
+            <a href="{{ load_balancer_url }}">{{ load_balancer_url }}</a>
+            </dd>
+            {% endif %}
+
+            {% if resource.softwaredefinednetwork_set.exists %}
+            <dt>{% trans "Software-Defined Networks" %}:</dt>
+            <dd>
+            {% for net in resource.softwaredefinednetwork_set.all %}
+                {{ net }}<br>
+            {% endfor %}
+            </dd>
+            {% endif %}
+
+            {% if resource.get_rate %}
+                <dt>{% trans "Rate" %}:</dt>
+                <dd>{{ resource.get_rate_display }}</dd>
+            {% endif %}
+
+            {% for field, display_value in params_as_attributes %}
+            <dt>{{ field.label }}:</dt>
+            <dd>{{ display_value }}</dd>
+            {% endfor %}
+
+        </dl>
+    </div>
+
+    <div id="diagram-container" class="col-lg-6"></div>
+</div>
+<script>
+$(function() {
+    var reloader;
+    var reloadSeconds = 10;
+    var $container = $('#diagram-container');
+    c2.block.block($container);
+
+    function getData() {
+        $.get("{% url 'resource_diagram' resource.id %}?", function(data) {
+            c2.block.unblock($container);
+            c2.tooltip.closeAll();
+            $container.html(data);
+        }).fail(function() {
+            // Stop trying to load the diagram if there is a failure (e.g. network disruption)
+            console.log('clearing interval: ', reloader);
+            window.clearInterval(reloader);
+        });
+    }
+    getData();
+
+    reloader = setInterval(getData, reloadSeconds * 1000);
+});
+</script>

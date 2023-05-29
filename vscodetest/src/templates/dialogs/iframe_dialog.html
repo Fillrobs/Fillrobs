@@ -1,0 +1,47 @@
+{% load crispy_forms_tags %}
+<!doctype html>
+<html>
+<head>
+    {% include "common/head_css_includes.html" %}
+    {% include "common/head_javascript_includes.html" %}
+    {{ form.media }}
+
+    <style type="text/css" media="all">
+    /* Avoid ugly bg at top of dialog contents */
+    html {
+        background: none;
+    }
+    /* override global rule so iframe is sized properly */
+    html, body {
+        height: auto;
+    }
+    </style>
+</head>
+
+<body class="action_dialog_body" {% if width %} style="width:{{ width }}" {% endif %}>
+    <form id="action_form" class="bootstrap3 form-horizontal" {% if form.is_multipart %}enctype="multipart/form-data"{% endif %} method="post">
+        {% csrf_token %}
+        {% crispy_form form %}
+    </form>
+
+    <br>
+
+    <div class="btn-toolbar text-center">
+        <button class="btn btn-default cancel-button">{{ cancel|default:'Cancel'}}</button>
+        <input id="save" class="btn btn-primary" type="submit" value="{{ submit|default:'Save'}}" />
+    </div>
+
+    <script>
+      $(function () {
+        $('input#save').on('click', function (e) {
+            c2.block.block();
+            $('form#action_form').submit();
+        });
+        $('button.cancel-button').on('click', function (e) {
+            parent.close_dialog(); // Defined in base.js
+            e.preventDefault();
+        });
+      });
+    </script>
+</body>
+</html>

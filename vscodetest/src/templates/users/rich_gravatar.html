@@ -1,0 +1,45 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load gravatar %}
+{% load i18n %}
+
+{% if profile.id %}
+    {% spaceless %}
+
+    {% if link %}
+        <a class="rich-gravatar-link" href="{% url 'user_detail' profile.id %}">
+    {% endif %}
+
+    <span class="rich-gravatar no-tooltip-affordance"
+        {% if tooltip %}
+            data-toggle="tooltip"
+            data-html="true"
+            data-max-width="800" {# in case of long names/email addresses #}
+            title="
+            <p>{{ user.first_name }}
+               {{ user.last_name }}</p>
+                <p>{{ user.email  }}</p>
+                <p>{% trans 'Username' %}: {{ user.username }}</p>
+                <p>{% trans 'Last login' %}: {{ user.last_login }}</p>
+            "
+        {% endif %}
+        >
+        {% if avatars_enabled %}
+            {% gravatar user.email size %}
+        {% else %}
+            <div class="avatar {{ fallback_class }}">
+                {{ user|initials }}
+            </div>
+        {% endif %}
+
+        {% if full_name %}
+            {{ user.get_full_name }}
+        {% endif %}
+    </span>
+
+    {% if link %}
+        </a>
+    {% endif %}
+
+    {% endspaceless %}
+{% endif %}

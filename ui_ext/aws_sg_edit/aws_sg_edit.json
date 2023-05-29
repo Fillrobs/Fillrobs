@@ -1,0 +1,12 @@
+{
+    "description": null,
+    "enabled": true,
+    "label": "AWS SG Edit",
+    "last_updated": "2022-06-22",
+    "name": "aws_sg_edit",
+    "package_contents": [
+        "aws_sg_edit/views.py",
+        "aws_sg_edit/__init__.py",
+        "aws_sg_edit/templates/aws_sg_edit.html"
+    ]
+}

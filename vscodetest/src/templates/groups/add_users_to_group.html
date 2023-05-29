@@ -1,0 +1,55 @@
+{% load helper_tags %}
+{% load i18n %}
+
+
+{% if form.errors %}
+    <div class="alert alert-danger">{% trans "Please correct the errors below." %}</div>
+{% endif %}
+
+
+<div class="{% if form.roles.errors %}has-error{% endif %}">
+    <label>{% trans "Roles to grant:" %}</label>
+    <div class="controls">{{ form.roles }}</div>
+    <ul class="help-block errorlist">
+    {% for error in form.roles.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+</div>
+
+<p>
+    {% trans "The following users are not yet members of this group." %}
+</p>
+
+
+{% comment %}
+Create a table similar to the CheckboxSelectMultipleTable.
+{% endcomment %}
+<table id="addUsersToGroup"
+    data-table="clickable dialog"
+    data-table-sort-disabled="0,1"
+    data-table-no-auto-init>
+    <thead>
+        <tr>
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th><!-- avatar --></th>
+            <th>{% trans "Email" %}</th>
+            <th>{% trans "Name" %}</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<script>
+$(function() {
+    c2.dataTables.init('#addUsersToGroup', {
+        'bServerSide': true,
+        'sAjaxSource': '{{ data_source_url }}'
+    });
+
+    // Ensure selected rows from all pages are included
+    c2.dialogs.onSubmitSerializeAllSelectedRows($('#addUsersToGroup'), $('#action_form'));
+});
+</script>

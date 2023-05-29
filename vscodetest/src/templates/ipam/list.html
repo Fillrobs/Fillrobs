@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+{% load ipam_tags %}
+{% block topnav %}ipams{% endblock %}
+
+{% block content %}
+    <h1>IP Address Managers</h1>
+
+    <section class="intro">
+        <p>
+            An IP Address Manager (IPAM) is a tool that allows you to manage IP assignment, DHCP reservation, DNS resolution,
+            and other IP management related tasks.
+        </p>
+    </section>
+
+    {% if not ipams or ipams.count == 0 %}
+        <div class="alert alert-warning">
+            <h4>{% trans 'Next Steps' %}</h4>
+            {% blocktrans %}
+                To start using IPAMs in CloudBolt, click the <b>Add an IPAM...</b> link below to create your
+                first IP Address Manager.
+            {% endblocktrans %}
+        </div>
+    {% endif %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+           href="{% url 'ipam_new' %}"
+           id="add_ipam">
+            <span class="icon-add"></span>
+            {% trans 'Add an IPAM...' %}
+        </a>
+    </div>
+
+    <table id="ipams" data-table>
+        <thead>
+            <tr>
+            <th>{% trans 'Name' %}</th>
+            {% if profile.show_tenant_info %}
+                <th>{% trans 'Tenant' %}</th>
+            {% endif %}
+            <th>{% trans 'Technology' %}</th>
+            <th>{% trans 'IP Address' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ipam in ipams %}
+                <tr>
+                    <td><a href="{% url 'ipam_detail' ipam.id %}">{{ ipam.name }}</a></td>
+                    {% if profile.show_tenant_info %}
+                        <td>
+                            {{ ipam.tenant|link_or_label_none_global:profile }}
+                        </td>
+                    {% endif %}
+                    <td>{{ ipam|ipam_icon }} {{ ipam.ipam_technology.name }}</td>
+                    <td>{{ ipam.ip }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block onReady %}
+
+    $('button[type=submit]').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+{% endblock onReady%}

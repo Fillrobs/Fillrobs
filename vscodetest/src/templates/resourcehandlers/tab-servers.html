@@ -1,0 +1,28 @@
+<script>
+    var resourceHandlerId = '{{handler.id}}'
+    console.log(resourceHandlerId)
+    sessionStorage.setItem("resourceHandlerId", resourceHandlerId);
+</script>
+
+{% load infrastructure_tags %}
+{% load i18n %}
+{% load render_bundle from webpack_loader %}
+
+<div id="resourceHandlersSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'resourceHandlersServerStats' %}
+{% if handler.can_sync_vms %}
+<form id="sync_vms_form" action="{% url 'sync_vms_from_rh' handler.id %}" method="post">
+    {% csrf_token %}
+    <div class="btn-toolbar">
+        {% block actions %}
+        <button type="submit" class="btn btn-default">
+            <span class="icon-sync"></span>
+            {% trans 'Sync VMs from resource handler' %}
+        </button>
+        {% endblock actions %}
+    </div>
+</form>
+{% endif %}
+
+{% servers_table servers_empty_qs source="/servers/json/" filter_name="filter_by_resource_handler" filter_value=handler.id %}

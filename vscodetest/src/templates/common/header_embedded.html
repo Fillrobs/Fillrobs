@@ -1,0 +1,10 @@
+{% load i18n %}
+{% load license_tags %}
+{% load order_tags %}
+
+{# `portal` defined in utilities/context_processors.py #}
+{% if portal.custom_banner %}
+    {# to accomodate light logos, we could add a cb-inverted class to this div #}
+    <div id="banner" class="full-container" role="banner"><div></div></div>
+{% endif %}
+

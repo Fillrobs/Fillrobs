@@ -1,0 +1,27 @@
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - microsoftendpoint
+    workspace: 1
+    type: microsoft
+    name: microsoftendpoint
+    description: My Microsoft Dns
+    single_threaded: false
+- model: naming.microsoftendpoint
+  pk: 1
+  fields:
+    host: microsoft851.sovlabs.net
+    port: 443
+    ssl: true
+    credential: 1
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: microsoft_cred1
+    description: microsoft_test
+    username: admin
+    password: VmwareS0v
+    endpoint_type: microsoft

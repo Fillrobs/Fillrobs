@@ -1,0 +1,71 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+var categories = {{ categories|to_json }};
+var counts = {{ counts_for_csv|to_json }};
+var limits = {{ limits_for_csv|to_json }};
+$('#chart_div').highcharts({
+    title: {
+        text: '{% trans "Servers by Group" %}'
+    },
+    subtitle: {
+        text: '{% trans "Includes all servers in groups you have permission to view. " %}' +
+              '{% trans "Colors change from green to red as groups approach their quota limits." %}'
+    },
+    chart: {
+        height: c2.charts.containerHeight({{ categories|length }}),
+        type: 'bar'
+    },
+    xAxis: {
+        categories: categories
+    },
+    yAxis: {
+        min: 0,
+        title: { text: '{% trans "Number of Servers" %}' }
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            // Set an upper limit to bar width
+            maxPointWidth: 40
+        }
+    },
+    series: {{ series|to_json }},
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    legend: {
+        enabled: false
+    },
+    credits: {
+        enabled: false
+    },
+    exporting:{
+        filename: 'C2_Servers_by_Group',
+        toCSV: function() {
+            return c2.downloads.arrayToCSV(
+            ['{% trans "Group" %}', '{% trans "Used" %}', '{% trans "Limit" %}'],
+                _.zip(categories, counts, limits));
+        },
+        buttons: {
+            contextButton: {
+                menuItems: [
+                    {
+                        text: gettext('Export as CSV'),
+                        onclick: function() {
+                        // The report configuration defines toCSV, a non-standard
+                        // Highcharts option, so that this handler remains generic.
+                        c2.downloads.startDownloadFromContent(
+                            this.options.exporting.toCSV(),
+                            this.options.exporting.filename + '.csv');
+                        }
+                    }
+                ]
+            }
+        }
+    },
+});
+{% endblock %}

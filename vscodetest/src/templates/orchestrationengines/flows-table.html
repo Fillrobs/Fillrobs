@@ -1,0 +1,42 @@
+{% load infrastructure_tags %}
+{% load helper_tags %}
+
+<table id="flows" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <!-- targeted for 4.1
+            <th>UUID</th>
+            -->
+            <th>Server Flow?</th>
+            <th>Parameter Mappings</th>
+            <th>Environments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for flow in flows %}
+        <tr>
+            <td>{{ flow.name }}</td>
+            <!-- targeted for 4.1
+            <td>{{ flow.uuid }}</td>
+            -->
+            <td>{{ flow.expose_as_server_action|render_as_checkmark }}</td>
+            <td>
+                {% include 'orchestrationengines/flow_parameter_mappings.html' %}
+            </td>
+            <td>
+                {{ flow.environments.all|render_list_unrestricted:profile }}
+            </td>
+            <td class="actions" style="white-space:nowrap">
+                <a title="Edit flow" 
+                   href="{% url 'flow_edit' flow.id %}" 
+                   class="icon-edit open-dialog"></a>
+                <a title="Delete flow" 
+                   href="{% url 'flow_delete' flow.id %}" 
+                   class="icon-delete"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

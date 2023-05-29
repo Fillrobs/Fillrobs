@@ -1,0 +1,55 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<li data-topnav="search" class="dropdown icon-item" data-toggle="dropdown">
+    <a data-test="search-submenu-btn" id="global-search" class="submenu-btn">
+        <i class="glyphicon glyphicon-search"></i>
+    </a>
+
+    <ul class="dropdown-menu submenu">
+        <div class="dropdown-search">
+            <form id="navbar-search">
+                <div class="form-group has-feedback">
+                    <label for="search-input">Search</label>
+                    <input type="text"
+                        id="search-input"
+                        class="form-control"
+                        placeholder="{% trans 'Search' %} {% portal_label %}"
+                        autocomplete="off" />
+
+                    <span class="help-block padding pull-right">
+                        {% trans "Use your keyboard to navigate" %}
+                        <span class="infotip"
+                            data-toggle="tooltip"
+                            data-html="true"
+                            data-max-width="400px"
+                            title="
+<div class=text-left>
+  <div class='container-fluid'>
+    <div class='row'><code>/</code></div>
+    <div class='row new_row_set'>{% trans 'open this search dropdown' %}</div>
+
+    <div class='row'><code>ENTER</code></div>
+    <div class='row new_row_set'>{% trans 'run a search' %}</div>
+
+    <div class='row'><code>&darr;</code> <code>&uarr;</code> {% trans 'or' %} <code>TAB</code></div>
+    <div class='row new_row_set'>{% trans 'select a result' %}</div>
+
+    <div class='row'><code>ENTER</code></div>
+    <div class='row new_row_set'>{% trans 'go to a selected result' %}</div>
+
+    <div class='row'><code>ESC</code></div>
+    <div class='row'>{% trans 'close the search dropdown' %}</div>
+  </div>
+</div>"></span>
+                    </span>
+                </div>
+            </form>
+            <div id="search-results">
+                {% comment %}
+                Results are loaded via AJAX (in c2.search) and rendered via 'search/search.html'
+                {% endcomment %}
+            </div>
+        </div>
+    </ul>
+</li>

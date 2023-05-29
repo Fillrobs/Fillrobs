@@ -1,0 +1,67 @@
+{% extends 'dialogs/dialog.html' %}
+{% comment %}
+    Used by Provision Engine -> OS Builds tab
+{% endcomment %}
+
+
+{% block form_content %}
+    {% if osbuilds_added %}
+        <p>
+            {{ osbuilds_added|length }} new OS build{{ osbuilds_added|pluralize }} were discovered.
+        </p>
+
+        <table id="discovered_osbuilds" class="stats">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>OS Build Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for osbuild in osbuilds_added %}
+                <tr>
+                    <td><input name="osbuild" type="checkbox" value="{{ osbuild.id }},{{ osbuild.type }}"/></td>
+                    <td class="name">{{ osbuild.name }}</td>
+                    <td>{{ osbuild.type }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>
+        Unable to locate any new OS builds at this time.
+        </p>
+    {% endif %}
+
+    {% if osbuilds_removed %}
+        <br>
+        <div class="ui-corner-all ui-helper-clearfix ui-state-highlight padding">
+            <p>
+                The following {{ osbuild|pluralize }} were removed because they no longer exist on "{{ provengine }}":
+            </p>
+            <ul class="removed">
+                {% for osbuild in osbuilds_removed %}
+                    <li><b>{{ osbuild.name }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock form_content %}
+
+
+{% block on_ready %}
+    {% if osbuilds_added %}
+    var $table = $('#discovered_osbuilds');
+    $table.dataTable(_.defaults({
+        "aaSorting": [[ 2, "desc" ]],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0] }
+        ],
+        'fnDrawCallback': function () {
+            $table.clickable();
+        }
+    }, c2.dataTables.dialogDefaults));
+    {% endif %}
+{% endblock on_ready %}

@@ -1,0 +1,50 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+
+{% block content %}
+<h1>{{ pagetitle }}</h1>
+
+<div id="cost-dashboard">
+    {% comment %}
+    The Bootstrap grid styles here are not working.  Something to do with how
+    content is loaded via ajax.  So I added percentage width to the 'chart'
+    class as a workaround for now.
+    {% endcomment %}
+    <div class="row">
+        <div data-include="{% url 'tech_cost_breakdown' %}" class="col-lg-6"></div>
+        <div data-include="{% url 'cost_by_top_users' %}" class="col-lg-6"></div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div data-include="{% url 'group_cost_timeline' %}?metric=rate" class="col-lg-6"></div>
+        <div data-include="{% url 'server_cost_scatterplot' %}?c=os_family" class="col-lg-6"></div>
+    </div>
+    <div class="row">
+        <p class="text-center padding">
+        <br/><br/>
+        {% blocktrans %}This report shows costs for <i>active</i> servers/resources in groups/environments that
+        the current user has permission to view.{% endblocktrans %}
+        </p>
+    </div>
+</div>
+
+<script>
+$(function() {
+
+    {# Set up this click handler here instead of in the chart template, to avoid creation of redundant event handlers. #}
+    $('#cost-dashboard').on('click', '.chart-controls a', function(e) {
+        e.preventDefault();
+        var $btn = $(this);
+        var $chart = $btn.closest('[data-include]');
+        $chart.data('include', $btn.data('href'));
+        c2.include.reload($chart, true);
+    });
+
+});
+</script>
+{% endblock content %}

@@ -1,0 +1,9 @@
+[run]
+parallel = true
+source = /opt/cloudbolt/
+concurrency = multiprocessing
+omit =
+    */migrations/*
+    *test*
+    */python_client/ext/*
+    */pyrad/*

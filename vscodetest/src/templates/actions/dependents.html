@@ -1,0 +1,142 @@
+{% comment %}
+Used by the action_dependents template tag.
+{% endcomment %}
+{% load helper_tags %}
+
+{% if dependents_total %}
+<div class="alert alert-warning">
+    <p>
+        This {{ action_type }} is used in {{ dependents_total }}
+        context{{ dependents_total|pluralize }}:
+    </p>
+    <ul class="bullets">
+
+    {% if server_actions|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+                <a href="{% url 'server_actions' %}">Server Actions</a>:
+            {% else %}
+                Server Actions:
+            {% endif %}
+            {{ server_actions|to_csv }}
+
+            {% if server_actions_others %}
+                and {{ server_actions_others }} other action{{ server_actions_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if condition_server_actions|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+                Display Condition Plug-in for <a href="{% url 'server_actions' %}">Server Actions</a>:
+            {% else %}
+                Display Condition Plug-in for Server Actions:
+            {% endif %}
+            {{ condition_server_actions|to_csv }}
+
+            {% if condition_server_actions_others %}
+                and {{ condition_server_actions_others }} other action{{ condition_server_actions_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if resource_actions|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+                <a href="{% url 'resource_actions' %}">Resource Actions</a>:
+            {% else %}
+                Resource Actions:
+            {% endif %}
+            {{ resource_actions|to_csv }}
+
+            {% if resource_actions_others %}
+                and {{ resource_actions_others }} other action{{ resource_actions_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if orchestration_actions|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+                <a href="{% url 'orchestration_actions' %}">Orchestration Actions</a>:
+            {% else %}
+                Orchestration Actions:
+            {% endif %}
+            {% if orchestration_actions %}
+                <ul>
+                {% for oa in orchestration_actions %}
+                    <li>
+                        {% if profile.is_cbadmin %}
+                            <a href="{% url 'orchestration_actions' %}#type-{{ oa.get_orchestration_category }}">{{ oa }}</a>
+                        {% else %}
+                            {{ oa }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+
+                {% if orchestration_actions_others %}
+                    <li>
+                    and {{ orchestration_actions_others }} other action{{ orchestration_actions_others|pluralize }}
+                    </li>
+                {% endif %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if blueprints|length %}
+        <li>
+            <a href="{% url 'service_catalog' %}">Blueprints</a>:
+            {{ blueprints|to_csv_links:profile }}
+
+            {% if blueprints_others %}
+                and {{ blueprints_others }} other blueprint{{ blueprints_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if historical_blueprints|length %}
+        <li>
+            Historical Blueprints:
+            {% comment %}
+            Show all rather than doing the "others" approach because we currently need direct links
+            to access them
+            {% endcomment %}
+            {{ historical_blueprints|to_csv_links:profile }}
+        </li>
+    {% endif %}
+
+    {% if rules|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+                <a href="{% url 'rules' %}">Rules</a>:
+            {% else %}
+                Rules:
+            {% endif %}
+            {{ rules|to_csv }}
+
+            {% if rules_others %}
+                and {{ rules_others }} other rule{{ rules_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    {% if cit_tests|length %}
+        <li>
+            {% if profile.is_cbadmin %}
+            <a href="{% url 'cit_list' %}">CIT Tests</a>:
+            {% else %}
+                CIT Tests:
+            {% endif %}
+            {{ cit_tests|to_csv_links:profile }}
+
+            {% if cit_tests_others %}
+                and {{ cit_tests_others }} other rule{{ cit_tests_others|pluralize }}
+            {% endif %}
+        </li>
+    {% endif %}
+
+    </ul>
+</div>
+{% endif %}

@@ -1,0 +1,51 @@
+
+
+<header class="tile-list-controls tile-list--header {% if not show_sidebar %}no-sidebar{% endif %}">
+<section class="header-layout row">
+    <form class="spaced-heading-element form--grid-search collapsible collapsible-collapsed col-md-3">
+        <label class="hed--section grid-search--toggle catalog-icon-search-white">Search These Results:</label>
+        <p class="catalog-input">
+            <input id="catalog-search" class="text-clear fields-grouped" type="search" {% if query %}value="{{query}}"{% endif %} />
+            <button class="btn--is-icon catalog-icon-search">Search</button>
+        </p>
+    </form>
+    <!-- dummy grid col -->
+    <div class="col-md-4"></div>
+     <!-- Viewing mode selection -->
+     <div class="spaced-heading-element col-md-3">
+        <div class="nav-page nav-page--header catalog-filters">
+            <label class="hed--section blueprints-new--title">Viewing Mode<span>:</span>
+            </label>
+
+            <div id="viewing-modes-group" class="btn-group" role="group">
+              <button id="catalog-view-table" type="button" class="btn btn-primary view-mode" value="table" data-toggle="tooltip" data-placement="top" title="Table">
+                  <span class="glyphicon glyphicon-th-list"></span>
+              </button>
+              <button id="catalog-view-tiles" type="button" class="btn btn-primary view-mode" value="tiles" data-toggle="tooltip" data-placement="top" title="Tiles">
+                  <span class="glyphicon glyphicon-th"></span>
+              </button>
+              <button id="catalog-view-categories" type="button" class="btn btn-primary view-mode" value="categories" data-toggle="tooltip" data-placement="top" title="Categories">
+                  <span class="glyphicon glyphicon-folder-open"></span>
+              </button>
+            </div>
+        </div>
+    </div>
+    <form class="spaced-heading-element form--grid-sort col-md-2" action="/grid-sort/">
+        <label for="options--grid-sort" class="hed--section">Sort By:</label>
+        <p class="fields-grouped custom-select">
+            <select id="options--grid-sort">
+                <option value="featured" {% if sort == "featured" %}selected{% endif %}>Featured</option>
+                <option value="alpha" {% if sort == "alpha" %}selected{% endif %}>Alphabetical</option>
+                <option value="popular" {% if sort == "popular" %}selected{% endif %}>Frequently ordered</option>
+                <option value="newest" {% if sort == "newest" %}selected{% endif %}>Recently added</option>
+                <option value="resource_type" {% if sort == "resource_type" %}selected{% endif %}>Resource Type</option>
+            </select>
+            <input class="a11y" type="submit" value="Update" />
+        </p>
+    </form>
+
+   
+    <!-- End viewing mode selection -->
+    <!-- {% include 'servicecatalog/catalog-page-controls.html' %} -->
+</section>
+</header>

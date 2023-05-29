@@ -1,0 +1,64 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    {% if pool.type == 'STRING' %}
+        <a class="btn btn-default open-dialog" 
+            href="{% url 'license_pool_add_value' pool.id %}">
+            <span class="icon-add"></span>
+            New License Value
+        </a>
+        <a class="btn btn-default upload open-dialog" 
+            href="{% url 'license_pool_batch_upload' pool.id %}">
+            <span class="icon-upload"></span>
+            Upload a file of license values
+        </a>
+    {% endif %}
+
+    {% if pool.type == 'NONE' %}
+        <a class="btn btn-default open-dialog" 
+            href="{% url 'license_pool_add_empty_licenses' pool.id %}">
+            <span class="icon-add"></span>
+            Add Licenses
+        </a>
+        <a class="btn btn-default open-dialog" 
+            href="{% url 'license_pool_remove_empty_licenses' pool.id %}">
+            <span class="icon-delete"></span>
+            Remove Licenses&hellip;
+        </a>
+    {% endif %}
+
+    {% comment %}
+    {% if pool.type == 'FILE' %}
+        <a class="btn btn-default open-dialog" 
+            href="{% url 'license_pool_add_file_license' pool.id %}">
+            <span class="icon-add"></span>
+            Add License File
+        </a>
+    {% endif %}
+    {% endcomment %}
+</div>
+
+<h3>{{ pool.used }} of {{ pool.count }} Licenses Deployed</h3>
+<table id="license-list" data-table>
+    <thead>
+        <tr>
+        <th>Contents</th>
+        <th>Server</th>
+        <th>Group</th>
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for license in licenses %}
+            <tr>
+                <td>{{ license.abbreviated_license }}</td>
+                <td>{{ license.server|link_or_label:profile }}</td>
+                <td>{{ license.server.group|link_or_label:profile }}</td>
+                <td>
+                    <a class="icon-delete open-dialog"
+                        href="{% url 'license_pool_delete_license' license.id %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,611 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns:yui="http://yuilibrary.com/rdf/1.0/yui.rdf#">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>API: jarmon   jarmon.test.js </title>
+
+    <link rel="stylesheet" type="text/css" href="assets/reset-fonts-grids-min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/api.css" />
+
+    <script type="text/javascript" src="assets/api-js"></script>
+    <script type="text/javascript" src="assets/ac-js"></script>
+</head>
+
+<body id="yahoo-com">
+
+<div id="doc3" class="yui-t2">
+    <div id="hd">
+        <h1><a href="http://www.launchpad.net/jarmon" title="Jarmon">Jarmon v11.8 API Documentation</a></h1>
+        <h3>jarmon&nbsp; <span class="subtitle">11.8</span></h3>
+        <a href="./index.html" title="Jarmon">Jarmon</a>
+            &gt; <a href="./module_jarmon.html" title="jarmon">jarmon</a>
+                
+                 &gt; jarmon.test.js (source view) 
+        <form onsubmit="return false">
+            <div id="propertysearch">
+                Search: <input autocomplete="off" id="searchinput" />
+                <div id="searchresults">
+                    &nbsp;
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="bd">
+        <div id="yui-main">
+            <div class="yui-b">
+            <form action="#" name="yui-classopts-form" method="get" id="yui-classopts-form">
+                <fieldset>
+                    <legend>Filters</legend>
+                <span class="classopts"><input type="checkbox" name="show_private" id="show_private" /> <label for="show_private">Show Private</label></span>
+                <span class="classopts"><input type="checkbox" name="show_protected" id="show_protected" /> <label for="show_protected">Show Protected</label></span>
+                <span class="classopts"><input type="checkbox" name="show_deprecated" id="show_deprecated" /> <label for="show_deprecated">Show Deprecated</label></span>
+                </fieldset>
+            </form>
+
+                    <div id="srcout">
+                        <style>
+                            #doc3 .classopts { display:none; }
+                        </style>
+<div class="highlight"><pre><span class="cm">/* Copyright (c) Richard Wall</span>
+<span class="cm"> * See LICENSE for details.</span>
+<span class="cm"> *</span>
+<span class="cm"> * Unit tests for Jarmon</span>
+<span class="cm"> **/</span>
+
+<span class="nx">YUI</span><span class="p">({</span> <span class="nx">logInclude</span><span class="o">:</span> <span class="p">{</span> <span class="nx">TestRunner</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span> <span class="p">}).</span><span class="nx">use</span><span class="p">(</span><span class="s1">&#39;console&#39;</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Y</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.downloadBinary&quot;</span><span class="p">,</span>
+
+        <span class="nx">test_urlNotFound</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * When url cannot be found, the deferred should errback with status</span>
+<span class="cm">             * 404.</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">downloadBinary</span><span class="p">(</span><span class="s1">&#39;non-existent-file.html&#39;</span><span class="p">);</span>
+            <span class="nx">d</span><span class="p">.</span><span class="nx">always</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nb">Error</span><span class="p">,</span> <span class="nx">ret</span><span class="p">);</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="s1">&#39;error:404&#39;</span><span class="p">,</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_urlFound</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * When url is found, the deferred should callback with an instance</span>
+<span class="cm">             * of javascriptrrd.BinaryFile</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">downloadBinary</span><span class="p">(</span><span class="s1">&#39;testfile.bin&#39;</span><span class="p">);</span>
+            <span class="nx">d</span><span class="p">.</span><span class="nx">always</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">jarmon</span><span class="p">.</span><span class="nx">BinaryFile</span><span class="p">,</span> <span class="nx">ret</span><span class="p">);</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">getCharAt</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="p">}));</span>
+
+    <span class="kd">var</span> <span class="nx">RRD_STEP</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">RRD_DSNAME</span> <span class="o">=</span> <span class="s1">&#39;speed&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">RRD_DSINDEX</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">RRD_RRACOUNT</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">RRD_RRAROWS</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">RRD_STARTTIME</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">&#39;1 jan 1980 00:00:00&#39;</span><span class="p">).</span><span class="nx">getTime</span><span class="p">();</span>
+    <span class="kd">var</span> <span class="nx">RRD_ENDTIME</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="s1">&#39;1 jan 1980 00:02:00&#39;</span><span class="p">).</span><span class="nx">getTime</span><span class="p">();</span>
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.RRDFile&quot;</span><span class="p">,</span>
+
+        <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">downloadBinary</span><span class="p">(</span><span class="s1">&#39;build/test.rrd&#39;</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">binary</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">new</span> <span class="nx">RRDFile</span><span class="p">(</span><span class="nx">binary</span><span class="p">);</span>
+                <span class="p">},</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getLastUpdate</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have a lastupdate date of</span>
+<span class="cm">             * 1980-01-01 00:50:01</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_ENDTIME</span><span class="o">/</span><span class="mi">1000</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">rrd</span><span class="p">.</span><span class="nx">getLastUpdate</span><span class="p">());</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getDSIndex</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have a single DS whose name is</span>
+<span class="cm">             * &#39;speed&#39;. A RangeError is thrown if the requested index or dsName</span>
+<span class="cm">             * doesnt exist.</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_DSNAME</span><span class="p">,</span> <span class="nx">rrd</span><span class="p">.</span><span class="nx">getDS</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">getName</span><span class="p">());</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_DSINDEX</span><span class="p">,</span> <span class="nx">rrd</span><span class="p">.</span><span class="nx">getDS</span><span class="p">(</span><span class="s1">&#39;speed&#39;</span><span class="p">).</span><span class="nx">getIdx</span><span class="p">());</span>
+                        <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                        <span class="k">try</span> <span class="p">{</span>
+                            <span class="nx">rrd</span><span class="p">.</span><span class="nx">getDS</span><span class="p">(</span><span class="nx">RRD_DSINDEX</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+                        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">error</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+                        <span class="p">}</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">error</span> <span class="k">instanceof</span> <span class="nx">RangeError</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getNrRRAs</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have a single RRA</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_RRACOUNT</span><span class="p">,</span> <span class="nx">rrd</span><span class="p">.</span><span class="nx">getNrRRAs</span><span class="p">());</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getRRA</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have a single RRA using AVERAGE</span>
+<span class="cm">             * consolidation, step=10, rows=6 and values 0-5</span>
+<span class="cm">             * rra.getEl throws a RangeError if asked for row which doesn&#39;t</span>
+<span class="cm">             * exist.</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">rra</span> <span class="o">=</span> <span class="nx">rrd</span><span class="p">.</span><span class="nx">getRRA</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="s1">&#39;AVERAGE&#39;</span><span class="p">,</span> <span class="nx">rra</span><span class="p">.</span><span class="nx">getCFName</span><span class="p">());</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_STEP</span><span class="p">,</span> <span class="nx">rra</span><span class="p">.</span><span class="nx">getStep</span><span class="p">());</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_RRAROWS</span><span class="p">,</span> <span class="nx">rra</span><span class="p">.</span><span class="nx">getNrRows</span><span class="p">());</span>
+                        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">RRD_RRAROWS</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">rra</span><span class="p">.</span><span class="nx">getEl</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">RRD_DSINDEX</span><span class="p">));</span>
+                        <span class="p">}</span>
+                        <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                        <span class="k">try</span> <span class="p">{</span>
+                            <span class="nx">rra</span><span class="p">.</span><span class="nx">getEl</span><span class="p">(</span><span class="nx">RRD_RRAROWS</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">error</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+                        <span class="p">}</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">assert</span><span class="p">(</span><span class="nx">error</span> <span class="k">instanceof</span> <span class="nx">RangeError</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.RrdQuery&quot;</span><span class="p">,</span>
+
+        <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">downloadBinary</span><span class="p">(</span><span class="s1">&#39;build/test.rrd&#39;</span><span class="p">).</span><span class="nx">pipe</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">binary</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="k">new</span> <span class="nx">RRDFile</span><span class="p">(</span><span class="nx">binary</span><span class="p">);</span>
+                <span class="p">},</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">ret</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getDataTimeRangeOverlapError</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The starttime must be less than the endtime</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span>
+                        <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                            <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQuery</span><span class="p">(</span><span class="nx">rrd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+                            <span class="kd">var</span> <span class="nx">error</span><span class="p">;</span>
+                            <span class="k">try</span> <span class="p">{</span>
+                                <span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+                            <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                                <span class="nx">error</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+                            <span class="p">}</span>
+                            <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">RangeError</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+                        <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+        <span class="nx">test_getDataUnknownCfError</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Error is raised if the rrd file doesn&#39;t contain an RRA with the</span>
+<span class="cm">             * requested consolidation function (CF)</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQuery</span><span class="p">(</span><span class="nx">rrd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+                        <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+                        <span class="k">try</span> <span class="p">{</span>
+                            <span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">RRD_STARTTIME</span><span class="p">,</span> <span class="nx">RRD_ENDTIME</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;FOO&#39;</span><span class="p">);</span>
+                        <span class="p">}</span> <span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">error</span> <span class="o">=</span> <span class="nx">e</span><span class="p">;</span>
+                        <span class="p">}</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+        <span class="nx">test_getData</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have values 0-9 at 300s intervals</span>
+<span class="cm">             * starting at 1980-01-01 00:00:00</span>
+<span class="cm">             * Result should include a data points with times &gt; starttime and</span>
+<span class="cm">             * &lt;= endTime</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQuery</span><span class="p">(</span><span class="nx">rrd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+                        <span class="cm">/* We request data starting 1 STEP +1s after</span>
+<span class="cm">                        the RRD file first val and ending 1 STEP -1s</span>
+<span class="cm">                        before the RRD last val ie one step within the</span>
+<span class="cm">                        RRD file, but 1s away from the step boundary</span>
+<span class="cm">                        to test the quantisation of the requested time</span>
+<span class="cm">                        range.*/</span>
+                        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span>
+                            <span class="nx">RRD_STARTTIME</span> <span class="o">+</span> <span class="p">(</span><span class="nx">RRD_STEP</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+                            <span class="nx">RRD_ENDTIME</span> <span class="o">-</span> <span class="p">(</span><span class="nx">RRD_STEP</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">);</span>
+
+                        <span class="c1">// so we expect two less rows than the total rows in the</span>
+                        <span class="c1">// file.</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_RRAROWS</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+                        <span class="c1">// The value of the first returned row should be the</span>
+                        <span class="c1">// second value in the RRD file (starts at value 0)</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+                        <span class="c1">// The value of the last returned row should be the</span>
+                        <span class="c1">// 10 value in the RRD file (starts at value 0)</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+                        <span class="c1">// The timestamp of the first returned row should be</span>
+                        <span class="c1">// exactly one step after the start of the RRD file</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_STARTTIME</span><span class="o">+</span><span class="nx">RRD_STEP</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+
+                        <span class="c1">// RRD_ENDTIME is on a step boundary and is therfore</span>
+                        <span class="c1">// actually the start time of a new row</span>
+                        <span class="c1">// So when we ask for endTime = RRD_ENDTIME-STEP-1 we</span>
+                        <span class="c1">// actually get data up to the 2nd to last RRD row.</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_ENDTIME</span><span class="o">-</span><span class="nx">RRD_STEP</span><span class="o">*</span><span class="mi">1000</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getDataUnknownValues</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * If the requested time range is outside the range of the RRD file</span>
+<span class="cm">             * we should not get any values back</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">rrd</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQuery</span><span class="p">(</span><span class="nx">rrd</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+                        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">RRD_ENDTIME</span><span class="p">,</span> <span class="nx">RRD_ENDTIME</span><span class="o">+</span><span class="mi">1000</span><span class="p">);</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="p">}));</span>
+
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.RrdQueryRemote&quot;</span><span class="p">,</span>
+
+        <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rq</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQueryRemote</span><span class="p">(</span><span class="s1">&#39;build/test.rrd&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getDataTimeRangeOverlapError</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The starttime must be less than the endtime</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">).</span><span class="nx">fail</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">RangeError</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+        <span class="nx">test_getDataUnknownCfError</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Error is raised if the rrd file doesn&#39;t contain an RRA with the</span>
+<span class="cm">             * requested consolidation function (CF)</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">RRD_STARTTIME</span><span class="p">,</span> <span class="nx">RRD_ENDTIME</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;FOO&#39;</span><span class="p">).</span><span class="nx">always</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">isInstanceOf</span><span class="p">(</span><span class="nx">TypeError</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+
+        <span class="nx">test_getData</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * The generated rrd file should have values 0-9 at 300s intervals</span>
+<span class="cm">             * starting at 1980-01-01 00:00:00</span>
+<span class="cm">             * Result should include a data points with times &gt; starttime and</span>
+<span class="cm">             * &lt;= endTime</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">RRD_STARTTIME</span> <span class="o">+</span> <span class="p">(</span><span class="nx">RRD_STEP</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">,</span>
+                            <span class="nx">RRD_ENDTIME</span> <span class="o">-</span> <span class="p">(</span><span class="nx">RRD_STEP</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">).</span><span class="nx">always</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="cm">/* We request data starting 1 STEP +1s after</span>
+<span class="cm">                         the RRD file first val and ending 1 STEP -1s</span>
+<span class="cm">                         before the RRD last val ie one step within</span>
+<span class="cm">                         the RRD file, but 1s away from the step</span>
+<span class="cm">                         boundary to test the quantisation of the</span>
+<span class="cm">                         requested time range.</span>
+<span class="cm">                         so we expect two less rows than the total</span>
+<span class="cm">                         rows in the file. */</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">RRD_RRAROWS</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+                        <span class="c1">// The value of the first returned row should be the</span>
+                        <span class="c1">// second value in the RRD file (starts at value 0)</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+                        <span class="c1">// The value of the last returned row should be the</span>
+                        <span class="c1">// 10 value in the RRD file (starts at value 0)</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
+
+                        <span class="c1">// The timestamp of the first returned row should be</span>
+                        <span class="c1">// exactly one step after the start of the RRD file</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_STARTTIME</span><span class="o">+</span><span class="nx">RRD_STEP</span><span class="o">*</span><span class="mi">1000</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+
+                        <span class="c1">// RRD_ENDTIME is on a step boundary and is therfore</span>
+                        <span class="c1">// actually the start time of a new row</span>
+                        <span class="c1">// So when we ask for endTime = RRD_ENDTIME-STEP-1 we</span>
+                        <span class="c1">// actually get data up to the 2nd to last RRD row.</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                            <span class="nx">RRD_ENDTIME</span><span class="o">-</span><span class="nx">RRD_STEP</span><span class="o">*</span><span class="mi">1000</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+                            <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_getDataUnknownValues</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * If the requested time range is outside the range of the RRD file</span>
+<span class="cm">             * we should not get any values back</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rq</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">RRD_ENDTIME</span><span class="p">,</span> <span class="nx">RRD_ENDTIME</span><span class="o">+</span><span class="mi">1000</span><span class="p">).</span><span class="nx">always</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.Chart&quot;</span><span class="p">,</span>
+
+        <span class="nx">test_draw</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Test that a rendered chart has the correct dimensions, legend,</span>
+<span class="cm">             * axis, labels etc</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">$tpl</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span>
+                <span class="s1">&#39;&lt;div&gt;&lt;div class=&quot;chart&quot;&gt;&lt;/div&gt;&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+            <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">Chart</span><span class="p">(</span><span class="nx">$tpl</span><span class="p">,</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">Chart</span><span class="p">.</span><span class="nx">BASE_OPTIONS</span><span class="p">);</span>
+            <span class="c1">//</span>
+            <span class="nx">c</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">xaxis</span><span class="p">.</span><span class="nx">tzoffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="nx">c</span><span class="p">.</span><span class="nx">addData</span><span class="p">(</span>
+                <span class="s1">&#39;speed&#39;</span><span class="p">,</span>
+                <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdQueryRemote</span><span class="p">(</span><span class="s1">&#39;build/test.rrd&#39;</span><span class="p">,</span> <span class="s1">&#39;m/s&#39;</span><span class="p">),</span>
+                <span class="kc">true</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">setTimeRange</span><span class="p">(</span><span class="nx">RRD_STARTTIME</span><span class="p">,</span> <span class="nx">RRD_ENDTIME</span><span class="p">);</span>
+            <span class="nx">d</span><span class="p">.</span><span class="nx">done</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">resume</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                        <span class="c1">// TODO: write useful tests</span>
+                    <span class="p">});</span>
+                <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.RrdChooser&quot;</span><span class="p">,</span>
+
+        <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div/&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+            <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">RrdChooser</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">);</span>
+            <span class="nx">c</span><span class="p">.</span><span class="nx">drawRrdUrlForm</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_drawInitialForm</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Test that the initial config form contains an rrd form field</span>
+<span class="cm">             **/</span>
+            <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;form input[name=rrd_url]&#39;</span><span class="p">).</span><span class="nx">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_drawUrlErrorMessage</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Test that submitting the form with an incorrect url results in</span>
+<span class="cm">             * an error message</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;form input[name=rrd_url]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;Foo/Bar&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;.error&#39;</span><span class="p">).</span><span class="nx">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_drawUrlListDatasources</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Test that submitting the form with an correct rrd url results in</span>
+<span class="cm">             * list of further DS  label fields</span>
+<span class="cm">             **/</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span>
+                <span class="s1">&#39;form input[name=rrd_url]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;build/test.rrd&#39;</span><span class="p">).</span><span class="nx">submit</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">wait</span><span class="p">(</span>
+                <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                    <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=rrd_ds_label]&#39;</span><span class="p">).</span><span class="nx">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">},</span> <span class="mi">1000</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+
+
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Case</span><span class="p">({</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;jarmon.ChartEditor&quot;</span><span class="p">,</span>
+
+        <span class="nx">setUp</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div/&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">));</span>
+            <span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">jarmon</span><span class="p">.</span><span class="nx">ChartEditor</span><span class="p">(</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">,</span>
+                <span class="p">{</span>
+                    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Foo&#39;</span><span class="p">,</span>
+                    <span class="nx">datasources</span><span class="o">:</span> <span class="p">[</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-0/cpu-wait.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-0 Wait&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-1/cpu-wait.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-1 Wait&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-0/cpu-system.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-0 System&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-1/cpu-system.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-1 System&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-0/cpu-user.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-0 User&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">],</span>
+                        <span class="p">[</span><span class="s1">&#39;data/cpu-1/cpu-user.rrd&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;CPU-1 User&#39;</span><span class="p">,</span> <span class="s1">&#39;%&#39;</span><span class="p">]</span>
+                    <span class="p">]</span>
+                <span class="p">}</span>
+            <span class="p">);</span>
+            <span class="nx">c</span><span class="p">.</span><span class="nx">draw</span><span class="p">();</span>
+        <span class="p">},</span>
+
+        <span class="nx">test_drawInitialForm</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="cm">/**</span>
+<span class="cm">             * Test that the initial config form contains an rrd form field</span>
+<span class="cm">             **/</span>
+            <span class="nx">Y</span><span class="p">.</span><span class="nx">Assert</span><span class="p">.</span><span class="nx">areEqual</span><span class="p">(</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">$tpl</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;form input[name=rrd_url]&#39;</span><span class="p">).</span><span class="nx">size</span><span class="p">(),</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}));</span>
+
+
+    <span class="c1">//initialize the console</span>
+    <span class="kd">var</span> <span class="nx">yconsole</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Y</span><span class="p">.</span><span class="nx">Console</span><span class="p">({</span>
+        <span class="nx">newestOnTop</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">width</span><span class="o">:</span><span class="s1">&#39;600px&#39;</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="s1">&#39;400px&#39;</span>
+    <span class="p">});</span>
+    <span class="nx">yconsole</span><span class="p">.</span><span class="nx">render</span><span class="p">(</span><span class="s1">&#39;#log&#39;</span><span class="p">);</span>
+    <span class="nx">Y</span><span class="p">.</span><span class="nx">Test</span><span class="p">.</span><span class="nx">Runner</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+                    </div>
+            </div>
+        </div>
+        <div class="yui-b">
+            <div class="nav">
+
+                    <div id="moduleList" class="module">
+                        <h4>Modules</h4>
+                        <ul class="content">
+                                <li class="selected"><a href="module_jarmon.html" title="jarmon">jarmon</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="classList" class="module">
+                        <h4>Classes</h4>
+                        <ul class="content">
+                                <li class=""><a href="jarmon.html" title="jarmon">jarmon</a></li>
+                                <li class=""><a href="jarmon.Chart.html" title="jarmon.Chart">jarmon.Chart</a></li>
+                                <li class=""><a href="jarmon.ChartCoordinator.html" title="jarmon.ChartCoordinator">jarmon.ChartCoordinator</a></li>
+                                <li class=""><a href="jarmon.Parallimiter.html" title="jarmon.Parallimiter">jarmon.Parallimiter</a></li>
+                                <li class=""><a href="jarmon.RrdChooser.html" title="jarmon.RrdChooser">jarmon.RrdChooser</a></li>
+                                <li class=""><a href="jarmon.RrdQuery.html" title="jarmon.RrdQuery">jarmon.RrdQuery</a></li>
+                                <li class=""><a href="jarmon.RrdQueryDsProxy.html" title="jarmon.RrdQueryDsProxy">jarmon.RrdQueryDsProxy</a></li>
+                                <li class=""><a href="jarmon.RrdQueryRemote.html" title="jarmon.RrdQueryRemote">jarmon.RrdQueryRemote</a></li>
+                        </ul>
+                    </div>
+
+                    <div id="fileList" class="module">
+                        <h4>Files</h4>
+                        <ul class="content">
+                                <li class=""><a href="jarmon.js.html" title="jarmon.js">jarmon.js</a></li>
+                                <li class="selected"><a href="jarmon.test.js.html" title="jarmon.test.js">jarmon.test.js</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    <div id="ft">
+        <hr />
+        Copyright &copy; 2011 Richard Wall. All rights reserved.
+    </div>
+</div>
+<script type="text/javascript">
+    ALL_YUI_PROPS = [{"url": "jarmon.Parallimiter.html#method_addCallable", "access": "", "host": "jarmon.Parallimiter", "type": "method", "name": "addCallable"}, {"url": "jarmon.Chart.html#method_addData", "access": "", "host": "jarmon.Chart", "type": "method", "name": "addData"}, {"url": "jarmon.html#method_downloadBinary", "access": "", "host": "jarmon", "type": "method", "name": "downloadBinary"}, {"url": "jarmon.Chart.html#method_draw", "access": "", "host": "jarmon.Chart", "type": "method", "name": "draw"}, {"url": "jarmon.RrdQuery.html#method_getData", "access": "", "host": "jarmon.RrdQuery", "type": "method", "name": "getData"}, {"url": "jarmon.RrdQueryRemote.html#method_getData", "access": "", "host": "jarmon.RrdQueryRemote", "type": "method", "name": "getData"}, {"url": "jarmon.RrdQueryDsProxy.html#method_getData", "access": "", "host": "jarmon.RrdQueryDsProxy", "type": "method", "name": "getData"}, {"url": "jarmon.RrdQuery.html#method_getDSNames", "access": "", "host": "jarmon.RrdQuery", "type": "method", "name": "getDSNames"}, {"url": "jarmon.RrdQueryRemote.html#method_getDSNames", "access": "", "host": "jarmon.RrdQueryRemote", "type": "method", "name": "getDSNames"}, {"url": "jarmon.ChartCoordinator.html#method_init", "access": "", "host": "jarmon.ChartCoordinator", "type": "method", "name": "init"}, {"url": "jarmon.html#method_localTimeFormatter", "access": "", "host": "jarmon", "type": "method", "name": "localTimeFormatter"}, {"url": "jarmon.RrdChooser.html#property_p", "access": "", "host": "jarmon.RrdChooser", "type": "property", "name": "p"}, {"url": "jarmon.Parallimiter.html#property_self", "access": "", "host": "jarmon.Parallimiter", "type": "property", "name": "self"}, {"url": "jarmon.Chart.html#method_setTimeRange", "access": "", "host": "jarmon.Chart", "type": "method", "name": "setTimeRange"}, {"url": "jarmon.ChartCoordinator.html#method_setTimeRange", "access": "", "host": "jarmon.ChartCoordinator", "type": "method", "name": "setTimeRange"}, {"url": "jarmon.Chart.html#method_switchDataEnabled", "access": "", "host": "jarmon.Chart", "type": "method", "name": "switchDataEnabled"}, {"url": "jarmon.ChartCoordinator.html#method_update", "access": "", "host": "jarmon.ChartCoordinator", "type": "method", "name": "update"}];
+</script>
+</body>
+</html>

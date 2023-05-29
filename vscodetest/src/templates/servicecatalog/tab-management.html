@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<p class="help-block">
+{% trans 'The following resource actions are directly associated with this blueprint.' %}
+{% if profile.is_cbadmin %}
+    {% url 'resource_actions' as resource_actions_url %}
+    {% blocktrans %}To manage global actions that may be available to resources from this blueprint,
+    go to <a href="{{ resource_actions_url }}">Admin &rarr; Resource Actions</a>.{% endblocktrans %}
+{% endif %}
+</p>
+
+<br>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_action_trigger' 'resource_actions' %}?blueprint={{ blueprint.id }}">
+        <span class="icon-add"></span>
+        {% trans 'Resource Action' %}
+    </a>
+</div>
+
+<ol class="action-group list-unstyled">
+    {% for action in resource_actions %}
+        <li>
+            {% include "actions/action_details_panel.html" with url_prefix='resource_action' enable_endpoint='resource' blueprint_id=blueprint.id remote_blueprint=blueprint.remote_source_url skip_enabled_control=True %}
+        </li>
+    {% endfor %}
+</ol>

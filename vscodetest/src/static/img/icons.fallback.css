@@ -1,0 +1,52 @@
+.icon-arrow-collapsed { background-image: url('png/arrow-collapsed.png'); background-repeat: no-repeat; }
+
+.custom-select:after,
+.blueprints-new.collapsible-enhanced,
+.icon-arrow-down { background-image: url('png/arrow-down.png'); background-repeat: no-repeat; }
+
+.icon-arrow-expanded { background-image: url('png/arrow-expanded.png'); background-repeat: no-repeat; }
+
+.icon-arrow-left { background-image: url('png/arrow-left.png'); background-repeat: no-repeat; }
+
+.icon-arrow-right { background-image: url('png/arrow-right.png'); background-repeat: no-repeat; }
+
+.tile--is-featured .tile,
+.icon-badge-favorite { background-image: url('png/badge-favorite.png'); background-repeat: no-repeat; }
+
+.icon-close-cta { background-image: url('png/close-cta.png'); background-repeat: no-repeat; }
+
+.icon-close-dark { background-image: url('png/close-dark.png'); background-repeat: no-repeat; }
+
+.icon-close { background-image: url('png/close.png'); background-repeat: no-repeat; }
+
+.icon-custom { background-image: url('png/custom.png'); background-repeat: no-repeat; }
+
+.icon-download { background-image: url('png/download.png'); background-repeat: no-repeat; }
+
+.icon-favorite badge { background-image: url('png/favorite badge.png'); background-repeat: no-repeat; }
+
+.icon-filter { background-image: url('png/filter.png'); background-repeat: no-repeat; }
+
+.icon-gear { background-image: url('png/gear.png'); background-repeat: no-repeat; }
+
+.icon-import { background-image: url('png/import.png'); background-repeat: no-repeat; }
+
+.icon-logo-cloudbolt { background-image: url('png/logo-cloudbolt.png'); background-repeat: no-repeat; }
+
+.icon-plus { background-image: url('png/plus.png'); background-repeat: no-repeat; }
+
+.icon-search-white { background-image: url('png/search-white.png'); background-repeat: no-repeat; }
+
+.icon-search { background-image: url('png/search.png'); background-repeat: no-repeat; }
+
+.icon-star-empty { background-image: url('png/star-empty.png'); background-repeat: no-repeat; }
+
+.tile--is-featured .tile--footer,
+.icon-star { background-image: url('png/star.png'); background-repeat: no-repeat; }
+
+.icon-to-top { background-image: url('png/to-top.png'); background-repeat: no-repeat; }
+
+.icon-upload { background-image: url('png/upload.png'); background-repeat: no-repeat; }
+
+.has-warning .tile--footer,
+.icon-warning { background-image: url('png/warning.png'); background-repeat: no-repeat; }

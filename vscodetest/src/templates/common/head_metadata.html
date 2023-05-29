@@ -1,0 +1,15 @@
+<meta charset=utf-8>
+{# Prevent Chrome browser from offering to translate our UI #}
+<meta http-equiv="Content-Language" content="en">
+{% comment %}
+The Windows group policy setting "Administrative Templates/Windows
+Components/Compatability View/Turn on Internet Explorer Standards Mode for
+Local Intranet" forces an IE browser mode of "Internet Explorer 7", which
+completely breaks our UI. Other factors can also trigger this behavior.
+This meta tag instructs IE to display with the latest browser mode, which
+is what we want because we're a modern site.
+{% endcomment %}
+<meta http-equiv="x-ua-compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="{{ STATIC_URL }}img/apple-touch-icon.png">

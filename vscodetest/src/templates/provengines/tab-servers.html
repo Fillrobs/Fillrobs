@@ -1,0 +1,25 @@
+<script>
+    var provEngineId = '{{provengine.id}}'
+    sessionStorage.setItem("provEngineId", provEngineId);
+</script>
+
+{% load infrastructure_tags %}
+{% if provengine.can_sync_servers %}
+    <form id="sync-svrs-form" action="{% url 'provengine_sync_servers' provengine.id %}" method="post">
+        {% csrf_token %}
+        <div class="btn-toolbar">
+            <button class="btn btn-default" type="submit">
+                <span class="icon-sync"></span>
+                Sync servers from provision engine
+            </button>
+        </div>
+    </form>
+{% endif %}
+{% load render_bundle from webpack_loader %}
+
+<div id="provEnginesSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'provEnginesServerStats' %}
+
+{# Default server table has rate col, but this view does not yet calculate rates so hide it #}
+{% servers_table servers hide="Rate" %}

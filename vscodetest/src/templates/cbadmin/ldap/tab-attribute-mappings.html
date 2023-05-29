@@ -1,0 +1,55 @@
+{% load helper_tags %}
+
+{% if ootb_ldap_disabled_reason %}
+<p>
+    <strong>{{ ootb_ldap_disabled_reason }}</strong> You can still configure LDAP mappings, but they will not be used when users log in. To resolve this, visit the <a href="{% url 'orchestration_actions' %}#type-None">Orchestration Actions</a> page.
+</p>
+{% endif %}
+
+<p>
+    Map your LDAP attributes to {% portal_label %} Users here.
+</p>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'ldap_attribute_mapping_add' ldap.id %}">
+        <span class="icon-add"></span>
+        New LDAP Mapping
+    </a>
+    {% if ldap_attr_mappings %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'ldap_mapping_sync_all' ldap.id %}">
+            <span class="icon-sync"></span>
+            Sync Mappings
+        </a>
+    {% endif %}
+</div>
+
+<table id="ldap-attr-mapping-table" data-table>
+    <thead>
+        <tr>
+        <th>External Attribute</th>
+        <th>Parameter</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for mapping in ldap_attr_mappings %}
+        <tr>
+            <td>
+                {{ mapping.external_attribute }}
+            </td>
+            <td>
+                {{ mapping.cloudbolt_attribute }}
+            </td>
+            <td>
+                <a class="icon-edit btn btn-default btn-sm open-dialog"
+                    href="{% url 'ldap_attribute_mapping_edit' ldap.id mapping.id %}"></a>
+                <a class="icon-delete btn btn-default btn-sm open-dialog"
+                    href="{% url 'ldap_attribute_mapping_delete' ldap.id mapping.id %}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

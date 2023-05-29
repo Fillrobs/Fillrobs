@@ -1,0 +1,26 @@
+{% extends "dialogs/dialog.html" %}
+
+{% block on_ready %}
+    var $type = $('#id_type');
+
+    function fetchFieldsForCFType() {
+        var strType = $type.val();
+
+        $.get("{{ url_for_fetching_fields }}?type=" + strType, function(response) {
+            var newFields = '';
+            if (response.extra_fields) {
+                newFields = response.extra_fields;
+            }
+
+            // Replace all following sibling elements after the "type" field with
+            // fields from the response
+            $('#div_id_type ~ div.form-group').remove();
+            $('#div_id_type').after(newFields);
+        });
+    }
+
+    fetchFieldsForCFType();
+    $type.on('change', fetchFieldsForCFType);
+
+    c2.params.enforceParamServerOptions();
+{% endblock on_ready %}

@@ -1,0 +1,42 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+$('#chart_div').highcharts({
+    title: {
+    text: '{% blocktrans %}Server usage for top {{ num_groups }} groups over past {{ days_in_period }} days{% endblocktrans %}'
+    },
+    subtitle: {
+        text: document.ontouchstart === undefined ?
+            '{% trans "Click and drag in the plot area to zoom in" %}' :
+            '{% trans "Pinch the chart to zoom in" %}'
+    },
+    chart: {
+        zoomType: 'x'
+    },
+    xAxis: {
+        // This causes labels to be date strings converted from epoch values
+        type: 'datetime'
+    },
+    yAxis: {
+        title: {
+            text: '{% trans "Servers" %}'
+        }
+    },
+    tooltip: {
+        formatter: function() {
+            return Highcharts.dateFormat('%b %e %Y', this.x)  +'<br/>'
+                + this.series.name +': <b>'+ this.y +' servers</b>';
+        }
+    },
+    credits: {
+        enabled: false
+    },
+    exporting: {
+        enabled: false
+    },
+    series: {{ chart_series|to_json }}
+});
+{% endblock %}

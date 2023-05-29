@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% comment %}
+    only resource admins or superusers should see this page
+{% endcomment %}
+{% load helper_tags %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+    <h1>Networks</h1>
+
+    {% include "networks/table.html" %}
+{% endblock %}

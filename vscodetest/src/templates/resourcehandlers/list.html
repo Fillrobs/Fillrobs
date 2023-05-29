@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% block topnav %}resourcehandlers{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Resource Handlers" %}</h1>
+
+    {% comment %}
+        BestPractice: intro section explaining {% portal_label %} concepts
+    {% endcomment %}
+    <section class="intro">
+        <p>
+            {% blocktrans %}
+            A resource handler (RH) is a connection to a virtualization or public cloud
+            platform. {% endblocktrans %}{% portal_label %}{% blocktrans %} uses this to manage new or existing
+            resources.
+            {% endblocktrans %}
+            {% include 'common/docs_link.html' with url="resource-handlers.html" %}
+        </p>
+    </section>
+
+    {% if not handlers or handlers.count == 0 %}
+        {% if not profile.view_initial_tour %}
+            <div class="alert alert-warning">
+                <h4>{% trans 'Next Steps' %}</h4>
+                {% blocktrans %}
+                    To start using CloudBolt, click the <b>Add a resource handler...</b> link below to create your
+                    first Resource Handler.
+                {% endblocktrans %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% comment %}
+    This form is only useful to the second button, but the btn-toolbar styling
+    doesn't work when a button is wrapped in a form. HTML5 brings the
+    `formaction` attribute to `button` elements, making the form element
+    unecessary, but IE doesn't support that until IE 10. FF 4+ and Chrome 9+
+    support it.
+    {% endcomment %}
+    <form id="sync_vms_form" action="{% url 'sync_vms_from_rhs' %}" method="post">{% csrf_token %}
+      <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'resourcehandler_new' %}"
+            id="add_handler">
+            <span class="icon-add"></span>
+            {% trans 'Add a resource handler...' %}
+        </a>
+        {% if profile.is_cbadmin %}
+            <button id="sync_vms_btn" type="submit" class="btn btn-default"
+                data-loading-text="Starting sync...">
+                <span class="icon-sync"></span>
+                {% trans 'Sync VMs from all resource handlers' %}
+            </button>
+        {% endif %}
+      </div>
+    </form>
+
+    <table id="handlers" data-table>
+        <thead>
+            <tr>
+            <th>{% trans 'Name' %}</th>
+            {% if profile.show_tenant_info %}
+                <th>{% trans 'Tenant' %}</th>
+            {% endif %}
+            <th>{% trans 'Technology' %}</th>
+            <th>{% trans 'IP Address' %}</th>
+            <th>{% trans 'Environments' %}</th>
+            <th>{% trans 'Servers' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for handler in handlers %}
+                <tr>
+                    <td>{{ handler|render_link }}</td>
+                    {% if profile.show_tenant_info %}
+                        <td>
+                            {{ handler.tenant|link_or_label_none_global:profile }}
+                        </td>
+                    {% endif %}
+                    <td>{{ handler|resource_handler_icon }} {{ handler.resource_technology.name }}</td>
+                    <td>{{ handler.ip }}</td>
+                    <td>{{ handler.get_extra_details.Environments }}</td>
+                    <td>{{ handler.get_extra_details.Servers }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if profile.is_cbadmin and profile.view_initial_tour %}
+        <script>
+            var profile_id = '{{ profile.id }}';
+        </script>
+        <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+        <script src="{{ STATIC_URL }}js/tours/resourceHandlersTour.js"></script>
+        <script>
+            c2.resourceHandlersTour.init().start();
+        </script>
+    {% endif %}
+    {% if dialog_url %}
+        <script>
+            var jqXHR = $.get("{{ dialog_url }}");
+            c2.dialogs.displayJqXHR(jqXHR);
+        </script>
+    {% endif %}
+
+{% endblock %}
+
+{% block onReady %}
+
+    $('button[type=submit]').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+{% endblock onReady%}

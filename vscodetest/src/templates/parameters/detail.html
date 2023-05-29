@@ -1,0 +1,497 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block topnav %}actions{% endblock %}
+
+{% block content %}
+    <h1>{{ parameter.label }}</h1>
+
+    <div class="btn-toolbar">
+
+        <a class="btn btn-default open-dialog"
+            href="{% url edit_view_name parameter.id %}">
+            <span class="icon-edit"></span>
+            {% trans "Edit" %}
+        </a>
+        {% if not is_action_input %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'delete_custom_field' parameter.id %}">
+                <span class="icon-delete"></span>
+                {% trans "Remove" %}&hellip;
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <dl class="dt-30">
+
+                        <dt>{% text_tooltip _("Name") _("This is the identifier used by code in actions to look up this parameter or check its value") %}:</dt>
+                        <dd>
+                            {{ parameter.name }}
+                        </dd>
+
+                        <dt>{% trans "Type:" %}</dt>
+                        <dd>
+                            {{ parameter.get_type_display }}
+                        </dd>
+                        {% if is_action_input %}
+                            <dt>{% trans "Action:" %}</dt>
+                            <dd>
+                                {{ action|link_or_label:profile }}
+                            </dd>
+                        {% endif %}
+
+                        <dt>{% trans "Description:" %}</dt>
+                        <dd>
+                            <p class="well well-sm" style="width: 250px">
+                                {% trans "<i>No description</i>" as no_description %}
+                                {{ parameter.description|default:_("<i>No description</i>") }}
+                            </p>
+                        </dd>
+
+                        {% if show_placeholder %}
+                            <dt>{% trans "Placeholder:" %}</dt>
+                            <dd>
+                                {% trans "<i>None</i>" as no_placeholder %}
+                                {{ parameter.placeholder|default:_("<i>None</i>") }}
+                            </dd>
+                        {% endif %}
+
+                        {% if parameter.type != "BOOL" %}
+                            <dt>{% text_tooltip _("Required") tips.required %}:</dt>
+                            <dd>
+                              <p><input type=checkbox name=required
+                                    data-toggle="toggle"
+                                    data-on="{% trans "Required" %}"
+                                    data-off="{% trans "Not required" %}"
+                                    data-post-url="{% url 'parameter_prop_toggle' parameter.id %}"
+                                    data-width="250"
+                                    {% if parameter.required %}checked{% endif %} /></p>
+                            </dd>
+                        {% endif %}
+
+                        {% if not is_action_input %}
+                            {# Note that this Show on Objects == show_on_servers CF attribute. #}
+                            <dt>{% text_tooltip _("Show on Objects") tips.show_on_order_form %}:</dt>
+                            <dd>
+                              <p><input type=checkbox
+                                    id=id_show_on_servers
+                                    name=show_on_servers
+                                    data-toggle="toggle"
+                                    data-on="{% trans "Show on Objects" %}"
+                                    data-off="{% trans "Do not show" %}"
+                                    data-post-url="{% url 'parameter_prop_toggle' parameter.id %}"
+                                    data-width="250"
+                                    {% if parameter.show_on_servers %}checked{% endif %} /></p>
+                            </dd>
+
+                            <dt>{% text_tooltip _("Available to all servers") tips.available_to_all_servers %}:</dt>
+                            <dd>
+                              <p><input type=checkbox
+                                    id=id_available_all_servers
+                                    name=available_all_servers
+                                    data-toggle="toggle"
+                                    data-on="{% trans "Available to all servers" %}"
+                                    data-off="{% trans "Only available where added" %}"
+                                    data-post-url="{% url 'parameter_prop_toggle' parameter.id %}"
+                                    data-width="250"
+                                    {% if parameter.available_all_servers %}checked{% endif %} /></p>
+                            </dd>
+                            <script>
+                            $(function(){
+                              c2.params.enforceParamServerOptions();
+                            });
+                            </script>
+
+                            <dt>{% text_tooltip _("Show as Attribute") tips.show_as_attribute %}:</dt>
+                            <dd>
+                              <p><input type=checkbox
+                                    id=id_show_as_attribute
+                                    name=show_as_attribute
+                                    data-toggle="toggle"
+                                    data-on="{% trans "Show as Attribute" %}"
+                                    data-off="{% trans "Do not show" %}"
+                                    data-post-url="{% url 'parameter_prop_toggle' parameter.id %}"
+                                    data-width="250"
+                                    {% if parameter.show_as_attribute %}checked{% endif %} /></p>
+                            </dd>
+
+                            <dt>{% text_tooltip _("Allow Multiple Values") tips.allow_multiple %}:</dt>
+                            <dd>
+                              <p><input type=checkbox
+                                    id=id_allow_multiple
+                                    name=allow_multiple
+                                    data-toggle="toggle"
+                                    data-on="{% trans "Allow Multiple Values" %}"
+                                    data-off="{% trans "Single values only" %}"
+                                    data-post-url="{% url 'parameter_prop_toggle' parameter.id %}"
+                                    data-width="250"
+                                    {% if parameter.allow_multiple %}checked{% endif %} /></p>
+                            </dd>
+
+                            <!-- Show the Parameter options if there are any and the type is string -->
+                            {% if show_param_options %}
+                                <dt>{% text_tooltip _("Parameter Options") tips.parameter_options %}:</dt>
+                                <dd>
+                                <span class="pull-right">
+                                        <a class="icon-edit"
+                                            href="{% url 'parameter_option_seq' parameter.id %}">
+                                        </a>
+                                        {% blocktrans count counter=total_options_for_sequence %}
+                                            There is one object.
+                                        {% plural %}
+                                            There are {{ total_options_for_sequence }} objects.
+                                        {% endblocktrans %}
+                                </dd>
+                            {% endif %}
+                        {% endif %}
+                    </dl>
+                </div>
+
+                <div class="col-sm-6">
+                    {% if not is_action_input %}
+                    <div style="border-top:1px solid silver;" class="padded-under">
+                        <div>
+                            <span class="pull-right">
+                                <a class="open-dialog"
+                                    href="{% url 'set_new_global_param_default' parameter.id %}">
+                                    <span class="icon-add"></span>
+                                </a>
+                            </span>
+                            <h4>{% text_tooltip _("Global Defaults") tips.global_defaults %}</h4>
+
+                            {% if global_default_mappings %}
+                                <table class="table table-condensed" style="margin-bottom: 0px;">
+                                    <thead>
+                                        <th>Value</th>
+                                        <th>OS Families</th>
+                                        <th>Target</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for mapping in global_default_mappings %}
+                                            <tr>
+                                                <td class="expand">
+                                                    {{ mapping.default.display_value }}
+                                                </td>
+                                                <td class="shrink">
+                                                    {% if mapping.os_family %}
+                                                        {{ mapping.os_family|os_family_icon }} {{ mapping.os_family }}
+                                                    {% else %}
+                                                        {% if mapping.global_target == "servers" %}
+                                                            All OS families
+                                                        {% else %}
+                                                            <i>N/A</i>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                </td>
+                                                <td class="shrink">
+                                                    {% if mapping.global_target %}
+                                                        <span>{{ mapping.global_target|title }}</span>
+                                                    {% else %}
+                                                        <span>Servers</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="shrink">
+                                                    <a class="icon-edit open-dialog" data-dialog-width="800"
+                                                        href="{% url 'edit_global_param_default' mapping.id %}"></a>
+                                                    <a class="icon-delete open-dialog"
+                                                        href="{% url 'delete_global_param_default' mapping.id %}"></a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            {% else %}
+                                <p class="help-block">{% trans "None defined" %}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div style="border-top:1px solid silver;" class="padded-under">
+
+                        <div>
+                            {% if parameter.type != 'PWD' %}
+                                <span class="pull-right">
+                                    <a class="icon-edit open-dialog"
+                                        {# A bit wider to fit 80 col textareas #}
+                                        data-dialog-width="650px"
+                                        href="
+                                        {% url 'edit_global_customfield_options' field_id=parameter.id %}"></a>
+                                </span>
+                            {% endif %}
+
+                            <h4>
+                                {% if not is_action_input %}
+                                    {% text_tooltip _("Global Options") tips.global_options %}
+                                {% else %}
+                                    {% text_tooltip _("Static Options") tips.static_options %}
+                                {% endif %}
+                            </h4>
+
+                            {% if parameter.type == 'PWD' %}
+                                <p class="help-block">
+                                    {% blocktrans %}"Global options are not supported for password type parameters. Consider using a global parameter default or options on the environment, group, or blueprint as applicable."{% endblocktrans %}
+                                </p>
+                            {% else %}
+                                {% if parameter.get_global_options %}
+                                    <table class="table table-condensed">
+                                    {% for option in parameter.get_global_options %}
+                                        <tr>
+                                            <td>{{ option }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </table>
+                                {% else %}
+                                    <p class="help-block">{% trans "None defined" %}</p>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div style="padding-top: 10px;">
+                            <h4>
+                                {% text_tooltip _("Programmatically Generated Options") tips.generated_options %}
+                            </h4>
+                                {% if parameter.has_generated_options_support %}
+                                    <p class="help-block">
+                                        {% trans "Options are generated by the following orchestration actions." %}
+                                        <a href="{% url 'orchestration_actions' %}">{% trans "Visit the Orchestration Actions page to enable/disable or unlink these." %}</a>
+                                    </p>
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th style="border-bottom: none;">Orchestration Action</th>
+                                                <th style="border-bottom: none;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for orchestration_action in parameter.generated_options_orchestration_actions %}
+                                            <tr>
+                                                <td style="border-top: none;">
+                                                    {{ orchestration_action.name }}
+                                                </td>
+                                                <td style="border-top: none;">
+                                                    <a href="{% url 'action_detail' orchestration_action.hook.id %}">{{ orchestration_action.hook.name }}</a>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                {% elif is_action_input and action.type_slug == 'plugin' %}
+                                    {% if parameter.plugin_generates_options %}
+                                        <p class="help-block">
+                                        The plug-in {{ action|link_or_label:profile }}
+                                        has a method called
+                                        <b>{{ parameter.method_name_for_generating_options }}()</b>
+                                        that generates options for this action input.
+                                        </p>
+                                    {% else %}
+                                        <p class="help-block">
+                                        To generate options at the time the form is loaded with
+                                            this action input, add a method called
+                                        <b>{{ parameter.method_name_for_generating_options }}(**kwargs)</b>
+                                        to the {{ action|link_or_label:profile }} plug-in.
+                                                {% include 'common/docs_link.html' with url="options-generated-using-orchestration-actions.html#action-input-options" %}
+                                        </p>
+                                    {% endif %}
+                                {% else %}
+                                    <p class="help-block">
+                                        {% trans "Options are not generated by any orchestration actions." %}
+                                        <span class="pull-right">
+                                            <a class="btn btn-sm btn-default open-dialog add-hook"
+                                                href="{% url 'add_new_action' 'plugin' 'generated_custom_field_options' %}?custom_field={{ parameter.id }}&action_label=Generate options for '{{ parameter.label }}'"
+                                                data-hook-type="Generated Parameter Options">
+                                                <span class="icon-add"></span>
+                                                Add an Action
+                                            </a>
+                                        </span>
+                                    </p>
+                                {% endif %}
+                        </div>
+                    </div>
+
+                    {% if not is_action_input %}
+                    <div style="border-top:1px solid silver;" class="padded-under">
+
+                        <div>
+                            <span class="pull-right">
+                                <a class="icon-edit open-dialog"
+                                    href="{% url edit_view_name parameter.id %}">
+                                </a>
+                            </span>
+                            <h4>{% trans "Global Constraints" %}</h4>
+
+                            {# Minimum and Maximum can be 0, which would be falsey if we just did "or mapping.minimum" #}
+                            {# "is not None" will be supported once we get to Django 1.10 #}
+                            {% if parameter.value_pattern_string or mapping.minimum or mapping.minimum == 0 or mapping.maximum or mapping.maximum == 0 or mapping.regex_constraint %}
+                            <dl>
+                                {% if parameter.value_pattern_string %}
+                                <dt>{% trans "Value Pattern String:" %}</dt>
+                                <dd>
+                                    {{ parameter.value_pattern_string }}
+                                </dd>
+                                {% endif %}
+
+                                {% if mapping.minimum or mapping.minimum == 0 %}
+                                <dt>{% trans "Minimum:" %}</dt>
+                                <dd>
+                                    {{ mapping.display_minimum }}
+                                </dd>
+                                {% endif %}
+
+                                {% if mapping.maximum or mapping.maximum == 0 %}
+                                <dt>{% trans "Maximum:" %}</dt>
+                                <dd>
+                                    {{ mapping.display_maximum }}
+                                </dd>
+                                {% endif %}
+
+                                {% if mapping.slider_increment or mapping.slider_increment == 0 %}
+                                <dt>{% trans "Slider Increment:" %}</dt>
+                                <dd>
+                                    {{ mapping.display_increment }}
+                                </dd>
+                                {% endif %}
+
+                                {% if mapping.regex_constraint %}
+                                <dt>{% trans "Regex Constraint:" %}</dt>
+                                <dd>
+                                    {{ mapping.regex_constraint }}
+                                </dd>
+                                {% endif %}
+
+                            </dl>
+                            {% else %}
+                                <p class="help-block">{% trans "There are no global constraints on values of this parameter.  To define some, click 'Edit'." %}</p>
+                            {% endif %}
+                        </div>
+
+                        <div style="padding-top: 10px;">
+                            <h4>{% trans "Environment Constraints" %}</h4>
+
+                            {% if constrained_envs %}
+                            <dl>
+                                {% for env in constrained_envs %}
+                                    <dt>{{ env.env|link_or_label:profile }}:</dt>
+                                    <dd>{{ env.constraints }}</dd>
+                                {% endfor %}
+                            </dl>
+                            {% else %}
+                                <p class="help-block">{% trans "There are no environments with constraints on this parameter. To define some, visit an environment's parameters tab." %}</p>
+                            {% endif %}
+                        </div>
+
+                        <div style="padding-top: 10px;">
+                            <h4>{% trans "Group Constraints" %}</h4>
+
+                            {% if constrained_groups %}
+                            <dl>
+                                {% for group in constrained_groups %}
+                                    <dt>{{ group.group|link_or_label:profile }}:</dt>
+                                    <dd>{{ group.constraints }}</dd>
+                                {% endfor %}
+                            </dl>
+                            {% else %}
+                                <p class="help-block">{% blocktrans %}There are no groups with constraints on this parameter. To define some, visit a group's parameters tab.{% endblocktrans %}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    {% endif %}
+
+                    <div style="border-top:1px solid silver;" class="padded-under">
+                    <h4>{% text_tooltip _("Dependencies") tips.dependencies %}</h4>
+
+                        {% if not dependency_for_this_param %}
+                            <p class="help-block">
+                                {% trans "This parameter is not dependent on any other parameters." %}
+                                <span class="pull-right">
+                                    <a class="icon-edit open-dialog" data-dialog-width="650"
+                                        href="{% url 'add_field_dependency' dependent_field_id=parameter.id %}"></a>
+                                </span>
+                            </p>
+                        {% else %}
+                            <span class="pull-right">
+                                <a class="icon-edit open-dialog" data-dialog-width="650"
+                                    href="{% url 'edit_field_dependency' dependent_field_id=parameter.id %}"></a>
+                                <a class="icon-delete"
+                                    href="{% url 'delete_field_dependency' dependent_field_id=parameter.id %}"></a>
+                            </span>
+
+                            {% if dependency_for_this_param.dependency_type == 'REGENOPTIONS' %}
+                                {% blocktrans with renderlink=dependency_for_this_param.controlling_field|link_or_label:profile %}
+                                    {{ renderlink }} controls the available options for this parameter.
+                                {% endblocktrans %}
+                            {% elif not dependency_for_this_param.values %}
+                                <p>
+                                {% blocktrans %}Show when any value is specified
+                                    for {% endblocktrans %}
+                                    {{ dependency_for_this_param.controlling_field|link_or_label:profile }}
+                                </p>
+                                {% if dependency_for_this_param.controlling_field.type in cf_types_to_hide %}
+                                    <p class="alert alert-info">
+                                        You cannot set specific options for
+                                        <b>{{ dependency_for_this_param.controlling_field.get_type_display }}</b>
+                                        Show/Hide controlling parameters
+                                    </p>
+                                {% endif %}
+                            {% else %}
+                                {% if dependency_for_this_param.values|length > 1 %}
+                                    {% blocktrans with renderlink=dependency_for_this_param.controlling_field|render_link %}
+                                        Only show when {{ renderlink }} equals one of:{% endblocktrans %}
+                                        <div class="padding">
+                                            {{dependency_for_this_param.values|render_list:profile }}
+                                        </div>
+                                {% else %}
+                                    <p>
+                                    {% blocktrans with renderlink=dependency_for_this_param.controlling_field|render_link %}
+                                        Only show when {{ renderlink }} equals{% endblocktrans %}
+                                        {{ dependency_for_this_param.values.0 }}
+                                    </p>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+
+                        {% if not relevant_osfamilies %}
+                            <p class="help-block">
+                                {% trans "This parameter is not dependent on an OS Family." %}
+                                <span class="pull-right">
+                                    <a class="icon-edit open-dialog" data-dialog-width="650"
+                                        href="{% url 'add_osf_dependency' dependent_field_id=parameter.id %}"></a>
+                                </span>
+                            </p>
+                        {% else %}
+                            <p>
+                            {% trans "This parameter will only appear for" %} {{ relevant_osfamilies }}.
+                            <span class="pull-right">
+                                <a class="icon-delete"
+                                    href="{% url 'delete_osf_dependency' dependent_field_id=parameter.id %}"></a>
+                            </span>
+                            </p>
+                        {% endif %}
+
+                        {% if controlled_params %}
+                            <div>
+                                {% if dependency_on_this_param.dependency_type == 'REGENOPTIONS' %}
+                                    {% trans "This parameter controls the options for:" %}
+                                {% else %}
+                                    {% trans "This parameter controls:" %}
+                                {% endif %}
+                                <div class="padding">
+                                    {{ controlled_params|render_list:profile }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "dashboard/card.html" %}
+
+{% block card_id %}datastore-report{% endblock %}
+
+{% block heading %}
+    VMware Datastore Usage and Capacity report
+{% endblock %}
+
+{% block card_body %}
+
+<table id="table-{{ report_slug|slugify }}"
+        class="table"
+        data-table>
+<thead>
+    <tr>
+        {% for heading in column_headings %}
+            <th class="a"> {{ heading|safe }} </th>
+        {% endfor %}
+    </tr>
+</thead>
+<tbody>
+    
+    
+        {% for col in rows %}
+        <tr>
+           
+                    {{ col|safe }}
+
+        </tr>    
+        {% endfor %}
+        
+
+</tbody>
+</table>
+<script>
+    c2.dataTables.init($("#table-{{ report_slug|slugify }}"));
+        $(function(){
+            $('#datastore-report').insertBefore('#servers-by-env');
+        });
+</script>
+{% endblock card_body %}

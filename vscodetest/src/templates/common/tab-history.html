@@ -1,0 +1,42 @@
+{% load i18n %}
+
+{%  comment %}
+The default columns used for the vast majority of History tabs end with Job as the last one, but we
+support optionally overriding that last column for History tabs where something else makes more
+sense, like for Actions. In that case, provide both alternate_column (e.g., 'Higher-level Action')
+and alternate_column_prop (e.g., higher_action_html) in the context.
+The history_data_json_view is used to link to the appropriate JSON view for each History tab.
+{%  endcomment %}
+<table id="history"
+    data-table-no-auto-init
+    data-table-sort="0,desc"
+    data-table-sort-disabled="0,1,2,3,4"
+    data-table-source-prop="date,type,owner_html,message,{% if alternate_column_prop %}{{ alternate_column_prop }}{% else %}job_html{% endif %}"
+    >
+    <thead>
+      <tr>
+        <th>{% trans 'Date' %}</th>
+        <th>{% trans 'Type' %}</th>
+        <th>{% trans 'Owner' %}</th>
+        <th>{% trans 'Event' %}</th>
+        {% if alternate_column %}
+            <th>{{ alternate_column }}</th>
+        {% else %}
+            <th>{% trans 'Job' %}</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody style="white-space: pre-line">
+        {% comment %}
+        History data is loaded remotely and used to populate
+        this datatable _and_ to add events to the server stats
+        chart, if stats are available.  This avoids 2 calls for
+        essentially the same data.
+        {% endcomment %}
+    </tbody>
+</table>
+<script>
+$(function(){
+  c2.history.loadHistoryData("{% url history_data_json_view obj.id %}");
+});
+</script>

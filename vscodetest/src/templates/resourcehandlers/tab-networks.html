@@ -1,0 +1,31 @@
+{% load helper_tags %}
+
+{% if handler.can_import_networks %}
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'resourcehandler_sync_networks' handler.id %}"
+        id="import-networks">
+        <span class="icon-import"></span>
+        Import networks
+    </a>
+</div>
+{% endif %}
+
+{% include 'networks/table.html' %}
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#import-networks').data('dialog_options', {
+        width: 800,
+        position: 'center',
+        wait_msg: 'Querying the resource handler...'
+    });
+
+    $('#set-default-network').data('dialog_options', {
+        width: 600,
+        height: 400,
+        position: 'center',
+    });
+});
+</script>

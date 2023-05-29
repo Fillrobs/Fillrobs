@@ -1,0 +1,22 @@
+from utilities.logger import ThreadLogger
+
+logger = ThreadLogger(__name__)
+
+def get_options_list(field, control_value, **kwargs):
+     # these values can be retrieved from a db or a json file or a rest call 
+
+     logger.info(f'control value :::: {control_value}')
+
+     key_values = { 
+               'BMW': [('M3', 'M3 Estate'),('M4', 'M4 Coupe'), ('M5', 'M5 Sedan')],
+               'Audi':[('A3', 'A3 Estate'), ('A4', 'A4 Sedan'), ('S6', 'RS6 Wagon')],
+               'Tesla':[('S', 'Model S')],
+      }
+     if not control_value:
+        return None
+  
+     options = key_values.get(control_value)
+
+     return {
+           'options': options,
+      }

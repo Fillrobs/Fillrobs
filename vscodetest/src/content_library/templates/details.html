@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+{% block title %}{% trans "Content Library" %}{% endblock %}
+{% block topnav %}{% trans 'Content Library' %}{% endblock %}
+
+{% block javascript %}
+{{ block.super }}
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="grunticon" content="{{ STATIC_URL }}img/" />
+
+<script src="{{ STATIC_URL }}js/initial.js"></script>
+
+<!-- Optional; remove if IE <= 8 styling isn’t a priority -->
+<!--[if lt IE 9]>
+                <script src="{{ STATIC_URL }}js/lib/html5shiv.js"></script>
+            <![endif]-->
+
+{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" href="{{ STATIC_URL }}css/catalog.css" />
+<style>
+    #right-pane {
+        border-left: 1px solid grey;
+    }
+
+    .mvr {
+        background-color: #f89406;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 6px 12px;
+        line-height: 1.42em;
+    }
+
+    .no-desc {
+        color: #ccc;
+    }
+
+</style>
+{% endblock %}
+
+{% block extra_header %}
+<header>
+    <a class="a11y" href="#content">Skip to main content</a>
+    <nav>
+        <!-- Insert CloudBolt primary navigation here -->
+    </nav>
+
+
+
+
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2">
+        {%if content.library_image_url%}
+        <div class="img" style="margin: 0;padding:0; height:90%">
+            <img src="{{content.library_image_url}}" alt="{{content.display_name}}" class=" img-rounded center-block" style="width: 100%;">
+        </div>
+        {%else%}
+        <div></div>
+        {%endif%}
+    </div>
+    <div class="col-md-6">
+        <h1>{{content.display_name}} {%if content.extra_classes%}
+            <span class="{{content.extra_classes}}"></span>
+            {%endif%}</h1>
+        <h4>{%trans "Content type" %}: {{content.type_label}}</h4>
+        {%trans "Last update"%}: {{content.last_updated}}<br />
+        {%trans "Minimum version required" %}: <span class="badge mvr">{{content.minimum_version_required}}</span>
+        <br /><br />
+
+        <a {%if content.type == "blueprints"%}
+            href="{% url 'import_blueprint_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "ui-extension-packages"%}
+            href="{% url 'import_extension_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "server-actions"%}
+            href="{% url 'import_server_action_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "resource-actions"%}
+            href="{% url 'import_resource_action_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "orchestration-actions"%}
+            href="{% url 'import_orchestration_action_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "recurring-jobs"%}
+            href="{% url 'import_recurring_job_from_content_library' %}?pkg={{ content.package_url }}"
+            {%elif content.type == "rules"%}
+            href="{% url 'import_rule_from_content_library' %}?pkg={{ content.package_url }}" {%endif%}
+            class="btn btn-primary open-dialog">
+            {% trans "Download" %} <i class="fas fa-download"></i>
+        </a>
+
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <h2>{% trans "Description" %}</h2>
+        {{ content.description|safe }}
+    </div>
+    <div id="right-pane" class="col-md-4">
+        <h4>{% trans "Resource Technologies"%}</h4>
+        {%for tech in content.resource_technologies%}
+        <!--<img width="16" height="16" src="{{tech.icon_url}}" class="img-circle" alt="{{tech.slug}}" title="{{tech.name}}">-->
+        <span class="icon icon-30 icon-handler-{{tech.slug}}" title="{{tech.name}}"></span>
+        {%empty%}
+        <i>{% trans "Unrestricted"%}</i>
+        {%endfor%}
+        <h4>{% trans "Target OS Families"%}</h4>
+        {%for os in content.os_families%}
+        <img width="30" height="30" src="{{os.icon_url}}" class="img-circle" alt="{{os.name}}" title="{{os.name}}">
+        {%empty%}
+        <i>{% trans "Unrestricted"%}</i>
+        {%endfor%}
+        {%if content.extra_classes%}
+                <h4>{%trans "Button preview"%}</h4>
+            <button class="btn btn-default"><i class="{{content.extra_classes}}"></i>
+                    {{content.display_name}}</button>
+
+        {%endif%}
+        {%if content.schedule%}
+            <h4>{%trans "Schedule"%}</h4>
+            {{content.schedule}}
+        {%endif%}
+        {%if content.job_type%}
+            <h4>{%trans "Job type"%}</h4>
+            {{content.job_type}}
+        {%endif%}
+        {%if content.resource_type%}
+        <h4>{%trans "Resource type"%}</h4>
+        <div>{{content.resource_type.label}} <span class="{{content.resource_type.icon}}"></span></div>
+        {%endif%}
+
+        {%if content.extensions%}
+        <h4>{%trans "Extensions"%}</h4>
+        <table class="table table-condensed">
+            <thead>
+                <th>{%trans "Label"%}</th>
+                <th>{%trans "Component"%}</th>
+            </thead>
+            <tbody>
+                {%for ext in content.extensions%}
+                <tr>
+                    <td>{{ext.title}} <span
+                            class="glyphicon glyphicon-info-sign {%if ext.description %}text-primary{%else%}no-desc{%endif%}"
+                            data-toggle="tooltip" title="{{ext.description}}"></span></td>
+                    <td>{{ext.hook_display}}</td>
+                    <td></td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+
+        {%endif%}
+
+        {%if content.category%}
+        <h4>More Info</h4>
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Category"%}
+            </div>
+            <div class="col-md-7">{{content.category}}</div>
+        </div>
+        {%endif%}
+        {%if content.continue_on_failure or content.continue_on_failure is False%}
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Continue on failure"%}
+            </div>
+            <div class="col-md-7">{{content.continue_on_failure}}</div>
+        </div>
+        {%endif%}
+
+        {%if content.hook_point_name%}
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Hook point name"%}
+            </div>
+            <div class="col-md-7">{{content.hook_point_name}}</div>
+        </div>
+        {%endif%}
+        {%if content.hook_point_label%}
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Hook point label"%}
+            </div>
+            <div class="col-md-7">{{content.hook_point_label}}</div>
+        </div>
+        {%endif%}
+        {%if content.run_on_statuses%}
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Run on statuses"%}
+            </div>
+            <div class="col-md-7">{{content.run_on_statuses}}</div>
+        </div>
+        {%endif%}
+        {%if content.run_seq%}
+        <div class="row">
+            <div class="col-md-5">
+                {%trans "Run sequence"%}
+            </div>
+            <div class="col-md-7">{{content.run_seq}}</div>
+        </div>
+        {%endif%}
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ STATIC_URL }}js/catalog.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+    });
+</script>
+
+{% endblock %}

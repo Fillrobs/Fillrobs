@@ -1,0 +1,186 @@
+{% load i18n %}
+{% load helper_tags %}
+{% load service_catalog_tags %}
+
+<main class="pg-main catalog-tiles" id="content">
+    <section class="catalog-table-layout row">
+        <div class="total">
+            <!-- <p>Showing: 1 of {{object_list.count}}</p> -->
+        </div>
+        <div class="row catalog-layout__wrap">
+            {% if show_sidebar %}
+        <aside class="catalog-filters collapsible collapsible-collapsed" data-collapsible-panel="true">
+            <div class="catalog-filters--toggle">
+                <span class="hed--section">Active Filters:</span>
+                <p class="container--active-tags fields-grouped catalog-icon-filter">
+                    <span class="label--active-tags">
+                         {% for filter_id, filter_name in active_filters.items %}{{filter_name}}{% if not forloop.last %}, {% endif %}{% empty %}None{% endfor %}
+                    </span>
+                </p>
+            </div>
+            <!-- /end .catalog-filters--toggle -->
+
+            <div class="catalog-filters--pane">
+                <div class="catalog-filters--inner">
+                    <div class="catalog-filters--title catalog-icon-close-cta">Filter Catalog</div>
+                    {% if active_filters %}
+                        <div class="filters-active">
+                            <div class="filter--head">
+                                <h3 class="hed--section">Active Filters:</h3>
+                                <a class="link--action catalog-icon-close-dark {% if not active_filters %}hidden{% endif %}" href="#">Remove all
+                                    <span class="a11y">active filters</span>
+                                </a>
+                            </div>
+
+                            <ul id="filters-active--list" class="filters-active--list">
+                                {% for filter_id, filter_name in active_filters.items %}
+                                <li class="filter-active--item">
+                                    <a class="filter-active--tag catalog-icon-close" href="#" filterid="{{filter_id}}">{{filter_name}}</a>
+                                </li>
+                                {% empty %}
+                                <span>None</span>
+                                {% endfor %}
+                            </ul>
+                            <hr />
+                        </div>
+                    {% endif %}
+                    <!-- /end .filters-active -->
+
+                    {% for section_title, filters in available_filters.items %}
+                    <div class="filters-module">
+                        <div class="filters-module--head">
+                            <button 
+                                class="btn"
+                                data-toggle="collapse"
+                                {% if section_title == "Categories"%} 
+                                    data-target="#categories" 
+                                    aria-expanded="true" 
+                                    aria-controls="#categories"
+                                {%elif section_title == "OS Builds" %}
+                                    data-target="#osBuilds" 
+                                    aria-expanded="true" 
+                                    aria-controls="#osBuilds"
+                                {%elif section_title == "Resource Types"%}
+                                    data-dummy="{{section_title}}"
+                                    data-target="#resourceTypes"
+                                    aria-expanded="true"
+                                    aria-controls="#resourceTypes"
+                                {%endif%}
+                                >
+                                <i class="glyphicon glyphicon-chevron-down"></i><h3 class="filters-module--title">{{section_title}}:</h3></button>
+                        </div>
+
+                        <div class="filters-module--main collapse in" 
+                        {% if section_title == "Categories" %} 
+                            id="categories" 
+                        {% elif section_title == "OS Builds"%}
+                            id="osBuilds"
+                        {% elif section_title == "Resource Types" %}
+                            id="resourceTypes"
+                        {% endif %}>
+                            <ul class="filters--list">
+                                {% for filter in filters %}
+                                <li>
+                                    <input id="filter-{{filter.id}}" type="checkbox"
+                                        {% if filter.id in active_filters.keys %} checked="checked" {% endif %}
+                                    />
+                                    <label for="filter-{{filter.id}}">{{filter.label}}</label>
+                                    {% if filter.children %}
+                                    <ul>
+                                        {% for child in filter.children %}
+                                        <li>
+                                            <input id="filter-{{child.id}}" type="checkbox" {% if child.id in active_filters.keys %} checked="checked" {% endif %}
+                                            />
+                                            <label for="filter-{{child.id}}">{{child.label}}</label>
+
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /end .filters-module -->
+                    {% endfor %}
+
+                </div>
+                <!-- /end .catalog-filters--pane -->
+            </div>
+            <!-- /end .catalog-filters--inner -->
+        </aside>
+        <!-- /end .catalog-filters -->
+        {% endif %}
+
+        <div class="catalog-list__blueprints">
+            {% for blueprint in object_list %}
+            <div class="catalog-list__blueprint">
+                <a
+                    {% if blueprint|can_order:profile %}
+                        href="{% if blueprint.needs_configuration %}{{ blueprint.get_absolute_url }}{% else %}{{ blueprint.get_order_url }}{% endif %}"
+                    {% endif %}
+                >
+                    {% if blueprint.favorited %}<div class="favorite"></div>{% endif %}
+                    <div class="blueprint__name ls-item">
+                        {{ blueprint.name }} 
+                    </div>
+                    <div class="ls-item catalog-list__logo">
+                            <img class="tile--logo" src="{% if blueprint.list_image %}{{ blueprint.list_image.url }}{% else %}{{ STATIC_URL }}img/icons/blueprint.svg{% endif %}" alt="{{blueprint.name}}" />
+                    </div>
+                    {% if blueprint.needs_configuration %}
+                        <div class="ls-item catalog-list__config">
+                        <em class="alert--emphasis"><i class="glyphicon glyphicon-warning-sign"></i>Configuration required.</em>
+                        </div>
+                    {% else %}
+                    <div class="ls-item catalog-list__details">
+                        <p class="light small">Orders: <span class="dark">{{ blueprint.order_count }}</span></p>
+                        <p class="light small">Resource Type: <span class="dark">
+                            {% if blueprint.resource_type %}
+                                {{ blueprint.resource_type.label }}
+                            {% else %}
+                                <i>None</i>
+                            {% endif %}
+                        </span></p>
+                        <!-- More Info will be exposed in future interations. -->
+                    </div>
+                    {% endif %}
+                    {% if blueprint.description %}
+                    <div class="ls-item catalog-list__description">
+                        {{ blueprint.rendered_description|bleach_filter }}
+                    </div>
+                    {% endif %}
+                </a>
+                <div class="ls-item catalog-list__icon">
+                    <a href="{{ blueprint.get_absolute_url }}">
+                        <i class="tile--edit catalog-icon-gear"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+        </div>
+    </section>
+</main>
+
+<footer class="tile-list-controls tile-list--footer">
+    <section class="layout">
+        {% include 'servicecatalog/catalog-page-controls.html' %}
+    </section>
+</footer>
+
+<script>
+
+    c2.dataTables.init('#catalog-list', {
+      'bStateSave': false,
+      'bPaginate': false,
+      'bFilter': false,
+      'bInfo': false,
+      "columnDefs": [
+        {
+          "width": "30%", "targets": 0, "orderable": false
+        }
+      ]
+    });
+
+</script>

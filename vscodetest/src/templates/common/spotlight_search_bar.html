@@ -1,0 +1,21 @@
+<div id="{{ bar_id }}" class="spotlight-search-bar">
+  <div class="input-group">
+    <input type="text" class="form-control" data-spotlight-search="{{ target }}"
+      aria-label="Search for admin views"
+      placeholder="Search"
+      data-test="admin-spotlight-search">
+      <span class="glyphicon glyphicon-search"></span>
+      <p class="help-block">Find administration views related to a topic, e.g. net, auth, email.</p>
+  </div>
+  <div class="spotlight-results">
+    <ol class="list-unstyled">
+    </ol>
+  </div>
+</div>
+
+<script>
+$(function() {
+  $('#{{ bar_id }} input[data-spotlight-search]').clearable();
+  c2.spotlight.init();
+});
+</script>

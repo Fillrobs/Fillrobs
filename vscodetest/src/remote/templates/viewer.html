@@ -1,0 +1,320 @@
+{% load helper_tags %}
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    {% include "common/head_metadata.html" %}
+    <title>
+        {% if pagetitle %}
+            {{ pagetitle }}
+        {% else %}
+            {% block title %}{% endblock %}
+        {% endif %}
+        - {% portal_label %}
+    </title>
+
+    {% comment %}
+        Include only the minimum for this view, to avoid the global client-side
+        behaviors we define in c2.init and elsewhere (e.g. "/" search keypress
+        handler).
+    {% endcomment %}
+    <script src="{% static 'js/lib/jquery.min.js' %}"></script>
+
+    <style type="text/css" media="all">
+        @import "{% static 'fonts/all-font-faces.css' %}";
+        @import "{% static 'css/customer.css' %}";
+        @import "{% static 'css/c2.css' %}";
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-color: #333;
+            color: #ccc;
+        }
+
+        #header div,
+        #header h1 {
+            padding: 2px;
+        }
+
+        #display-wrapper {
+            width: 100%;
+            overflow: auto;
+            padding: 0;
+            margin: 0;
+            position:relative;
+            background: none;
+        }
+        #display-wrapper:before {
+          content: "Connecting...";
+          font-weight: bold;
+          font-size: 36pt;
+          text-align: center;
+          // Show behind #display-wrapper before Guacamole connects.
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+          opacity: 0%;
+        }
+
+        #display {
+            cursor: url('/static/img/dot.gif'),default;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            margin: 0;
+            padding: 0;
+        }
+
+        #footer {
+            height: 15px;
+        }
+
+        #header-title {
+          margin-bottom: 0;
+        }
+
+        #header-title.msg-error {
+          color: red;
+        }
+        #header-title.msg-warning {
+          color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1 class="h5" id="header-title">
+            {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"
+        </h1>
+    </div>
+
+    <div id="display-wrapper">
+        <div id="display">
+        </div>
+    </div>
+
+    <div id="footer">
+    </div>
+
+
+<!-- Guacamole JavaScript API -->
+<script type="text/javascript"
+    src="{% static "js/guacamole-client.min.js" %}"></script>
+
+<!-- Init -->
+<script type="text/javascript"> /* <![CDATA[ */
+
+  // On-Screen Status Messages
+  var Statuses = {
+    ERROR: 1,
+    WARNING: 2,
+    NORMAL: 3
+  };
+  var setStatus = function(type, msg) {
+    var $title = $('#header-title');
+    $title.html(msg);
+    $title.removeClass('msg-error msg-warning');
+    switch (type) {
+      case Statuses.ERROR:
+        $title.addClass('msg-error');
+        break;
+      case Statuses.WARNING:
+        $title.addClass('msg-warning');
+        break;
+    };
+  };
+
+  // Logging
+  var LogLevels = {
+    DEBUG: 1,
+    NORMAL: 2
+  };
+  var DEBUGLEVEL = LogLevels.DEBUG;
+  var log = function(level, msg) {
+    if ( DEBUGLEVEL <= level ) {
+      console.log(msg);
+    }
+  };
+
+
+
+    // Get display div from document
+    var $displayWrapper = $('#display-wrapper');
+    var $display = $('#display');
+
+    // Get screen dimensions
+    // Some browsers may report decimal values here, so round to ints.
+    // -15 for possible scroll bars
+    var width = parseInt($displayWrapper.width() - 15);
+    var height = parseInt($(window).height() - $('#header').height() - $('#footer').height() - 15);
+
+    if (width && height < 100) {
+        // Default short windows to to 16:9 aspect ratio
+        height = parseInt(width / 1.77);
+    }
+    $displayWrapper.css('height', height);
+
+    console.log('width', width);
+    console.log('height', height);
+
+    // Build the Guacamole client URL:
+{% if tunnel_path %}
+    var guacTunnelURL = "{{tunnel_protocol}}://{{tunnel_host}}:{{tunnel_port}}{{tunnel_path}}";
+    guacTunnelURL = guacTunnelURL.replace(/xwidthx/g, width);
+    guacTunnelURL = guacTunnelURL.replace(/yheighty/g, height);
+    guacTunnelURL += '{{authentication_scheme}}/{{authentication_host}}/{{credentials}}/';
+    // Use HTTPtunnel for communications.
+    var tunnel = new Guacamole.HTTPTunnel(guacTunnelURL);
+{% else %}
+    var tunnelPath = '/ws/{{guacd_host}}/{{guacd_port}}/{{remote_host}}/{{remote_port}}/{{remote_protocol}}/' + width + 'x' + height + '/';
+    var guacTunnelURL = "{{tunnel_protocol}}://{{tunnel_host}}:{{tunnel_port}}" + tunnelPath;
+    guacTunnelURL += '{{authentication_scheme}}/{{authentication_host}}/{{credentials}}/';
+    // Use WebSocket tunnel for communications.
+    var tunnel = new Guacamole.WebSocketTunnel(guacTunnelURL);
+{% endif %}
+  tunnel.onerror = function(status) { console.log("Guacamole Tunnel error: "); console.log(status); };
+  tunnel.onstatechange = function(state) {
+    switch (state) {
+      case Guacamole.Tunnel.State.CONNECTING:
+        console.log("Guacamole Tunnel now connecting.");
+        break;
+      case Guacamole.Tunnel.State.OPEN:
+        console.log("Guacamole Tunnel now open.");
+        break;
+      case Guacamole.Tunnel.State.CLOSED:
+        console.log("Guacamole Tunnel now closed.");
+        //alert("The tunnel has closed.");
+        break;
+      default:
+        console.log("Guacamole Tunnel changed to an unknown state: " + state);
+    }
+  };
+  tunnel.oninstruction = function(opcode, parameters) { console.log("Guacamole Tunnel instruction received, but not handled: " + opcode + " " + parameters); };
+
+  // Instantiate client.
+  var guac = new Guacamole.Client(tunnel);
+
+  var display = guac.getDisplay();
+  display.onresize = function(width, height) { console.log("The Guacamole Display was resized, but not handled: " + width + "x" + height); };
+
+  // Add client to display div
+  $display.html(display.getElement());
+
+  // Guacamole Events (handled)
+  Guacamole.Client.State = {
+    "IDLE": 0,
+    "CONNECTING": 1,
+    "WAITING": 2,
+    "CONNECTED": 3,
+    "DISCONNECTING": 4,
+    "DISCONNECTED": 5
+  };
+  guac.onstatechange = function(state) {
+    switch (state) {
+      case Guacamole.Client.State.IDLE:
+        console.log("Guacamole Client now idle.");
+        setStatus(Statuses.NORMAL, 'IDLE: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        break;
+      case Guacamole.Client.State.CONNECTING:
+        console.log("Guacamole Client now connecting.");
+        setStatus(Statuses.NORMAL, 'CONNECTING: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        break;
+      case Guacamole.Client.State.WAITING:
+        console.log("Guacamole Client now waiting.");
+        setStatus(Statuses.NORMAL, 'WAITING: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        break;
+      case Guacamole.Client.State.CONNECTED:
+        console.log("Guacamole Client now connected.");
+        setStatus(Statuses.NORMAL, 'CONNECTED: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        break;
+      case Guacamole.Client.State.DISCONNECTING:
+        console.log("Guacamole Client now disconnecting.");
+        setStatus(Statuses.NORMAL, 'DISCONNECTING: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        break;
+      case Guacamole.Client.State.DISCONNECTED:
+        console.log("Guacamole Client now disconnected.");
+        setStatus(Statuses.WARNING, 'DISCONNECTED: {% if server.is_windows %}RDP{% else %}SSH{% endif %} to "{{ server.hostname }}"');
+        //alert("The session has disconnected.");
+        break;
+      default:
+        console.log("Guacamole Client changed to an unknown state: " + state);
+    };
+  };
+
+  // Guacamole Events (log-only)
+  guac.onerror = function(status) {
+    console.log("Guacamole Client error: " + status.code + "-" + status.message);
+    setStatus(Statuses.ERROR, 'Tunnel client error: ' + status.code + ': ' + status.message);
+  };
+  guac.onaudio = function(stream, mimetype) { console.log("Audio stream created, but not handled: " + stream.index + ", " + mimetype); };
+  guac.onclipboard = function(stream, mimetype) { console.log("Clipboard of the remote client is changing, but not handled: " + stream.index + ", " + mimetype); };
+  guac.onfile = function(stream, mimetype, filename) { console.log("File stream created, but not handled: " + stream.index + ", " + mimetype + ", " + filename); };
+  guac.onfilesystem = function(obj, name) { console.log("Filesystem object created, but not handled: " + name); };
+  guac.onname = function(name) { console.log("Remote client sent a name update, but not handled: " + name); };
+  guac.onpipe = function(stream, mimetype, name) { console.log("A pipe stream was created, but not handled: " + stream.index + ", " + mimetype + ", " + name); };
+  //guac.onsync = function(timestamp) { console.log("A sync instruction was received from the server, but not handled: " + timestamp); };
+  guac.onvideo = function(stream, layer, mimetype) { console.log("A video stream was created, but not handled: " + stream.index + ", " + mimetype); };
+
+  // Connect
+  guac.connect("token={{token}}&server={{server_id}}");
+
+  // Disconnect on close
+  window.onunload = function() {
+      console.log("Guacamole Client disconnected.");
+      guac.disconnect();
+  };
+
+  // Mouse
+  var mouse = new Guacamole.Mouse(display.getElement());
+  mouse.onmouseout = function(mouseState) { console.log("The mouse left the bounds of the Guacamole element, but this was not handled: " + mouseState); };
+  mouse.onmousedown =
+  mouse.onmouseup   =
+  mouse.onmousemove = function(mouseState) {
+      guac.sendMouseState(mouseState);
+  };
+
+  // Keyboard
+  var keyEnum = {
+    LSHIFT : 65505,
+    RSHIFT: 65506,
+    LCTRL: 65507,
+    RCTRL: 65508,
+    LALT: 65513,
+    RALT: 65027,
+    RWIN: 65512,
+    LWIN: 65515,
+    ESC: 65307
+  }
+  var keyStates = new Array();
+  var keyboard = new Guacamole.Keyboard(document);
+
+  var guacOnKey = function(evt, keysym) {
+      console.log("Guacamole key " + keysym + " = " + evt);
+      if (keysym === 65508) {
+          // guac prevents right-ctrl (probably to reserve it for exiting the
+          // fat client), so we sent left-ctrl here instead.
+          keysym = 65507;
+      }
+      guac.sendKeyEvent(evt, keysym);
+  };
+
+  keyboard.onkeydown = function (keysym) {
+      guacOnKey(1, keysym);
+  };
+
+  keyboard.onkeyup = function (keysym) {
+      guacOnKey(0, keysym);
+  };
+
+/* ]]> */ </script>
+</body>
+</html>

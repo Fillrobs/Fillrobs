@@ -1,0 +1,49 @@
+{% load helper_tags %}
+
+{{ table_caption }}
+
+<table id="table-{{ pagetitle|slugify }}"
+    {% if sort_by_column %} data-table-sort="{{ sort_by_column }}" {% endif %}
+    {% if unsortable_column_indices %} data-table-sort-disabled="{{ unsortable_column_indices|to_csv }}" {% endif %}
+    class="table"
+    data-table>
+    <thead>
+        <tr>
+            {% for heading in column_headings %}
+                <th class="a"> {{ heading|safe }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        
+        
+            {% for col in rows %}
+            <tr>
+               
+                        {{ col|safe }}
+
+            </tr>    
+            {% endfor %}
+            
+
+    </tbody>
+</table>
+
+<script>
+    
+
+
+        var node = document.querySelector('[title="Scale"]');
+        node.style.display = 'none';
+
+        var node = document.querySelector('[title="Restart Apache"]');
+        node.style.display = 'none';
+        var node = document.querySelector('[title="Take Snapshot"]');
+        node.style.display = 'none';
+        var node = document.querySelector('[title="Power ON resource (async)"]');
+        node.style.display = 'none';
+
+        c2.dataTables.init($("#table-{{ pagetitle|slugify }}"));
+
+   
+</script>

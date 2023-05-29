@@ -1,0 +1,59 @@
+<report>
+	<report_title>{{ report_title }}</report_title>
+	<custom_banner_url>{{ custom_banner_url }}</custom_banner_url>
+	<group_name>{{ group_name }}</group_name>
+	<group_vm_total>{{ group_vm_total }}</group_vm_total>
+	<group_cpu_total>{{ group_cpu_total }}</group_cpu_total>
+	<group_mem_total>{{ group_mem_total }}</group_mem_total>
+	<group_by_environment>{{ group_by_environment }}</group_by_environment>
+	<environments>
+	{% for data in chart_data %}
+		<environment>
+			<env_name>{{ data.env_name }}</env_name>
+			<env_vm_total>{{ data.env_vm_total }}</env_vm_total>
+			<env_cpu_total>{{ data.env_cpu_total }}</env_cpu_total>
+			<env_mem_total>{{ data.env_mem_total }}</env_mem_total>
+			<env_disk_total>{{ data.env_disk_total }}</env_disk_total>
+		</environment>
+	{% endfor %}
+
+	{% for data in chart_data %}
+		<environment>
+			<env_name>{{ data.env_name }}</env_name>
+			<env_vm_total>{{ data.env_vm_total }}</env_vm_total>
+			<env_cpu_total>{{ data.env_cpu_total }}</env_cpu_total>
+			<env_mem_total>{{ data.env_mem_total }}</env_mem_total>
+			<env_disk_total>{{ data.env_disk_total }}</env_disk_total>
+		</environment>
+	{% endfor %}
+
+	{% for data in chart_data %}
+		<environment>
+			<env_name>{{ data.env_name }}</env_name>
+			<env_vm_total>{{ data.env_vm_total }}</env_vm_total>
+			<env_cpu_total>{{ data.env_cpu_total }}</env_cpu_total>
+			<env_mem_total>{{ data.env_mem_total }}</env_mem_total>
+			<env_disk_total>{{ data.env_disk_total }}</env_disk_total>
+		</environment>
+	{% endfor %}
+
+	{% for data in chart_data %}
+		<environment>
+			<env_name>{{ data.env_name }}</env_name>
+			<env_vm_total>{{ data.env_vm_total }}</env_vm_total>
+			<env_cpu_total>{{ data.env_cpu_total }}</env_cpu_total>
+			<env_mem_total>{{ data.env_mem_total }}</env_mem_total>
+			<env_disk_total>{{ data.env_disk_total }}</env_disk_total>
+		</environment>
+	{% endfor %}
+	{% if group_by_environment != 'false'%}
+	<environment>
+			<env_name>-</env_name>
+			<env_vm_total>0</env_vm_total>
+			<env_cpu_total>0</env_cpu_total>
+			<env_mem_total>0</env_mem_total>
+			<env_disk_total>0</env_disk_total>
+		</environment>
+	{% endif %}
+	</environments>
+</report>

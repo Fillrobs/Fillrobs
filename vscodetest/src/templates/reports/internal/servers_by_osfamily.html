@@ -1,0 +1,38 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+var categories = {{ categories|to_json }};
+var serverCounts = {{ server_counts|to_json }};
+var rows = _.zip(categories, serverCounts);
+
+// Radialize the colors
+Highcharts.getOptions().colors = _.map(Highcharts.getOptions().colors, function(color) {
+    return {
+        radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+        stops: [
+            [0, color],
+            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+        ]
+    };
+});
+
+$('#chart_div').highcharts(_.merge(c2.charts.serverPieChartDefaults, {
+    title: {
+        text: ''
+    },
+    series: [{
+        type: 'pie',
+        name: '{% trans "OS Family Breakdown" %}',
+        data: rows
+    }],
+    exporting: {
+        filename: 'C2_Servers_by_OS',
+        toCSV: function() {
+            return c2.downloads.arrayToCSV(['{% trans "OS Family" %}', '{% trans "Server Count" %}'], rows);
+        }
+    },
+}));
+{% endblock %}

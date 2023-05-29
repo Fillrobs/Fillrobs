@@ -1,0 +1,43 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #333;
+}
+
+#noVNC_screen {
+    margin:auto;
+    display: table;
+    padding: 1em;
+    width:640px;
+}
+
+div.row {
+    display: table-row;
+}
+
+#noVNC_status_bar {
+    display: table-cell;
+    border-radius: 0.25em 0.25em 0 0;
+}
+
+#noVNC_status, #noVNC_buttons {
+    padding: 0.5em;
+ }
+
+#noVNC_status {
+    float:left;
+}
+
+#noVNC_buttons {
+    float: right;
+}
+
+#noVNC_view {
+    display: table-cell;
+}
+
+.noVNC_status_normal { background: #eee; }
+.noVNC_status_error { background: #f44; }
+.noVNC_status_warn { background: #ff4; }

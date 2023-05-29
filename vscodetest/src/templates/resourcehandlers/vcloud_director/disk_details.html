@@ -1,0 +1,7 @@
+{# added to common tab-disks.html #}
+{% load i18n %}
+
+<dt>{% trans "Storage Profile" %}:</dt>
+<dd>{{ disk.disk_storage }}</dd>
+
+{% include 'servers/disk_actions.html' with allow_resize=True position=position %}

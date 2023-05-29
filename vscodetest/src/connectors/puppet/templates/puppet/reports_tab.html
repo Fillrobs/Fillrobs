@@ -1,0 +1,27 @@
+{% load helper_tags %}
+{% load puppet_tags %}
+
+<p>Only the most recent report for a given node is available.</p>
+
+<table id="reports-table" data-table>
+    <thead>
+        <tr>
+            <th>Time Received</th>
+            <th>Certname</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for report in reports %}
+        <tr>
+            <td><a href="{{ report.get_absolute_url }}">{{ report.time_received|how_long_ago }}</a></td>
+            <td>{{ report.host }}</td>
+            <td class="text-{{ report.status|report_status_to_bootstrap_context }}">{{ report.status }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+c2.dataTables.init();
+</script>

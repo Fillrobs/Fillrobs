@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load tab_tags %}
+
+{% block topnav %}actions{% endblock %}
+
+{% block content %}
+    <h1>{% include 'actions/action_type_icon.html' with action=hook %} {{ hook.name }}</h1>
+
+    {% draw_tabs tabs %}
+
+{% endblock content %}

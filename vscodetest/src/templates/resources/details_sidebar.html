@@ -1,0 +1,36 @@
+{% load i18n %}
+
+<div id="resource-actions" class="btn-group-vertical">
+    {% if can_manage %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'edit_resource' resource.id %}">
+            <i class="icon-edit"></i>
+            {% trans "Edit Attributes" %}
+        </a>
+    {% endif %}
+    {% for action in actions %}
+        {% if action.new_section %}
+            {# Start a new btn-group. Here, action dict just contains the new section label #}
+            </div>
+            {% if action.label %}
+                <h4> {{ action.label }} </h4>
+            {% endif %}
+            <div class="btn-group-vertical">
+        {% else %}
+            <a class="btn btn-default open-dialog {% if resource.lifecycle == 'HISTORICAL' or action.disabled %}disabled{% endif %}"
+                href="{{ action.url }}"
+                title="{{ action.label }}"
+                data-role="{{ action.role }}"
+                {# arbitrary HTML attributes from a dict #}
+                {% for name, value in action.attrs.items %}
+                    {{ name }}="{{ value }}"
+                {% endfor %}
+                >
+                {% if action.extra_classes %}
+                    <i class="{{ action.extra_classes }}"></i>
+                {% endif %}
+                <span class="action-label">{{ action.label }}</span>
+            </a>
+        {% endif %}
+    {% endfor %}
+</div>

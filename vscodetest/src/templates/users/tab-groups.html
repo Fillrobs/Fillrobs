@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<div id="user-groups">
+    {% if the_profile.super_admin and request_profile.is_cbadmin %}
+        <div class="alert alert-info">
+            <p>
+                Super Admins have all permissions on all groups, so permissions in the following table will not be
+                used to determine the actions a Super Admin can or cannot perform. However, some permissions are
+                also used to determine the recipients of certain emails, e.g.:
+            </p>
+            <ul>
+                <li><b>order.approve</b> for Approvers of a Group on order submission and "Send Reminder" activities.</li>
+                <li><b>group.change_attributes</b> for the <b>export_server_info</b> management command.</li>
+                <li><b>group.manage_subgroup_quotas</b> for the Group Quota Warning Email Rule.</li>
+            </ul>
+        </div>
+    {% endif %}
+    <div id="groupMembership">
+        {% include 'users/groups_table.html' %}
+    </div>
+</div>

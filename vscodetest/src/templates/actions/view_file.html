@@ -1,0 +1,28 @@
+{% extends 'dialogs/dialog.html' %}
+
+{% block form_content %}
+    {% if file_error %}
+        <p class="text-danger">The file could not be read.
+        {% if action.source_code_url %}
+            Check your action's source code URL.
+        {% else %}
+            Edit the action and upload a new file.
+        {% endif %}
+        </p>
+        <pre class="text-danger">{{ file_error }}</pre>
+    {% else %}
+        <a href="{% url 'action_download_module' action.id %}"
+            class="no-tooltip-affordance">
+            <span class="glyphicon glyphicon-download"></span>
+            Download
+        </a>
+        <pre class="pre-scrollable lines-40"
+            ><code ng-non-bindable>{{ file_content }}</code></pre>
+    {% endif %}
+
+    <script>
+        $('pre code').each(function(i, block) {
+            hljs.highlightBlock(block);
+        });
+    </script>
+{% endblock %}

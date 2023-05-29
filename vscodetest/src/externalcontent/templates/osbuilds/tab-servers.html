@@ -1,0 +1,13 @@
+<script>
+    var osBuildId = '{{osb.id}}'
+    sessionStorage.setItem("osBuildId", osBuildId);
+</script>
+
+{% load infrastructure_tags %}
+{% load render_bundle from webpack_loader %}
+
+<div id="osBuildsSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'osBuildsServerStats' %}
+
+{% servers_table servers_empty_qs source="/servers/json/" filter_name="filter_by_osbuild" filter_value=osb.id %}

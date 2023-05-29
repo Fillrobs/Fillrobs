@@ -1,0 +1,29 @@
+{% extends 'resourcehandlers/tab-overview.html' %}
+{% load i18n %}
+
+{% block handler_details %}
+  <dt>{% trans 'Name' %}:</dt>
+  <dd>{{ handler.name}}</dd>
+  <dt>{% trans 'Description:' %}</dt>
+  <dd>
+      <p {% if handler.description %} class="well well-sm" {% endif %}>
+          {{ handler.description|default:_("<i>No description</i>") }}
+      </p>
+  </dd>
+  <dt>{% trans 'IP:' %}</dt>
+  <dd>
+      {% if handler.connection_info %}
+          {{ handler.connection_info.ip }}
+      {% else %}
+          {% trans 'None' %}
+      {% endif %}
+  </dd>
+  <dt>{% trans 'Username:' %}</dt>
+  <dd>
+      {% if handler.connection_info %}
+          {{ handler.connection_info.username }}
+      {% else %}
+          {% trans 'None' %}
+      {% endif %}
+  </dd>
+{% endblock handler_details %}

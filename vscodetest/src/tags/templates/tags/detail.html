@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+
+{% block topnav %}tags{% endblock %}
+
+
+{% block content %}
+<h1>
+    <i class="fas fa-tag"></i>
+    Tag '{{ tag.name}}'
+</h1>
+
+<div class="btn-toolbar">
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h3></h3>
+        <div class="row">
+            <div class="col-lg-6">
+
+            </div>
+            <div class="col-lg-6">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2>Items Tagged with '{{ tag.name }}'</h2>
+{% endblock content %}
+
+{% block onReady %}
+{% endblock %}

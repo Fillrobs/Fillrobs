@@ -1,0 +1,143 @@
+
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: servicenow_credential01
+    description: servicenow_credential01
+    username: admin
+    password: VmwareS0v
+    endpoint_type: servicenow
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - servicenowendpoint
+    workspace: 1
+    type: servicenow
+    name: servicenow_endpoint01
+    description: servicenow_endpoint01
+- model: naming.servicenowendpoint
+  pk: 1
+  fields:
+    instance: 'https://fake.servicenow.com'
+    credential: 1
+    workspace: 1
+- model: fuse_servicenow.servicenowcmdbpolicy
+  pk: 1
+  fields:
+    name: ServiceNowPolicy_01
+    description: null
+    provision_template: '{"items":[{"className":"cmdb_ci_linux_server","values":{"os":"Linux Red Hat",
+            "discovery_source":"onefuse","sys_class_name":"cmdb_ci_linux_server","name":"{{name}}","host_name":
+            "{{host_name}}","ip_address":"192.0.0.7","os_version":"2.6.9-22.0.1.fi.smp","disk_space":"{{disk_size}}",
+            "state":"ON"}},{"className":"cmdb_ci_linux_server","values":{"os":"Linux Red Hat","discovery_source":
+            "onefuse","sys_class_name":"cmdb_ci_linux_server","name":"{{name2}}","host_name":"{{host_name2}}",
+            "ip_address":"192.0.0.8","os_version":"2.6.9-22.0.1.fi.smp","disk_space":"{{disk_size2}}",
+            "state":"ON"}}]}'
+    update_template: '{"items":[{"className":"cmdb_ci_linux_server","values":{"discovery_source":"onefuse",
+            "sys_class_name":"cmdb_ci_linux_server","name":"{{name}}","host_name":"{{host_name}}",
+            "short_description":"Updated"}},{"className":"cmdb_ci_linux_server","values":{"discovery_source":"onefuse",
+            "sys_class_name":"cmdb_ci_linux_server","name":"{{name2}}","short_description":"Updated"}}]}'
+    deprovision_template: '{"items":[{"className":"cmdb_ci_linux_server","values":{"discovery_source":"onefuse",
+            "sys_class_name":"cmdb_ci_linux_server","name":"{{name}}","host_name":"{{host_name}}",
+            "short_description":"Deprovisioned"}},{"className":"cmdb_ci_linux_server","values":{"discovery_source":"onefuse",
+            "sys_class_name":"cmdb_ci_linux_server","name":"{{name2}}","short_description":"Deprovisioned"}}]}'
+    endpoint: 1
+    workspace: 1
+- model: naming.jobmetadata
+  pk: 1
+  fields:
+    job_type: Run ServiceNow Deployment Provision
+    job_state: Successful
+    job_id: aacd8e5d-ff9e-4455-99b4-528736ff793f
+    job_tracking_id: 75df511c-962e-4a93-906c-2632b96b4104
+    source: api
+    requester: admin
+    module: SERVICENOW
+    _start_time: 2021-02-03 17:39:02.312247
+    _end_time: 2021-02-03 17:48:45.241670
+    duration: 582929
+    policy_name: servicenow_policy01
+    _request_info: '{"http":"POST","scheme":"http","uri":"/api/v3/onefuse/servicenowCMDBDeployments/",
+            "parameters":{"Encoding":"utf-8","Mutable":false},"headers":{"Store":{"content-length":
+            ["Content-Length","514"],"content-type":["Content-Type","application/json"],"authorization":
+            ["Authorization","Basic YWRtaW46YWRtaW4="],"user-agent":["User-Agent","PostmanRuntime/7.26.8"],
+            "accept":["Accept","*/*"],"cache-control":["Cache-Control","no-cache"],"postman-token":
+            ["Postman-Token","2740599e-5035-4d63-9d86-e06645bf3926"],"host":["Host","localhost:8000"],
+            "accept-encoding":["Accept-Encoding","gzip, deflate, br"],"connection":["Connection","keep-alive"]}},
+            "method":"POST","localAddress":"172.24.0.1","localHostName":"72551c58b734","characterEncoding":null,
+            "payload":"{\"workspace\": \"/api/v3/onefuse/workspaces/1/\", \"policy\":
+            \"/api/v3/onefuse/servicenowCMDBPolicies/4/\", \"templateProperties\": {\"className\":
+            \"cmdb_ci_linux_server\", \"sys_class_name\": \"cmdb_ci_linux_server\", \"name\": \"host10\",
+            \"host_name\": \"host10.sovlabs.net\", \"name2\": \"host11\", \"host_name2\": \"host11.sovlabs.net\",
+            \"nic0_ip\": \"127.0.0.3\", \"os_name\": \"linux\", \"state\": \"ON\", \"disk_size\": \"60\",
+            \"disk_size2\": \"50\"}}"}'
+    _response_info: '{"httpStatus":201,"headers":{"content-type":["Content-Type","text/html; charset=utf-8"],
+            "job-id":["JOB-ID","aacd8e5d-ff9e-4455-99b4-528736ff793f"],"tracking-id":["Tracking-Id",
+            "75df511c-962e-4a93-906c-2632b96b4104"]},"payload":"{\"_links\": {\"self\": {\"href\":
+            \"/api/v3/onefuse/servicenowCMDBDeployments/14/\", \"title\": \"Service Now Deployment id 14\"},
+            \"workspace\": {\"href\": \"/api/v3/onefuse/workspaces/1/\", \"title\": \"Default\"}, \"policy\":
+            {\"href\": \"/api/v3/onefuse/servicenowCMDBPolicies/4/\", \"title\":
+            \"test_serviceNow_CMDB_policy_updated_202\"}, \"jobMetadata\": {\"href\":
+            \"/api/v3/onefuse/jobMetadata/349/\", \"title\": \"Job Metadata Record id 349\"}}, \"id\": 14,
+            \"configurationItemsInfo\": [{\"ciClassName\": \"cmdb_ci_linux_server\", \"ciName\": \"host10\"},
+            {\"ciClassName\": \"cmdb_ci_linux_server\", \"ciName\": \"host11\"}], ,
+            \"executionDetails\": {\"latestExecution\": \"Provisioned @ 2021-02-03 17:48:44\", \"response\":
+            {\"result\": {\"items\": [{\"className\": \"cmdb_ci_linux_server\", \"operation\": \"INSERT\", \"sysId\":
+            \"a1c80ea60702201049b6fd1e7c1ed03f\", \"identifierEntrySysId\": \"Unknown\", \"identificationAttempts\":
+            [{\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\", \"attributes\":
+            [\"serial_number\", \"serial_number_type\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\":
+            \"cmdb_serial_number\"}, {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\",
+            \"attributes\": [\"serial_number\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\":
+            \"cmdb_ci_hardware\"}, {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"NO_MATCH\",
+            \"attributes\": [\"name\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\": \"cmdb_ci_hardware\"},
+            {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\", \"attributes\": [\"ip_address\",
+            \"mac_address\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\": \"cmdb_ci_network_adapter\"}]},
+            {\"className\": \"cmdb_ci_linux_server\", \"operation\": \"INSERT\", \"sysId\":
+            \"f9c80ea60702201049b6fd1e7c1ed048\", \"identifierEntrySysId\": \"Unknown\", \"identificationAttempts\":
+            [{\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\", \"attributes\":
+            [\"serial_number\", \"serial_number_type\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\":
+            \"cmdb_serial_number\"}, {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\",
+            \"attributes\": [\"serial_number\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\":
+            \"cmdb_ci_hardware\"}, {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"NO_MATCH\",
+            \"attributes\": [\"name\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\": \"cmdb_ci_hardware\"},
+            {\"identifierName\": \"Hardware Rule\", \"attemptResult\": \"SKIPPED\", \"attributes\": [\"ip_address\",
+            \"mac_address\"], \"hybridEntryCiAttributes\": [], \"searchOnTable\": \"cmdb_ci_network_adapter\"}]}],
+            \"relations\": []}}}}"}'
+    workspace: 1
+- model: fuse_servicenow.servicenowcmdbdeployment
+  pk: 1
+  fields:
+    configuration_items_info: [
+      {"ciClassName":"cmdb_ci_linux_server","ciName":"host08"},
+      {"ciClassName":"cmdb_ci_linux_server","ciName":"host09"}
+    ]
+    id: 1
+    policy: 1
+    job_metadata: 1
+    workspace: 1
+    execution_details: {"latestExecution":"Provisioned @ 2021-02-02 01:49:00","response":
+      {"result":{"items":[
+        {"className":"cmdb_ci_linux_server","operation":"INSERT","sysId":"dd83a54a0782201049b6fd1e7c1ed097",
+         "identifierEntrySysId":"Unknown","identificationAttempts":[
+          {"identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":[
+              "serial_number","serial_number_type"],"hybridEntryCiAttributes":[],"searchOnTable":"cmdb_serial_number"},
+          {"identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":["serial_number"],
+           "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_hardware"},{
+            "identifierName":"Hardware Rule","attemptResult":"NO_MATCH","attributes":["name"],
+            "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_hardware"},
+          {"identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":["ip_address","mac_address"],
+           "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_network_adapter"}]},{
+          "className":"cmdb_ci_linux_server","operation":"INSERT","sysId":"dd83a54a0782201049b6fd1e7c1ed09b",
+          "identifierEntrySysId":"Unknown","identificationAttempts":[
+            {"identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":[
+                "serial_number","serial_number_type"],"hybridEntryCiAttributes":[],
+             "searchOnTable":"cmdb_serial_number"},{
+              "identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":["serial_number"],
+              "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_hardware"},{
+              "identifierName":"Hardware Rule","attemptResult":"NO_MATCH","attributes":["name"],
+              "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_hardware"},{
+              "identifierName":"Hardware Rule","attemptResult":"SKIPPED","attributes":["ip_address","mac_address"],
+              "hybridEntryCiAttributes":[],"searchOnTable":"cmdb_ci_network_adapter"}]}],"relations":[]}}}

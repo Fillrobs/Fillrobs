@@ -1,0 +1,114 @@
+{% load service_catalog_tags i18n %}
+    <section class="categories__breadcrumbs">
+        <div style="display:block">
+            {% if not categories and not current_category %}
+                <p>
+                    {% trans "There are no categories configured." %}
+                    {% if profile.is_cbadmin %}
+                        {% blocktrans %}
+                        Visit the <span><a href="{{ catalog_management_url }}">Catalog Management Page</a></span> to create new categories.
+                        {% endblocktrans %}
+                    {% else %}
+                        {% trans "Contact your Administrator if you need to have categories created." %}
+                    {% endif %}
+                </p>
+            {% endif %}
+
+            {# Show the top-level #}
+            {% if current_category %}
+                <span>
+                    <a class="category__item" id="">Back to Top</a> /
+                </span>
+            {% endif %}
+
+            {% for parent in category_breadcrumbs %}
+                {% if parent %}
+                <span>
+                    <a class="category__item" id="f-{{ parent.id }}">{{ parent }}</a> /
+                </span>
+                {% endif %}
+            {% endfor %}
+
+            {% if current_category %}
+                <span><b>{{ current_category }}</b></span>
+            {% endif %}
+        </div>
+    </section>
+
+    <main class="pg-main catalog-tiles categories" id="content">
+
+        <!-- Catalog grid -->
+        <section class="catalog-main layout">
+            <div id="catalog-container" class="catalog-container">
+                    <ol class="tile-list">
+                        {% for obj in object_list %}
+                            {% if obj.type == "Category" %}
+                                {% with category=obj %}
+                                    <li class="tile-item category__item" id="f-{{ category.id }}">
+                                        <a href="" class="tile category__item-anchor">
+                                            <h3 class="tile--title">
+                                                <div class="tile--logo-wrapper">
+                                                    <span class="glyphicon glyphicon-folder-open"></span>
+                                                </div>
+                                                {{ category.name }}
+                                            </h3>
+                                        </a>
+                                    </li>
+                                {% endwith %}
+
+                            {% elif obj.type == "Blueprint" %}
+                                {% with blueprint=obj %}
+                                    <li class="tile-item
+                                            {% if blueprint.favorited %} tile--is-featured{% endif %}
+                                            {% if blueprint.status == 'Historical' or blueprint.needs_configuration %} has-warning{% endif %}
+                                    ">
+                                        <a class="tile"
+                                            {% if blueprint|can_order:profile %}
+                                                href="{% if blueprint.needs_configuration %}{{ blueprint.get_absolute_url }}{% else %}{{ blueprint.get_order_url }}{% endif %}"
+                                            {% endif %}
+                                        >
+                                            <h3 class="tile--title">
+                                                <div class="tile--logo-wrapper">
+                                                    <img class="tile--logo" src="{% if blueprint.list_image %}{{ blueprint.list_image.url }}{% else %}{{ STATIC_URL }}img/icons/blueprint.svg{% endif %}" alt="" />
+                                                </div>
+                                                {{blueprint.name}}
+                                            </h3>
+                                            <footer class="tile--footer">
+                                                {% if blueprint.status == 'Historical' %}
+                                                    Note: <em class="alert--emphasis">Historical.</em>
+                                                {% elif blueprint.needs_configuration %}
+                                                    Note: <em class="alert--emphasis">Configuration required.</em>
+                                                {% else %}
+                                                    Orders: {{ blueprint.order_count }}
+                                                {% endif %}
+                                            </footer>
+
+                                        </a>
+
+                                        {% if blueprint|is_manager:profile and not catalog_only_mode %}
+                                        <a class="tile--edit catalog-icon-gear" href="{{ blueprint.get_absolute_url }}">
+                                            <span class="a11y">Edit blueprint for {{blueprint.name}}</span>
+                                        </a>
+                                        {% endif %}
+                                    </li>
+                                {% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                    <!-- /end .tile-list -->
+
+                    {% if not object_list and not categories %}
+                        <div class="tile-list-controls">{% trans "No blueprints found." %}</div>
+                    {% endif %}
+                </div>
+        </section>
+
+
+        <footer class="tile-list-controls tile-list--footer">
+            <section class="layout">
+                {% include 'servicecatalog/catalog-page-controls.html' %}
+            </section>
+        </footer>
+        <!-- /end catalog grid -->
+
+    </main>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ server_name }} - Console</title>
+    {% include "common/head_css_includes.html" %}
+</head>
+
+<body>
+        <div id="error-message" class="alert alert-warning"></div>
+        <iframe src="{{ novnc_iframe_url }}&title={{ server_name }}" width="100%" height="900px"/>
+        </iframe>
+<script>
+var msie = /MSIE /i.test(navigator.userAgent);
+var ie11 = /rv:11.0/i.test(navigator.userAgent);
+var d = document.getElementById("error-message");
+if( msie || ie11 ) {
+   d.innerHTML = "The current console support for OpenStack servers is not compatible with Internet Explorer";
+   d.style.display = 'block';
+} else {
+   d.style.display = 'none';
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript">
+    if (window == parent
+      && window.location.search.indexOf('noredirect') < 0)
+    {
+      window.location.replace("index.html");
+    }
+  </script>
+  <title></title>
+  <link rel='stylesheet' type='text/css' href='_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='_webHelpScripts/Search/1-script.js?t=637806378604048012' type='text/javascript'></script><script  src='_webHelpScripts/Search/chsearch_data_html.js?t=637806378604048012' type='text/javascript'></script><script  src='_webHelpScripts/Search/chsearch_data_title.js?t=637806378604048012' type='text/javascript'></script><script  src='_webHelpScripts/Search/chsearch_metadata.js?t=637806378604048012' type='text/javascript'></script><script  src='_webHelpScripts/Search/chsearch_metadata_docs.js?t=637806378604048012' type='text/javascript'></script><script  src='_webHelpScripts/Search/chsearch_metadata_terms.js?t=637806378604048012' type='text/javascript'></script>
+  
+</head>
+<body onload="webHelpSearchInit('No results to display.','No documents found for: \'{0}\'','{0} documents found for: \'{1}\'')">
+  <div class="Search_container SearchControl_results">
+    <table class="Search_searchBoxContainer" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="width:100%">
+          <input id="edtSearch" class="Search_searchBox" type="search" aria-label="Search" placeholder="Search" />
+        </td>
+        <td>
+          <button id="lnkSearch" class="SearchBox_button" href="javascript:void(0)">Search</button>
+        </td>
+      </tr>
+    </table>
+    <div class="Search_contentContainer">
+      <div class="Search_contentContainerInner">
+        <span id="lblResCount"></span>
+        <div id="pnlSearchResults"></div>
+        <div class="Search_showMore">
+          <a id="lnkShowMore" style="display:none" href="javascript:void(0)" onclick="webHelpMoreResultsClick(this)">More results...</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

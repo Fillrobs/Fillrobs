@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load humanize %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block topnav %}orders{% endblock %}
+
+
+
+{% block content %}
+    <h1> {% trans "Orders" %} </h1>
+    <div class="pull-left">
+        <div class="btn-toolbar">
+            <span class="collapsed" data-toggle="collapse" data-target="#filters-panel">
+                <a class="btn btn-default" id="filters-panel-toggle" tabindex="0">
+                    <span class="collapsed-indicator no-tooltip-affordance"></span>
+                    <span class="icon-filter"></span>
+                    <span class="filters-panel-toggle-btn-text">{% trans "Show Filters" %}</span>
+                    <span id="filtersInUse"></span>
+                </a>
+            </span>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="filters-panel" class="panel panel-default collapse">
+        <div class="panel-body" style="height: 190px;">
+        </div>
+    </div>
+    {% with user|cart_size as items_in_cart %}
+        {% if items_in_cart > 0 %}
+            {% url 'current_order' as order_url %}
+            {% blocktrans count items_in_cart as item_count %}
+                <p>You have {{ item_count }} item in <a href="{{ order_url }}">your current order</a>.</p>
+            {% plural %}
+                <p>You have {{ item_count }} items in <a href="{{ order_url }}">your current order</a>.</p>
+            {% endblocktrans %}
+        {% endif %}
+    {% endwith %}
+
+
+{% orders_table source="/orders/json/" orders_params_fn="c2.dataTables.addListFilters"  orders_response_callback="c2.dataTables.updateFiltersInUseFromResponse" %}
+
+{% endblock content %}
+
+
+{% block onReady %}
+    c2.dataTables.initListFilters('table#orders');
+{% endblock %}

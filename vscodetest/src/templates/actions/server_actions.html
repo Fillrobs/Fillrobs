@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load hook_tags %}
+{% load i18n %}
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+<h1>{% trans 'Server Actions' %}</h1>
+
+<div class="pull-right">
+
+    {% if show_content_library %}
+    <a class="btn btn-default no-tooltip-affordance" href="{% url 'library' %}?type=server-actions"
+        data-toggle="tooltip" data-placement="left"
+        title="{% blocktrans %}View and import Server Actions from the Content Library{% endblocktrans %}">
+        {% trans 'Import from the Content Library' %}
+        <i class="fas fa-cloud-download-alt"></i>
+    </a>
+    {%endif%}
+</div>
+
+<div class="tab-content">
+    <div id="local-content-view" class="tab-pane active">
+
+        <div class="btn-toolbar">
+            <div class="btn-group btn-wrapper">
+                <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                    class="edit-action btn btn-default dropdown-toggle selection-action">
+                    {% trans 'Add a Server Action' %}&nbsp;&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a class="default open-dialog" tabindex="-1"
+                                data-href="{% url 'add_action_trigger' 'server_actions' %}">
+                            <span class="icon-add"></span> {% trans 'Create New' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="open-dialog" tabindex="-1"
+                                data-href="{% url 'upload_action_trigger' 'server_actions' %}">
+                            <span class="fas fa-upload"></span> {% trans 'Upload Server Action' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <p>
+        {% blocktrans %}
+        Server actions are triggered by users directly from a server detail view.
+        Define actions below and make them available to some or all environments.
+        Actions of any type are supported.
+        {% endblocktrans %}
+        </p>
+
+        <table id="server_actions"
+        {% comment %}
+        This directive lets us first hook up a custom draw callback below,
+        before initializing the DataTable.
+        {% endcomment %}
+        data-table-no-auto-init
+        data-table-sort="disabled">
+            <thead>
+                <tr>
+                <th class="expand"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for action in actions %}
+                <tr>
+                    <td>
+                        {% include "actions/action_details_panel.html" with url_prefix='server_action' enable_endpoint='server' %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block onReady %}
+var $table = $('#server_actions');
+$table.on('table:draw', function (e, oSettings) {
+  // restore open panels after a table page is drawn
+  c2.collapsible.init($table);
+});
+
+c2.dataTables.init('#server_actions');
+{% endblock %}

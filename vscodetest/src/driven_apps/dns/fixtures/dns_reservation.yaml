@@ -1,0 +1,49 @@
+- model: dns.dnsreservation
+  pk: 1
+  fields:
+    workspace: 1
+    name: test.sovlabs.com
+    policy: 1
+    job_metadata: 1
+    records: '[{"type": "a", "name": "override-test001.infoblox851.sovlabs.net", "value": "192.168.168.168"}, {"type":
+            "ptr", "name": "override-test001.infoblox851.sovlabs.net", "value": "192.168.0.1"}, {"type": "host", "name":
+            "override-test001.infoblox851.sovlabs.net", "value": "192.168.0.1"}]'
+- model: naming.jobmetadata
+  pk: 1
+  fields:
+    job_type: Create Custom Name
+    job_state: Successful
+    job_id: 9777d2b1-a249-46a3-8aed-dfa6c4eef9fb
+    job_tracking_id: 2ec8791c-e9f7-4942-906c-1b7fda3d1755
+    source: api
+    requester: admin
+    module: Naming
+    _start_time: 2020-08-21 16:21:50.147850
+    _end_time: 2020-08-21 16:21:50.193666
+    duration: 45
+    policy_name: infoblox1
+    _request_info: '{"http": "POST", "scheme": "http", "uri": "/api/v3/onefuse/dnsReservations/",
+            "parameters": {"_encoding": "utf-8", "_mutable": false}, "headers": {"_store":
+            {"content-length": ["Content-Length", "179"], "content-type": ["Content-Type",
+            "application/json"], "authorization": ["Authorization", "Basic YWRtaW46YWRtaW4="],
+            "user-agent": ["User-Agent", "PostmanRuntime/7.26.3"], "accept": ["Accept",
+            "*/*"], "cache-control": ["Cache-Control", "no-cache"], "postman-token":
+            ["Postman-Token", "06982e88-c6d7-48ce-9150-b9e5d35d269e"], "host": ["Host",
+            "localhost:8000"], "accept-encoding": ["Accept-Encoding", "gzip, deflate,
+            br"], "connection": ["Connection", "keep-alive"]}}, "method": "POST",
+            "local_address": "127.0.0.1", "local_host_name": "localhost", "character_encoding":
+            null, "payload": "{\"name\": \"test.sovlabs.com\", \"value\": \"192.168.0.2\",
+            \"templateProperties\": {}, \"policy\": \"/api/v3/onefuse/dnsPolicies/1/\",
+            \"workspace\": \"/api/v3/onefuse/workspace/1/\"}"}'
+    _response_info: '{"http_status": 201, "headers": {"content-type": ["Content-Type",
+            "text/html; charset=utf-8"], "job-id": ["JOB-ID", "9777d2b1-a249-46a3-8aed-dfa6c4eef9fb"],
+            "tracking-id": ["Tracking-Id", "NO TRACKING ID"]}, "payload": "{\"_links\":
+            {\"self\": {\"href\": \"/api/v3/dnsReservations/3/\", \"title\": \"test.sovlabs.com\"},
+            \"workspace\": {\"href\": \"/api/v3/onefuse/workspaces/1/\", \"title\":
+            \"Default\"}, \"policy\": {}, \"jobMetadata\": {\"href\": \"/api/v3/onefuse/jobMetadata/13/\",
+            \"title\": \"Job Metadata Record id 13\"}}, \"name\": \"test.sovlabs.com\",
+            \"id\": 3, \"records\": [{\"type\": \"a\", \"name\": \"myhost1\", \"value\":
+            \"192.168.0.1\"}, {\"type\": \"ptr\", \"name\": \"myhost1\", \"value\":
+            \"192.168.0.1\"}, {\"type\": \"host\", \"name\": \"myhost1\", \"value\":
+            \"192.168.0.1\"}]}"}'
+    workspace: 1

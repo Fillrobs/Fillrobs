@@ -1,0 +1,36 @@
+{% comment %}
+Used by import networks from Resource Handler -> Networks tab
+network_table_template is set to generic in base RH, must change it in specific RH to use its template instead
+{% endcomment %}
+
+{% if networks_added %}
+    <p>
+        {{ networks_added|length }} new network{{ networks_added|pluralize }} were discovered.
+    </p>
+    {% include network_table_template %}
+
+{% else %}
+    <p>
+    Unable to locate any new networks at this time.
+    </p>
+{% endif %}
+
+{% if networks_removed %}
+    <br>
+    <div class="alert alert-info">
+        <p>
+            The following {{ network|pluralize }} were removed because they no longer exist on the resource handler:
+        </p>
+        <ul class="removed">
+            {% for network in networks_removed %}
+                <li><b>{{ network.network }}</b></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init();
+});
+</script>

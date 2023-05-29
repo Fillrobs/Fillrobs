@@ -1,0 +1,9 @@
+{% extends 'dialogs/dialog.html' %}
+{% load helper_tags %}
+
+
+{% block form_content %}
+    {{ form.test }}
+    {{ form.server_ids }}    {#  only for BulkEditServerPowerSchedule  #}
+    {% include 'power_schedule/power_schedule_form.html' %}
+{% endblock form_content %}

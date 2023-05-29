@@ -1,0 +1,115 @@
+{% load helper_tags %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Reserved Instance Recommendations</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        {# Recommendation Parameters form #}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span data-toggle="collapse" data-target="#recommendation-params-panel"
+                      class="collapsed">
+                    <span data-toggle="tooltip" title="Expand or collapse details"
+                        class="collapsed-indicator no-tooltip-affordance">
+                    </span>
+                    <span class="fas fa-pencil-alt"></span> {% trans "Recommendation Parameters" %}
+                </span>
+            </div>
+
+            <div id="recommendation-params-panel" class="panel-body collapse">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form id="recommendation-form"
+                              action='{% url 'reserved_instance_recommendations' handler.id %}'
+                              method="post">
+                            {% csrf_token %}
+                            {% crispy recommendation_parameters_form %}
+                            <input id="submit_recommendation_parameters_form"
+                                   type="submit" value="Submit" class="btn btn-default">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# This template renders everything that needs to be reloaded on form submission #}
+<div id="recommendation-container">
+    {% include 'resourcehandlers/aws/reserved-instance-recommendations-table.html' %}
+</div>
+
+{# Table 2: Your reserved instances #}
+<div class="row">
+    <div class="col-lg-12">
+        <h2>Your Reserved Instances</h2>
+        <table id="your-reserved-instances" data-table>
+           <thead>
+                <tr>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Instance Type" %}</th>
+                    <th>{% trans "Scope" %}</th>
+                    <th>{% trans "Offering Type" %}</th>
+                    <th>{% trans "Tenancy" %}</th>
+                    <th>{% trans "OS" %}</th>
+                    <th>{% trans "Fixed Price" %}</th>
+                    <th>{% trans "Recurring Charges" %}</th>
+                    <th>{% trans "Duration (Months)" %}</th>
+                    <th>{% trans "Expiration Date" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ri in reserved_instances %}
+                    {% if not ri.State == 'retired' %}
+                        <tr>
+                            <td>{{ ri.InstanceCount }}</td>
+                            <td class="name">{{ ri.InstanceType }}</td>
+                            <td class="name">
+                                {{ ri.Scope }}
+                                {% if ri.AvailabilityZone %}
+                                    :&nbsp{{ ri.AvailabilityZone }}
+                                {% elif ri.Region %}
+                                    :&nbsp{{ ri.Region }}
+                                {% endif %}
+                            </td>
+                            <td>{{ ri.OfferingClass }}</td>
+                            <td>{{ ri.InstanceTenancy }}</td>
+                            <td class="name">{{ ri.ProductDescription }}</td>
+                            <td>
+                                {{ currency_symbol }} {{ ri.FixedPrice }}
+                            </td>
+                            <td>
+                                {% for recurring_charge in ri.RecurringCharges %}
+                                {{ currency_symbol }} {{ recurring_charge.Amount }} / {{ recurring_charge.Frequency }}
+                                    <br>
+                                {% endfor %}
+                            </td>
+                            <td class="name">{{ ri.DurationMonths }}</td>
+                            <td>{{ ri.End }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    var url = '{% url 'reserved_instance_recommendations' handler.id %}';
+
+    var tableSelector = '#reserved-instance-recommendation-table';
+    var $container = $('#recommendation-container');
+
+    var $form = $('#recommendation-form');
+    var $submitButton = $('#submit_recommendation_parameters_form');
+
+    c2.AWSReservedInstances.init(url, tableSelector, $container, $submitButton, $form)
+
+</script>

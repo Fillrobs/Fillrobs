@@ -1,0 +1,20 @@
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'networkhandler_edit' handler.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'networkhandler_delete' handler.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+
+<dl>
+  <dt>Name:</dt>            <dd>{{ handler.name}}</dd>
+  <dt>IP Address:</dt>      <dd>{{ handler.ip }}</dd>
+  <dt>Port:</dt>            <dd>{{ handler.port }}</dd>
+  <dt>Username:</dt>        <dd>{{ handler.serviceaccount }}</dd>
+  <dt>Technology:</dt>      <dd>{{ handler.network_technology.name }}</dd>
+</dl>

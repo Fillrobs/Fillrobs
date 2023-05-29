@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load tag_tags %}
+{% load i18n %}
+
+{% block topnav %}connectioninfo{% endblock %}
+
+{% block content %}
+    <h1>{{ connectioninfo.name }}</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'edit_connectioninfo' connectioninfo.id %}"
+            id="edit-button">
+            <span class="icon-edit"></span>
+            {% trans 'Edit' %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'delete_connectioninfo' connectioninfo.id %}">
+            <span class="icon-delete"></span>
+            {% trans 'Remove' %}&hellip;
+        </a>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <dl>
+                        {% trans "Name" as name %}
+                        <dt>{% text_tooltip name connectioninfo.NAME_HELP_TEXT %}:</dt>
+                        <dd>
+                            {{ connectioninfo.name }}
+                        </dd>
+
+                        <dt>{% trans 'IP/Hostname:' %}</dt>
+                        <dd>
+                            {{ connectioninfo.ip }}
+                        </dd>
+
+                        <dt>{% trans 'Port:' %}</dt>
+                        <dd>
+                            {{ connectioninfo.port }}
+                        </dd>
+
+                        <dt>{% trans 'Protocol:' %}</dt>
+                        <dd>
+                            {{ connectioninfo.protocol }}
+                        </dd>
+                    </dl>
+                </div>
+
+                <div class="col-sm-6">
+                        <dl>
+                            <dt>{% trans 'Username:' %}</dt>
+                            <dd>
+                                {{ connectioninfo.username }}
+                            </dd>
+    
+                            <dt>{% trans 'Password:' %}</dt>
+                            <dd>
+                                {% if connectioninfo.password %}
+                                    ********
+                                {% endif %}
+                            </dd>
+                            <dt>{% trans 'Labels:' %}</dt>
+                            <dd>
+                                {% for label in connectioninfo.labels.all %}
+                                    {{ label|tag }}
+                                {% endfor %}
+                                <a href="{% url 'connectioninfo_edit_labels' connectioninfo.id %}"
+                                    class="open-dialog"><i class="icon-edit"></i>
+                                </a>
+                            </dd>
+                        </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

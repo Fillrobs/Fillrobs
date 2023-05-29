@@ -1,0 +1,54 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{%  block item_details_row %}
+    {% with action=service_item.hook.cast %}
+
+        <div class="row">
+            <div class="col-sm-6">
+                {% include 'servicecatalog/action_target_info.html' %}
+                {% include 'actions/action_input_defaults.html' with action=service_item edit_url="edit_service_item" %}
+            </div>
+            <div class="col-sm-6">
+                {% include 'servicecatalog/action_sequencing_options.html' %}
+            </div>
+        </div>
+
+        <dl class="vertical">
+            <dt>{{ action.type_slug|capfirst }}:</dt>
+            <dd>
+                {% if managing %}
+                    <a href="{{ action.get_absolute_url }}"
+                        class="no-tooltip-affordance" data-toggle="tooltip"
+                        title="{% trans 'Manage this' %} {{ action.type_slug }}">
+                        {{ action.name }}
+                    </a>
+                {% else %}
+                    {{ action.name }}
+                {% endif %}
+
+                {% infotip action.description %}
+
+                {% if managing %}
+                    {% if file_error %}
+                        <p class="text-danger">The file could not be read.
+                        {% if action.source_code_url %}
+                            Check your action's source code URL.
+                        {% else %}
+                            Edit the action and upload a new file.
+                        {% endif %}
+                        </p>
+                        <pre class="text-danger">{{ file_error }}</pre>
+                    {% else %}
+                        <pre class="pre-scrollable lines-40"><code>{{ file_content }}</code></pre>
+                        <script>hljs.initHighlightingOnLoad();</script>
+                    {% endif %}
+                {% endif %}
+            </dd>
+        </dl>
+    {% endwith %}
+{%  endblock item_details_row %}

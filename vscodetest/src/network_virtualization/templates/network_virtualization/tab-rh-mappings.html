@@ -1,0 +1,38 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="open-dialog btn btn-default"
+        href="{% url 'sync_network_handlers' sdn.id %}"
+        id="import_clusters">
+        <span class="icon-sync"></span>
+        Refresh Mappings
+    </a>
+</div>
+
+<table id="rh-mappings" data-table>
+    <thead>
+        <tr>
+        <th>Mapping Reference</th>
+        <th>Resource Handler</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in mappings %}
+        <tr>
+            <td class="name">{{ m.display_name }}</td>
+            <td>
+                {{ m.resource_handler|link_or_label:profile}}
+                <a title="Associate this map entry with a Resource Handler"
+                   href="{% url 'associate_network_handler' sdn.id m.id %}"
+                   class="icon-edit open-dialog"></a>
+                {% if m.resource_handler %}
+                <a title="Dissociate this map entry from a Resource Handler"
+                   href="{% url 'dissociate_network_handler' sdn.id m.id %}"
+                   class="icon-delete open-dialog"></a>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

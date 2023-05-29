@@ -1,0 +1,16 @@
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'networkhandler_sync_networks' handler.id %}"
+        id="import-networks">
+        <span class="icon-import"></span>
+        Import networks
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'add_virtual_network' handler.id %}">
+        <span class="icon-add"></span>
+        Create a virtual network
+    </a>
+</div>
+
+{% include 'networks/table.html' %}

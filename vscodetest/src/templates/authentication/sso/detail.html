@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+
+{% block title %}Single Sign-On IdP: {{ provider.name }} {% endblock %}
+{% block topnav %}IdPs{% endblock %}
+
+{% block content %}
+<h1>
+    {{ provider.name }}
+</h1>
+
+<ul class="nav nav-boxed-tabs">
+    {% comment %}
+        Tabs are specified by the SSO IdP Model
+    {% endcomment %}
+
+    {% for tab_title, tab_url in tabs.items %}
+        <li{% if forloop.first %} class="active"{% endif %}>
+            <a data-toggle="tab" href="#{{ tab_title|slugify }}">{{ tab_title }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<div class="tab-content">
+    {% for tab_title, tab_url in tabs.items %}
+        <div
+            id="{{ tab_title|slugify }}"
+            class="tab-pane {% if forloop.first %}active{% endif %}"
+            data-include={{ tab_url }}>
+            <div class="spinner"></div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

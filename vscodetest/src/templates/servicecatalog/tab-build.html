@@ -1,0 +1,108 @@
+{% load helper_tags %}
+{% load order_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% if blueprint.status != 'HISTORICAL' and user_can_manage %}
+  <div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_service_item_dialog' blueprint.id %}">
+        <span class="icon-add"></span>
+        {% trans 'Server Tier' %}
+    </a>
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_action_service_item_dialog' blueprint.id %}">
+        <span class="icon-add"></span>
+        {% trans 'Action' %}
+    </a>
+    {% if features.terraform_serviceitem %}
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_terraform_service_item_dialog' blueprint.id %}">
+        <span class="icon-add"></span>
+        {% trans 'Terraform' %}
+    </a>
+    {% endif %}
+    {% if blueprint.resource_type %}
+        {% if virtual_network_support %}
+        <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'add_network_service_item_dialog' blueprint.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Network' %}
+        </a>
+        {% endif %}
+
+        <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'add_load_balancer_service_item_choose_type' blueprint.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Load Balancer' %}
+        </a>
+
+        {% if container_objects_avaliable %}
+        <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'add_kubernetes_blueprint_item' blueprint.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Container Object' %}
+        </a>
+        {% endif %}
+
+        {# We only want 1 layer of sub-blueprints #}
+        {% if not blueprint.is_sub_blueprint %}
+            <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                data-dialog-width=800
+                href="{% url 'add_blueprint_service_item_dialog' blueprint.id %}">
+                <span class="icon-add"></span>
+                {% trans 'Blueprint' %}
+            </a>
+            {% for resource_type in resource_types %}
+                <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                    data-dialog-width=800
+                    href="{% url 'add_blueprint_service_item_dialog' blueprint.id resource_type.name %}">
+                    <span class="icon-add"></span>
+                    {{ resource_type.label }}
+                    {% if resource_type.icon %}
+                        <span class="{{ resource_type.icon }}"></span>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+  </div>
+{% endif %}
+
+<ol id="deployment-item-list" class="list-unstyled">
+  {% for item in service_items %}
+    <li class="{% if forloop.first %} first{% endif %}">
+        {% service_item_details_panel item ordering=False %}
+    </li>
+  {% endfor %}
+</ol>
+
+{{ build_tab_msg }}
+
+<script>
+$(function() {
+    $('a.remove-env-from-si').on('click', function (e) {
+        e.preventDefault();
+        var url = $(this).data('post-url');
+        // the URL contains the IDs of the item & env being disabled
+        $.post(url, function (response) {
+            if (response.redirectURL) {
+            window.location.href = response.redirectURL;
+            }
+        });
+    });
+
+    var $items = $('#deployment-item-list');
+    c2.collapsible.init($items);
+
+    var remote_url = "{{ blueprint.remote_source_url }}";
+    if (remote_url == "") {
+        function resequence() {
+            c2.blueprints.renumberParallelItems($items);
+        }
+        c2.sortable.sortablePanels('#deployment-item-list', '{% url "sort_service_items" %}', resequence, true);
+        $('input[name=execute_in_parallel]').on('change', resequence);
+        resequence();
+    }
+});
+</script>

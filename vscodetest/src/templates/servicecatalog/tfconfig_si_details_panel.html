@@ -1,0 +1,144 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block si_icon %}
+    icon-terraform
+{% endblock %}
+
+{# TODO: Copied and slightly modified from provserver_si_details_panel.html. Extract common code. #}
+
+{% block item_details_row %}
+    {# the no-details class tells tuneLayoutForFormset if this panel can be hidden #}
+    <div class="row {% if service_item.description or service_item.os_build or service_item.hostname_template or apps or service_item.blueprint.resource_type %}{% else %}no-details{% endif %}">
+      {% if ordering %}
+        <div class="col-sm-12">
+      {% else %}
+        {# show 2nd column for capable envs #}
+        <div class="col-sm-6">
+      {% endif %}
+
+      {% if service_item.description %}
+        <p>{{ service_item.description }}</p>
+      {% endif %}
+        <dl class="vertical no-padding">
+            <dt>{% trans 'Early Access Feature' %}</dt>
+            <dd>{% trans 'This early access feature is under active development. Expect functionality and design changes in future releases.' %}</dd>
+        </dl>
+      <table class="definitions">
+        {% if not managing %}
+            {# else these are shown in column 2 to be more consistent with other SIs #}
+            <tr>
+                <th>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</th>
+                <td>
+                {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </td>
+            </tr>
+        {% endif %}
+            <tr>
+                <th>{% trans 'Global Terraform Version:' %}</th>
+                <td>{{ terraform_version_info }}
+                    <span class="infotip" data-toggle="tooltip" data-original-title="Search the Content Library for the 'Install Terraform on CloudBolt' Blueprint to setup a different version."> </span>
+                </td>
+            </tr>
+      </table>
+      {% if managing %}
+        <dl>
+          <dt>
+              {% text_tooltip "State Files:" "State files created from this configuration" %}
+          </dt>
+          <dd>
+              {% if service_item.associated_state_files %}
+                  {% for state_file_path in service_item.associated_state_files %}
+                      {{ state_file_path }}
+                  {% endfor %}
+              {% else %}
+                  <i>None</i>
+              {% endif %}
+          </dd>
+            <dt>{% text_tooltip "Config Path:" "On-disk location of this configuration" %}</dt>
+            <dd>
+                <p>{{ service_item.local_path }}</p>
+            </dd>
+            <dt>{% text_tooltip "Config Tree:" "List of files and directories in this configuration" %}</dt>
+            <dd>
+                <div style="font-family: monospace;">
+                    {{ service_item.local_path_tree_html }}
+                </div>
+            </dd>
+        </dl>
+        <div>
+            {% if service_item.from_remote %}
+                <a class="btn btn-default"
+                   href="{% url 'terraform_refresh_from_remote' service_item.id %}"
+                   id="refresh-from-remote-button"
+                >
+                    <span class="icon-sync"></span>
+                    {% trans 'Fetch Remote Code' %}
+                </a>
+            {% endif %}
+        </div>
+      {% endif %}
+      </div><!-- col 1 -->
+
+    {% if not ordering %}
+        <div class="col-sm-6">
+          <dl class="vertical">
+            <dt>
+            {% trans 'Attached Environments' %} {% blockinfotip %} <p>{% trans 'Attach an existing environment to this Terraform Configuration.' %}</p><p>{% trans 'Parameters and credentials from attached environments can be mapped to Terraform Variables discovered in the Configuration.' %}</p>{% endblockinfotip %}:
+            </dt>
+            <dd>
+              <ul class="list-unstyled">
+                  {% for env in visible_enabled_envs %}
+                  <li>
+                      {{ env|link_or_label:profile }}
+
+                      {% if managing and not blueprint.remote_source_url %}
+                      <a href="{% url 'service_item_env_params_dialog' service_item.id env.id %}"
+                          class="icon-edit js-dialog-link no-tooltip-affordance"
+                          data-toggle="tooltip"
+                          data-dialog-width="800"
+                          title='{% trans "Edit parameters" %}'></a>
+                      <a href=""
+                          class="icon-delete remove-env-from-si no-tooltip-affordance"
+                          data-toggle="tooltip"
+                          data-post-url="{% url 'service_item_disable_env' service_item.id env.id %}"
+                          title='{% trans "Detach this environment from the Configuration" %}'></a>
+                      {% endif %}
+                  </li>
+                  {% endfor %}
+              </ul>
+
+              {% if managing %}
+                <p>
+                    <a href="{% url 'service_item_add_env_dialog' service_item.id %}"
+                        class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                        data-dialog-width="800">
+                        <span class="icon-add"></span>
+                        {% trans 'Attach an environment' %}
+                    </a>
+                </p>
+              {% endif %}
+            </dd>
+
+            {% if managing %}
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+                <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+                <dd>
+                    {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                </dd>
+            {% endif %}
+
+          </dl>
+
+        </div><!-- col 2 -->
+    {% endif %}
+    </div><!-- row -->
+
+{%  endblock item_details_row %}

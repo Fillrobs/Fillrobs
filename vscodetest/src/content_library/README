@@ -1,0 +1,73 @@
+*Overall*
+
+This submodule is used to support the functionality of the CloudBolt Content Library, where CloudBolt can host
+content, such as Blueprints, Actions, and UI Extensions, that customers can import into their own CloudBolt instance.
+
+Accomplishing this functionality also relies on some endpoints and views in the API, such as exportable_content and
+export_content.
+
+One trick when working with the Content Library code is to be very mindful of backwards compatibility. While the Content
+Library server itself is only ever on one version, typically the latest, the customer CloudBolt instances that are
+connecting to it may be on older ones and we must make sure the Content Library continues to work for any requesting
+CloudBolt instance on any version of CloudBolt that is still supported.
+The main thing to remember for backwards compatibility is that some of the code runs on the Content Library but other
+parts run on the requesting CloudBolt. If the code that runs on the requesting CloudBolt is changed, only newer
+instances will have that change, so we need to make sure the old code still works. Any changes made to the code that
+runs on the Content Library also require caution, in case they send data to the requesting CB that it doesn't know
+how to handle.
+
+One potential option for making changes to the code that crosses the requester-Content Library boundary is to add a
+special case that maintains the old behavior only when the requester is an older CB. Then, we can remove that special
+case once all customers are on a new-enough version.
+
+Note: Those familiar with other aspects of the API might be aware that it uses Global IDs, instead of Primary Keys, to
+refer to some objects, such as Blueprints. For the Content Library, there was no need to use those Global IDs so we've
+continued to reference objects with Primary Key IDs.
+
+*Generating Content Library Index View*
+
+Generating the page that is displayed when a user clicks "Content Library" on the nav bar of a requesting CB is one of
+the code paths that crosses the requester-Content Library boundary and can cause backwards compatibility issues. It
+also passes through API URLs/ views. Below is a portion of the detailed flow of control.
+
+Requester                                           Content Library
+---------                                           ---------------
+/library URL
+|
+V
+`index` view
+|
+V
+get_exportable_content(connection)----------------->/exportable-content
+                                                    |
+                                                    V
+                                                    `exportable_content` view
+                                                    |
+                                                    V
+                                                    `exportable_metadata_as_dict` for all objects in all collections
+                                                    |
+                                                    V
+                                                    returns a list of dictionaries
+`index` view extracts ID from `package-url` key<----
+|
+V
+`index.html` template
+|
+V
+uses ID to generate URL for details page for object
+|
+V
+`content_details` URL
+|
+V
+`details` view
+|
+V
+`details.html` template
+|
+V
+`package-url` key is used to actually download the object
+via methods like `import_blueprint_from_content_library`
+
+
+# TODO: Add details on other pieces of functionality as well as people dig into them

@@ -1,0 +1,81 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="btn-toolbar">
+{% block template_buttons %}
+    <a class="btn btn-default open-dialog"
+        data-dialog-width="100%"
+        href="{% url 'resourcehandler_discover_amis' handler.id %}"
+        id="import-templates">
+        <span class="icon-import"></span>
+        Import AMIs
+    </a>
+{% endblock %}
+</div>
+
+<div class="clearfix"></div>
+
+<table id="templates" data-table>
+    <thead>
+        {% block template_columns %}
+            <th>AMI ID</th>
+            <th>AMI name</th>
+            <th>OS Build</th>
+            <th>Total Disk Size</th>
+            <th>Architecture</th>
+            <th>Root Device Type</th>
+            <th>Environments</th>
+            <th>Credentials</th>
+            <th>Actions</th>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% block template_rows %}
+            {% for template in templates %}
+            <tr>
+                <td class="id">{{ template.ami_id }}</td>
+                <td class="name">{{ template.os_name }}</td>
+                <td>
+                    {% if template.os_build %}
+                        <a href="{{ template.os_build.get_absolute_url }}">{{ template.os_build.os_family|os_family_icon }} {{ template.os_build.name }}</a>
+                    {% else %}
+                        <em>None</em>
+                    {% endif %}
+
+                    <a href="{% url 'resourcehandler_change_osbuild' handler.id template.id %}"
+                        class="icon-edit open-dialog"></a>
+                </td>
+                <td>
+                    {{ template.total_disk_size|render_size_field:"disk_size" }}
+                </td>
+                <td>{{ template.arch }}</td>
+                <td>{{ template.root_device_type }}</td>
+                <td>
+                    {% if template.os_build %}
+                        {% for env in template.envs %}
+                            {% if forloop.last %}
+                                {{ env|link_or_label:profile }}
+                            {% else %}
+                                {{ env|link_or_label:profile }},
+                            {% endif %}
+                        {% empty %}
+                            None
+                        {% endfor %}
+                        <a title="Add OS Build to some environments..."
+                            href="{% url 'link_template_to_envs' handler.id template.id %}"
+                            class="icon-edit open-dialog"></a>
+                    {% else %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% template_credentials template 'AMI' %}
+                </td>
+                <td>
+                    <a class="icon-delete"
+                        href="{% url 'resourcehandler_delete_osba' handler.id template.id %}"></a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endblock %}
+    </tbody>
+</table>

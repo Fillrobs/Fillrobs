@@ -1,0 +1,54 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+    {% if cmdb %}
+        <h1>{{ cmdb }}</h1>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+               href="{% url 'cmdb_edit' cmdb.id %}">
+                <span class="icon-edit"></span>
+                Edit CMDB
+            </a>
+                <a class="btn btn-default open-dialog"
+                href="{% url 'cmdb_delete' cmdb.id %}">
+                    <span class="icon-delete"></span>
+                    Remove&hellip;
+                </a>
+        </div>
+
+        <dl>
+            <dt>Created At:</dt><dd>{{ cmdb.created_at }}</dd>
+            <dt>Updated At:</dt><dd>{{ cmdb.updated_at }}</dd>
+            <dt>Table Name:</dt><dd>{{ cmdb.table_name }}</dd>
+            <dt>Environments:</dt>
+            <dd>
+                <div id="read_envs">
+                    {{ environment_displays|render_list:profile }}
+                </div>
+            </dd>
+
+            <dt>OS Builds:</dt>
+            <dd>
+                <div id="read_os_builds">
+                    {% for os_build in os_builds %}
+                        <a href="{% url 'osbuild_detail' os_build.id %}">{{ os_build.name }}</a>
+                        </br>
+                    {% endfor %}
+                </div>
+            </dd>
+        </dl>
+
+    {% else %}
+        <div class="alert alert-info">
+            <p>No CMDB has been added yet.</p>
+        </div>
+        <br>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog" href="{% url 'cmdb_add' cmdb.itsm.id %}">
+                <span class="icon-add"></span>
+                Add CMDB
+            </a>
+        </div>
+    {% endif %}
+{% endblock content %}

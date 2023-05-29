@@ -1,0 +1,39 @@
+{% extends 'connectors/common/overview_tab.html' %}
+{% load helper_tags %}
+
+{% block extra_connector_content %}
+
+{% if not cert_ready %}
+<div class="alert alert-info">
+    <h4>Action Required</h4>
+    <p>This configuration manager is not fully configured.</p>
+
+    {# If needed, add other states here, e.g. to run request_puppet_cert #}
+    {% if provider.cert_state == 'Send CSR Done' %}
+    <div class="row">
+        <div class="col-sm-8">
+            <p>The SSL certificate signing request (CSR) was sent to the
+            Puppet Master.  <b>A Puppet admin must sign the certificate.</b>
+            Once that is done, configuration can be completed by fetching the
+            signed certificate.</p>
+        </div>
+        <div class="col-sm-4 text-center">
+            <a href="{% url 'puppet_connector_fetch_cert' provider.id %}"
+                class="btn btn-primary fetch js-dialog-link">Fetch signed certificate</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<script>
+$(function(){
+    // for some reason, these options don't seem to be available in the
+    // loadDialogView function in spite of explicitly sending `this` above.
+    $('a.fetch').data('dialog_options', {
+        title: 'Fetch signed certificate',
+        wait_msg: 'Fetching certificate from Puppet Master "{{ provider.hostname }}"'
+    });
+});
+</script>
+{% endblock extra_connector_content %}

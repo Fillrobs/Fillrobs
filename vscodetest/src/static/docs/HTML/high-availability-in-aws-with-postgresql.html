@@ -1,0 +1,860 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('high-availability-in-aws-with-postgresql',true);});
+//--></script><title>High Availability in AWS with PostgreSQL</title><script type="text/javascript">//<!--
+var articleTitleText='High Availability in AWS with PostgreSQL';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">High Availability in AWS with PostgreSQL</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="installing-cloudbolt.html">Installing CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="setting-up-high-availability.html">Setting up High Availability</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">High Availability in AWS with PostgreSQL</span></span>
+  </div><h1 style="title" id="h1__246429115" data-has-heading-anchor="true">
+  High Availability in AWS with PostgreSQL 
+<a href="high-availability-in-aws-with-postgresql.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+
+<p class="lead">
+  Learn how to deploy a High Availability&nbsp;CloudBolt instance in AWS, including configuration of&nbsp;web or app EC instances and external databases such as&nbsp;(RDS PostgreSQL), ELB, and EFS.
+  <br/>
+  <br/>
+</p>
+<p class="lead">
+  
+  <ul class=""><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2_999232066">Creating Amazon EC2 Instances</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2_1490038391">Create PPK from PEM File</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2__1660024886">CloudBolt Configuration</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h3_926321244">Configure Amazon Load Balancer</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2__895920258">Configure Amazon Elastic File System</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2__1297593738">Amazon RDS Database</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2_1746671993">Configure Amazon EC2 Instances Database</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-aws-with-postgresql.html#h2__906966800">See also</a></li></ul>
+  <br/>
+</p>
+<hr/>
+<h2 id="h2_999232066" data-has-heading-anchor="true">
+  Creating Amazon EC2 Instances
+<a href="high-availability-in-aws-with-postgresql.html#h2_999232066" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  Create a private key for authentication and a Security group.
+</p>
+<h3 id="h3_999232067" data-has-heading-anchor="true">
+  Create Primary CloudBolt Instance
+<a href="high-availability-in-aws-with-postgresql.html#h3_999232067" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Log into AWS and navigate to the EC2 Services page.
+  </li>
+  <li>
+    Select <b>Launch Instance</b> and choose the CloudBolt Amazon Machine Image (AMI) from AWS Marketplace, click <b>Select.</b>
+  </li>
+  <li>
+    The next screen will display an overview of CloudBolt and the pricing per instance type;&nbsp;click <b>Continue.</b>
+  </li>
+  <li>
+    Select your Instance Type and click <b>Configure Instance Details.</b>
+  </li>
+  <li>
+    Change the Subnet and select the preferred Availability Zone (AZ) for the first instance by&nbsp;navigating&nbsp;to the <b>Configure Instance Details</b> screen.
+  </li>
+  <li>
+    Select the appropriate Subnet for your purposes and click <b>Add Storage </b>when you're done.
+    <ul>
+      <li>
+        To add a second volume  at this stage,&nbsp;click <b>Add Tags.</b>
+      </li>
+      <li>
+        If additional Tags are required, add them on this page then click&nbsp;<b>Configure Security Groups.</b>
+      </li>
+    </ul>
+  </li>
+  <li>
+    On the Configure Security Group page, create a new Security Group, or use an&nbsp;existing one.&nbsp; &nbsp;&nbsp;
+  </li>
+  <li>
+    Once a Security Group has been added, click<b> Review and Launch</b>, review the selections and make any necessary adjustments.
+  </li>
+  <li>
+    If everything looks correct, click <b>Launch.</b>
+  </li>
+  <li>
+    Create a new key pair or select an existing key pair, check any necessary acknowledgement boxes, and click <b>Launch Instances.</b>
+  </li>
+</ol>
+<br/>
+<h3 id="h3_1668358531" data-has-heading-anchor="true">
+  Create Secondary CloudBolt Instance
+<a href="high-availability-in-aws-with-postgresql.html#h3_1668358531" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Create a second CloudBolt Instance by following the steps for <a href="high-availability-in-aws-with-postgresql.html#h3_999232067">Create Primary CloudBolt Instance</a>&nbsp;until the Configure Instance Details page.
+  </li>
+  <li>
+    On the Configure Instance Details page, select a subnet for a different Availability Zone.
+  </li>
+  <li>
+    Continue following the steps used for the first instance until the Configure Security Group page.
+  </li>
+  <li>
+    If you created a new Security Group for the first instance, select it here and click <b>Review and Launch.</b>
+  </li>
+  <li>
+    Once the EC2 instances are up and running, give them a name by clicking the <b>notepad icon.</b>&nbsp;This&nbsp;change will be reflected in the Availability Zone column.
+  </li>
+</ol>
+<br/>
+<h2 id="h2_1490038391">
+</h2>
+<hr/>
+<h2 id="h2_1490038391" data-has-heading-anchor="true">
+  Create PPK from PEM File
+<a href="high-availability-in-aws-with-postgresql.html#h2_1490038391" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+
+<h3 id="h3__1012942368" data-has-heading-anchor="true">
+  PuTTYGen - Windows 
+<a href="high-availability-in-aws-with-postgresql.html#h3__1012942368" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<table class="warningBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="warningBoxImageCell">
+        <img alt="Warning" src="../Storage/cloudbolt-docs/warning.png"/>
+      </td>
+      <td class="warningBoxText">
+        <span style="color: #3c4257; text-decoration-color: initial;"><b>Important: </b>It is only necessary to follow these steps if you created a new key pair while creating the initial instance. If you did not create a new key pair, skip to  CloudBolt Configuration.</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol>
+  <li>
+    Using PuTTYGen, click <b>File &gt; Load private key</b> and select the .PEM file.
+  </li>
+  <li>
+    Click <b>Ok </b>on the successfully imported key window.
+  </li>
+  <li>
+    Click <b>Save Private Key </b>and designate a location for the new .PPK file.
+  </li>
+</ol>
+
+<h3 id="h3__1644834205" data-has-heading-anchor="true">
+  PuTTYGen - Linux 
+<a href="high-availability-in-aws-with-postgresql.html#h3__1644834205" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<table class="warningBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="warningBoxImageCell">
+        <img alt="Warning" src="../Storage/cloudbolt-docs/warning.png"/>
+      </td>
+      <td class="warningBoxText">
+        <span style="color: #3c4257; text-decoration-color: initial;"><b>Important:&nbsp;</b>It is only necessary to follow these steps if you created a new key pair while creating the initial instance. If you did not create a new key pair, skip to  CloudBolt Configuration.</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<ol>
+  <li>
+    Install PuTTY by running one of the following commands: 
+    <ul>
+      <li>
+        RPM-based: <code class="path">sudo yum install putty</code>
+      </li>
+      <li>
+        Dpkg-based:&nbsp;<code class="path">sudo apt-get install putty-tools</code>
+      </li>
+    </ul>
+    <ol>
+      
+      
+    </ol>
+  </li>
+  <li>
+    On the instance shell, run the PuTTYGen command to convert your .PEM file to a &gt;PPK file: 
+    <ul>
+      <li>
+        <code class="path">sudo puttygen /tmp/CloudBoltTest.pem -o /tmp/mykey.ppk -O private</code>
+      </li>
+    </ul>
+    <ol>
+      
+    </ol>
+  </li>
+</ol>
+<br/>
+<h2 id="h2__1660024886">
+</h2>
+<hr/>
+<h2 id="h2__1660024886" data-has-heading-anchor="true">
+  CloudBolt Configuration
+<a href="high-availability-in-aws-with-postgresql.html#h2__1660024886" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3__1106224908" data-has-heading-anchor="true">
+  Initial Configuration 
+<a href="high-availability-in-aws-with-postgresql.html#h3__1106224908" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Launch the CloudBolt web interface for each instance.
+  </li>
+  <li>
+    On the license page, paste in the license or upload the file and click <b>Apply License.</b>
+  </li>
+  <li>
+    Log into the appliance with admin/admin.
+  </li>
+  <li>
+    Read and accept the EULA, then click <b>Next.</b>
+  </li>
+  <li>
+    If you wish to configure a Proxy, do so now by clicking <b>Yes, configure now</b>. Otherwise, click <b>No Proxy.</b>
+  </li>
+  <li>
+    Fill out the Initial CB Administrator Account, click <b>Finish.</b>
+  </li>
+  <li>
+    Depending on the version of CloudBolt, either complete <a href="http://docs.cloudbolt.io/smart/project-cloudbolt-docs/guided-setup" target="_top">Guided Setup</a>&nbsp;(optional) or click <b>Start Using CloudBolt.</b>
+  </li>
+</ol>
+<h3 id="h3__1059533148" data-has-heading-anchor="true">
+  Upgrade CloudBolt
+<a href="high-availability-in-aws-with-postgresql.html#h3__1059533148" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    SSH into both instances.&nbsp;
+  </li>
+  <li>
+    Open a SSH client, such as Putty, and type in the FQDN or IP of the instances.
+  </li>
+  <li>
+    Add the Private key into Putty and click <b>Open.</b>
+  </li>
+  <li>
+    When prompted about a security alert for the key, click <b>Yes.</b>
+  </li>
+  <li data-children-count="1">
+    Login as admin and run the following commands on both instances:
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>\\Refer to https://support.cloudbolt.io/hc/en-us/sections/201319565-Download-CloudBolt to find latest release information\\<br><br>sudo su -<br>d /tmp<br>curl [PASTE LATEST RELEASE DOWNLOAD URL HERE] | tar xvz<br>cd cloudbolt_upgrader_9.4.1_62256aaa89/<br>./upgrade_cloudbolt.sh</pre></td></tr></table>
+  </li>
+  <li>
+    Wait for the upgrade to finish before continuing on.&nbsp;This may take up to ten minutes.
+  </li>
+  <li>
+    While waiting, maintain the SSH connection to both instances.
+  </li>
+  <li>
+    Once the upgrade has finished, log back into the web interface for both instances.
+  </li>
+  <li>
+    Verify that the CloudBolt instances have been upgraded to the latest instance by navigating to <b>Admin &gt; Maintenance &gt; Version and Upgrade info.</b>
+  </li>
+</ol>
+
+<h3 id="h3__1296371430" data-has-heading-anchor="true">
+  Pre-Database/EFS Configuration
+<a href="high-availability-in-aws-with-postgresql.html#h3__1296371430" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Open a SSH session for the first CloudBolt instance.
+  </li>
+  <li>
+    Run these commands to create/copy the PEM file to the CloudBolt instance:
+    <ul>
+      <li>
+        <code class="path">cd/temp</code>
+      </li>
+      <li>
+        <code class="path">vi mykey.pem</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Copy the contents of your PEM file into the file created above and <b>S</b><b>ave.</b>
+  </li>
+  <li>
+    Update permissions on the new mykey.pem and secret-key-for-apache.bin file.
+  </li>
+  <li>
+    Run these commands on the first instance:
+    <ul>
+      <li>
+        <code class="path">chmod 600 /tmp/mykey.pem</code>
+      </li>
+      <li>
+        <code class="path">chmod 777 /var/opt/cloudbolt/secrets/secret-key-for-apache.bin</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Run these on the second instance:
+    <ul>
+      <li>
+        <code class="path">chmod 777 /var/opt/cloudbolt/secrets/secret-key-for-apache.bin</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Copy BIN file from the first CloudBolt instance to the second.
+  </li>
+  <li>
+    Check customer_settings.py to verify the UNIQUE_TOKEN is consistent between instances.
+    <ul>
+      <li>
+        <code class="path">cat /var/opt/cloudbolt/proserv/customer_settings.py</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    If the UNIQUE_TOKEN&nbsp;is different <b>Copy</b> the UNIQUE_TOKEN section from the first CloudBolt instance to the second CloudBolt instance.
+  </li>
+  <li>
+    Update the Job Engine supervisor configuration file on both instances by running the following command:
+    <ul>
+      <li>
+        <code class="path">vi /etc/supervisord.d/jobengine.conf</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Then set <b>autostart</b> to autostart=false and <b>autorestart</b> to autorestart=false.
+  </li>
+  <li>
+    Then run this command: 
+    
+    <ul>
+      <li>
+        <code class="path">supervisorctl&nbsp;reload</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Finally, dump the existing SQL database:<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>export PGPASSWORD=${postgresql_pass}<br>pg_dump -h localhost -p 5432 -U cb_dba -w --clean -F t -f /tmp/cloudbolt.tar cloudbolt</pre></td></tr></table>
+    <ul>
+      <li>
+        The following file contains the <code>postgresql_root_pass</code> and <code>postgresql_pass</code>: <code class="path">/var/opt/cloudbolt/.postgresql_password</code>
+      </li>
+    </ul>
+  </li>
+</ol>
+<br/>
+
+<h2 id="h3_926321244">
+</h2>
+<hr/>
+<h2 id="h3_926321244" data-has-heading-anchor="true">
+  Configure Amazon Load Balancer
+<a href="high-availability-in-aws-with-postgresql.html#h3_926321244" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3__608056796" data-has-heading-anchor="true">
+  Create Load Balancer
+<a href="high-availability-in-aws-with-postgresql.html#h3__608056796" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Log back into the AWS console and go to EC2 services.
+  </li>
+  <li>
+    Click on <b>Load Balancers.</b>
+  </li>
+  <li>
+    From the <b>Load Balancers</b> page, click <b>Create Load Balancer</b> under the <b>Application Load Balancer</b> option.
+    
+    <ul>
+      <li>
+        Fill out the Name field.
+      </li>
+      <li>
+        Select HTTPS for the listener.
+      </li>
+      <li>
+        Select your VPC and Availability Zones.
+      </li>
+    </ul>
+  </li>
+</ol>
+<h3 id="h3__67196261" data-has-heading-anchor="true">
+  Configure Security Settings
+<a href="high-availability-in-aws-with-postgresql.html#h3__67196261" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+
+<ol>
+  <li>
+    Click&nbsp;<b>Configure Security Settings.</b>
+  </li>
+  <li>
+    Select your Certificate Type, Certificate Name, and Security Policy.
+  </li>
+  <li>
+    Click <b>Configure Security Groups.</b>
+  </li>
+  <li>
+    Select which Security Groups to attach, then click <b>Configure Routing.</b>
+  </li>
+  <li>
+    Configure routing by selecting <b>New target group.</b>
+  </li>
+  <li>
+    Provide a name for the Target group and select HTTPs for the Protocol.
+  </li>
+  <li>
+    Fill out any additional options such as Health Check, etc, and when finished click <b>Register Targets.</b>
+  </li>
+  <li>
+    On the following page, select the 2 CloudBolt instances and click <b>Add to registered.</b>
+  </li>
+  <li>
+    Click <b>Review</b>&nbsp;and ensure everything looks correct.
+  </li>
+  <li>
+    If everything is in order, click <b>Create.</b>
+  </li>
+  <li>
+    Once the Load Balancer shows active for the state of each instance, click  <b>Target Groups </b>on the left.
+  </li>
+  <li>
+    Select the CloudBolt target and ensure that under <b>Attributes </b>the option for <b>Stickiness</b>&nbsp;should be disabled. If not,&nbsp;click E<b>dit </b>and set the duration to <b>1 hour.</b>
+  </li>
+  <li>
+    Finally, click S<b>ave changes.</b>
+  </li>
+</ol>
+
+
+<br/>
+
+<h2 id="h2__895920258">
+</h2>
+<hr/>
+<h2 id="h2__895920258" data-has-heading-anchor="true">
+  Configure Amazon Elastic File System
+<a href="high-availability-in-aws-with-postgresql.html#h2__895920258" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3_1517191042" data-has-heading-anchor="true">
+  Configure EFS 
+<a href="high-availability-in-aws-with-postgresql.html#h3_1517191042" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<h3 id="h3__1296562277" data-has-heading-anchor="true">
+  Configure EFS on EC2 Instances
+<a href="high-availability-in-aws-with-postgresql.html#h3__1296562277" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Open the EFS Services in the AWS Console and click <b>Create file system.</b>
+  </li>
+  <li>
+    Provide a name (optional), select the VPC, and click <b>Customize.</b>
+  </li>
+  <li>
+    Check that the name, if provided, is populated in the field, and click <b>Next.</b>
+  </li>
+  <li>
+    On the <b>Network Access</b> screen, select the <b>VPC</b> and <b>Security Groups</b> then click <b>Next.</b>
+  </li>
+  <li>
+    Update the file system policy if need be and click <b>Next.</b>
+  </li>
+  <li>
+    Review the selections for accuracy on the <b>Review and create</b> screen and click <b>Create.</b>
+  </li>
+  <li>
+    Now that the EFS file system has been created, click on the name or the File system ID to edit the settings.
+  </li>
+  <li>
+    While in the settings, click <b>Attach.</b>
+  </li>
+  <li>
+    In the <b>Attach</b> window, save a copy of the DNS name for the EFS file system for later use.
+  </li>
+  <li>
+    Close the window by clicking outside of it and continue on with the next set of instructions.
+  </li>
+  <li>
+    SSH into both CloudBolt instances.
+  </li>
+  <li>
+    Install NFS Client onto both instances using this command:
+    <code class="path">sudo yum install nfs-utils</code>
+  </li>
+  <li data-children-count="1">
+    Run these commands on both instances but <b>replace "EFS_DNS_NAME" with the DNS name copied in the previous set of instructions
+    <br data-children-count="0"/>
+    </b>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>mkdir /mnt/efs<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/ /mnt/efs</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li data-children-count="1">
+    Run these commands <b>on the first instance only</b>:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>mv /var/opt/cloudbolt /mnt/efs/cloudbolt<br>mv /var/log/cloudbolt/jobs /mnt/efs/jobs<br>mv /var/www/html/cloudbolt/static /mnt/efs/static<br>mkdir /var/opt/cloudbolt<br>mkdir /var/log/cloudbolt/jobs<br>mkdir /var/www/html/cloudbolt/static<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/cloudbolt /var/opt/cloudbolt<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/jobs /var/log/cloudbolt/jobs<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/static /var/www/html/cloudbolt/static</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li data-children-count="1">
+    Run these commands <b>on the second instance only</b>:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>rm -rf /var/opt/cloudbolt<br>rm -rf /var/log/cloudbolt/jobs<br>rm -rf /var/www/html/cloudbolt/static<br>mkdir /var/opt/cloudbolt<br>mkdir /var/log/cloudbolt/jobs<br>mkdir /var/www/html/cloudbolt/static<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/cloudbolt /var/opt/cloudbolt<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/jobs /var/log/cloudbolt/jobs<br>sudo mount -t nfs4 -o nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2,noresvport EFS_DNS_NAME:/static /var/www/html/cloudbolt/static<br></pre></td></tr></table>
+  </li>
+  <li>
+    Update fstab file on BOTH instances to automount NFS share:
+    <code class="path">
+      vi /etc/fstab&nbsp;</code>
+  </li>
+  <li data-children-count="1">
+    Add these 3 lines (replace EFS_DNS_NAME).
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>EFS_DNS_NAME:/cloudbolt /var/opt/cloudbolt nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0<br>EFS_DNS_NAME:/jobs /var/log/cloudbolt/jobs nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0<br>EFS_DNS_NAME:/static /var/www/html/cloudbolt/static nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0</pre></td></tr></table>
+  </li>
+  <li>
+    Once those lines have been added, save the file.
+  </li>
+  <li>
+    Run <code class="path">mount -fav</code> to verify that&nbsp;the new lines work.
+    <br/>
+    <br/>
+  </li>
+</ol>
+
+<hr/>
+<h2 id="h2__1297593738" data-has-heading-anchor="true">
+  Amazon RDS Database
+<a href="high-availability-in-aws-with-postgresql.html#h2__1297593738" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3_1420522360" data-has-heading-anchor="true">
+  To configure an Amazon RDS Database  choose between&nbsp;PostgreSQL or Aurora and follow the corresponding instructions only.&nbsp;
+<a href="high-availability-in-aws-with-postgresql.html#h3_1420522360" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<h3 id="h3_1420522360" data-has-heading-anchor="true">
+  PostgreSQL
+<a href="high-availability-in-aws-with-postgresql.html#h3_1420522360" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+
+<ol>
+  <li>
+    Open the RDS Services in the AWS Console and click Create database.
+    <ul>
+      <li>
+        First select <b>Standard Create.</b>
+      </li>
+      <li>
+        Then, under Engine Options, select PostgreSQL.
+      </li>
+      <li>
+        Choose a SQL version (13 or 14).
+      </li>
+      <li>
+        Select the Production template.
+      </li>
+      <li>
+        Fill out the DB instance identifier, Master username, and Master password.
+      </li>
+      <li>
+        Designate the DB instance class, Size, and Storage suited for the project.
+      </li>
+      <li>
+        Select the correct VPC, Subnet Group, and security group.
+      </li>
+      <li>
+        Provide the initial database name. <b>This is critical.</b>
+      </li>
+      <li>
+        Select a DB parameter group, Option group, and (optionally)&nbsp;Backups, etc.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Finally, review the selections and click <b>Create database.</b>
+  </li>
+  <li>
+    Once the database is up and running, click on the new database to open the configuration tab and copy out the Endpoint address.
+  </li>
+</ol>
+<h3 id="h3_582657498" data-has-heading-anchor="true">
+  Aurora
+<a href="high-availability-in-aws-with-postgresql.html#h3_582657498" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Open RDS Services in the AWS Console and click <b>Create Database.</b>
+    <ul>
+      <li>
+        Select <b>Standard Create</b> for creation method.
+      </li>
+      <li>
+        Select <b>Amazon Aurora</b> for the Engine type under Engine options.
+      </li>
+      <li>
+        Select <b>Amazon Aurora with PostgreSQL compatibility</b> for the Edition.
+      </li>
+      <li>
+        Select <b>Provisioned</b> for the Capacity Type.
+      </li>
+      <li>
+        Select <b>Single-master</b> for the Replication features.
+      </li>
+      <li>
+        Choose a version of Aurora in the drop down menu under <b>Version.</b>
+      </li>
+      <li>
+        Select the <b>Production</b> or <b>Dev/Test</b> template.
+      </li>
+      <li>
+        Input DB instance identifier, Master username, and Master password.
+      </li>
+      <li>
+        Select your DB instance size and the Create an Aurora Replica or Reader node in a different Availability Zone option.
+      </li>
+      <li>
+        Ensure that the <b>APC, Subnet group, and security group</b> are correctly set.
+      </li>
+      <li>
+        Fill in the initial database name.
+      </li>
+      <li>
+        Select the DB parameter group, Option group, and (optionally)&nbsp;Backups, etc.
+      </li>
+      <li>
+        Review the remaining options and click <b>Create database</b> when satisfied.
+      </li>
+    </ul>
+  </li>
+  <li>
+    Once the database is up and running, click on the new database to open the configuration tab and copy out the Endpoint address.
+  </li>
+</ol>
+
+<h2 id="h2_1746671993">
+</h2>
+<hr/>
+<h2 id="h2_1746671993" data-has-heading-anchor="true">
+  Configure Amazon EC2 Instances Database
+<a href="high-availability-in-aws-with-postgresql.html#h2_1746671993" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3_1791519817" data-has-heading-anchor="true">
+  Configure the newly created database
+<a href="high-availability-in-aws-with-postgresql.html#h3_1791519817" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    SSH into your first instance.
+  </li>
+  <li>
+    Copy SQL backup to new PostgreSQL Database, but replace DB_DNS_NAME, USERNAME, PASSWORD and DATABASENAME with the information from your database.
+    <ul>
+      <li>
+        <code class="path">postgresql-14 -h DB_DNS_NAME -u USERNAME -pPASSWORD DATABASENAME<tmp></tmp></code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Connect to PostgreSQL Database using:
+    <ul>
+      <li>
+        <code class="path">postgresql-14 -u USERNAME -h DB_DNS_NAME -pPASSWORD</code>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Now that you're connected to the Database, run these commands to ensure they return a value:
+    <ul>
+      <li>
+        <code class="path">show databases;</code><i>
+        </i>
+        <code class="path">show cloudbolt;</code>
+        <code class="path">show databases;</code>
+        <code class="path">show tables;</code>
+      </li>
+      <li>
+        Type <b>exit</b> to exit the SQL database.
+      </li>
+      <li>
+        Copy the DATABASES section from <b>/opt/cloudbolt/settings/local.py</b> to <b>/var/opt/cloudbolt/proserv/customer_settings.py</b>
+      </li>
+      <li>
+        Update the name, user, password, and hosts fields in the table.
+      </li>
+      <li>
+        SSH into the second instance now and run these next commands on BOTH instances.
+      </li>
+      <li>
+        Commands to Stop/Disable PostgreSQL services on both instances<code class="path">systemctl stop postgresql-14
+        systemctl disable postgresql-14</code>
+      </li>
+      <li>
+        Restart HTTPD Service on BOTH instances:
+        <ul>
+          <li>
+            <code class="path">systemctl restart httpd</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Update the Job Engine supervisord configuration file on both instances:
+        <ul>
+          <li>
+            <code class="path">vi /etc/supervisord.d/jobengine.conf</code>
+          </li>
+        </ul>
+      </li>
+      <li>
+        Change the line that begins with <b>autostart</b> to <b>autostart=true</b>
+      </li>
+      <li>
+        Change the line that begins with <b>autorestart</b> to <b>autorestart=true</b>
+      </li>
+      <li>
+        Reboot both instances using <code class="path">sudo reboot</code>
+      </li>
+      <li>
+        Once the instances are back up, verify their status by logging into the appliances.
+      </li>
+    </ul>
+  </li>
+</ol>
+<section>
+  <hr class="article-divider"/>
+  <h2 id="h2__906966800" data-has-heading-anchor="true">
+    See also
+  <a href="high-availability-in-aws-with-postgresql.html#h2__906966800" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ul class="CHSeeAlso_hasChildren CHSeeAlso"><li class="CHSeeAlso_item CHSeeAlso_itemSibling"><a href="high-availability-in-azure.html">High Availability in Azure</a></li><li class="CHSeeAlso_item CHSeeAlso_itemSibling"><a href="upgrading-high-availability.html">Upgrading High Availability</a></li></ul>
+</section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="setting-up-high-availability.html" class="articleActions_link CHNavLinkPrevious">Setting up High Availability</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="high-availability-in-azure.html" class="articleActions_link CHNavLinkNext">High Availability in Azure</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

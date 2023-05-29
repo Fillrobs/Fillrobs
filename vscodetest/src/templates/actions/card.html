@@ -1,0 +1,25 @@
+{% comment %}
+Include this template to simplify presentation of actions.
+Args:
+    link (bool): if True, link to the action details view
+    icon (bool): if True, include the action type icon
+{% endcomment %}
+{% load helper_tags %}
+
+{% if link %}
+    <a href="{{ action.get_absolute_url }}">
+{% endif %}
+
+    <div class="action-card">
+        {% if icon %}
+            {% include 'actions/action_type_icon.html' %}
+        {% endif %}
+
+        {{ action.name }}
+
+        {% infotip action.description %}
+    </div>
+
+{% if link %}
+    </a>
+{% endif %}

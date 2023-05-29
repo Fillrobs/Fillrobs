@@ -1,0 +1,440 @@
+{
+  "logoPosition": "right",
+  "completedHtml": "<h3>Thank you for completing the Form</h3>",
+  "completedBeforeHtml": "<h3>Our records show that you have already completed this Form.</h3>",
+  "loadingHtml": "<h3>Loading Form...</h3>",
+  "pages": [
+    {
+      "name": "Select an Azure Environment",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "dropdown",
+              "name": "CI_Azure_environment_id",
+              "title": "Select an Azure Environment",
+              "choicesByUrl": {
+                "url": "http://localhost:8001/api/v3/cmp/inboundWebHooks/IWH-fc0s99n2/run/?token=qsV1Tb1ANPiwQ3dTWofaSNU8LtMoOSl-VfBRhxtuRno",
+                "valueName": "id",
+                "titleName": "name"
+              }
+            },
+            {
+              "type": "panel",
+              "name": "panel2",
+              "elements": [
+                {
+                  "type": "html",
+                  "visible": false,
+                  "visibleIf": "{CI_Azure_environment_id} notempty",
+                  "name": "Import parameters from Azure",
+                  "html": "<a href='#' onclick='importAzureparams({CI_AzureEnvId});' id='importAzureparams' class='btn btn-default'>Import Azure Values</a><div id='importAzureparams_res'></div>",
+                  "description": "This will import the Azure parameters and reset the data within this page"
+                }
+              ],
+              "title": "Reset Values"
+            },
+            {
+              "type": "panel",
+              "name": "panel3",
+              "elements": [
+                {
+                  "type": "html",
+                  "visible": false,
+                  "visibleIf": "{CI_Azure_environment_id} notempty",
+                  "name": "Import Available Networks",
+                  "html": "<a href='#' onclick='importAzurenetworks({CI_AzureEnvId});' id='importAzurenetworks' class='btn btn-default'>Import Available Networks</a><div id='importAzurenetworks_res'></div>",
+                  "description": "This will import the Available Networks"
+                }
+              ],
+              "title": "Reset Network Values"
+            }
+          ]
+        }
+      ],
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "showQuestionNumbers": "on",
+        "questionStartIndex": "1",
+        "nextButtonText": "Next"
+      },
+      "page": "Select an Azure Environment"
+    },
+    {
+      "name": "Azure Environment Data",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "expression",
+              "name": "CI_azureEnvId",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Environment ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "text",
+              "name": "CI_azureEnvName",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Environment Name",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_azureServiceAccount",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Subscription ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_azureClientID",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Application ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_azureTenantID",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Directory ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_rhName",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "CMP ResourceHandler Name",
+              "startWithNewLine": false,
+              "columns": 1
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_availabilitySetArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Availability Set",
+              "choices": []
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel4",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_availabilityZoneArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Availability Zones",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel5",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_createPublicIpData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Create a Public IP Address",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel6",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_customStorageAccountArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Use custom storage account",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel7",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_enableAcceleratedNetworkingData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Enable Accelerated Networking",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel8",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_nodeSizeData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Node Size ",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ],
+          "title": "Node sizes",
+          "description": "Missing some Instance Types? Reimport them from the first page to reset the list"
+        },
+        {
+          "type": "panel",
+          "name": "panel9",
+          "elements": [
+            {
+              "type": "text",
+              "name": "CI_passwordArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Password",
+              "inputType": "password",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel10",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_platformFaultDomainCountData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Platform Fault Domain Count",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel11",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_resourceGroupArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Resource Group",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel12",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_resourceGroupArmTemplateData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Resource Group Template",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel13",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_storageAccountArmData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Azure Storage Account",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        }
+      ],
+      "title": "Azure Environment Data",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "Azure Environment Data"
+    },
+    {
+      "name": "Azure Environment Groups",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_envGroupData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "html": "<div id='envGroupData_{CI_envGroupData}'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "Azure Environment Groups",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "Azure Environment Groups"
+    },
+    {
+      "name": "Add a Group",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_addGroupData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "html": "<div id='addEnvGroupForm'></div><div id='addEnvGroupForm_res'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "Add a Group",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "Add a Group"
+    },
+    {
+      "name": "Extras",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envNetworkData",
+              "visible": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Networks",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel2",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envOSBuildData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "OS Builds"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envParamsData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_Azure_environment_id} notempty",
+              "title": "Parameters"
+            }
+          ]
+        }
+      ],
+      "title": "Extras",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Finish"
+      },
+      "page": "Extras"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "runexpression",
+      "expression": "{CI_Azure_environment_id} notempty",
+      "runExpression": "popAzuredata()"
+    }
+  ],
+  "showProgressBar": "top",
+  "progressBarType": "buttons"
+}

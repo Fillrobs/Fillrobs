@@ -1,0 +1,37 @@
+{% extends "reports/simple_base.html" %}
+{% load helper_tags %}
+{% load staticfiles %}
+{% block report_content %}
+    {% if show_table %}
+        {{ table_caption }}
+
+        <table id="table-{{ report_slug|slugify }}"
+        class="table"
+        data-table>
+        <thead>
+            <tr>
+                {% for heading in column_headings %}
+                    <th class="a"> {{ heading|safe }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+            <tbody>
+                
+                {% for row in rows %}
+
+                    <tr>
+                        <td>{% trans "car_id" %}</td>
+                        <td>{% trans "name" %}</td>
+                        <td>{% trans "car_details_manuf" %}</td>
+                        <td>{% car_details_final_logo %}</td>
+                        <td>{% trans "car_details_name" %}</td>
+                        <td>{% trans "car_engine_size" %}</td>
+                        <td>{% trans "car_colour" %}</td>
+                        <td>{% trans "created" %}</td>
+                    </tr>
+                    
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}    
+{% endblock %}

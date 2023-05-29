@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block topnav %}{%trans 'admin' %}{% endblock %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block content %}
+    <span class="uplink"><a href="{% url 'admin_home' %}">{%trans 'Admin' %}</a></span>
+    <h1>{%trans 'SSH Keys' %}</h1>
+
+    <section class="intro">
+        <p>
+        {% with portal_label as the_portal_label %}
+        {% blocktrans %}
+        Use this page to manage arbitrary, generic/global SSH Keys that are not provided by
+        a Resource Handler. A name is used for identification, and private key material must be associated
+        with it. These SSH Keys can be used when running remote script actions against servers using SSH.
+        Note that the user is responsible for ensuring that a selected key is valid for connecting to
+        a given server; neither {{ the_portal_label }} nor the Resource Handler will do anything to configure the
+        VM to accept the key. {%endblocktrans %}{% endwith %}
+        </p>
+
+        <p><i>{{ tenant_msg }}</i></p>
+    </section>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_sshkey' %}">
+            <span class="icon-add"></span>
+            {%trans 'New SSH Key' %}
+        </a>
+    </div>
+
+    <table id="sshkey-table" data-table
+        {% comment %}
+        Quick fix to avoid Angular trying to interpret hostname template
+        descriptions. A less intrusive way of doing this still needs to be
+        devised.
+        {% endcomment %}
+        ng-non-bindable>
+        <thead>
+            <tr>
+                <th>{%trans 'Name' %}</th>
+                {% if profile.show_tenant_info %}
+                    <th>{% trans 'Tenant' %}</th>
+                {% endif %}
+                <th>{%trans 'Fingerprint'%}</th>
+                <th>{%trans 'Actions' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for key in keys %}
+            <tr>
+                <td class="sshkey-name">
+                    {{ key.name }}
+                </td>
+                {% if profile.show_tenant_info %}
+                    <td>
+                        {{ key.tenant|link_or_label_none_global:profile }}
+                    </td>
+                {% endif %}
+                <td>
+                    {{ key.fingerprint }}
+                </td>
+
+                <td class="shrink">
+                    <div class="btn-group">
+                        <a class="icon-edit btn btn-default btn-sm open-dialog"
+                            href="{% url 'edit_sshkey' key.global_id %}"></a>
+                        <a class="icon-delete btn btn-default btn-sm open-dialog"
+                            href="{% url 'delete_sshkey' key.global_id %}"></a>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

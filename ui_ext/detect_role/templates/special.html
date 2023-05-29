@@ -1,0 +1,15 @@
+{% extends "reports/simple_base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+
+
+                    
+                   
+
+{% block report_content %}
+
+
+    {% if show_table %}
+    {{ profile }}
+    {% endif %}
+{% endblock %}

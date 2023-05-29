@@ -1,0 +1,70 @@
+{% load account_tags %}
+{% load i18n %}
+
+<table id="groupMemberPermissionsTable"
+    data-table-sort-disabled="0,1,2"
+    data-table-source="{% url 'group_details_users_table_json' group.id %}">
+  <thead>
+    <tr>
+      {% if user_can_manage_members %}
+        <th>
+          <input type="checkbox" class="check-column" />
+        </th>
+        <th>{% trans "Actions" %}</th>
+      {% endif %}
+      <th></th>
+      <th>{% trans "Email" %}</th>
+      <th>{% trans "Name" %}</th>
+      {% for role in roles %}
+        <th class="shrink">{{ role|role_with_tooltip }}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<div id="groupMemberPermissionsTableToolbar" style="display:none" class="btn-toolbar" role="toolbar">
+  <div class="btn-group">
+    {% include 'common/datatable-selection-info-dropdown.html' %}
+
+    <button class="btn btn-default open-dialog" data-toggle="tooltip"
+        data-dialog-width="800px"
+        title="{% trans "Add users to this group" %}"
+        href="{% url 'add_users_to_group' group.id %}">
+        <span class="icon-add"></span>
+    </button>
+
+    <button type="button" class="btn btn-default selection-action disabled"
+      data-toggle="tooltip"
+      data-href="{% url 'batch_user_permissions_dialog' group.id %}"
+      title='{% trans "Change permissions for selected users" %}&hellip;'>
+        <span class="icon-edit"></span>
+    </button>
+
+    <button type="button" class="btn btn-default selection-action disabled"
+      data-toggle="tooltip"
+      data-href="{% url 'batch_remove_users_from_group_dialog' group.id %}"
+      title='{% trans "Remove selected users from group" %}&hellip;'>
+        <span class="icon-delete"></span>
+    </button>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var $table = $('#groupMemberPermissionsTable');
+
+  {% if user_can_manage_members %}
+    $table.attr('data-table', 'clickable');
+
+    // Prepare our custom toolbar DOM fragment with all client-side
+    // behavior and pass it along to the c2 DataTable API.
+    var $toolbar = $('#groupMemberPermissionsTableToolbar');
+    c2.dataTables.setupToolbarBehavior($table, $toolbar);
+    $table.data('table-toolbar', $toolbar);
+  {% else %}
+    $table.attr('data-table', '');
+  {% endif %}
+
+  c2.dataTables.init('#groupMemberPermissionsTable');
+</script>

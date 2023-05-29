@@ -1,0 +1,40 @@
+{% load helper_tags %}
+
+{% if available_regions %}
+    <p>
+        {{ available_regions|length }} regions are available for import.
+    </p>
+
+    <table id="discovered_regions" data-table="dialog clickable">
+        <thead>
+            {% block region_columns %}
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th>Region Name</th>
+            {% endblock %}
+        </thead>
+        <tbody>
+            {% block region_rows %}
+                {% for region in available_regions %}
+                <tr>
+                    <td><input name="region" type="checkbox" value="{{ region.name }}"/></td>
+                    <td class="name">{{ region.display }}</td>
+                </tr>
+                {% endfor %}
+            {% endblock %}
+        </tbody>
+    </table>
+{% else %}
+    {% block no_regions %}
+    <p>
+    Unable to locate any new regions at this time.
+    </p>
+    {% endblock %}
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init('#discovered_regions');
+});
+</script>

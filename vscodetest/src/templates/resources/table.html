@@ -1,0 +1,118 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+<table id="resources-table{{id_suffix}}"
+    {% comment %}
+    This directive lets us first hook up a custom draw callback below,
+    before initializing the DataTable.
+    {% endcomment %}
+    data-table-no-auto-init
+    {% if with_checkboxes %}
+        data-table-sort="6,desc" {# installed date #}
+    {% else %}
+        data-table-sort="5,desc" {# installed date #}
+    {% endif %}
+    data-table-sort-disabled="{{ indices_to_disable_sort|to_csv }}"
+    data-table-source="{% url 'resource_list_json' %}">
+<thead>
+    <tr>
+        {% if with_checkboxes %}
+            <th><input class="check-column" type="checkbox" /></th>
+        {% endif %}
+        {% for col_title in col_headers %}
+            <th>{{ col_title }}</th>
+        {% endfor %}
+    </tr>
+</thead>
+<tbody>
+    {# will be populated by dataTable based on AJAX responses #}
+</tbody>
+</table>
+
+{% if with_checkboxes %}
+    <div id="resources-table-toolbar{{id_suffix}}" style="display:none" class="btn-toolbar" role="toolbar">
+        <div class="btn-group">
+            {% include 'common/datatable-selection-info-dropdown.html' %}
+
+            <button type="button" class="btn btn-default selection-action disabled"
+                data-toggle="tooltip"
+                data-href="{% url 'run_action_on_resources' %}"
+                data-dialog-width="800px"
+                title="{% trans 'Run a resource action...' %}">
+                <span class="icon-cogs"></span>
+            </button>
+        </div>
+    </div>
+{% endif %}
+
+<script>
+    var $table = $('#resources-table{{id_suffix}}');
+
+    {% if with_checkboxes %}
+        $table.attr('data-table', 'clickable');
+
+        // Prepare our custom toolbar DOM fragment with all client-side
+        // behavior and pass it along to the c2 DataTable API.
+        var $toolbar = $('#resources-table-toolbar{{id_suffix}}');
+        c2.dataTables.setupToolbarBehavior($table, $toolbar);
+        $table.data('table-toolbar', $toolbar);
+    {% else %}
+        $table.attr('data-table', '');
+    {% endif %}
+
+    $table.data('table-fnServerParams', function (aoData) {
+        {% if with_checkboxes %}
+            aoData.push({name: 'with_checkboxes', value: 1});
+        {% endif %}
+
+        {% if blueprint_id %}
+            // Load resources for a particular blueprint
+            aoData.push({name: 'filter_by_blueprint', value: '{{ blueprint_id }}'});
+        {% endif %}
+
+        {% if resource_type %}
+            // Listing resources of a particular type
+            aoData.push({name: 'filter_by_resource_type', value: '{{ resource_type.id }}'});
+        {% endif %}
+
+        {% if owner_id %}
+            // Listing resources with a particular owner
+            aoData.push({name: 'filter_by_owner', value: '{{ owner_id }}'});
+        {% endif %}
+
+        {% if parent_resource_id %}
+            // Listing sub-resources for a particular parent resource, which will also be grouped by type
+            aoData.push({name: 'filter_by_parent_resource', value: '{{ parent_resource_id }}'});
+        {% endif %}
+
+        {% if filter_name %}
+            // Handle views that just want a resource list filtered by a single thing.
+            // This does the same thing c2.dataTables.addListFilters does.
+            aoData.push({
+                name: 'filters_selected',
+                value: JSON.stringify({'{{ filter_name }}': ['{{ filter_value }}']})
+            });
+        {% endif %}
+
+        {% if resource_params_fn %}
+            // Now call the user-defined resource_params_fn
+            {{ resource_params_fn }}(aoData);
+        {% endif %}
+
+            // Which columns to leave off of the table
+            aoData.push({name: 'col_names', value: '{{ col_names }}'});
+    });
+
+    $table.on('table:draw', function(e, oSettings) {
+        c2.blueprints.handleCardClicks($table);
+    });
+
+    {% if resource_response_callback %}
+        $table.data('table-fnServerDataCallback', {{ resource_response_callback }});
+    {% endif %}
+
+    c2.dataTables.init('#resources-table{{id_suffix}}');
+</script>

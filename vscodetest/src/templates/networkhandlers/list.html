@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% comment %}
+    only superusers should see this page
+{% endcomment %}
+{% load helper_tags %}
+{% block topnav %}networkhandlers{% endblock %}
+
+{% block content %}
+    <h1>Network Handlers</h1>
+
+    <table id="handlers" data-table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Username</th>
+                <th>IP Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for handler in handlers %}
+            <tr>
+                <td class="name"><a href="{{ handler.get_absolute_url }}">{{ handler.name }}</a></td>
+                <td class="type">{{ handler.real_type.name }}</td>
+                <td class="username">{{ handler.serviceaccount }}</td>
+                <td class="address">{{ handler.ip }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'networkhandler_new' %}"
+            id="add-handler">
+            <span class="icon-add"></span>
+            Add a network handler
+        </a>
+    </div>
+
+{% endblock %}

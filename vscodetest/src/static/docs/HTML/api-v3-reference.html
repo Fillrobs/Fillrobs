@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('api-v3-reference',true);});
+//--></script><title>API v3 Reference Guide</title><script type="text/javascript">//<!--
+var articleTitleText='API v3 Reference Guide';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">API v3 Reference Guide</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="cloudbolt-api-v3.html">CloudBolt API v3</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">API v3 Reference Guide</span></span>
+  </div><h1 id="h2_920345967" data-has-heading-anchor="true">
+  API v3 Reference Guide
+<a href="api-v3-reference.html#h2_920345967" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p>
+  The CloudBolt API uses <font color="#99cc00">{id}</font>&nbsp;and <font color="#99cc00">{resourceID}</font> as parameters to return specific items from a collection. This value is&nbsp;the Global ID assigned to CloudBolt resources. 
+</p>
+<p>
+  This is a full list of the currently available resources and their descriptions.
+</p>
+<div class="alert alert-info">
+  <i class="mdi mdi-information mr-2"></i>
+  All API v3 endpoints are prefixed with <span class="inlineCode">/api/v3/cmp/</span>, for example, <span class="inlineCode">/api/v3/cmp/brandedPortals/</span>.
+</div>
+<p>
+  <ul class="CHSeeAlso_hasChildren CHSeeAlso"><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="actions-api.html">Actions</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="alerts.html">Alerts</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="api-keys.html">API Keys</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="blueprints-api.html">Blueprints</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="branded-portals-api.html">Branded Portals</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="cit-api.html">CIT</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="configuration-managers-api.html">Configuration Managers</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="container-orchestrators-api.html">Container Orchestrators</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="connection-info-api.html">Connection Info</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="database-api.html">Database</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="dashboard-api.html">Dashboard</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="data-protection.html">Data Protection</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="email-and-email-servers.html">Email and Email Servers</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="environments-api.html">Environments</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="external-orchestrators-api.html">External Orchestrators</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="forgot-password-api.html">Forgot Password</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="groups-api.html">Groups</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="ipam-api.html">IPAM API</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="itsm-api.html">ITSM</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="jobs-api.html">Jobs</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="load-balancers-api.html">Load Balancers</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="logs-api.html">Logs</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="miscellaneous-settings-api.html">Miscellaneous Settings</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="networks-api.html">Networks</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="orders-api.html">Orders</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="os-builds-api.html">OS Builds</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="os-images-api.html">OS Images</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="parameters-api.html">Parameters</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="permissions-api.html">Permissions</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="preconfigurations-api.html">Preconfigurations</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="product-licenses-api.html">Product Licenses</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="provision-engines-api.html">Provision Engines</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="radius-api.html">RADIUS Utility</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="rates-api.html">Rates</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="resource-handlers-api.html">Resource Handlers</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="resource-types.html">Resource Types</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="resources-api.html">Resources</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="roles-api.html">Roles</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="rules-api.html">Rules</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="siem-api.html">SIEM</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="single-sign-on-sso-api.html">Single Sign-On (SSO)</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="software-defined-networks-platforms.html">Software Defined Networks and Platforms</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="ssh-keys-api.html">SSH Keys</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="ssl-trust-store-api.html">SSL Trust Store</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="system-api.html">System</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="tenants-api.html">Tenants</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="ui-extensions-api.html">UI Extensions</a></li><li class="CHSeeAlso_item CHSeeAlso_itemChild"><a href="users-api.html">Users</a></li></ul>
+  <br/>
+</p>
+<!-- &lt;table class=&quot;table table-striped table-hover&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Resource
+      &lt;/th&gt;
+      &lt;th style=&quot;width: 1201px;&quot;&gt;
+        Description
+      &lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Actions
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents an&#160;Action&#160;in CloudBolt. This resource contains general Actions, Resource Actions, Server Actions, Orchestration Actions, Scheduled Actions, and Rules.&#160;For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;actions.html&quot; target=&quot;_blank&quot;&gt;Actions&lt;/a&gt;.&#160;&#160;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Alerts
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a CloudBolt Alert. Alert types include Email and Slack, as well as Channel for both.&#160;For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;multi-channel-alerts.html&quot; target=&quot;_blank&quot;&gt;Alerts&lt;/a&gt;.&#160;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Branded Portals
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a CloudBolt Branded Portal. For information about this feature in CloudBolt, see &lt;a href=&quot;branding-and-portal.html&quot; target=&quot;_blank&quot;&gt;Branding and Portals&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Configuration Managers
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a CloudBolt Configuration Manager. Choose from Puppet, Puppet Enterprise, and Ansible.&#160;For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;configuration-managers.html&quot; target=&quot;_blank&quot;&gt;Configuration Managers&lt;/a&gt;.&#160;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Container Orchestrators
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a CloudBolt Container Orchestrator. Kubernetes is the currently supported technology. For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;container-orchestrators.html&quot; target=&quot;_blank&quot;&gt;Container Orchestrators&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Connection Info
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents &lt;a href=&quot;connection-info.html&quot; target=&quot;_blank&quot;&gt;Connection Info&lt;/a&gt; in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Content Pages
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Content Pages in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Database
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Allows the user to export the CloudBolt database.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Dashboard
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents the CloudBolt Dashboard and its widgets.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Data Protection
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a Data Protection integration in CloudBolt.&#160;For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;data-protection.html&quot; target=&quot;_blank&quot;&gt;Data Protection&lt;/a&gt;.&#160;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Email and Email Servers
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Email refers to &lt;a href=&quot;email.html&quot; target=&quot;_blank&quot;&gt;Email Servers&lt;/a&gt; and &lt;a href=&quot;customizing-email-templates.html&quot; target=&quot;_blank&quot;&gt;Email Templates&lt;/a&gt; in CloudBolt.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Environments
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a CloudBolt&#160;&lt;a href=&quot;environments.html&quot; target=&quot;_blank&quot; style=&quot;box-sizing: border-box; background-color: #ffffff; text-align: left;&quot;&gt;Environment&lt;/a&gt;&lt;span style=&quot;text-align: left; background-color: #ffffff;&quot;&gt;.&lt;/span&gt;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        External Orchestrators
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents an External Orchestrator in CloudBolt.&#160;For information about this feature in CloudBolt, see&#160;&lt;a href=&quot;external-orchestrators.html&quot; target=&quot;_blank&quot;&gt;External Orchestrators&lt;/a&gt;.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Forgot Password
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Allows the user to initiate a password reset and generate a new token. See &lt;a href=&quot;creating-a-new-user.html#password-reset&quot; target=&quot;_blank&quot;&gt;Password Reset&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Groups
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a Group in CloudBolt. For information about this feature in CloudBolt, see &lt;a href=&quot;groups-permissions.html&quot; target=&quot;_blank&quot;&gt;Groups&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        ITSM
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents an ITSM Provider in CloudBolt. For more information about this feature in CloudBolt, see &lt;a href=&quot;it-service-management-itsm.html&quot; target=&quot;_blank&quot;&gt;ITSM&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Jobs
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Jobs&#160;in CloudBolt. For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;recurring-jobs.html&quot; target=&quot;_blank&quot;&gt;Jobs&lt;/a&gt;.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Load Balancers
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Load Balancers&#160;in CloudBolt. For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;load-balancers.html&quot; target=&quot;_blank&quot;&gt;Load Balancers&lt;/a&gt;.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Logs
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a Log in CloudBolt. Creates a ZIP download of all the log files for support, includes all CloudBolt logs and weblog.&#160;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Networks
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents &lt;a href=&quot;networks.html&quot; target=&quot;_blank&quot;&gt;Networks&lt;/a&gt; in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Orders
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents &lt;a href=&quot;catalog.html&quot; target=&quot;_blank&quot;&gt;Orders&lt;/a&gt; in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        OS Builds
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents OS Builds&#160;in CloudBolt.&#160;For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;os-builds.html&quot; target=&quot;_blank&quot;&gt;OS Builds&lt;/a&gt;.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        OS Images
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents OS Images in CloudBolt.&#160;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Permissions
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents &lt;a href=&quot;permissions.html&quot; target=&quot;_blank&quot;&gt;Permissions&lt;/a&gt; in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Product Licenses
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        
+        Represents a CloudBolt Software product license.
+        
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Provision Engines
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        
+        Represents a Provision Engine in CloudBolt. Choose from currently available options: HP Server Automation, Cobbler, Razor.&#160;For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;provisioning-engines.html&quot; target=&quot;_blank&quot;&gt;Provision Engines&lt;/a&gt;.&#160;
+        
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Resource Handlers
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents&#160;a supported Resource Handler technology. Current options are AWS, Google Cloud Platform (GCP), and VMware.&#160;&#160;For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;resource-handlers.html&quot; target=&quot;_blank&quot; style=&quot;text-align: left;&quot;&gt;Resource Handlers&lt;/a&gt;.&#160;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Resource Types
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Resource Types (&lt;a href=&quot;catalog.html#h2__889080641&quot; target=&quot;_blank&quot;&gt;X as a Service&lt;/a&gt;) in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Roles
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        
+        Represents a Role in CloudBolt. For more information about this feature in CloudBolt, see &lt;a href=&quot;groups-permissions.html&quot; target=&quot;_blank&quot;&gt;Roles&lt;/a&gt;.
+        
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Rules
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents &lt;a href=&quot;rules.html&quot; target=&quot;_blank&quot;&gt;Rules&lt;/a&gt; in CloudBolt.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        System
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents System Status and System Setting of the CloudBolt instance.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        SIEM
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Security Information and Event Management (&lt;a href=&quot;siem.html&quot; target=&quot;_blank&quot; style=&quot;box-sizing: border-box; background-color: #ffffff; text-align: left;&quot;&gt;SIEM&lt;/a&gt;&lt;span style=&quot;text-align: left; background-color: #ffffff;&quot;&gt;) Providers in CloudBolt. Splunk is the currently supported Provider.&lt;/span&gt;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        SSH Keys
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents SSH Keys&#160;in CloudBolt.&#160;&#160;For more information about this feature in CloudBolt, see&#160;&lt;a href=&quot;ssh-keys.html&quot; target=&quot;_blank&quot;&gt;SSH Keys&lt;/a&gt;.&#160;&#160;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        SSL Trust Stores
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents an SSL Trust Store. SSL Trust Stores are referred to as&#160;&lt;a href=&quot;ssl-root-certificates.html&quot; target=&quot;_blank&quot; style=&quot;box-sizing: border-box; background-color: #ffffff; text-align: left;&quot;&gt;SSL Root Certificates&lt;/a&gt;&lt;span style=&quot;text-align: left; background-color: #ffffff;&quot;&gt;&#160;in CloudBolt.&lt;/span&gt;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        SSO
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents a &lt;a href=&quot;single-sign-on-and-saml.html&quot; target=&quot;_blank&quot;&gt;Single Sign-On&lt;/a&gt; provider integration within CloudBolt. Options include Okta and Generic SAML request.&#160;
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Software Defined Networks and Platforms
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents Software-Defined Networks and Platforms, like those used in VMware&#39;s &lt;a href=&quot;nsx.html&quot; target=&quot;_blank&quot;&gt;NSX&lt;/a&gt; and &lt;a href=&quot;network-virtualization.html&quot; target=&quot;_blank&quot;&gt;NSX-T&lt;/a&gt;.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        UI Extensions
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        Represents UI Extensions in CloudBolt. UI Extensions are downloaded from the&#160;&lt;a href=&quot;content-library.html&quot; target=&quot;_blank&quot; style=&quot;box-sizing: border-box; background-color: #ffffff; text-align: left;&quot;&gt;Content Library&lt;/a&gt;.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;width: 349px;&quot;&gt;
+        Users
+      &lt;/th&gt;
+      &lt;td style=&quot;width: 1201px;&quot;&gt;
+        &lt;span style=&quot;text-align: left; background-color: #ffffff;&quot;&gt;Represents&#160;&lt;/span&gt;&lt;a href=&quot;users.html&quot; target=&quot;_blank&quot; style=&quot;box-sizing: border-box; background-color: #ffffff; text-align: left;&quot;&gt;Users&lt;/a&gt;&#160;in CloudBolt.
+        &lt;br/&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt; -->  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="swaggerhub-user-interface.html" class="articleActions_link CHNavLinkPrevious">SwaggerHub User Interface</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="actions-api.html" class="articleActions_link CHNavLinkNext">Actions</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

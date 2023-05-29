@@ -1,0 +1,28 @@
+{% extends 'dialogs/dialog.html' %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block non_form_content %}
+
+    {% if profiles %}
+        <p>
+            {% if profiles|length > 1 %}
+                {% trans "Manage permissions for the" %} <span data-toggle='tooltip' title='{{ full_names_csv }}'>{{ profiles|length }}  {% trans "selected users" %}</span>.
+            {% else %}
+                {% trans "Manage permissions for the" %} <span data-toggle='tooltip' title='{{ full_names_csv }}'>{% trans "selected user" %}</span>.
+            {% endif %}
+        </p>
+    {% else %}
+        {% trans "No users were selected." %}
+    {% endif %}
+
+{% endblock %}
+
+
+{% block form_content %}
+    {% if profiles %}
+        <table class="">
+            {{ form }}
+        </table>
+    {% endif %}
+{% endblock %}

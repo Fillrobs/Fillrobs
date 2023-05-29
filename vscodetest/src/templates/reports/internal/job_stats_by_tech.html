@@ -1,0 +1,38 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block onReady %}
+var technologies = {{ technologies|to_json }};
+var durations = {{ durations|to_json }};
+
+$('#chart_div').highcharts(_.merge(c2.charts.serverBarChartDefaults, {
+    title: {
+        text: '{% trans "Job Duration by Technology {{ last_days_note }}" %}'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: technologies
+    },
+    yAxis: {
+        title: { text: '{% trans "Job duration in seconds" %}' }
+    },
+    series: [
+        {
+            name: '{% trans "Duration" %}',
+            data: durations
+        }
+    ],
+    exporting: {
+        filename: 'CB_Job_Duration_by_Tech',
+        toCSV: function() {
+            return c2.downloads.arrayToCSV(
+                ['{% trans "Technology" %}', '{% trans "Job Duration" %}'],
+                _.zip(technologies, durations));
+        }
+    }
+}));
+{% endblock %}

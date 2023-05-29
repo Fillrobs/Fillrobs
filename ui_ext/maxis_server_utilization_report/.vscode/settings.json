@@ -1,0 +1,15 @@
+{
+  "workbench.colorCustomizations": {
+    "scrollbarSlider.activeBackground": "#2f2f2e",
+    "scrollbarSlider.background": "#ff5500",
+    "scrollbar.shadow": "#ff0000",
+    "scrollbarSlider.hoverBackground": "#ff5500",
+    "activityBar.background": "#462514",
+    "titleBar.activeBackground": "#61341B",
+    "titleBar.activeForeground": "#FEFBFA"
+  },
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none"
+}

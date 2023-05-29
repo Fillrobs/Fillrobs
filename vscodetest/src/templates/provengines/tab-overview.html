@@ -1,0 +1,44 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load pe_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'provengine_edit' provengine.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'provengine_delete' provengine.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+
+<dl>
+  <dt>Technology:</dt>
+  <dd>{{ provengine|provengine_icon }} {{ provengine.provision_technology.name }}</dd>
+
+  <dt>Name:</dt>
+  <dd>{{ provengine.name}}</dd>
+
+  <dt>IP Address:</dt>
+  <dd>{{ provengine.ip }}</dd>
+  <dt>Port:</dt>
+  <dd>{{ provengine.port }}</dd>
+  <dt>Username:</dt>
+  <dd>{{ provengine.serviceaccount }}</dd>
+
+
+  <dt>Protocol:</dt>
+  <dd>{{ provengine.protocol }}</dd>
+
+  <dt>Environments:</dt>
+  <dd>
+      <div id="read_envs">
+          {{ provengine.environment_set.all|render_list:profile }}
+      </div>
+  </dd>
+
+</dl>

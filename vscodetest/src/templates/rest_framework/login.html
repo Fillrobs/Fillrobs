@@ -1,0 +1,68 @@
+{% extends "registration/base.html" %}
+{% load url from future %}
+
+{% block title %}Log In{% endblock %}
+
+{% block head %}
+<style>
+    /* These rules only apply to the no-Javascript case. */
+    .has-js {
+        display: none;
+    }
+</style>
+
+<script>
+    $(function () {
+        'use strict';
+        $('.no-js').css('display', 'none');
+        $('.has-js').css('display', 'block');
+
+        $('#id_username').focus();
+
+        $('input, select').addClass('form-control');
+    });
+</script>
+{% endblock head %}
+
+{% block body %}
+<div class="panel panel-default">
+    <div class="panel-heading text-center">
+        {% include "common/login_banner.html" %}
+    </div>
+    <div class="panel-body has-js text-left">
+        {% if form.errors %}
+        <p class="errors">
+        Incorrect username/password combination.<br> Please try again.
+        </p>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}" />
+
+            <div class="form-group">
+                {{ form.username.label_tag }} {{ form.username }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label_tag }} {{ form.password }}
+            </div>
+            {% if form.domain.label_tag %}
+            <div class="form-group">
+                {{ form.domain.label_tag }} {{ form.domain }}
+            </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-default btn-block">Log In</button>
+        </form>
+    </div>
+    <div class="panel-body no-js text-left">
+        <p class="alert alert-warning">
+        Your browser does not support Javascript or is blocking scripts. This
+        may be due to restrictive security settings; check your browser
+        settings and then reload this page.
+        </p>
+    </div>
+    </div>
+</div>{# end .panel #}
+
+{% endblock body %}

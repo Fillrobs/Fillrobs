@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('customize-vms-during-provisioning',true);});
+//--></script><title>Customize VMs During Provisioning</title><script type="text/javascript">//<!--
+var articleTitleText='Customize VMs During Provisioning';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Customize VMs During Provisioning</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="servers.html">Servers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Customize VMs During Provisioning</span></span>
+  </div><p>
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">
+  </span>
+</p>
+<div id="extending-disks" data-children-count="1">
+  <h1 id="h1__369812279" data-has-heading-anchor="true">
+    Customize VMs
+  <a href="customize-vms-during-provisioning.html#h1__369812279" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+  <ul class=""><li class="CHMiniToc_heading2"><a href="customize-vms-during-provisioning.html#h2_492235682">Extending Disks</a></li><li class="CHMiniToc_heading2"><a href="customize-vms-during-provisioning.html#h2_432000422">Adding Additional Disks</a></li><li class="CHMiniToc_heading2"><a href="customize-vms-during-provisioning.html#h2_2129815707">VMware Linked Clones</a></li><li class="CHMiniToc_heading2"><a href="customize-vms-during-provisioning.html#h2_274665382">Customizing Open Ports</a></li><li class="CHMiniToc_heading2"><a href="customize-vms-during-provisioning.html#h2_440506577">Setting up User-Data Parameters</a></li></ul>
+  <h2 style="box-sizing: border-box; margin-top: 0px;" id="h2_492235682" data-has-heading-anchor="true">
+    Extending Disks
+  <a href="customize-vms-during-provisioning.html#h2_492235682" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p style="box-sizing: border-box; margin: 0px 0px 24px;">
+    CloudBolt supports extending the primary disk at provision time for VMs of all OS family types. Azure is not currently supported for disk extension.</p>
+ <!-- &lt;table class=&quot;infoBox&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot;&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td class=&quot;infoBoxImageCell&quot;&gt;
+          &lt;img alt=&quot;Information&quot; src=&quot;../Storage/cloudbolt-docs/info.png&quot;/&gt;
+        &lt;/td&gt;
+        &lt;td&gt;
+          Depending on the operating system, GCE instances can automatically resize the partition to recognize the additional space after you restart the instance. To check if your instance’s operating system supports automatic resizing, refer to&#160;&lt;a href=&quot;https://cloud.google.com/compute/docs/disks/create-root-persistent-disks#autoresize&quot;&gt;GCE’s documentation on customizing root disks&lt;/a&gt;.&#160;
+        &lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt; -->
+  <div id="extending-linux-disks">
+    <h3 id="h3__1499835354" data-has-heading-anchor="true">
+      Extending Linux Disks
+    <a href="customize-vms-during-provisioning.html#h3__1499835354" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      To configure a CloudBolt Environment to extend the primary disk on provisioning for Linux servers only:
+    </p>
+    <ol>
+      <li>
+        Add the parameter <i>Extend Primary Disk During Provisioning</i> to the environment and set its value to True.
+      </li>
+      <li>
+        Include the <i>Disk Size</i>&nbsp;parameter either in a preconfiguration or as a parameter on the group or environment. This value represents the final size in GB for the primary disk.
+      </li>
+    </ol>
+    <p>
+      On Linux servers, CloudBolt extends the disk, but does not extend partitions to fill the new space. Therefore, CloudBolt does not need to be able to interact with the OS for disk extension purposes. Extending partitions is the responsibility of the admin, after the server is provisioned.
+    </p>
+  </div>
+  <div id="extending-windows-disks">
+    <h3 id="h3__1474306329" data-has-heading-anchor="true">
+      Extending Windows Disks
+    <a href="customize-vms-during-provisioning.html#h3__1474306329" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      To configure a CloudBolt Environment to extend the primary disk on provisioning for Windows servers:
+    </p>
+    <ol><li>
+        Add the parameter <i>Extend Primary Disk During Provisioning</i>&nbsp;to the Environment, Group, or Blueprint, and set its value to <i>True</i>.
+      </li><li>
+        <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">Set the parameter <i>Password</i> on the environment to match the template password. This value will not be shown to users.</span>
+      </li><li>
+        <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">Include the <i>Disk Size</i>&nbsp;parameter either in a preconfiguration or as a parameter on the Group or Environment. This value represents the final size in GB for the primary disk. Below shows the  preconfiguration setup:</span></li></ol><p style="margin-left: 40px;"><img src="../Storage/cloudbolt-docs/Internal%20Entities/disk-preconfig.png" alt="" style="width: 400px; height: 275px;"/><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"></span></p>
+    <p>
+      In addition to extending the size of the disk hardware, CloudBolt will also resize the C: partition for Windows. The extended disk must be labeled “Hard disk 1” in VMware and C: in the Windows template. The <i>Password</i> parameter is necessary for OS interaction.
+    </p>
+    <div>
+      <table class="infoBox" cellpadding="0" cellspacing="0">
+        <tbody>
+          <tr>
+            <td class="infoBoxImageCell">
+              <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+            </td>
+            <td class="infoBoxText">
+              Extending disks is not supported when provisioning a server as a VMware linked clone.&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="adding-additional-disks">
+  <h2 id="h2_432000422" data-has-heading-anchor="true">
+    Adding Additional Disks
+  <a href="customize-vms-during-provisioning.html#h2_432000422" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    To allow users to add additional disks to a server during provisioning, add parameters of the pattern <i>Size for Disk 2</i> to the group or environment. The value of each such parameter represents the size of the additional disk in GB. The parameters for the second through fourth disks come built-in to CloudBolt and ready to add to a group or environment. To add more than four disks (up to 15 on VMware), manually create additional integer Parameters (via the Admin page), starting with the name <i>disk_4_size</i> and label <i>Size for Disk 5</i> and following the pattern from there. Like any parameter, <i>Size for Disk 2</i> and its companions can be constrained or given particular options, allow users to enter any value they want, or even be included in a preconfiguration.
+  </p>
+  <p>
+    These additional disks will have no partition or filesystem created automatically. This must be done post provisioning from the OS directly.
+  </p>
+  <p>
+    For VMware VMs, the default datastore and provisioning type will be the same as the initial disk. The additional disks can be provisioned to a datastore other than the one being used for the initial disk by using a custom parameter. From the Parameters list page (found via the Admin page), add a new DiskStorage type parameter. Give it the name ‘disk_1_datastore’ and label ‘Datastore for Disk 2’. Values for this parameter will be the name of the datastore to provision the second disk to. Alternatively, it can also be a comma separated list of datastore names. Like any other parameter, it can be constrained or given particular options, left unconstrained so users can enter any value they want, or can be included in a preconfiguration. When the ‘Datastore for Disk 2’ parameter is not specified by the user, the second disk will be provisioned to the same datastore as the initial disk. Datastore parameters for disks beyond the second can be created following the same pattern, starting with the name ‘disk_2_datastore’ and label ‘Datastore for Disk 3’ for the third disk and continuing from there.
+  </p>
+  <p>
+    Similarly, for Azure VMs, additional disks can be provisioned to a particular storage account by using a custom parameter. From the Parameters list page (found via the Admin page), add a new string type parameter with the name ‘disk_1_storage_account’ and label ‘Storage Account for Disk 2’. If this parameter is added to the group or environment so it appears in the order form, users can enter a value that is the name of a storage account to provision the 2nd disk to. When the ‘Storage Account for Disk 2’ parameter is not included or given a value, the 2nd disk will be provisioned to either the storage account selected for the provision overall or a newly-created storage account if none was selected for the provision overall. Valid values for storage accounts can be found on the Azure Parameters tab of the environment, but if an invalid value is entered then it will simply create a new storage account for the additional disk. Storage account parameters for disks beyond the 2nd can be created following the same pattern, starting with the name ‘disk_2_storage_account’ and label ‘Storage Account for Disk 3’ for the 3rd disk and continuing from there.
+  </p>
+  <p>
+    <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">For AWS instances, the disk will be added to the same availability zone as the instance, because they must be the same for it to be attached. By default, the root volume will follow the encryption set on the AMI. You can encrypt the root volume by adding the&nbsp;</span><i><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">aws_volume_encryption</span>&nbsp;</i>and passing a&nbsp;<cite><span style="font-style: normal;"><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">True</span>&nbsp;value. Additionally, you can encrypt additional disks in AWS by using a custom parameter similarly to Azure and VMware. From the Parameters list page (found via the Admin page), add a new boolean type parameter with the name ‘disk_1_encryption’ and label ‘Encryption for Volume 2’. If this parameter is not set or un-checked, CloudBolt will default to building an unencrypted volume. If manually adding disks after provisioning, this value is un-needed as there is a checkbox on the add disk form. Encryption parameters for disks beyond the 2nd can be created following the same pattern, starting with the name ‘disk_3_encryption’ and label ‘Storage Account for Volume 3’ for the third disk and continuing from there.</span></cite>
+  </p>
+</div>
+<div id="vmware-linked-clones">
+  <h2 id="h2_2129815707" data-has-heading-anchor="true">
+    VMware Linked Clones
+  <a href="customize-vms-during-provisioning.html#h2_2129815707" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <div>
+    <p>
+      Read about VMware linked clones on the&nbsp;<a href="https://www.vmware.com/support/ws5/doc/ws_clone_typeofclone.html" target="_top">VMware website</a>&nbsp;before reading the below documentation. Though VMware’s documentation only exposes linked clones as being a feature of VMware Workstation, it is available for the vCenter client as well. This is how CloudBolt is able to expose linked clones to its users.
+    </p>
+  </div>
+  <p>
+    A linked clone is a copy of a virtual machine that shares virtual disks with the parent virtual machine in an ongoing manner. This conserves disk space, allows multiple virtual machines to use the same software installation, and significantly cuts down provisioning time. To enable linked cloning in CloudBolt, an administrator must first take a snapshot of the template. This means first converting the template to a virtual machine, then taking a snapshot. Take care and be conscious of the point in time where the snapshot is taken; all linked clones will share the virtual disk at the point of the snapshot.
+  </p>
+  <p>
+    Next, add the ‘Provision as VMware Linked Clone’ parameter either globally or to the group or environment. Setting this parameter to True will provision servers as linked clones.
+  </p>
+</div>
+<div id="customizing-open-ports">
+  <h2 id="h2_274665382" data-has-heading-anchor="true">
+    Customizing Open Ports
+  <a href="customize-vms-during-provisioning.html#h2_274665382" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    The Azure Resource Handler supports Parameters for setting Open TCP Ports and Open UDP Ports. Those values will be passed to the server when provisioning, and will replace any default ports those resource handlers would have opened on new servers. For example, when provisioning a Windows server on Azure, the default behavior is to open port 3389 to allow RDP , and ports 5985-5986 to allow WinRM. If ports are specified using these parameters, those specified will be opened and the defaults will not.
+  </p>
+  <p>
+    Note, remote access via CloudBolt expects the default ports to be open.
+  </p>
+</div>
+<div id="setting-up-user-data-parameters">
+  <h2 id="h2_440506577" data-has-heading-anchor="true">
+    Setting up User-Data Parameters
+  <a href="customize-vms-during-provisioning.html#h2_440506577" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In order to use CloudBolt to set user-data in one of the supported Resource Technologies, add the appropriate&nbsp;<i><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">user_data</span></i>&nbsp;parameter to your Blueprint or Environment:
+  </p>
+  <ul>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">AWS:&nbsp;</span><span class="inlineCode">aws_user_data</span>
+    </li>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">Nutanix:&nbsp;</span><span class="inlineCode">acropolis_user_data</span>
+    </li>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">OpenStack:&nbsp;</span><span class="inlineCode">add&nbsp;os_user_data</span></li>
+  <li>Alibaba: <span class="inlineCode">alibaba_user_data</span></li>
+  </ul>
+  <p>
+    When you add one of these parameters to your Blueprint or Environment, you may set default options or make it required. Your user_data may also include variables from your Server for CloudBolt to interpret and replace.
+  </p>
+  <p>
+    Here is an example of a&nbsp;<a href="https://cloudinit.readthedocs.io/en/latest/topics/format.html#cloud-config-data" target="_top">Cloud Init</a>&nbsp;script that sets a static IP on a CloudBolt-provisioned CentOS image:
+  </p>
+</div>
+<div data-children-count="1">
+  <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#cloud-config</span><br><span class="cm-variable">hostname</span>: {{<span class="cm-variable">server</span><span class="cm-variable">.hostname</span>}}<br><span class="cm-variable">fqdn</span>: {{<span class="cm-variable">server</span><span class="cm-variable">.hostname</span>}}<span class="cm-error">.{</span>{<span class="cm-variable">server</span><span class="cm-variable">.sc_nic_0</span><span class="cm-variable">.dns_domain</span>}}<br><span class="cm-variable">write_files</span>:<br>  <span class="cm-operator">-</span> <span class="cm-variable">path</span>: <span class="cm-operator">/</span><span class="cm-variable">etc</span><span class="cm-operator">/</span><span class="cm-variable">sysconfig</span><span class="cm-operator">/</span><span class="cm-variable">network</span><span class="cm-operator">-</span><span class="cm-variable">scripts</span><span class="cm-operator">/</span><span class="cm-variable">ifcfg</span><span class="cm-operator">-</span><span class="cm-variable">eth0</span><br>    <span class="cm-variable">permissions</span>: <span class="cm-string">"0644"</span><br>    <span class="cm-variable">owner</span>: <span class="cm-string">"root"</span><br>    <span class="cm-variable">content</span>:<br>      <span class="cm-variable">DEVICE</span>=<span class="cm-variable">eth0</span><br>      <span class="cm-variable">BOOTPROTO</span>=<span class="cm-string">"none"</span><br>      <span class="cm-variable">NETMASK</span>=<span class="cm-string">"{{server.sc_nic_0.netmask}}"</span><br>      <span class="cm-variable">IPADDR</span>=<span class="cm-string">"{{server.sc_nic_0_ip}}"</span><br>      <span class="cm-variable">GATEWAY</span>=<span class="cm-string">"{{server.sc_nic_0.gateway}}"</span><br>      <span class="cm-variable">ONBOOT</span>=<span class="cm-string">"yes"</span><br>      <span class="cm-variable">DNS1</span>=<span class="cm-string">"{{server.sc_nic_0.dns1 }}"</span><br><span class="cm-variable">runcmd</span>:<br>  <span class="cm-operator">-</span> [<span class="cm-variable">ifdown</span>, <span class="cm-variable">eth0</span>]<br>  <span class="cm-operator">-</span> [<span class="cm-variable">ifup</span>, <span class="cm-variable">eth0</span>]</pre></td></tr></table>
+</div>
+<p>
+  Before passing that data to the given Resource Technology, CloudBolt will replace&nbsp;<span style="font-family: &quot;Andale Mono&quot;, AndaleMono, monospace; font-size: 10pt;">{{server.hostname}}</span>&nbsp;with the server hostname it is currently operating on, as well as all the other elements inside the double curly brackets.
+  <br/>
+</p>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="server-views.html" class="articleActions_link CHNavLinkPrevious">Server Views</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="physical-server-discovery.html" class="articleActions_link CHNavLinkNext">Physical Server Discovery</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

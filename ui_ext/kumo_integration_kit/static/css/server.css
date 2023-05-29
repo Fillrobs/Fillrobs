@@ -1,0 +1,200 @@
+#server-tab .curr-sep {
+  margin: auto;
+}
+
+#server-tab .mb-14 {
+  margin-bottom: 14%;
+}
+
+#server-tab .mb-13 {
+  margin-bottom: 13%;
+}
+
+#server-tab .wa-20 {
+  width: 20%;
+  border-right: 1px solid #ccc;
+}
+
+#server-tab .wa-80 {
+  width: 80%;
+  margin-left: 10px;
+}
+
+#server-tab #server-container h3 {
+  font-weight: 700;
+  word-break: break-word;
+  font-size: 22px;
+  margin-bottom: 0px;
+}
+
+#server-tab #date-sub-section h3 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+}
+
+#server-tab #server-container h4 {
+  word-break: break-word;
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 2%;
+}
+
+#server-tab #date-sub-section h4 {
+  font-size: 14px !important;
+}
+
+#server-tab .section-head {
+  margin-bottom: 15px;
+}
+
+#server-tab .section-head h3{
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+
+#server-tab #reportrange {
+  background: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 14px;
+  line-height: 10px;
+  border-radius: 4px;
+}
+
+#server-tab hr {
+  width: 96%;
+  border-top: 1px solid #CCC;
+  margin-top: 350px;
+}
+
+#server-tab .dataTables-header,
+#server-tab .dataTables-footer {
+  display: none;
+}
+
+#server-tab .exporting-option {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+}
+
+#server-tab .fa-file-excel{
+  color: #2aa522;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+#server-tab .fa-file-pdf {
+  color: #f40f02;
+  font-size: 20px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+#server-tab .fa-long-arrow-up {
+  color: green;
+  margin-top: 3px;
+}
+
+#server-tab .fa-long-arrow-down {
+  color: red;
+  margin-top: 3px;
+}
+
+#server-tab .dataTable {
+  font-size: 18px !important;
+}
+
+#server-tab .dataTable thead {
+  font-size: 12px !important;
+}
+
+#server-tab .dataTable thead th {
+  background: white !important;
+  border-bottom: 0px;
+}
+
+#server-tab .dataTable tbody td {
+  border: 0px !important;
+}
+
+#server-tab .serieName {
+  float: left;
+  cursor: pointer;
+  font-size: 14px;
+  padding-top: 5px;
+}
+
+#server-tab #graph-legend .item {
+  clear:both;
+  padding-inline: 0px;
+}
+
+#server-tab .symbol {
+  width: 6px;
+  height: 43px;
+  margin-right: 5px;
+  margin-top: 2px;
+  float: left;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+}
+
+#server-tab .highcharts-button {
+  display:none;
+}
+
+#server-tab #date-sub-section {
+  margin-bottom: 15px;
+  padding-inline: 0px;
+}
+
+#server-tab #graph-sub-section {
+  padding-inline: 0px;
+}
+
+#server-tab #graph-legend {
+  padding-right: 0px;
+}
+
+#server-tab .legend-group {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 0px;
+  margin-bottom: 25px;
+}
+
+#server-tab .legend-value {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#server-tab .unselected {
+  opacity: 0.3 !important;
+}
+
+#server-tab .extra-bottom-text {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+#server-tab table.dataTable {
+  margin: 0 auto !important;
+  border: 0px !important;
+}
+
+#server-tab .panel {
+  border: 0px !important;
+  box-shadow: none;
+}
+
+#server-tab .dataTable tbody tr.even {
+  background-color: #F1F1F1 !important;
+}
+
+#server-tab .dataTable tbody tr.odd {
+  background-color: white !important;
+}
+

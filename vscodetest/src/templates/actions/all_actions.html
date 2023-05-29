@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+{% load hook_tags %}
+{% block topnav %}{% trans "admin" %}{% endblock %}
+{% portal_label as the_portal_label %}
+{% block content %}
+<h1>{% trans "Actions" %}</h1>
+
+<section class="intro">
+    <p>
+    {% blocktrans %}
+    A powerful way to automate your infrastructure, actions are executable code in
+    the form of {{ the_portal_label }} plugins, scripts, flows, email hooks or webhooks.{% endblocktrans %}
+    {% include 'common/docs_link.html' with url="orchestration.html" %}
+    </p>
+</section>
+
+<div class="well well-sm">
+    <h4>{% trans "Contexts in which actions may be executed" %}</h4>
+    <ul class="list-inline">
+        {% include 'actions/action_category_admin_links.html' with licensed_modules=licensed_modules placement="bottom" %}
+        <li>
+            {% trans "Catalog" as service_catalog_title %}
+            {% trans "Automate blueprint installation and configuration processes" as service_catalog_description %}
+            {% trans "Add new buttons on servers for users to run actions" as server_actions_description %}
+            <a href="{% url 'service_catalog' %}">
+                {% text_tooltip service_catalog_title service_catalog_description "bottom" hint=False %}
+            </a>
+        </li>
+    </ul>
+</div>
+
+{% if show_content_library %}
+    <div class="pull-right">
+        <div class="btn-group" data-toggle="button-tabs" data-buttontabs-persist="off">
+            <a href="#actions-table-view" class="btn btn-default active"
+                data-toggle="tooltip" title="View actions on this server">
+                <span class="glyphicon glyphicon-list"></span>
+            </a>
+
+            <a class="btn btn-default no-tooltip-affordance"
+                href="#actions-content-library-view"
+                data-toggle="tooltip"
+                data-placement="{{ placement|default:'top' }}"
+                title="View and use actions from the {% portal_label %} Content Library">
+                <i class="fas fa-cloud-download-alt"></i>
+            </a>
+        </div>
+    </div>
+{% endif %}
+<div class="clearfix"></div>
+<p></p>
+
+<div class="tab-content">
+    <div id="actions-table-view" class="tab-pane active">
+        {% include "actions/base_actions_table.html" %}
+    </div>
+
+    {% if show_content_library %}
+        <div id="actions-content-library-view" class="tab-pane" data-include="{% url 'content_library_actions' %}">
+            <div class="clearfix"></div>
+            <p class="text-center">{% trans "Loading remote actions..." %}</p>
+            <div class="spinner"></div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block onReady %}
+c2.buttonTabs.init();
+{% endblock %}

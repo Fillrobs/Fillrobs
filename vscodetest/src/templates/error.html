@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load global_preferences_tags %}
+
+{% comment %}
+You can either extend this template (like the 500, 403, 404 pages) or provide
+a title and message in the context.
+{% endcomment %}
+
+{% block content %}
+ {% block errorcontent %}
+    {% if title %}<h1>{{ title }}</h1>{% endif %}
+    {% if message %}<p>{{ message }}</p>{% endif %}
+ {% endblock %}
+ {% generic_error_message %}
+{% endblock %}

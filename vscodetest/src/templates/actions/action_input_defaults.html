@@ -1,0 +1,44 @@
+{% comment %}
+Used to show action inputs and allow admins to edit their default values for
+wrappers (orch actions, teardown SIs, resource actions, etc).
+{% endcomment %}
+{% load helper_tags %}
+
+{% if action.input_mappings.all and profile.is_cbadmin %}
+    {% if use_dt_dd %}
+    <dt>
+    {% else %}
+    <h5>
+    {% endif %}
+      Action Inputs:
+      {% infotip "This action takes inputs. Assign default values for these parameters below. <p><p>To change anything else about these inputs, go edit the underlying action." %}
+    {% if use_dt_dd %}
+    </dt>
+    {% else %}
+    </h5>
+    {% endif %}
+    {% if use_dt_dd %}
+    <dd>
+    {% endif %}
+    <ul>
+        {% for input in action.input_mappings.all %}
+            <li>
+                {% with input_label=input.hook_input.label %}
+                    {{ input_label }}:
+
+                    {% if input.default_value_id %}
+                        <code>{{ input.default_value.display_value }}</code>
+                    {% endif %}
+                    <a href="{% url edit_url action.id %}"
+                        class="open-dialog no-tooltip-affordance"
+                        data-toggle="tooltip"
+                        data-dialog-width="800px"
+                        title="Edit the default value for {{ input_label }}"><i class="icon-edit"></i></a>
+                {% endwith %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% if use_dt_dd %}
+    </dd>
+    {% endif %}
+{% endif %}

@@ -1,0 +1,22 @@
+<!doctype html>
+<!--[if IE 9]>    <html lang="en" class="ie ie9">  <![endif]-->
+<!--[if gt IE 9]> <html lang="en" class="ie">      <![endif]-->
+<!--[if !IE]><!--><html lang="en">                 <!--<![endif]-->
+<head>
+    {% include "common/head_metadata.html" %}
+
+    <title>{% block title %}{% endblock %}</title>
+
+    {% include "common/head_css_includes.html" %}
+    {% include "common/head_javascript_includes.html" %}
+
+    {% block head %}{% endblock %}
+</head>
+<body class="splash">
+    <div class="dead-center-container">
+        <div class="dead-center-content">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

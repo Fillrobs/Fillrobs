@@ -1,0 +1,43 @@
+/* The recommended way for CloudBolt customers to customize the background or
+ * link colors for their installation is to:
+ *
+ *   1. Copy this customer.css file to this location:
+ *
+ *        /var/opt/cloudbolt/proserv/static/css
+ *
+ *      You may have to create the directory.
+ *
+ *   2. Remove the comments around the sections that correspond to the styles you
+ *      want to change.
+ *
+ *   3. Edit the styles by replacing the color names with your own CSS color
+ *      names or with hexadecimal color values formatted like: #FFFFFF
+ *
+ *   4. Finally run
+ *
+ *        /opt/cloudbolt/manage.py collectstatic
+ *
+ *      This will update your installation's static files so that your changes
+ *      take effect.
+ *
+ */
+
+
+/* Background color...
+html, body {
+    background-image: none;
+    background-color: silver;
+}
+*/
+
+/* Link colors...
+a:link { color: blue !important; }
+a:visited { color: purple !important; }
+a:hover { color: blue !important; }
+*/
+
+/* Link colors for navigation bar...
+#navigation a:link { color: blue !important; }
+#navigation a:visited { color: purple !important; }
+#navigation a:hover { color: blue !important; }
+*/

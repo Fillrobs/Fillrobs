@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load tab_tags %}
+{% load i18n %}
+{% block topnav %}servicenow{% endblock %}
+
+{% block content %}
+    {% draw_tabs tabs %}
+{% endblock %}

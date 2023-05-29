@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% if env_vmware_cluster %}
+    <dt>{% trans "VMware cluster:" %}</dt>
+    <dd>
+        {% if env_vmware_cluster != "-" %}
+            {{ env_vmware_cluster }}
+        {% else %}
+            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+            <a class="icon-edit open-dialog"
+                href="{% url 'edit_env_vmware_cluster' environment.id %}"></a>
+        {% endif %}
+    </dd>
+{% endif %}

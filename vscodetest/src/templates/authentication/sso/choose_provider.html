@@ -1,0 +1,13 @@
+{% load auth_tags %}
+
+<div id="chooseSSO" class="text-center">
+    <div class="btn-group-vertical" id="choose_technology">
+        {% for provider in providers %}
+        <a href="{% url 'create_sso_dialog' provider.slug %}"
+           class="btn btn-default js-dialog-link">
+           {% sso_icon provider %}
+           <span>{{ provider.title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>

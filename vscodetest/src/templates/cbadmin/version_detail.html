@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block title %}CloudBolt Release Information{% endblock %}
+
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+<span class="uplink"><a href="{% url 'admin_home' %}">Admin</a></span>
+
+<h1 class="h1">{% trans "CloudBolt Version & Upgrade Info" %}</h1>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>Currently Installed</h2>
+                <dl>
+                    <dt>Version</dt>
+                    <dd>{{ version }}</dd>
+
+                    <dt>Build</dt>
+                    <dd>{{ build }}</dd>
+                </dl>
+                {% if recent_release_check and not version_info %}
+                    <div class="alert alert-success padding">
+                        This is the latest version of CloudBolt.
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h2>Version Check Settings</h2>
+                {% csrf_token %}
+                <form id="version-check-form" class="bootstrap3 form-horizontal">
+                {% crispy form %}
+                </form>
+
+                <div class="btn-toolbar">
+                    <a href="{% url 'refresh_release_info' %}" class="btn btn-default"
+                       id="refresh-release-info" data-toggle="tooltip" title="Checks downloads.cloudbolt.io
+                        for the latest available releases and stores their information locally.">
+                        <span class="fas fa-redo"></span>
+                        Check for updates
+                    </a>
+                    <a href="https://support.cloudbolt.io/hc/en-us/sections/201319565-Download-CloudBolt"
+                       class="btn btn-default" id="info-on-all-releases" target="blank">
+                        <span class="fas fa-globe"></span>
+                        Info on All Releases
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if version_info %}
+    <h2 class="h2">Newer Versions Available</h2>
+    {% for version in version_info %}
+        <div class="panel panel-default panel-body">
+            <h3>{{ version.name }}{% if version.release_date %}, Released {{ version.release_date }} {% endif %}
+            </h3>
+                <div class="btn-toolbar">
+                    {% if not version.is_compatible %}
+                        Version {{ version.version }} is incompatible with the current version and must be upgraded
+                        manually. Please see <a href="{{ version.release_notes_url }}"target="blank"> the Release
+                        Notes</a> for more information.
+                    {% else %}
+                        {% if not version.downloaded_path %}
+                            <a href="{% url 'download_cloudbolt_upgrader' version.name %}"
+                            class="btn btn-default js-dialog-link">
+                                <span class="icon-import-from-web"></span>
+                                Download {{ version.version }} upgrader to CB server
+                            </a>
+                            <a href="{% url 'confirm_download_and_run_cloudbolt_upgrader' version.name %}"
+                                class="btn btn-default open-dialog">
+                                <span class="icon-import-from-web"></span>
+                                Download and upgrade to {{ version.version }}
+                            </a>
+                        {% endif %}
+                        {% if version.release_notes_url %}
+                            <a href="{{ version.release_notes_url }}"
+                            class="btn btn-default" target="blank">
+                                Release Notes
+                                <span class="glyphicon glyphicon-new-window"></span>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            <dl>
+                {% if version.downloaded_path %}
+                    <dt>Upgrader downloaded to:</dt>
+                    <dd>/var/tmp/cloudbolt_upgrader_9.1_0af5b19.tgz</dd>
+                    <dt></dt>
+                    <dt>
+                        <a href="{% url 'confirm_download_and_run_cloudbolt_upgrader' version.name %}"
+                        class="btn btn-default open-dialog">
+                        <span class="icon-import-from-web"></span>
+                        Upgrade to {{ version.version }}
+                    </a>
+                    </dt>
+                {% endif %}
+            </dl>
+        </div>
+    {% endfor %}
+{% endif %}
+{% if upgrader_stdout %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Upgrader Standard Output</h4>
+        </div>
+        <div class="panel-body remote-script-progress">
+            An upgrade seems to be running:
+            <pre>{{ upgrader_stdout }}</pre>
+        </div>
+    </div>
+{% endif %}
+{% if upgrader_stderr %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Upgrader Standard Error</h4>
+        </div>
+        <div class="panel-body remote-script-progress">
+            <pre>{{ upgrader_stderr }}</pre>
+        </div>
+    </div>
+{% endif %}
+
+<script>
+$(function() {
+    var $form = $('#version-check-form');
+
+    c2.forms.moveOffsetLabelsToLeftCol($form);
+
+    // Convert all checkboxes into toggle switches
+    $form.find('input[type=checkbox]').each(function() {
+        var $box = $(this);
+        $box.data('post-url', "{% url 'toggle_global_pref' %}?prop=" + $box.attr('name'));
+        $box.bootstrapToggle({
+            'width': 100,
+            'on': 'Enabled',
+            'off': 'Disabled'
+        });
+    });
+    $form.fadeIn();
+
+    c2.toggles.enablePostOnChange('input[type=checkbox]');
+});
+</script>
+
+{% endblock content %}

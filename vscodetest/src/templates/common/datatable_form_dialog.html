@@ -1,0 +1,21 @@
+{% extends 'dialogs/dialog.html' %}
+{% comment %}
+A template for use in dialogs that want to show a datatable of items, each item
+represented with a single clickable column.
+
+CSS in `dataTables.less` tweaks the datatable to hide containers for elements
+(header, pagination, etc.).
+{% endcomment %}
+
+{% block form_content %}
+<div id="dialog_datatable_form">
+    {{ form }}
+</div>
+
+<i>{{ extra_msg }}</i>
+{% endblock form_content %}
+
+
+{% block on_ready %}
+  c2.dataTables.init();
+{% endblock on_ready %}

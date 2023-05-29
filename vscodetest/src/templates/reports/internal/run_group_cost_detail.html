@@ -1,0 +1,9 @@
+{% load helper_tags %}
+
+<div id="{{ table_config.table_id }}-toolbar" style="display:none" class="btn-toolbar" role="toolbar">
+    <div class="btn-group">
+        {% include 'reports/internal/toolbar_group_cost_detail.html' %}
+    </div>
+</div>
+
+{% datatable table_config rows %}

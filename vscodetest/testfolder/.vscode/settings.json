@@ -1,0 +1,14 @@
+{
+
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#372C06",
+        "titleBar.activeBackground": "#be5314",
+        "titleBar.activeForeground": "#FDFAF0"
+    },
+    "python.autoComplete.extraPaths": [
+        "G:/Metsi2/CloudBolt/Scripts/vscodetest/src/"
+    ],
+    "python.analysis.extraPaths": [
+        "G:/Metsi2/CloudBolt/Scripts/vscodetest/src/"
+    ],
+}

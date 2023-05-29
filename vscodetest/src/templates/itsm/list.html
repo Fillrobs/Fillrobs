@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% comment %}
+    only cb admins or global viewers should see this page
+{% endcomment %}
+{% load i18n %}
+{% load helper_tags %}
+{% load itsm_tags %}
+{% block topnav %}itsms{% endblock %}
+
+{% block content %}
+    <h1>ITSM</h1>
+
+    <div class="well well-sm">
+        <section class="intro" style="flex: 1 1 50%; margin-right: 2em;">
+                <p>
+                {% blocktrans %}
+                CloudBolt IT Service Management (ITSM) is a tool which allows CloudBolt servers to be synced with an ITSM provider.
+                {% endblocktrans %}
+                {% include 'common/docs_link.html' with url="it-service-management-itsm.html" %}
+                </p>
+        </section>
+    </div>
+
+    {% if not itsms or itsms.count == 0 %}
+        <div class="alert alert-warning">
+            <h4>{% trans 'Next Steps' %}</h4>
+            {% blocktrans %}
+                To start using ITSMs in CloudBolt, click the <b>Add an ITSM...</b> link below to create your
+                first IP Address Manager.
+            {% endblocktrans %}
+        </div>
+    {% endif %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+           href="{% url 'itsm_new' %}"
+           id="add_itsm">
+            <span class="icon-add"></span>
+            {% trans 'Add an ITSM...' %}
+        </a>
+    </div>
+
+    <table id="itsms" data-table>
+        <thead>
+            <tr>
+            <th>{% trans 'Name' %}</th>
+            <th>{% trans 'Technology' %}</th>
+            <th>{% trans 'IP Address' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for itsm in itsms %}
+                <tr>
+                    <td><a href="{% url 'itsm_detail' itsm.id %}">{{ itsm.name }}</a></td>
+                    <td>{{ itsm|itsm_icon }} {{ itsm.itsm_technology.name }}</td>
+                    <td>{{ itsm.ip }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block onReady %}
+
+    $('button[type=submit]').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+{% endblock onReady%}

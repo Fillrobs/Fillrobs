@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+{% load form_tags %}
+
+{% block content %}
+
+    <div class="dead-center-container">
+        <div class="dead-center-content">
+            <div class="panel panel-body panel-default text-center form-container">
+                <h3>Enter your credentials for this server.</h3>
+                <hr>
+                <p id="form-errors"></p>
+                <form class="form-horizontal" method="post" action="{% url 'save_remote_credentials' server_id %}">
+                        {% csrf_token %}
+                        {% get_draw_without_form_tag_helper "draw_without_form_tag" %}
+                        {% crispy form draw_without_form_tag %}
+                    <hr>
+                    <div class="btn-toolbar">
+                        <a href="{% url 'server_detail' server_id %}" class="btn btn-default">Cancel</a>
+                        <button name="action" type="submit"
+                            class="btn btn-primary">{{ submit }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    .form-container {
+        margin-top: 2%;
+        padding: 5%;
+        width: 50%;
+        text-align: center;
+    }
+
+    </style>
+
+    <script>
+    // Check if either input field is blank and if so, post a message to fill them out!
+    $(':input').blur(function() {
+        var errorMessage = $('#form-errors')
+        if(!this.value) {
+            {% if "SSH" in title %}
+                const errorText = "Please fill out a Username and SSH Key."
+            {% else %}
+                const errorText = "Please fill out a Username."
+            {% endif %}
+
+            errorMessage.text(gettext(errorText)).addClass("error");
+
+        } else {
+            // remove the text and warning color once it no longer empty.
+            errorMessage.empty().removeClass('warning');
+        }
+    });
+    </script>
+{% endblock %}

@@ -1,0 +1,17 @@
+
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+
+{{ form.non_field_errors }}
+
+{% for field in form.visible_fields %}
+  <p>
+     {{ field.label_tag }}
+     {{ field }}
+     <a class="icon-delete"
+         value="{{form.rate.html_name}}"
+         onClick="$('#id_{{field.html_name}}').val('{{form.clear_text}}');"></a>
+     {{ field.errors }}
+  </p>
+{% endfor %}

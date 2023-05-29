@@ -1,0 +1,37 @@
+{% load puppet_tags %}
+<h3>General</h3>
+<p>This server is a Puppet agent with certificate name
+<b>{{ certname }}</b>.
+
+<h3>Latest Report</h3>
+{% if latest_report %}
+    The latest report was received {% report_link latest_report %}.</p>
+{% else %}
+    <p>There is no report on file for this Puppet agent.</p>
+{% endif %}
+
+<h3>Facts</h3>
+{% if facts %}
+<table id="puppet-facts">
+    <thead>
+        <tr>
+            <th>Fact Name</th>
+            <th>Fact Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in facts.items %}
+        <tr>
+            <td>{{ key }}</td>
+            {# some facter values (SSH keys) can be long and without word breaks. To prevent those values from ruining the layout, we allow word breaks at any character. #}
+            <td class="break-all">{{ value }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    $('#puppet-facts').dataTable();
+</script>
+{% else %}
+    <p>No facts have been discovered for this server.</p>
+{% endif %}

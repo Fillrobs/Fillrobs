@@ -1,0 +1,21 @@
+{# added to common tab-disks.html #}
+{% load i18n %}
+{% load helper_tags %}
+
+<dt>{% trans "Datastore" %}:</dt>
+<dd>{{ disk.disk_storage }}</dd>
+
+<dt>{% trans "Provision Type" %}:</dt>
+<dd>{{ disk.get_provisioning_type_display }}</dd>
+
+{% if disk.vmware_disk_controller %}
+    {% trans 'Disk Controller:' as controller_label %}
+    {% trans 'The ControllerBus:UnitID given by VMWare for this disk on its controller' as controller_description %}
+
+    <dt>Disk Controller Type:</dt>
+    <dd>{{ disk.vmware_disk_controller_label }}</dd>
+    <dt>{% text_tooltip controller_label controller_description %}</dt>
+    <dd>{{ disk.vmware_disk_controller }}</dd>
+{% endif %}
+
+{% include 'servers/disk_actions.html' with allow_resize=True position=position %}

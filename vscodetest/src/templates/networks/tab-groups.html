@@ -1,0 +1,27 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'edit_network_groups' network.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+</div>
+
+
+<table id="network-groups" data-table>
+    <thead>
+        <tr>
+            <th>Group name</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in network_groups %}
+        <tr>
+            <td class="name">{{ group|link_or_label:profile }}</td>
+            <td>{{ group.type }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

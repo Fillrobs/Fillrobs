@@ -1,0 +1,70 @@
+{% load helper_tags %}
+{# prefer the 'scripts' block at page bottom whenever possible for performance #}
+{# ------- To support translations in js ------- #}
+<script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+{# ------ 3rd party libraries ------ #}
+<script src="{{ STATIC_URL }}js/lib/jquery.min.js"></script>
+<script src="{{ STATIC_URL }}js/lib/lodash.min.js"></script>
+{% if MIXPANEL_TOKEN %}
+<script>
+  {# Set a global to override Mixpanel's default CDN URL with our local copy #}
+  window.MIXPANEL_CUSTOM_LIB_URL = '{{ STATIC_URL }}js/lib/mixpanel.min.js';
+</script>
+<script src="{{ STATIC_URL }}js/lib/mixpanel-jslib-snippet.min.js"></script>
+{% endif %}
+<script src="{{ STATIC_URL }}js/jquery.sparkline.min.js"></script>
+{# ------ More 3rd party libraries ------ #}
+<script src="{{ STATIC_URL }}datatables/js/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap-slider/bootstrap-slider.min.js"></script>
+<script src="{{ STATIC_URL }}bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="{{ STATIC_URL }}js/highcharts/highcharts.js"></script>
+<script src="{{ STATIC_URL }}js/highcharts/highcharts-more.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.form.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.cookie.js"></script>
+<script src="{{ STATIC_URL }}js/jquery.validate.js"></script>
+<script src="{{ STATIC_URL }}hljs/highlight.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+<script src="{{ STATIC_URL }}js/bootstrap-datepicker.min.js"></script>
+<script src="{{ STATIC_URL }}js/ace/ace.js"></script>
+<script src="{{ STATIC_URL }}js/ace/ext-modelist.js"></script>
+<script src="{{ STATIC_URL }}js/ace/ext-language_tools.js"></script>
+<script src="{{ STATIC_URL }}js/other.min.js"></script>
+<script src="{{ STATIC_URL }}js/lib/d3.min.js"></script>
+<script src="{{ STATIC_URL }}js/lib/bootstrap-tokenfield.min.js"></script>
+<script src="{{ STATIC_URL }}js/lib/bootstrap-tour.min.js"></script>
+<script src="{{ STATIC_URL }}js/lib/clipboard.min.js"></script>
+{# ------ CloudBolt libraries ------ #}
+<script src="{{ STATIC_URL }}js/custom/base.js"></script>
+<script src="{{ STATIC_URL }}js/custom/social.js"></script>
+<script src="{{ STATIC_URL }}js/bundle.js"></script>
+{% if DEBUG %}
+    <script src="{{ STATIC_URL }}js/c2.js"></script>
+{% else %}
+    <script src="{{ STATIC_URL }}js/c2.min.js"></script>
+{% endif %}
+<script src="{{ STATIC_URL }}js/wizards.js"></script>
+<script>
+c2.go(
+  '{{ cb_license_id }}',
+  '{{ MIXPANEL_TOKEN }}',
+  '{{ csrf_token }}',
+  '{{ STATIC_URL|escapejs }}',
+  '{% url "login" %}',
+  '{% url "logout" %}',
+  '{% url "last_activity" %}',
+  {{ detect_time_zone|to_json }},
+  {% inactivity_timeout %}
+);
+</script>
+{# Features for frontend JS. #}
+{# We also do a small wrapper around the base waffle methods #}
+{# to maintain consistency with our 'features' wrapper. #}
+{# https://waffle.readthedocs.io/en/stable/usage/javascript.html #}
+{# Loading this URL is what makes `waffle` available in the script below. #}
+{# It must be in the list of URLs that don't require login, so this loads #}
+{# without error on the few pages where someone isn't logged in, such as login/logout #}
+<script src="{% url 'featuresjs' %}"></script>
+<script>
+  feature_is_active = waffle.switch_is_active;
+  features = waffle.SWITCHES
+</script>

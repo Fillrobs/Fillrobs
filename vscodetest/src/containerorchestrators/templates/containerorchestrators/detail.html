@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load container_orchestrator_tags %}
+{% load tab_tags %}
+
+{% block title %}Container Orchestrator: {{ container_orchestrator.name }} {% endblock %}
+{% block topnav %}container_orchestrators{% endblock %}
+
+{% block content %}
+
+<h1>{{ container_orchestrator|container_orchestrator_icon }} {{ container_orchestrator.name }}</h1>
+{% draw_tabs tabs %}
+
+{% endblock content %}
+
+{% block onReady %}
+    $('#kubeClusterPodDetailsTable').dataTable({ "bFilter": false });
+    c2.dataTables.init('#kubeClusterNodeDetailsTable');
+{% endblock onReady %}

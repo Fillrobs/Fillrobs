@@ -1,0 +1,7 @@
+#!/bin/sh
+
+SITE_URL="http://10.168.90.42:6032/"
+PUPPET_CONFIG_ID=1
+NODE_NAME=$1
+
+echo "curl --fail ${SITE_URL}/product/puppet/${PUPPET_CONFIG_ID}/enc/${NODE_NAME}/"

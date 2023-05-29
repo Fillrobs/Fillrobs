@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load order_tags %}
+{% block topnav %}files{% endblock %}
+
+{% block content %}
+    <h1>{{ display_name }}</h1>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="row">
+                {# First column #}
+                <div class="col-sm-6">
+                    <dl class="vertical">
+
+                        <dt>Created:</dt>
+                        <dd>{{ file.created }}</dd>
+
+                        <dt>Modified:</dt>
+                        <dd>{{ file.modified }}</dd>
+
+                        {% if file.input_fields.exists %}
+                              <dt>File Inputs:</dt>
+                              <dd>
+                                  {% for fi in file.input_fields.all %}
+                                      <li>
+                                          {{ fi }}
+                                          <a class="icon-edit open-dialog"
+                                              href="{% url 'edit_file_input' fi.id  %}"></a>
+                                      </li>
+                                  {% endfor %}
+                              </dd>
+                        {% endif %}
+
+                    </dl>
+                </div>
+
+                {# Second column #}
+                <div class="col-sm-6">
+                    <dl class="vertical">
+
+                        <dt></dt>
+                        <dd>
+                            {% if places_used %}
+                                <div class="alert alert-warning">
+                                    <p>
+                                        This file is used in {{ places_used|length }}
+                                        context{{ places_used|pluralize }}:
+                                    </p>
+                                    <ul class="bullets">
+                                        <li>
+                                            <a href="{% url 'service_catalog' %}">Blueprints</a>:
+                                            {{ places_used|to_csv_links:profile }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </dd>
+
+                    </dl>
+                </div>
+            </div>
+
+            {# Full-width content #}
+            <dl class="vertical">
+                {% if file.location_type == 'url' %}
+                    <dt>Source URL:</dt>
+                    <dd>
+                        <a href="{{ file.source_code_url }}">{{ file.source_code_url }}</a>
+                    </dd>
+                {% endif %}
+
+                <dt><dt>
+                <dd ng-non-bindable>
+                    {% if file.location_type == 'upload' %}
+                        <a href="{% url 'edit_config_file_contents' file.id %}"
+                            data-dialog-width="1000"
+                            data-prevent-esc-closing="true"
+                            class="no-tooltip-affordance open-dialog">
+                            <span class="glyphicon glyphicon-edit"></span>
+                            Edit file contents
+                        </a>
+                    {% endif %}
+
+                    {% if file_error %}
+                        <p class="text-danger">The file could not be read.
+                        {% if file.location_type == 'url' %}
+                            Check your file's source code URL.
+                        {% else %}
+                            Upload a new file.
+                        {% endif %}
+                        </p>
+                        <pre class="text-danger">{{ file_error }}</pre>
+                    {% else %}
+                        <div ng-non-bindable>
+                            <pre class="pre-scrollable lines-40"
+                            ><code class="language-yaml">{{ content }}</code></pre>
+                        </div>
+                        <script>hljs.initHighlightingOnLoad();</script>
+                    {% endif %}
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+{% endblock content %}

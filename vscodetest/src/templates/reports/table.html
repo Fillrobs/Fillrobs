@@ -1,0 +1,55 @@
+{% extends "reports/simple_base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+
+{% block report_content %}
+
+    {% if report_slug == 'server_utilization_table' %}
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                {% for name, label in periods.items %}
+                    <a class="btn btn-default period-{{ name }} {% if name == current_period %}active{% endif %}"
+                        href="?period={{ name }}">
+                        {{ label }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% trans 'Different time periods are provided for different Resource Handlers.' %}
+        {% trans 'Metrics over the last week are not available for VMware servers, and metrics over the last year are not available for AWS, Azure, or GCP servers.' as infotip_content %}
+        {% infotip infotip_content %}
+        <div class="clearfix"></div>
+        {% trans 'Not all usage metrics are provided for all Resource Handlers.' %}
+        {% trans 'Memory statistics are not available for AWS, Azure, or GCP servers.' as infotip_content %}
+        {% infotip infotip_content %}
+        <div class="clearfix"></div>
+
+    {% endif %}
+
+    {% if show_table %}
+        {{ table_caption }}
+
+        <table id="table-{{ report_slug|slugify }}"
+            {% if sort_by_column %} data-table-sort="{{ sort_by_column }}" {% endif %}
+            {% if unsortable_column_indices %} data-table-sort-disabled="{{ unsortable_column_indices|to_csv }}" {% endif %}
+            class="table"
+            data-table>
+            <thead>
+                <tr>
+                    {% for heading in column_headings %}
+                        <th class="a"> {{ heading }} </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+                    <tr>
+                        {% for col in row %}
+                            <td>{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load tab_tags %}
+
+{% block topnav %}projects{% endblock %}
+{% block content %}
+    <h1> {{project.name}} </h1>
+
+    {% draw_tabs tabs %}
+{% endblock content %}

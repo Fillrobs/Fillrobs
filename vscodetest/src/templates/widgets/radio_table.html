@@ -1,0 +1,34 @@
+{% comment %}
+Used by common.widgets.RadioTable to render a simple single-column DataTable
+selection widget.  The thead and tbody are required, else dataTables breaks.
+{% endcomment %}
+
+<table id="checkbox-select-multiple"
+    data-table="dialog {{extra_datatable_attr}} clickable"
+    class="{{ final_attrs.container_class }}">
+    <thead>
+       {{ table_headings }}
+    </thead>
+    <tbody>
+        {% for option in options %}
+            <tr>
+                <td>
+                    {% comment %}
+                    If the widget has an ID attribute, give each option a uniqu ID as well,
+                    by adding a numeric index as a suffix.
+                    {% endcomment %}
+                    <label {% if option.id %}for="#{{ option.id }}"{% endif %}>
+                        <input type="radio"
+                            id="{{ option.id }}"
+                            name="{{ option.name }}"
+                            value="{{ option.value }}"
+                            {% if option.value == initial_value %} checked="checked" {% endif %}
+                            >
+                        {{ option.label }}
+                    </label>
+                </td>
+                {{ option.extra_cols }}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

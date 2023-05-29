@@ -1,0 +1,69 @@
+<div class="go-to-admin hidden">
+  <div class="modal-header">
+    <h5 class="modal-title">Kumolus Kit</h5>
+  </div>
+  <div class="modal-body">
+    <p>It seems that you have not added Kumolus sub-domain and API key in extension admin or may be API key is expired. Please update it!</p>
+  </div>
+  <div class="modal-footer">
+    <a href="/admin/resourcehandlers/">
+      <button class="cb-btn cb-btn-primary js-submit-form" data-loading-text="redirecting...">
+        Ok
+      </button>
+    </a>
+  </div>
+</div>
+
+<div class="go-to-rh hidden">
+  <div class="modal-header">
+    <h5 class="modal-title">Kumolus Kit</h5>
+  </div>
+  <div class="modal-body">
+    <p>It seems that you haven't added this resource handler to Kumolus account, Please add it or select from list on Admin Page.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="/admin/resourcehandlers/">
+      <button class="cb-btn cb-btn-primary js-submit-form" data-loading-text="redirecting...">
+        Ok
+      </button>
+    </a>
+  </div>
+</div>
+
+<div class="no-data hidden">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-exclamation-circle" style="color: red;"></i> No data found!</h5>
+    <button type="button" class="close hidden closeModal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body generalError">
+    <p>Data is not available or is in sync if added new adapter in Kumolus account. Please check Kumolus account or try after sometime!</p>
+  </div>
+  <div class="modal-footer overviewButton">
+    <button class="cb-btn cb-btn-primary js-submit-form" data-loading-text="redirecting...">
+      Overview
+    </button>
+  </div>    
+</div>
+
+<div class="no-server-rh hidden">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle"><i class="fas fa-exclamation-circle" style="color: red;"></i> No resource handler found!</h5>
+    <button type="button" class="close hidden closeModal" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body generalError">
+    <p>The resource handler to which this server is linked is not been added in Kumolus account. Please add it and try again!</p>
+    <p><strong>OR</strong></p>
+    <p>Please check if billing adapter is present in Kumolus account.</p>
+  </div>
+  <div class="modal-footer">
+    <a href="/servers/">
+      <button class="cb-btn cb-btn-primary js-submit-form" data-loading-text="redirecting...">
+        Ok
+      </button>
+    </a>
+  </div>
+</div>

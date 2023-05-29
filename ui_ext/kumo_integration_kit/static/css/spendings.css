@@ -1,0 +1,223 @@
+#spendings-tab {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#spendings-tab * {
+  box-sizing: border-box;
+}
+
+#spendings-tab .hidden {
+  display: none;
+}
+
+#spendings-tab .spend_details_tabs li {
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#spendings-tab .spend_details_tabs li:hover {
+  background-color: #dcdbdb;
+  color: #222;
+}
+
+#spendings-tab .spend_details_tabs li.active {
+  background-color: #c9c7c7;
+  color: #222;
+  border: 2px solid rgb(109, 110, 110)
+}
+
+#spendings-tab .tab-content {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 5%);
+  padding: 20px;
+  min-height: 20em;
+  margin-top: 28px;
+  padding-top: 20px;
+}
+
+#spendings-tab .width-adjust-15 {
+  width: 15%;
+  float: left;
+}
+
+#spendings-tab .width-adjust-85 {
+  width: 85%;
+  float: left;
+}
+
+#spendings-tab .tagList {
+  margin-top: 4px;
+}
+
+#spendings-tab .dropdown-toggle {
+  height: 34px !important;
+}
+
+#spendings-tab .selectize-control.multi .selectize-input {
+  max-height: 4em !important;
+}
+
+#spendings-tab .col-border {
+  height: 400px;
+}
+
+#spendings-tab .selectize-input { word-wrap : break-word;}
+#spendings-tab .selectize-dropdown {word-wrap : break-word;}
+
+#spendings-tab .date-picker {
+  background: #fff;
+  cursor: pointer; 
+  padding: 5px 10px; 
+  border: 1px solid #ccc; 
+  width: 100%"
+}
+
+#spendings-tab .date-field{
+  border: none;
+  width: 220px;
+  padding-left: 9px;
+  padding-top: 0px;
+}
+
+#spendings-tab .dash-seperator{
+  text-align: center;
+  border-right: 1px solid #DEDEDE;
+  word-break: break-word;
+}
+
+#spendings-tab .top-23{
+  margin-top: 23px;
+}
+
+#spendings-tab .underlined{
+  text-decoration: underline;
+}
+
+#spendings-tab #overview h3 {
+  font-weight: bold;
+  word-break: break-word;
+  font-size: 20px;
+  margin-bottom: 0px;
+}
+
+#spendings-tab .chart-details h3 {
+  font-weight: bold;
+  word-break: break-word;
+  font-size: 20px !important;
+  margin-bottom: 0px;
+}
+
+#spendings-tab #spend-details h3{
+  font-size: 14px;
+}
+
+#spendings-tab #overview h4, 
+#spendings-tab #spend-details h4{
+  word-break: break-word;
+  font-size: 14px;
+}
+
+#spendings-tab .left-pane h3{
+  font-weight: bold;
+  word-break: break-word;
+  font-size: 22px;
+  margin-bottom: 0px;
+}
+
+#spendings-tab .left-pane h4{
+  word-break: break-word;
+  font-size: 18px;
+}
+
+#spendings-tab #day-on-day-span,
+#spendings-tab #month-on-month-span {
+  font-size: 12px;
+}
+
+#spendings-tab #res-service,
+#spendings-tab .charge-type,
+#spendings-tab .dailyMonthly {
+  font-size: 14px;
+}
+
+#spendings-tab h2 {
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 4px;
+}
+
+#spendings-tab .ri-h3{
+  word-break: break-word !important;
+  font-size: 14px !important;
+  font-weight: normal !important;
+  margin-bottom: 10px !important;
+}
+
+#spendings-tab #overview .col-sm-12{
+  width: 102%;
+}
+
+#spendings-tab #overview .symbol {
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  margin-top: 2px;
+  float:left;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+#spendings-tab #overview .serieName {
+  float: left;
+  cursor: pointer;
+  font-size: 12px;
+  padding-top: 5px;
+}
+
+#spendings-tab #overview #customLegend .item {
+  clear:both;
+}
+
+#spendings-tab #overview #customLegend {
+  margin-top: 50px;
+}
+
+#spendings-tab .p-in-0 { padding-inline: 0px; }
+
+#spendings-tab .selectize-input, 
+#spendings-tab .selectize-dropdown,
+#spendings-tab select.form-control { 
+  font-size: 14px !important;
+}
+
+#spendings-tab .selectize-control.plugin-remove_button.single .selectize-input [data-value]{
+  font-size: 14px !important;
+  margin-bottom: 0px !important;
+  line-height: 14px !important;
+}
+
+#spendings-tab .selectize-control.plugin-remove_button.multi .selectize-input [data-value]{
+  font-size: 14px !important;
+  line-height: 14px !important;
+}
+
+#spendings-tab .selectize-control.plugin-remove_button.multi .selectize-input [data-value] .remove {
+  padding-top: 3px;
+  padding-right: 10px;
+}
+
+#spendings-tab #reportrange {
+  background: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 14px;
+  line-height: 22px;
+  border-radius: 4px;
+}
+

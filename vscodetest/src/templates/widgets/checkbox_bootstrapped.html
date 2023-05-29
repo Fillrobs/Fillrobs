@@ -1,0 +1,21 @@
+<div class="form-group">
+    <div class="controls col-lg-9">
+        <div id="div_{{ widget.id }}" class="checkbox">
+            <label id="{{widget.id_for_label}}" for="{{ widget.id }}" >
+                <input
+                    type="{{ widget.type }}"
+                    name="{{ widget.name }}"
+                    class="checkboxinput"
+                    {% if widget.value != None %}value="{{ widget.value|stringformat:'s' }}"{% endif %}
+                    {% include "django/forms/widgets/attrs.html" %}
+                >
+                {% if widget.label %}{{ widget.label }}{% endif %}
+                {% if widget.help_text %}
+                    <p id="hint_{{ widget.id }}" class="help-block">
+                        {{ widget.help_text }}
+                    </p>
+                {% endif %}
+            </label>
+        </div>
+    </div>
+</div>

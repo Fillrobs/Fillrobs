@@ -1,0 +1,127 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="row">
+    <div class="col-lg-6">
+        <div id="server-details-panel-organization">
+            {% include 'servers/panel-organization.html' %}
+        </div>
+    </div>
+    <div class="col-lg-6">
+
+        {% if show_hardware_info %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3> {% trans 'Hardware' %} </h3>
+                </div>
+                <div class="panel-body">
+                    <dl class="dt-30 line-height-32">
+                        <dt>
+                            <i class="icon-32 icon-cpu-32"></i>
+                            {% trans 'CPU:' %}
+                        </dt>
+                        <dd>
+                            {{ server.cpu_cnt|default:'-' }}
+                        </dd>
+                        <dt>
+                            <i class="icon-32 icon-ram-32"></i>
+                            {% trans 'Memory:' %}
+                        </dt>
+                        <dd>
+                            {{ server.mem_size|render_size_field:"mem_size" }}
+                        </dd>
+                        <dt>
+                            <i class="icon-32 icon-hdd-32"></i>
+                            {% trans 'Disk:' %}
+                        </dt>
+                        <dd>
+                            {{ server.disk_size|default:'-' }} GB
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3> {% trans 'Configuration' %} </h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>{% trans 'Status:' %}</dt>
+            <dd>{{ server.get_status_display }}</dd>
+
+            <dt>{% trans 'Hostname:' %}</dt>
+            <dd>{{ server.hostname|default:_("(no hostname)")|clippable }}</dd>
+
+            <dt>{% trans 'IP Address:' %}</dt>
+            <dd>{{ server.ip|clippable }}</dd>
+
+            <dt>{% trans 'Date Added:' %}</dt>
+            <dd>{{ server.add_date|how_long_ago }}</dd>
+
+            {% if server.resource_handler_svr_id %}
+                <dt>{% trans 'Unique ID:' %}</dt>
+                <dd>{{ server.resource_handler_svr_id|clippable }}</dd>
+            {% endif %}
+
+            {% if server.os_build %}
+                <dt>{% trans 'OS Build:' %}</dt>
+                <dd>{{ server.os_build|link_or_label:profile }}</dd>
+            {% endif %}
+
+            {% if "server.manage_credentials" in profile.permissions %}
+                <dt>{% text_tooltip _("Credentials:") _("The credentials that CB will attempt to use to perform actions on the server") %}</dt>
+                <dd>
+                    {% credentials server %}
+                </dd>
+            {% endif %}
+
+            {% if server.provision_engine_svr_id %}
+                <dt>{% trans "Provisioning Engine" %}:</dt>
+                <dd>{{ server.provision_engine|link_or_label:profile }}</dd>
+
+                <dt>{% trans "Provisioning Engine Server ID" %}:</dt>
+                <dd>{{ server.provision_engine_svr_id }}</dd>
+            {% endif %}
+
+            <dt>{% trans "Applications" %}:</dt>
+            {% if server.applications.exists %}
+                <dd>{{ server.applications.all|render_group }}</dd>
+            {% else %}
+                <dd></dd>
+            {% endif %}
+
+            {% if enable_rates_feature %}
+                <dt>{% trans 'Rate:' %}</dt>
+                <dd>{{ server.rate_display_with_tooltip }}</dd>
+            {% endif %}
+
+            {% if server.get_stats_url %}
+                <dt>{% trans 'Server Usage Stats:' %}</dt>
+                <dd>{{ server|show_stats_url }}</dd>
+            {% endif %}
+
+            {% if server.notes %}
+                <dt>{% trans 'Notes:' %}</dt>
+                <dd><div class="well well-sm">{{ server.notes }}</div></dd>
+            {% endif %}
+
+            {% for field, display_value in params_as_attributes %}
+            <dt>{{ field.label }}:</dt>
+            <dd>{{ display_value }}</dd>
+            {% endfor %}
+        </dl>
+    </div>
+</div>
+
+{% if "server.view_handler_specific_details" in profile.permissions %}
+    {% tech_specific_server_details server %}
+{% endif %}

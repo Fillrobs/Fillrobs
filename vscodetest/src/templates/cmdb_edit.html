@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}CMDB Configuration{% endblock %}
+{% block topnav %}CMDB{% endblock %}
+
+{% block content %}
+    <h1> CMDB {{ itsm.name }} </h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ formset.as_p }}
+        <table class="table">
+            {{ cmdbdata.management_form }}
+        </table>
+        <button type="submit">Save</button>
+    </form>
+{% endblock content %}

@@ -1,0 +1,31 @@
+.ostack-mp-report .loader.fade {
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 2px;
+  z-index: 1160;
+  transition: opacity .15s linear;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-pointer-events: none;
+}
+
+.ostack-mp-report .loader.fade.in {
+  position: absolute;
+  background-color: rgba(255, 255, 255, .5);
+  border-radius: 2px;
+  z-index: 1160;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s .2s, visibility 0s .2s;
+  -webkit-pointer-events: auto;
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

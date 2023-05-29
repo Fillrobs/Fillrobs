@@ -1,0 +1,8 @@
+{% extends "verification/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Password recovery sent" %}{% endblock %}
+
+{% block content %}
+	<p>{% blocktrans %}If that account was found, an email was sent to it. Use the link provided in the email to set a new password.{% endblocktrans %}</p>
+{% endblock %}

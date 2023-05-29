@@ -1,0 +1,29 @@
+{% comment %}
+This template overrides the generic network_table to show Azure-appropriate network information
+
+This is included by templates/resourcehandlers/sync_networks.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load rh_tags %}
+{% load helper_tags %}
+
+<table id="discovered_networks" data-table="dialog clickable">
+    <thead>
+        <th><input class="check-column" type="checkbox" /></th>
+        <th>Name</th>
+        <th>Subnet</th>
+        <th>Region</th>
+        <th>CIDR Block</th>
+    </thead>
+    <tbody>
+        {% for network in networks_added %}
+        <tr>
+            <td><input name="network" type="checkbox" value="{{ network.network }}"/></td>
+            <td class="name">{{ network.name|azure_virtual_network }}</td>
+            <td>{{ network.name|azure_subnet }}</td>
+            <td>{{ network.region }}</td>
+            <td>{{ network.cidr_block }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

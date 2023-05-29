@@ -1,0 +1,288 @@
+{% extends "reports/simple_base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}Maxis Customer Report{% endblock %}
+
+{% block extrastyle %}
+<link rel="stylesheet" type="text/css"
+    href="{% static 'maxis_server_utilization_report/css/monthly_performance_report.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'maxis_server_utilization_report/css/common.css' %}">
+<script src="{% static 'maxis_server_utilization_report/js/jspdf.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'maxis_server_utilization_report/js/html2canvas.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'maxis_server_utilization_report/js/jspdf.plugin.autotable.min.js' %}" type="text/javascript">
+</script>
+{% endblock %}
+{{ block.super }}
+
+{# Keep buttons at top because graph can be quite tall #}
+<div class="clearfix"></div>
+<div style="float:left;" class="btn-toolbar">
+    <div class="btn-group">
+        {% for name, label in periods.items %}
+        <a class="btn btn-default period-{{ name }} {% if name == current_period %}active{% endif %}"
+            href="?period={{ name }}&metric={{ current_metric }}">
+            {{ label }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div style="float:right;" class="btn-toolbar">
+    <div class="btn-group">
+        {% for name, label in metrics.items %}
+        <a class="btn btn-default metric-{{ name }} {% if name == current_metric %}active{% endif %}"
+            href="?period={{ current_period }}&metric={{ name }}">
+            {{ label }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+<div class="clearfix"></div>
+
+{% trans 'Different time periods are provided for different Resource Handlers.' %}
+{% trans 'Metrics over the last week are not available for VMware servers, and metrics over the last year are not available for AWS, Azure, or GCP servers.' as infotip_content %}
+{% infotip infotip_content %}
+<div class="clearfix"></div>
+{% trans 'Not all usage metrics are provided for all Resource Handlers.' %}
+{% trans 'Memory statistics are not available for AWS, Azure or GCP servers.' as infotip_content %}
+{% infotip infotip_content %}
+<div class="clearfix"></div>
+
+{% if not categories %}
+<p style="margin-top: 20px;">{% trans 'There are no server metrics available for the selected time period.' %}</p>
+{% else %}
+{# Height for graph is based on number of bars. See views.py #}
+<div id="chart-{{ report_slug|slugify }}" class="panel panel-default" style="height: {{graph_height}}px"></div>
+{% endif %}
+
+{% block report_content %}
+<!--<script type="text/javascript" src="{% static 'js/exportcsv.js' %}"></script>-->
+
+{% if show_table %}
+
+<div class="mp-report">
+    <h3>VM Basic Inventory</h3>
+    <div>
+        <table id="basic-vm-inventory" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>CPU</th>
+                    <th>Memory</th>
+                    <th>Disk</th>
+                    <th>Guest OS</th>
+                    <th>Uptime in Days</th>
+                    <th>Uptime in Hours</th>
+                    <th>Uptime in Minutes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in servers %}
+                <tr>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.cpu }}</td>
+                    <td>{{ row.memory|render_size_field:"mem_size" }}</td>
+                    <td>{{ row.disk|default:'-' }} GB</td>
+                    <td>{{ row.os }}</td>
+                    <td>{{ row.uptime_in_days }}</td>
+                    <td>{{ row.uptime_in_hours }}</td>
+                    <td>{{ row.uptime_in_minutes }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <chart-group>
+            {% include 'maxis_server_utilization_report/templates/_cbloader.html' %}
+        </chart-group>
+        <div class="panel-body">
+            <h3>Filters</h3>
+            <div class="form-group row">
+                <div class="controls col-lg-3">
+                    <label for="select-vm" class="control-label">Select VM</label>
+                    <select class="form-control" id="select-vm">
+                        {% for server in servers %}
+                        <option value="{{ server.id }}" data-name="{{ server.name }}">{{ server.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="controls col-lg-3">
+                    <label for="start_date" class="control-label">Start Date</label>
+                    <input type="text" name="start_date" id="start_date" value="{{ start_date|date:'Y-m-d' }}"
+                        class="render_as_datepicker textinput textInput form-control">
+                </div>
+                <div class="controls col-lg-3">
+                    <label for="end_date" class="control-label">End Date</label>
+                    <input type="text" name="end_date" id="end_date" value="{{ end_date|date:'Y-m-d' }}"
+                        class="render_as_datepicker textinput textInput form-control">
+                </div>
+                <div class="controls col-lg-3">
+                    <button id="plot-graph" class="btn btn-primary plot-btn"
+                        data-url="{% url 'get_utilization_report_data' %}">
+                        <i class="fas fa-play"></i> Plot Graph
+                    </button>
+                    <button id="pdf-report" class="btn btn-default plot-btn">
+                        <i class="fas fa-download"></i> Export as PDF
+                    </button>
+                </div>
+            </div>
+            <p class="error-message" id="error-message"></p>
+        </div>
+    </div>
+    <div class="chart-group" id="chart-group">
+        <div class="col-sm-8 chart-div">
+            <h3>VM CPU Utilization</h3>
+            <div id="cpu-container">
+
+            </div>
+        </div>
+
+        <div class="col-sm-8 chart-div">
+            <h3>VM Memory Utilization</h3>
+            <div id="mem-container">
+
+            </div>
+        </div>
+
+        <div class="col-sm-8 chart-div">
+            <h3>VM Network Incoming Utilization</h3>
+            <div id="net-container">
+
+            </div>
+        </div>
+        <div class="col-sm-8 chart-div">
+            <h3>VM Network Outgoing Utilization</h3>
+            <div id="net-outgoing-container">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="{% static 'maxis_server_utilization_report/js/monthly_performance_report.js' %}"></script>
+
+{{ table_caption }}
+
+<table id="table_server_utilization_report" {% if sort_by_column %} data-table-sort="{{ sort_by_column }}" {% endif %}
+    {% if unsortable_column_indices %} data-table-sort-disabled="{{ unsortable_column_indices|to_csv }}" {% endif %}
+    class="dataTable" data-table>
+    <thead>
+        <tr>
+            {% for heading in column_headings %}
+            <th style="font-size: medium; font-weight:bold;"> {{ heading|safe }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+        <tr>
+            {% for col in row %}
+            <td class="tddata">{{ col|safe }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+<div>
+    <button id="export"> Export to CSV File </button>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#export').click(function () {
+            var titles = [];
+            var data = [];
+
+            /*
+             * Get the table headers, this will be CSV headers
+             * The count of headers will be CSV string separator
+             */
+            $('.dataTable thead th').each(function () {
+                titles.push($(this).text());
+            });
+
+            /*
+             * Get the actual data, this will contain all the data, in 1 array
+             */
+            $('.dataTable tbody td').each(function () {
+                data.push($(this).text());
+            });
+
+
+            /*
+             * Convert our data to CSV string
+             */
+            var CSVString = prepCSVRow(titles, titles.length, '');
+            CSVString = prepCSVRow(data, titles.length, CSVString);
+
+            /*
+             * Make CSV downloadable
+             */
+            var downloadLink = document.createElement("a");
+            var blob = new Blob(["\ufeff", CSVString]);
+            var url = URL.createObjectURL(blob);
+            downloadLink.href = url;
+            downloadLink.download = "data.csv";
+
+            /*
+             * Actually download CSV
+             */
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        });
+
+        /*
+         * Convert data array to CSV string
+         * @param arr {Array} - the actual data
+         * @param columnCount {Number} - the amount to split the data into columns
+         * @param initial {String} - initial string to append to CSV string
+         * return {String} - ready CSV string
+         */
+        function prepCSVRow(arr, columnCount, initial) {
+            var row = ''; // this will hold data
+            var delimeter = ','; // data slice separator, in excel it's `;`, in usual CSv it's `,`
+            var newLine = '\r\n'; // newline separator for CSV row
+
+            /*
+             * Convert [1,2,3,4] into [[1,2], [3,4]] while count is 2
+             * @param _arr {Array} - the actual array to split
+             * @param _count {Number} - the amount to split
+             * return {Array} - splitted array
+             */
+            function splitArray(_arr, _count) {
+                var splitted = [];
+                var result = [];
+                _arr.forEach(function (item, idx) {
+                    if ((idx + 1) % _count === 0) {
+                        splitted.push(item);
+                        result.push(splitted);
+                        splitted = [];
+                    } else {
+                        splitted.push(item);
+                    }
+                });
+                return result;
+            }
+            var plainArr = splitArray(arr, columnCount);
+
+            plainArr.forEach(function (arrItem) {
+                arrItem.forEach(function (item, idx) {
+                    row += item + ((idx + 1) === arrItem.length ? '' : delimeter);
+                });
+                row += newLine;
+            });
+            return initial + row;
+        }
+
+    });
+</script>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,105 @@
+{% load helper_tags %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+<style type="text/css">
+    .modal-dialog {
+        position: fixed;
+        right: 0;
+        left: 0;
+        margin: 0 auto;
+        top: 10%;
+    }
+</style>
+
+<div class="modal-dialog" aria-labelledby="modal-dialog-title">
+    <div class="modal-content">
+        {% block modalHeader %}
+            <div class="modal-header">
+                
+                <h4 id="modal-dialog-title" class="modal-title">
+                    {% block title %}
+                    {{ title }}
+                    {% endblock title %}
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" title="Close this dialog">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            {% endblock modalHeader %}
+
+            <div class="modal-body">
+                {% if modal_title == 'Delete AWS Security Group' %}
+                    Are you sure you want to delete the AWS Security Group?
+                {% endif %}
+                {% if modal_title == 'Delete AWS Security Group Tag' %}
+                Are you sure you want to delete the AWS Security Group Tag?
+                {% endif %}
+                {% if modal_title == 'Delete AWS Security Group Inbound Rule' %}
+                Are you sure you want to delete the AWS Security Inbound Rule?
+                {% endif %}
+                {% if modal_title == 'Delete AWS Security Group Outbound Rule' %}
+                Are you sure you want to delete the AWS Security Outbound Rule?
+                {% endif %}
+                <!--env_id = {{ env_id }} <br />
+                aws_sg_id = {{ aws_sg_id }} <br />-->
+                {% block form_content %}      
+                <form id="action_form" class="bootstrap3" method="POST" action="{{ action_url }}"
+                     data-root-fields>
+                     {% crispy form %}
+                    
+                </form>
+                {% endblock form_content %}
+            </div>
+            {% block modalFooter %}
+            <div class="modal-footer">
+               <button class="btn btn-default" data-dismiss="modal">
+                   {{ cancel|default:_("Cancel") }}
+               </button>
+               <button class="btn btn-{{ theme|default:'primary' }} js-submit-form"
+                   data-loading-text="{% trans 'Submitting' %}&hellip;">
+                   {{ submit|default:_("Submit") }}
+               </button>
+            </div>
+            {% endblock modalFooter %}
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    {% if use_ajax == None %}
+      var useAjax = true;
+    {% else %}
+      {% if use_ajax == '' %}
+        var useAjax = true;
+      {% else %}
+        var useAjax = {{ use_ajax|to_json }};
+      {% endif %}
+    {% endif %}
+
+    var opts = {
+        'useAjax': useAjax,
+        'reloadOnClose': {{ reload_on_close|to_json }},
+        'actionURL': {{ action_url|to_json }}
+    };
+
+    {% if alt_post_data %}
+        // Replace what the action form will post
+        $('#action_form').data('altPostData', {{ alt_post_data|to_json }});
+    {% endif %}
+
+    var $dialog = $('#dialog-modal');
+    $dialog.data('dialogOptions', opts);
+
+    {{ extra_onready_js }}
+
+    c2.sliders.init();
+
+    {% block on_ready %}
+    {% endblock on_ready %}
+
+})();
+</script>

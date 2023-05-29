@@ -1,0 +1,61 @@
+{% extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block si_icon %}
+    icon-terraform
+{% endblock %}
+
+{%  block item_details_row %}
+    {% with terraform_plan_hook=service_item.hook.cast %}
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="vertical">
+
+                <dt>{% trans 'Terraform Plan Action:' %}</dt>
+                <dd ng-non-bindable>
+
+                    {% if managing and profile.is_cbadmin %}
+                        {# The user has permissions to manage the base action, so link to it. #}
+                        <a href="{{ terraform_plan_hook.get_absolute_url }}"
+                            class="no-tooltip-affordance" data-toggle="tooltip"
+                            title="Manage this {{ terraform_plan_hook.hook_type_label }}">
+                            {{ terraform_plan_hook.name }}
+                        </a>
+                    {% else %}
+                        {# Don't link to the base action #}
+                        {{ terraform_plan_hook.name }}
+                    {% endif %}
+
+                    {% if terraform_plan_hook.path_errors %}
+                        <div class="alert alert-warning">
+                        {{ terraform_plan_hook.path_errors }}
+                    </div>
+                    {% endif %}
+
+                    {% infotip terraform_plan_hook.description %}
+                
+                </dd><!-- row 1 -->
+
+                <dt>{% trans 'Terraform Plan Path:' %}</dt>
+                <dd>
+                    {{ terraform_plan_hook.local_path }}
+                </dd><!-- row 2 -->
+
+                <dt>{% trans 'Global Terraform Version:' %}</dt>
+                <dd>{{ terraform_version_info }}
+                    <span class="infotip" data-toggle="tooltip" data-original-title="Search the Content Library for the 'Install Terraform on CloudBolt' Blueprint to setup a different version."> </span>
+                </dd>
+
+                {% include 'actions/action_input_defaults.html' with action=service_item edit_url="edit_service_item" %}
+            </dl>
+        
+        </div><!-- col 1 -->
+        <div class="col-sm-6">
+            {% include 'servicecatalog/action_sequencing_options.html' %}
+        </div><!-- col 2 -->
+    </div><!-- row -->
+    {% endwith %}
+{% endblock item_details_row %}

@@ -1,0 +1,123 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="help-block">
+
+{% blocktrans trimmed %}
+    This power schedule is implemented by the 'Auto-power control {{ server_or_resource_str }}s'
+    recurring job. In order for the {{ server_or_resource_str }} to be powered on and off at the times
+    scheduled here, that recurring job must be enabled and set to run every hour
+    on the hour.
+{% endblocktrans %}
+{% portal_label as portal_lbl %}
+{% blocktrans trimmed %}
+    {{ portal_lbl }} will use its own server time to judge whether it is the right
+    time to power on and off VMs, so make sure you know what time it is on the CB server and that the timezone is right.
+{% endblocktrans %}
+</div>
+<br>
+{% if can_manage_power_schedule and not view_only %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+           {% if server_or_resource_str == 'server' %}
+                href="{% url 'server_edit_power_schedule' server_or_resource.id %}"
+           {% elif server_or_resource_str == 'resource' %}
+               href="{% url 'resource_edit_power_schedule' server_or_resource.id %}"
+           {% endif %}
+            ><span class="icon-add"></span>
+            {% trans 'Edit Power Control Schedule' %}
+        </a>
+    </div>
+{% endif %}
+{% if server_or_resource.has_power_schedule %}
+    {% schedule_tzinfo server.power_schedule_timezone as sched_timezone %}
+    <div class="row">
+        <div class="col-sm-6">
+            <p>
+            {% blocktrans %}
+            All times are in the {{ sched_timezone }} time zone.
+            {% endblocktrans %}
+            </p>
+            {% include 'power_schedule/power_schedule_graph.html' %}
+        </div>
+    </div>
+    {% with schedule_stats=server_or_resource.get_power_schedule_stats %}
+    {% if schedule_stats %}
+        <div class="row">
+            <div class="col-sm-6">
+
+                <h3>{% trans 'Predicted impact of this schedule' %}</h3>
+                <table class="table table-condensed table-hover">
+                    <tbody>
+                        <tr>
+                            <td>
+                                {% if server_or_resource_str == 'resource' %}
+                                    {% trans 'Weekly cost of servers without schedule' %}
+                                {% else %}
+                                    {% trans 'Weekly cost without schedule' %}
+                                {% endif %}
+                            </td>
+                            <td class="numerical">
+                                {% render_rate schedule_stats.weekly_cost_without_schedule %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% trans 'Weekly savings' %}
+                                {% if server_or_resource_str == 'server' %}
+                                    {% blockinfotip %}
+                                        {% trans "Weekly savings based on this power schedule compared to the server being continuously powered on." %}
+                                    {% endblockinfotip %}
+                                {% elif server_or_resource_str == 'resource' %}
+                                    {% blockinfotip %}
+                                        {% trans "Weekly savings based on this power schedule compared to this resource's servers being continuously powered on." %}
+                                    {% endblockinfotip %}
+                                {% endif %}
+                            </td>
+                            <td class="numerical">
+                                {% render_rate schedule_stats.weekly_savings %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% if server_or_resource_str == 'resource' %}
+                                    {% trans 'Weekly cost of servers with schedule' %}
+                                {% else %}
+                                    {% trans 'Weekly cost with schedule' %}
+                                {% endif %}
+                            </td>
+                            <td class="numerical">
+                                {% render_rate schedule_stats.weekly_cost_with_schedule %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Hours on' %}</td>
+                            <td class="numerical">
+                                {{ schedule_stats.hours_on }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans 'Hours off' %}</td>
+                            <td class="numerical">
+                                {{ schedule_stats.hours_off }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    {% endif %}
+    {% endwith %}
+{% else %}
+    <div class="row">
+        <div class="col-sm-6">
+            <p>{% trans 'No schedule has been set for power control.' %}
+            {% if can_manage_power_schedule %}
+                {% trans 'Use the Edit button above to add one.' %}
+            {% endif %}
+            </p>
+        </div>
+    </div>
+{% endif %}

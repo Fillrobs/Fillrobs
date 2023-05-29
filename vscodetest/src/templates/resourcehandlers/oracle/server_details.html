@@ -1,0 +1,42 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>Shape:</dt>
+            <dd>{{ details.shape }}</dd>
+
+            <dt>Persistent Public IP:</dt>
+            <dd>{{ details.persistent_public_ip_reservation|clippable }}</dd>
+
+            <dt>Public IP Address:</dt>
+            <dd>{{ details.public_ip|clippable }}</dd>
+
+            <dt>Private DNS Name:</dt>
+            <dd>{{ details.private_dns_name|clippable }}</dd>
+
+            <dt>Private IP Address:</dt>
+            <dd>{{ details.private_ip|clippable }}</dd>
+
+            <dt>Security Groups:</dt>
+            <dd>{{ details.security_groups|to_csv }}</dd>
+
+            <dt>Key Pair Name:</dt>
+            <dd>{{ details.key_name|key_name_with_availability:rh }}</dd>
+        </dl>
+
+        {% if details.tags %}
+            <h3>Tags</h3>
+            <dl>
+            {% for tag, value in details.tags.items %}
+                <dt>{{ tag }}:</dt>
+                <dd>{{ value }}</dd>
+            {% endfor %}
+            </dl>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,34 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<form id="resource_hist_form" method="post">
+    {% csrf_token %}
+    <select id="id_graph_style" name="graph_style">
+      <option value="linear" selected>{% trans "Linear" %}</option>
+      <option value="timeline">{% trans "Timeline" %}</option>
+    </select>
+    <button
+        type="submit"
+        class="btn btn-default"
+        id="style_form_submit">
+        {% trans "Go" %}&hellip;
+    </button>
+</form>
+<div id="resource-histgraph"></div>
+<script>
+  (function () {
+    'use strict';
+
+    var resourceId = {{ resource.id | escapejs }};
+    $('#resource_hist_form').on('submit', function (e) {
+      e.preventDefault();
+      var $graphArea = $('#resource-histgraph');
+      var style = $('#id_graph_style').val();
+
+      $graphArea.html('<div class="spinner"></div>');
+      $graphArea.load('/resources/' + resourceId + '/history-graph/?style=' + style);
+    });
+
+    $('#resource_hist_form').submit();
+  })();
+</script>

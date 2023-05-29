@@ -1,0 +1,33 @@
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - infobloxendpoint
+    workspace: 1
+    type: infoblox
+    name: InfobloxEndpoint
+    description: My Infoblox
+    single_threaded: false
+- model: naming.infobloxendpoint
+  pk: 1
+  fields:
+    host: infoblox851.sovlabs.net
+    port: 443
+    ssl: true
+    credential: 1
+    dns_view: default
+    network_view: default
+    host_record_template: '{"name":"{{request.name}}","view":"{{endpoint.dnsView}}","comment":"Created by OneFuseExtensibility Module","ipv4addrs":[{"ipv4addr":"{{ request.value}}"}]}'
+    a_record_template: '{"name":"{{request.name}}","ipv4addr":"{{request.value}}","view":"{{endpoint.dnsView}}","comment":"Created by OneFuseExtensibility Module"}'
+    ptr_record_template: '{"name":"{{request.name}}","ptrdname":"{{request.name}}","ipv4addr":"{{request.value}}","view":"{{endpoint.dnsView}}","comment":"Created by OneFuseExtensibility Module"}'
+    cname_record_template: '{"name":"{{request.name}}","canonical":"{{request.value}}","view":"{{endpoint.dnsView}}","comment":"Created by OneFuseExtensibility Module"}'
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: infoblox_cred1
+    description: infoblox_test
+    username: admin
+    password: VmwareS0v
+    endpoint_type: infoblox

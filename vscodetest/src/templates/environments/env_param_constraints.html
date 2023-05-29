@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{# Minimum and Maximum can be 0, which would be falsey if we just did "cfm.minimum" #}
+{# "is not None" will be supported once we get to Django 1.10 #}
+{% if cfm.minimum or cfm.minimum == 0 %}
+  {% trans "Min:" %} {{ cfm.display_minimum }}
+{% endif %}
+{% if cfm.maximum or cfm.maximum == 0 %}
+  {% trans "Max:" %} {{ cfm.display_maximum }}
+{% endif %}
+{% if cfm.slider_increment or cfm.slider_increment == 0 %}
+  {% trans "Slider Increment:" %} {{ cfm.display_increment }}
+{% endif %}
+{% if cfm.regex_constraint %}
+  {% trans "Regex:" %} {{cfm.regex_constraint }}
+{% endif %}
+
+{% if not cfm.maximum and cfm.maximum != 0 and not cfm.minimum and cfm.minimum != 0 and not cfm.regex_constraint %}
+  {% trans "Unconstrained" %}
+{% endif %}

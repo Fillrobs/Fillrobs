@@ -1,0 +1,28 @@
+{% load helper_tags %}
+{% load order_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% if blueprint.status != 'HISTORICAL' and user_can_manage %}
+  <div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_service_item_dialog' blueprint.id %}">
+        <span class="icon-add"></span>
+        {% trans 'Server Tier' %}
+    </a>
+    <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+        href="{% url 'add_network_service_item_dialog' blueprint.id %}">
+        <span class="icon-add"></span>
+        {% trans 'Network' %}
+    </a>
+  </div>
+{% endif %}
+
+<div id="blueprint-topo" class="topo"></div>
+
+<script>
+  $.get("{% url 'blueprint_network_topology' blueprint.id %}", function(data) {
+    console.log(data);
+    c2.topology.init('#blueprint-topo', data.networks, data.nodes);
+  });
+</script>

@@ -1,0 +1,40 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+        href="{% url 'import_logical_routers' sdn.id %}">
+            <span class="icon-import"></span>
+            Import Logical Routers
+        </a>
+    </div>
+
+    <table id="logical-routers" data-table>
+        <thead>
+            <th>Name</th>
+            <th>UUID</th>
+            <th>Environments</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for router in logical_routers %}
+                <tr>
+                    <td>{{ router.display_name }}</td>
+                    <td>{{ router.uuid }}</td>
+                    <td>
+                        {% for env in router.all_associated_envs %}
+                            {{ env.name }}<br/>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a class="icon-edit open-dialog"
+                        href="{% url 'edit_logical_router' sdn.id router.id %}"></a>
+                        <a class="icon-delete open-dialog"
+                        href="{% url 'delete_logical_router' sdn.id router.id %}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

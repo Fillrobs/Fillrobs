@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% comment %}
+    only resource admins or superusers should see this page
+{% endcomment %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load oe_tags %}
+{% block topnav %}orchestrationengines{% endblock %}
+
+{% block content %}
+    <h1>External Orchestrators</h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+           href="{% url 'orchestrator_new' %}"
+           id="add_orchestrator">
+           <span class="icon-add"></span>
+           Add an orchestration engine
+        </a>
+    </div>
+
+    <table id="orchestrators" data-table>
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Technology</th>
+            <th>Username</th>
+            <th>IP Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for engine in engines %}
+                <tr>
+                    <td class="name"><a href="{{ engine.get_absolute_url }}">
+                        {{ engine.name|default:"(no name)" }}</a></td>
+                    <td>{{ engine|orchestrator_icon }} {{ engine.technology.name }}</td>
+                    <td class="username">{{ engine.serviceaccount }}</td>
+                    <td class="address">{{ engine.host }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

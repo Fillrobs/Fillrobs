@@ -1,0 +1,39 @@
+{% load helper_tags %}
+
+{% if available_protection_plans %}
+    <p>
+        {{ available_protection_plans|length }} plans are available for import.
+    </p>
+    <table id="discovered_plans" data-table="dialog clickable">
+        <thead>
+        {% block plan_columns %}
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th>Protection Plan</th>
+        {% endblock %}
+        </thead>
+        <tbody>
+        {% block plan_rows %}
+            {% for plan_id, plan_name in available_protection_plans.items %}
+                <tr>
+                    <td><input name="plan" type="checkbox" value="{{ plan_id }}"/></td>
+                    <td class="name">{{ plan_name }}</td>
+                </tr>
+            {% endfor %}
+        {% endblock %}
+        </tbody>
+    </table>
+{% else %}
+    {% block no_plans %}
+        <p>
+            Unable to locate any new protection plans at this time.
+        </p>
+    {% endblock %}
+{% endif %}
+
+<script type="text/javascript">
+    $(function() {
+        c2.dataTables.init('#discovered_plans');
+    });
+</script>

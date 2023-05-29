@@ -1,0 +1,6 @@
+<div class="post_result">
+  <a href="{{ result.object.get_absolute_url }}">
+    {% include 'actions/action_type_icon.html' with action=result.object %}
+    {{ result.object.name }}
+  </a>
+</div>

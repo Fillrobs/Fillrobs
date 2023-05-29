@@ -1,0 +1,16 @@
+{# added to common tab-disks.html #}
+{% load i18n %}
+
+{% if disk.disk_size == 0 or not disk.disk_size %}
+    <dt></dt>
+    <dd class="alert alert-info" role="alert">
+        {% blocktrans %}
+             Those disk details don't look right. Refresh info on this server to update this disk's attributes.
+        {% endblocktrans %}
+    </dd>
+{% endif %}
+
+{% if disk.name != 'Root Disk' %}
+    {# Allow resizing and deleting of non-root volumes only, as "root disk" isn't a real volume. #}
+    {% include 'servers/disk_actions.html' with allow_resize=True position=position %}
+{% endif %}

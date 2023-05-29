@@ -1,0 +1,55 @@
+{# Renders the markup for files.widgets.ConfigurationFileWidget #}
+{% load i18n %}
+<div class="radio">
+  <label class="">
+    <input type="radio" {% if location_type.initial == "upload" %}checked="checked"{% endif %} name="{{ location_type.name }}" id="{{ location_type.id }}_0" value="upload">{% trans 'Upload a file' %}
+    {{ module_file }}
+    {% if help_text.module_file %}
+      <p class="help-block">{{ help_text.module_file }}</p>
+    {% endif %}
+  </label>
+</div>
+<div class="radio">
+  <label class="">
+    <input type="radio" {% if location_type.initial == "url" %}checked="checked"{% endif %} name="{{ location_type.name }}" id="{{ location_type.id }}_1" value="url">{% trans 'Fetch from URL' %}
+    {{ source_code_url }}
+    {% if help_text.source_code_url %}
+      <p class="help-block">{{ help_text.source_code_url }}</p>
+    {% endif %}
+  </label>
+</div>
+<div class="radio">
+  <label class="">
+    <input type="radio" {% if location_type.initial == "later" %}checked="checked"{% endif %} name="{{ location_type.name }}" id="{{ location_type.id }}_2" value="later">{% trans 'Enter code later' %}
+  </label>
+</div>
+{{ config_file_id }}  {# Hidden widget for tracking the instance id #}
+{% if help_text.location_type %}
+  <p class="help-block">{{ help_text.location_type }}</p>
+{% endif %}
+
+<script type="text/javascript">
+$(function(){
+  var $locationType = $('input[name={{ location_type.name }}]');
+  var $upload = $('#{{ location_type.id }}_0').siblings().not('script');
+  var $sourceUrl = $('#{{ location_type.id }}_1').siblings();
+
+  function hideFields () {
+    var locationType = $locationType.filter(':checked').val();
+
+    if (locationType == 'upload') {
+      $upload.show();
+      $sourceUrl.hide();
+    } else if (locationType == 'url') {
+      $upload.hide();
+      $sourceUrl.show();
+    } else {
+      $upload.hide();
+      $sourceUrl.hide();
+    }
+  }
+
+  $locationType.on('change', hideFields);
+  hideFields();
+});
+</script>

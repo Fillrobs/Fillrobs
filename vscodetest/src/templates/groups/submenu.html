@@ -1,0 +1,70 @@
+{% load cache %}
+{% load helper_tags %}
+{% load i18n %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 groups_submenu request.user.id %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Groups
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                Groups associate Users with Environments and help you to manage permissions, approval processes, and quotas.
+            </p>
+            <p class="paragraph">
+                Groups can represent a business unit, department, team, project, or any other set of users. Permissions for Groups of Users can also be used for access and approval workflows in {% portal_label %}.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'list_groups' %}" class="cb-btn cb-btn-primary">Groups</a>
+        </div>
+    </div>
+    <div class="dropdown-menu__actions">
+        <div class="quick-actions">
+            {% if is_cbadmin %}
+                <h2 class="heading-5 bold panel-title">Quick Actions</h2>
+                <a href="{% url 'create_toplevel_group' %}" class="cb-btn cb-btn-secondary open-dialog">Add a Group</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="groups-content">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>My Groups</th>
+                    <th>Users</th>
+                    <th>Servers</th>
+                    <th>Resources</th>
+                    <th>Rates</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+                {% for group in groups %}
+                    {% if group.hierarchy_depth <= 4 %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'group_detail' group.id %}" class="depth-{{ group.hierarchy_depth }}">
+                                    {{ group.name }}
+                                </a>
+                            </td>
+                            <td>{{ group.get_active_members.count }}</td>
+                            <td>{{ group.get_server_count }}</td>
+                            <td>{{ group.resource_set.count }}</td>
+                            <td>{{ group.rate_display }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endspaceless %}
+{% endcache %}

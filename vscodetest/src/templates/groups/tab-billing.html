@@ -1,0 +1,33 @@
+{% extends 'common/tab-billing.html' %}
+{% load i18n helper_tags %}
+
+{% block summary_table %}
+    <h4>Cost Summary</h4>
+    <hr>
+    <table id="billing-table" data-table>
+        <thead>
+            <th>Resource Handler</th>
+            <th>Total Cost</th>
+        </thead>
+    {% for handler in handlers %}
+        <tr>
+            <td>{{ handler.name }}</td>
+            <td>{{ currency_symbol }} {{ handler.total|floatformat:2 }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
+
+<script>
+{% block highcharts_options %}
+  {{ block.super }}
+  var dailyValuesByHandler = {{ daily_values_by_handler|to_json }};
+  var monthlyValuesByHandler = {{ monthly_values_by_handler|to_json }};
+  var yearlyValuesByHandler = {{ yearly_values_by_handler|to_json }};
+
+  var dailySeries = c2.charts.buildSeriesFromObject(dailyValuesByHandler, 'spline');
+  var monthlySeries = c2.charts.buildGroupBillingBarSeries(monthlyValuesByHandler);
+  var yearlySeries = c2.charts.buildGroupBillingBarSeries(yearlyValuesByHandler);
+
+{% endblock %}
+</script>

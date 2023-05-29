@@ -1,0 +1,64 @@
+{% extends 'dialogs/dialog.html' %}
+{% comment %}
+    Used by Provision Engine -> Applications tab
+{% endcomment %}
+
+{% block form_content %}
+    {% if apps_added %}
+        <p>
+            {{ apps_added|length }} new software policies were discovered.
+        </p>
+
+        <table id="discovered_apps" class="stats">
+            <thead>
+                <tr>
+                    <th> </th>
+                    <th>Software Policy Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for app in apps_added %}
+                <tr>
+                    <td><input name="app" type="checkbox" value="{{ app.id }}"/></td>
+                    <td class="name">{{ app.name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>
+        Unable to locate any new software policies in HPSA at this time.
+        </p>
+    {% endif %}
+
+    {% if apps_removed %}
+        <br>
+        <div class="ui-corner-all ui-helper-clearfix ui-state-highlight padding">
+            <p>
+                The following software policies were removed because they no longer exist on "{{ provengine }}":
+            </p>
+            <ul class="removed">
+                {% for app in apps_removed %}
+                    <li><b>{{ app.name }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock form_content %}
+
+
+{% block on_ready %}
+    {% if apps_added %}
+        var $table = $('#discovered_apps');
+        $table.dataTable(_.defaults({
+            "aaSorting": [[ 1, "asc" ]],
+            "aoColumnDefs": [
+                { "bSortable": false, "aTargets": [0] }
+            ],
+            'fnDrawCallback': function () {
+                $table.clickable();
+            }
+        }, c2.dataTables.dialogDefaults));
+    {% endif %}
+{% endblock on_ready %}

@@ -1,0 +1,4 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% servers_table servers_empty_qs source="/servers/json/" filter_name="filter_by_owner" filter_value=the_profile.id %}

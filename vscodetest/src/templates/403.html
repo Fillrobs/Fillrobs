@@ -1,0 +1,19 @@
+{% extends "error.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Not Authorized" %}{% endblock %}
+
+{% block errorcontent %}
+    <h1>{% trans "Not Authorized" %}</h1>
+    <p>
+    {% trans "Your account is not authorized to access this item." %}
+    </p>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">{% trans "Error Message" %}</h2>
+        </div>
+        <div class="panel-body">
+            <pre class="pre-scrollable">{{ exception }}</pre>
+        </div>
+    </div>
+{% endblock %}

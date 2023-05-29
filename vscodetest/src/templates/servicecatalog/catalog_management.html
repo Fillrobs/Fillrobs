@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load tag_tags %}
+{% load i18n %}
+
+{% block topnav %}admin{% endblock %}
+
+{% block content %}
+    <h1>Catalog Management</h1>
+
+    <p class="help-block">
+    {% blocktrans %}
+    Define a set of labels for categorizing blueprints in the Catalog. Blueprint managers can then
+    assign one or more of these to their blueprints.
+    {% endblocktrans %}
+    </p>
+
+    <div class="btn-toolbar padding" role="toolbar">
+        <div class="btn-group" role="group">
+            <a
+                class="btn btn-default open-dialog"
+                href="{% url 'create_blueprint_label' %}"
+                data-test="create-blueprint-label"
+            >
+                <span class="icon-add"></span>
+                {% trans "Label" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        {% include "servicecatalog/catalog_management_label_tree.html" %}
+    </div>
+
+{% endblock content %}

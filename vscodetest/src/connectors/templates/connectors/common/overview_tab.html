@@ -1,0 +1,41 @@
+{% load helper_tags %}
+
+{% block extra_connector_content %}
+{% endblock extra_connector_content %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'edit_provider' provider.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'delete_provider' provider.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+
+<dl>
+    {% for label,value in provider.summary_info.items %}
+        <dt>{{ label }}:</dt>
+        <dd>{{ value }}</dd>
+    {% endfor %}
+
+    {% block extra_attributes %}
+    {% endblock extra_attributes %}
+    {% if profile.show_tenant_info %}
+        <dt>Tenant:</dt>
+        <dd>{{ provider.tenant|link_or_label_none_global:profile }}</dd>
+    {% endif %}
+    <dt>Environments:</dt>
+    <dd>
+        <ul class="list-unstyled connector-envs">
+            {% for env in environments_using_this_conf %}
+                <li>{{ env|link_or_label:profile }}</li>
+            {% empty %}
+                <li>No environments</li>
+            {% endfor %}
+        </ul>
+    </dd>
+</dl>

@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<form {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+    id="misc-settings-form"
+    class="form-horizontal bootstrap3"
+    {# The DOM manipulations below take a while, so initially hide from user #}
+    style="display: none"
+    method="post" action=".">
+
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            {% crispy bool_settings_form %}
+
+            {% csrf_token %}
+            {% crispy form %}
+
+            <div class="form-group">
+                <label class="col-lg-3 control-label">Web Proxy</label>
+                <div class="controls col-lg-9"> {{ web_proxy_display }} </div>
+            </div>
+        </div>
+
+        <div class="panel-footer">
+            <div class="btn-toolbar">
+                <a href="{% url 'admin_home' %}" class="btn btn-default">Cancel</a>
+                <button name="action" type="submit" value="save"
+                    class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+
+    </div>{# end .panel #}
+
+</form>
+
+<script>
+$(function() {
+    var $form = $('#misc-settings-form');
+
+    c2.forms.moveOffsetLabelsToLeftCol($form);
+
+    $form.find('label.control-label.col-lg-3').each(function() {
+        var $label = $(this);
+        $label.removeClass('col-lg-3')
+        $label.addClass('col-lg-12')
+    })
+
+    // Convert all checkboxes into toggle switches
+    $form.find('input[type=checkbox]').each(function() {
+        var $box = $(this);
+        $box.data('post-url', "{% url 'toggle_global_pref' %}?prop=" + $box.attr('name'));
+        $box.bootstrapToggle({
+            'width': 100,
+            'on': 'Enabled',
+            'off': 'Disabled'
+        });
+    });
+    $form.fadeIn();
+
+    // Only show Allowed Roles when Embedded Mode is enabled
+    var $embedded = $("#id_embedded_mode").parent()
+    var $role_div = $("#div_id_allowed_roles_in_embedded_mode")
+    // Both on initial page load
+    if($embedded.hasClass("off")) {
+        $role_div.addClass("hidden")
+    } else {
+        $role_div.removeClass("hidden")
+    }
+    // And when Embedded Mode is toggled
+    $embedded.click(function() {
+        // This is opposite of the above and of what one might expect, because we found that there
+        // was basically a race condiiton where the class on the toggle hasn't changed yet when this is hit
+        if($embedded.hasClass("off")) {
+            $role_div.removeClass("hidden")
+        } else {
+            $role_div.addClass("hidden")
+        }
+    })
+
+});
+</script>
+
+<style>
+    #misc-settings-form .control-label {
+        text-align: left;
+    }
+
+    .form-group {
+        margin-bottom: 35px;
+    }
+
+    {% comment %} Lines up help text for text inputs with toggles {% endcomment %}
+    .controls.col-lg-9 > .help-block {
+        padding-left: 20px;
+    }
+
+    .help-block {
+        width: 35rem;
+    }
+</style>
+
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load admin_list %}
+{% load item_list %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load account_tags %}
+{% block title %}Network: {{ network.name }} {% endblock %}
+{% block topnav %}networks{% endblock %}
+{% block content %}
+<span class="uplink"><a href="{% url 'network_list' %}">Networks</a></span>
+
+<h1>{{ network.name }}</h1>
+
+<ul class="nav nav-boxed-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab-overview">Overview</a></li>
+    <li><a data-toggle="tab" href="#tab-groups">Groups</a></li>
+    <li><a data-toggle="tab" href="#tab-envs">Environments</a></li>
+    <li><a data-toggle="tab" href="#tab-ipranges">IP Pool</a></li>
+    <li><a data-toggle="tab" href="#tab-servers">Servers</a></li>
+</ul>
+<div class="tab-content">
+    <div id="tab-overview" class="active tab-pane">
+        {% include 'networks/tab-overview.html' %}
+    </div>
+    <div id="tab-groups" class="tab-pane">
+        {% include 'networks/tab-groups.html' %}
+    </div>
+    <div id="tab-envs" class="tab-pane">
+        {% include 'networks/tab-environments.html' %}
+    </div>
+    <div id="tab-ipranges" class="tab-pane">
+        {% include 'networks/tab-ipranges.html' %}
+    </div>
+    <div id="tab-servers" class="tab-pane">
+        {% include 'networks/tab-servers.html' %}
+    </div>
+</div>
+{% endblock content %}
+
+{% block onReady %}
+{% endblock onReady%}

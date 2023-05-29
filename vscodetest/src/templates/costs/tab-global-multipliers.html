@@ -1,0 +1,49 @@
+<span class="pull-right">
+    <a class="js-dialog-link icon-add btn btn-default"
+        data-dialog-width="800px"
+        href="{% url 'add_global_disk_type_multiplier' %}"
+        title="Add global disk type rate"
+        data-toggle="tooltip"></a>
+</span>
+<h2>Disk Types</h2>
+<table id="disk-types-global-table" class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th>Rate to multiply</th>
+        <th class="text-right">Disks</th>
+        <th class="text-right">Multiplier</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for multiplier in global_disk_type_multipliers %}
+            <tr>
+                <td>{{ multiplier.label }}</td>
+                <td>{{ multiplier.rate_to_multiply }}</td>
+                <td class="numerical align-to-sort-heading">
+                    {{ multiplier.num_disks }}
+                </td>
+                <td class="numerical align-to-sort-heading">
+                    {{ multiplier.multiplier|floatformat:2 }}x
+                </td>
+                <td>
+                    <a class="icon-edit js-dialog-link"
+                        data-dialog-width="800px"
+                        href="{% url 'edit_global_disk_type_multiplier' multiplier.id %}"></a>
+                    <a class="icon-delete js-dialog-link"
+                        data-dialog-width="800px"
+                        href="{% url 'delete_disk_type_multiplier' multiplier.id %}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#disk-types-global-table").dataTable({
+        aoColumnDefs: [
+            {sType: 'currency', aTargets: [2]}
+        ]
+    });
+});
+</script>

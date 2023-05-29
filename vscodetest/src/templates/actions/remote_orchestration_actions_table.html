@@ -1,0 +1,34 @@
+{% extends 'common/remote_content_list_table.html' %}
+{% load helper_tags %}
+
+{% block table_header_row %}
+    <tr>
+        <th>Import</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Trigger Point</th>
+        <th>Description</th>
+    </tr>
+{% endblock %}
+
+{% block table_body_row %}
+    <tr>
+        <td class="shrink">
+            {% block import_button %}
+            {{ block.super }}
+            {% endblock %}
+        </td>
+        <td class="shrink">
+            {{ resource.name }}
+        </td>
+        <td class="shrink">
+            {{ resource.category|title|default:"" }}
+        </td>
+        <td class="shrink">
+            {{ resource.hook_point_label }}
+        </td>
+        <td class="expand">
+            {{ resource.description }}
+        </td>
+    </tr>
+{% endblock %}

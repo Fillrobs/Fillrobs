@@ -1,0 +1,7 @@
+{% load helper_tags %}
+{% if report %}
+<a
+    href="{{ report.get_absolute_url }}"
+    class="text-{{ context }}"
+    >{{ report.time_received|how_long_ago }} ({{ report.get_status_display }})</a>
+{% endif %}

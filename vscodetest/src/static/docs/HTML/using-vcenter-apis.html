@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('using-vcenter-apis',true);});
+//--></script><title>Using vCenter APIs</title><script type="text/javascript">//<!--
+var articleTitleText='Using vCenter APIs';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Using vCenter APIs</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="resource-handlers.html">Resource Handlers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="vmware-vcenter.html">VMware vCenter</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Using vCenter APIs</span></span>
+  </div><h1 id="h1_1065588369" data-has-heading-anchor="true">
+  vCenter API Access
+<a href="using-vcenter-apis.html#h1_1065588369" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about accessing vCenter through its vSphere Web Services API or vSphere Automation API.
+</p>
+<section>
+  <h2 id="h2__1296687178">
+  </h2>
+</section>
+<hr/>
+<section>
+  <h2 id="h2__1296687178" data-has-heading-anchor="true">
+    Introduction
+  <a href="using-vcenter-apis.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p id="h2__1296687178">
+    In addition to leveraging the built-in capabilities of CloudBolt to interact with resources hosted in VMware vCenter, CloudBolt provides a mechanism for extending these capabilities by easily and securely accessing vCenter APIs.<ul class=""><li class="CHMiniToc_heading2"><a href="using-vcenter-apis.html#h2__1296687178">Introduction</a></li><li class="CHMiniToc_heading2"><a href="using-vcenter-apis.html#h2_1644201065">vSphere Web Services API</a></li><li class="CHMiniToc_heading2"><a href="using-vcenter-apis.html#h2_1223017002">ServiceInstance: The root of the vCenter and ESXi API</a></li><li class="CHMiniToc_heading2"><a href="using-vcenter-apis.html#h2_1223016999">vSphere Automation API</a></li></ul>
+  </p>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1644201065" data-has-heading-anchor="true">
+    vSphere Web Services API
+  <a href="using-vcenter-apis.html#h2_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    VMware's vSphere Web Services API leads the way with API-defined and managed virtual data centers. This is a stable API that does not frequently change and provides backwards compatibility with previously supported API versions. This API is based on SOAP and XML and is therefore not an easy API to use.</p>
+  <p>
+    CloudBolt provides access to Python bindings in the form of <code>pyvmomi</code> that insulates users from the complexities of the vSphere Web Services API. These bindings aren't considered "pythonic" and do require extra effort to use when compared to other Python API bindings like <code>Boto3</code>.&nbsp;
+  </p>
+  <p>
+    Visit <a href="https://code.vmware.com/apis/1067/vsphere" target="_blank">VMware vSphere's browsable Web API Reference Documentation</a>.
+  </p>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1223017002" data-has-heading-anchor="true">
+    ServiceInstance: The root of the vCenter and ESXi API
+  <a href="using-vcenter-apis.html#h2_1223017002" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    The <code class="path">ServiceInstance</code> object is a vCenter <code class="path">ManagedObject</code> that serves as the singleton root of the API inventory on vSphere and ESXi servers. 
+  </p>
+  <p>
+    All vCenter API actions begin with the retrieval of the <code class="path">ServiceInstance</code> object. 
+  </p>
+  <ol>
+    <li>
+      To simplify the process of getting an instance of this singleton from a connected vCenter server, CloudBolt exposes object as part of its <code class="path">VsphereResourceHandler</code> model.
+      <br/>
+      <br/>
+    </li>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment"># Assumming the variable rh is a VsphereResourceHandler</span><br><span class="cm-variable">wrapper</span> = <span class="cm-variable">rh</span><span class="cm-variable">.get_api_wrapper</span>()<br><span class="cm-variable">si</span> = <span class="cm-variable">wrapper</span><span class="cm-variable">._get_connection</span>()</pre></td></tr></table>
+    <br/>
+    <li>
+      Now that we have a reference to the <code class="path">ServiceInstance</code> object corresponding to our Resource Handler, we can now interact directly with the API on this vCenter system. For example, let’s retrieve a virtual machine’s summary from vCenter:
+      <br/>
+      <br/>
+    </li>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-variable">RH_ID</span> = <span class="cm-number">1</span>          <span class="cm-comment"># The ID for a vSphere ResourceHandler</span><br><span class="cm-variable">SERVER_ID</span> = <span class="cm-number">1000</span>   <span class="cm-comment"># A Server ID for a server in the above ResourceHandler</span><br><br><span class="cm-variable">server</span> = <span class="cm-variable">Server</span><span class="cm-variable">.objects</span><span class="cm-variable">.get</span>(<span class="cm-builtin">id</span>=<span class="cm-variable">SERVER_ID</span>)<br><span class="cm-variable">rh</span> = <span class="cm-variable">VsphereResourceHandler</span><span class="cm-variable">.objects</span><span class="cm-variable">.get</span>(<span class="cm-builtin">id</span>=<span class="cm-variable">RH_ID</span>)<br><span class="cm-variable">wrapper</span> = <span class="cm-variable">rh</span><span class="cm-variable">.get_api_wrapper</span>()<br><span class="cm-variable">si</span> = <span class="cm-variable">wrapper</span><span class="cm-variable">._get_connection</span>()<br><span class="cm-variable">index</span> = <span class="cm-variable">si</span><span class="cm-variable">.content</span><span class="cm-variable">.searchIndex</span><br><br><span class="cm-variable">vm</span> = <span class="cm-variable">index</span><span class="cm-variable">.FindByUuid</span>(<br>  <span class="cm-variable">uuid</span>=<span class="cm-variable">server</span><span class="cm-variable">.resource_handler_svr_id</span>,<br>  <span class="cm-variable">vmSearch</span>=<span class="cm-builtin">True</span>)<br>  <br><span class="cm-keyword">print</span>(<span class="cm-variable">vm</span><span class="cm-variable">.summary</span> <span class="cm-keyword">if</span> <span class="cm-variable">vm</span> <span class="cm-keyword">else</span> <span class="cm-string">"VM Not Found."</span>)<br></pre></td></tr></table>
+    <br/>
+  </ol>
+  <p>
+    In the above example, using our ServiceInstance we get a ServiceContent object which provides several vCenter ManagedObjects that allow us to retrieve content in various ways. 
+  </p>
+  <ul>
+    <li>
+      We leverage the SearchIndex singleton object that provides methods for searching the vCenter inventory, including FindByUuid, which allows us to retrieve a Virtual Machine by its UUID. The desired VM’s UUID can be accessed as part of its CloudBolt Server record, so we pass it to the FindByUuid method along with a flag indicating we are searching for a VM.
+    </li>
+  </ul>
+  <ul>
+    <li>
+      Note that the capitalization is non-standard for Python. By convention, Python code isn’t written in CamelCase or with capitalized method names. This is a side-effect of how the pyvmomi Python language bindings are generated from the vSphere Web Service API.
+    </li>
+  </ul>
+  <ul>
+    <li>
+      Another side-effect of pyvmomi’s connection to the SOAP-based vSphere Web Service API is that these method calls and properties are dispatched dynamically. This means that even when using an IDE like PyCharm, you won’t see the benefits of code autocompletion. While this reduces productivity you can take some solace in the fact the API is well documented.
+      <br/>
+      <br/>
+    </li>
+  </ul>
+</section>
+<hr/>
+<section>
+  <h2 id="h2_1223016999" data-has-heading-anchor="true">
+    vSphere Automation API
+  <a href="using-vcenter-apis.html#h2_1223016999" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    The vCenter Web Service API is extremely powerful but can be difficult to use. The vSphere Automation API, added in vSphere 6.5, is a more modern API exposed via a REST-based HTML interface that simplifies the automation of vSphere in a form that is more consistent with other vendors' APIs.
+  </p>
+  <p>
+    The latest documentation for the <a href="https://developer.vmware.com/docs/vsphere-automation/latest/" target="_blank">vCenter Web Service API is available here</a>.
+  </p>
+  <h3 id="h3_1322883411" data-has-heading-anchor="true">
+    Use vSphere Automation API with your vCenter Resource Handler
+  <a href="using-vcenter-apis.html#h3_1322883411" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    There is a class in CloudBolt called <code class="path">resourcehandlers.vmware.vapi_wrapper.VsphereRESTClient</code> that makes this API easy to use with your existing vCenter Resource Handlers. 
+  </p>
+  <p>
+    To create and initialize this object,  pass its connection information from the Resource Handlers:
+  </p>
+  <p>
+  </p>
+<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre> <span class="cm-variable">client</span> = <span class="cm-variable">VsphereRESTClient</span>(<br>    <span class="cm-variable">host</span>=<span class="cm-variable">rh</span><span class="cm-variable">.ip</span>,<br>    <span class="cm-variable">port</span>=<span class="cm-variable">rh</span><span class="cm-variable">.port</span>,<br>    <span class="cm-variable">username</span>=<span class="cm-variable">rh</span><span class="cm-variable">.serviceaccount</span>,<br>    <span class="cm-variable">password</span>=<span class="cm-variable">rh</span><span class="cm-variable">.servicepasswd</span>,<br>    <span class="cm-variable">protocol</span>=<span class="cm-string">"https"</span>,<br>    <span class="cm-variable">ssl_verification</span>=<span class="cm-variable">rh</span><span class="cm-variable">.get_ssl_verification</span>()<br>)</pre></td></tr></table>
+  <p>
+    This <code class="path">VsphereRESTClient</code> instance can now be use to call some methods already on the instance itself, or via an http POST or GET depending on the API function being called. 
+  </p>
+  <p>
+    In the following example, we use a the HTTP POST method to retrieve a list of objects tagged with the specified vCenter tag ID:
+  </p>
+<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment"># The following ID corresponds to an existing tag in our vCenter</span><br><span class="cm-variable">TAG_ID</span> = <span class="cm-string">"urn:vmomi:InventoryServiceTag:0c43707b-39bd-4f69-8e16-4a2e7bff3755:GLOBAL"</span><br><br><span class="cm-variable">client</span> = <span class="cm-variable">VsphereRESTClient</span>(<br>    <span class="cm-variable">host</span>=<span class="cm-variable">rh</span><span class="cm-variable">.ip</span>,<br>    <span class="cm-variable">port</span>=<span class="cm-variable">rh</span><span class="cm-variable">.port</span>,<br>    <span class="cm-variable">username</span>=<span class="cm-variable">rh</span><span class="cm-variable">.serviceaccount</span>,<br>    <span class="cm-variable">password</span>=<span class="cm-variable">rh</span><span class="cm-variable">.servicepasswd</span>,<br>    <span class="cm-variable">protocol</span>=<span class="cm-string">'https'</span>,<br>    <span class="cm-variable">ssl_verification</span>=<span class="cm-variable">rh</span><span class="cm-variable">.get_ssl_verification</span>()<br>)<br><br><span class="cm-comment"># Get objects in vCenter that are tagged with TAG_ID</span><br><span class="cm-variable">response</span> = <span class="cm-variable">client</span><span class="cm-variable">.post</span>(<br>    <span class="cm-variable">uri</span>=<span class="cm-variable">f</span><span class="cm-string">"/rest/com/vmware/cis/tagging/tag-association"</span><br>        <span class="cm-variable">f</span><span class="cm-string">"/id:{TAG_ID}?~action=list-attached-objects"</span>, <span class="cm-variable">data</span>={})<br><span class="cm-variable">client</span><span class="cm-variable">.close_session</span>()<br><br><span class="cm-comment"># Let's iterate thru the JSON returned to print tagged VMs</span><br><span class="cm-keyword">for</span> <span class="cm-variable">moid</span> <span class="cm-operator">in</span> [<span class="cm-variable">value</span><span class="cm-variable">.get</span>(<span class="cm-string">'id'</span>) <span class="cm-keyword">for</span> <span class="cm-variable">value</span> <span class="cm-operator">in</span> <span class="cm-variable">response</span><span class="cm-variable">.get</span>(<span class="cm-string">'value'</span>)<br>             <span class="cm-keyword">if</span> <span class="cm-variable">value</span><span class="cm-variable">.get</span>(<span class="cm-string">'type'</span>) <span class="cm-operator">==</span> <span class="cm-string">'VirtualMachine'</span>]:<br>  <span class="cm-keyword">print</span>(<span class="cm-variable">moid</span>)</pre></td></tr></table>
+<table class="infoBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td class="infoBoxImageCell">
+        <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+      </td>
+      <td class="infoBoxText">
+        Note that in the above API call, we’re calling the action <code class="path">list-attached-objects</code> on the tag ID URI of <code class="path">/rest/com/vmware/cis/tagging/tag-association/id:{TAG_ID}</code>.  Also note that the <code class="path">VsphereRESTClient.post</code> method returns a <code>dict</code> and handles the marshaling of the JSON response received from the server to a Python dictionary, as opposed to the typical <code class="path">requests.Response</code> object returned from the <code class="path">requests.post</code> method.&nbsp;
+      </td>
+    </tr>
+  </tbody>
+</table>
+</section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="nsx.html" class="articleActions_link CHNavLinkPrevious">NSX</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="vmware-cloud-on-aws.html" class="articleActions_link CHNavLinkNext">VMWare Cloud on AWS</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

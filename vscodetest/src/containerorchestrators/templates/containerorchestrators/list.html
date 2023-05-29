@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load container_orchestrator_tags %}
+{% load helper_tags %}
+
+{% block content %}
+    <h1>Container Orchestrators</h1>
+
+    {% if tenant_msg %}
+        <p><i>{{ tenant_msg }}</i></p>
+    {% endif %}
+
+      <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_container_orchestrator' %}"
+            id="add_container_orchestrator">
+            <span class="icon-add"></span>
+            Add a Container Orchestrator&hellip;
+        </a>
+      </div>
+
+    <table id="container_orchestrators" data-table>
+        <thead>
+            <th>Name</th>
+            {% if profile.show_tenant_info %}
+                <th>Tenant</th>
+            {% endif %}
+            <th>Technology</th>
+            <th>Environments</th>
+            <th>IP Address</th>
+            <th>Details</th>
+        </thead>
+        <tbody>
+            {% for container_orchestrator in container_orchestrators %}
+                <tr>
+                    <td>{{ container_orchestrator|render_link }}</td>
+                    {% if profile.show_tenant_info %}
+                        <td >
+                            {{ container_orchestrator.tenant|link_or_label_none_global:profile }}
+                        </td>
+                    {% endif %}
+                    <td>{{ container_orchestrator|container_orchestrator_icon }}
+                        {{ container_orchestrator.container_technology.name }}</td>
+                    <td>{{ container_orchestrator.render_environments|render_list:profile }}</td>
+                    <td>{{ container_orchestrator.ip }}</td>
+                    <td class="details">
+                        <dl>
+                        {% for key, val in container_orchestrator.get_extra_details.items %}
+                            <dt>{{ key }}:</dt>
+                            <dd>{{ val }}</dd>
+                        {% endfor %}
+                        </dl>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block onReady %}
+
+    $('button[type=submit]').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+{% endblock onReady%}

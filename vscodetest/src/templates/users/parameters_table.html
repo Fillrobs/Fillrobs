@@ -1,0 +1,43 @@
+{% load helper_tags %}
+{% load gravatar %}
+{% load i18n %}
+
+<div id="editable-params">
+    <div id="msg"></div>
+
+    <table id="params-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans 'Parameter' %}</th>
+                <th>{% trans 'Value' %}</th>
+                {% if request_profile.is_cbadmin %}
+                    <th>{% trans 'Actions' %}</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in custom_field_values %}
+            <tr>
+                <td>
+                    <span class="icon-param"></span>
+                    {{ item.field|rich_display:profile }}
+                </td>
+                <td class="param-value">
+                    {{ item.display_value }}
+                    {% if request_profile.is_cbadmin%}
+                        <a data-test="user-edit-parameter-btn" class="icon-edit open-dialog"
+                            href="{% url 'user_edit_parameter' the_profile.id item.field.id %}"></a>
+                    {% endif %}
+                </td>
+                {% if request_profile.is_cbadmin %}
+                    <td>
+                        <a data-test="user-delete-parameter-btn" class="icon-delete open-dialog"
+                            href="{% url 'user_delete_parameter' the_profile.id item.field.id %}"></a>
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

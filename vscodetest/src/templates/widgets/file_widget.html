@@ -1,0 +1,124 @@
+{% load i18n %}
+
+<div class="upload-widget" id="{{ widget.name }}-widget">
+    <span class="current-file">
+        {{ filename }}
+        {% if is_image %}
+            <img src="{{ current_url }}" class="thumbnail" />
+        {% else %}
+            <a href="{{ current_url }}" class="btn btn-default"
+                title="{% trans "Download file" %}" data-toggle="tooltip">
+                <span class="glyphicon glyphicon-download"></span>
+            </a>
+        {% endif %}
+    </span>
+
+    <!-- Visible browse button -->
+    <button class="btn btn-default browse">{% trans "Browse..." %}</button>
+
+    <!-- actual file input widget (will be hidden): -->
+    <input id="{{ widget.name }}-id" type="file" name="{{ widget.name }}" {% include "django/forms/widgets/attrs.html" %} />
+
+    <!-- visible clear control -->
+    <a class="js-clear no-tooltip-affordance"
+        title="{% trans "Clear current file" %}"
+        data-toggle="tooltip"><span class="icon-delete"></span></a>
+    <!-- hidden checkbox (gets checked when the "clear" button is pressed): -->
+    <input style="visibility:hidden" type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}">
+
+</div>
+
+<script type="text/javascript">
+/* Update the preview area with either a filename or an image of the selected file.
+ */
+function updateCurrentFile(inputSelector, $currentFile) {
+    var file = $(inputSelector)[0].files[0];
+
+    if (file.type.match(/image.*/)) {
+      var img = document.createElement('img');
+      img.classList.add('thumbnail');
+      $currentFile.html(img);
+
+      // when file has upload it, assign it to the src attribute
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    } else {
+      $currentFile.html(file.name);
+    }
+}
+
+$(document).ready(function() {
+    var $currentWidget = $('#{{ widget.name }}-widget');
+    var $currentFile = $('#{{ widget.name }}-widget .current-file');
+    var $fileInput = $('#{{ widget.name }}-id');
+    var $browseButton = $('#{{ widget.name }}-widget button.browse');
+    var $clearButton = $('#{{ widget.name }}-widget a.js-clear');
+    var $clearField = $('#{{ widget.checkbox_id }}');
+
+    // Note: jQuery after 1.9x no longer supports $.browser. By the time we
+    // upgrade jQuery, we'll have a better upload widget.
+    if ($.browser && $.browser.msie && parseInt($.browser.version, 10) < 11) {
+      var msg = '{% blocktrans trimmed %}File uploading and management is not well supported by 
+                this version of Internet Explorer. Please use IE 11 or 
+                newer or another modern browser.{% endblocktrans %}';
+
+      if (typeof(FormData) === 'undefined') {
+        // If FormData is not available file uploading is not supported
+        $currentWidget.html(msg)
+          // hide the model field's help text
+          .parent().find('.helptext').hide();
+
+      } else {
+        // IE 10 supports FormData but not customization of the widget.
+        // Hide custom upload widget. The native one will work for
+        // uploads, however that means the ability to clear a file is
+        // not provided.
+        $clearButton.hide();
+        alert(msg);
+      }
+
+      return;
+    }
+
+    var wrapper = $('<div/>').css({height:0,width:0,'overflow':'hidden','display':'inline-block'});
+    var file_input = $fileInput.wrap(wrapper);
+
+    if( ! '{{ current_url }}' ) {
+        // No initial value; hide the clear button, etc:
+        $currentFile.text('');
+        $clearButton.hide();
+        $clearField.prop('checked', false);
+    }
+
+    file_input.on('change', function(e){
+        // New file was selected by the user
+        $clearButton.show();
+        $clearField.prop('checked', false);
+        $currentFile.tooltip('destroy');
+        $currentFile.text('');
+        updateCurrentFile('#{{ widget.name }}-id', $currentFile);
+    });
+
+    $browseButton.click(function(e){
+        e.preventDefault();
+        // The user clicked out custom "Browse..." button, propagate
+        // the event to the hidden file input field:
+        file_input.click();
+    }).show();
+
+    $clearButton.click(function(){
+        // Clear button was pressed
+        // Check the hidden "clear" checkbox:
+        $clearField.prop('checked', true);
+        // Clear the "current" link:
+        $currentFile.html('');
+        // Clear the actual file input
+        $fileInput.val('');
+        // Hide the clear button (for now):
+        $(this).hide();
+    });
+});
+</script>

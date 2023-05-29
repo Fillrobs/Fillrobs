@@ -1,0 +1,80 @@
+{% load helper_tags %}
+
+<div class="panel panel-default" data-id="{{ package.name }}">
+    <div class="panel-heading">
+        {% if package.status != "remote" %}
+        <span data-toggle="collapse" data-target="#package-{{ package.name }}-details" class="collapsed">
+
+            <span class="collapsed-indicator no-tooltip-affordance"></span>
+        {% endif %}
+            {{ package.name }}
+
+            {% infotip package.description %}
+        {% if package.status != "remote" %}
+        </span>
+        {% endif %}
+
+        <div class="pull-right">
+            <div class="btn-group">
+            {% if package.status != "remote" %}
+                <a class="btn btn-default"
+                    data-toggle="tooltip"
+                    title="Download package"
+                    href="{% url 'download_extension' package.name %}">
+                    <span class="fas fa-download"></span>
+                </a>
+                <a class="btn btn-default open-dialog"
+                    data-toggle="tooltip"
+                    title="Delete package"
+                    href="{% url 'delete_extension' package.name %}">
+                    <span class="fas fa-times"></span>
+                </a>
+            {% else %}
+                <a class="import-link no-tooltip-affordance open-dialog"
+                    data-toggle="tooltip"
+                    title="Import this package"
+                    href="{% url 'import_extension_from_content_library' %}?pkg={{ package.url }}">
+                    <span class="fas fa-cloud-download-alt"></span>
+                </a>
+                {% include 'common/name_exists_locally_warning.html' with item=package %}
+             {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div id="package-{{ package.name }}-details"
+        class="panel-body{% if package.status != "remote" %} collapse{% endif %}">
+        <dl>
+            <dt> Package: </dt>
+            <dd> {{ package.abs_path|default:"<i>Remote Extension Package</i>" }} </dd>
+        </dl>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Hook</th>
+                    <th>Label</th>
+                    <th>Function</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for extension in package.extensions %}
+                <tr>
+                    <td>
+                        {{ extension.hook_display }}
+                    </td>
+                    <td>
+                        {{ extension.title }}
+                    </td>
+                    <td>
+                        <code>
+                        {{ extension.view_name }}
+                        </code>
+                        {% infotip extension.description.strip %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

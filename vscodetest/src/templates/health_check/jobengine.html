@@ -1,0 +1,178 @@
+{% load helper_tags %}
+
+<div class="refresh">
+    <a class="btn btn-default" data-include-refresh>
+        <i class="fa fa-refresh"></i>
+        Refresh
+    </a>
+    <span data-include-timestamp></span>
+</div>
+
+<table class="dataTable no-footer">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Runtime</th>
+            <th>Worker</th>
+            <th>Process Last Restarted</th>
+            <th># Running Jobs</th>
+            <th>Maximum Concurrency</th>
+            <th></th>
+        </tr>
+    </thead>
+    {% for worker in workers %}
+    <tr>
+        <td class="status_{{ worker.status }}"></td>
+        <td>
+            {% if worker.status == "0" %}
+                Over 24hrs
+            {% elif worker.status == "1" %}
+                Less than 8hrs
+            {% elif worker.status == "2" %}
+                8-16hrs
+            {% else %}
+                16-24hrs
+            {% endif %}
+        </td>
+        <td>{{ worker.hostname }}</td>
+        <td>{{ worker.updated_date | how_long_ago}}</td>
+        <td>{{ worker.running_job_count }}</td>
+        <td>{{ worker.max_concurrency }}</td>
+        <td></td>
+    </tr>
+    {% empty %}
+        <tr>
+            <td class="status_0"></td>
+            <td>No active workers found</td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h4>{{job_engine_history}}</h4>
+
+<div>
+    <span class="job-chart" id="chart-job-engine-history-hour"></span>
+    <span class="job-chart" id="chart-job-engine-history-day"></span>
+</div>
+
+<script>
+$(function () {
+
+    $('#chart-job-engine-history-hour').highcharts(
+        {
+            chart: {
+                type: 'column',
+            },
+            title: {
+                text: 'Jobs in last hour'
+            },
+            xAxis: {
+                categories: [{%for key in history_hour_keys %}"{{key}}", {% endfor %}]
+            },
+            yAxis: {
+                min: 0,
+                minRange: 1,
+                minTickInterval: 10,
+                title: {
+                    text: ''
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+            },
+            series: [
+                {% for worker_name, worker_data in history_hour.items %}
+                    {
+                        name: "{{worker_name}}",
+                        data: {{ worker_data }},
+                    },
+                {% endfor %}
+            ],
+        }
+    );
+
+    $('#chart-job-engine-history-day').highcharts(
+            {
+                chart: {
+                    type: 'column',
+                },
+                title: {
+                    text: 'Jobs in last day'
+                },
+                xAxis: {
+                    categories: [{%for key in history_day_keys %}"{{key}}", {% endfor %}]
+        },
+            yAxis: {
+                min: 0,
+                minRange: 1,
+                minTickInterval: 10,
+                title: {
+                    text: ''
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                    }
+                }
+            },
+            series: [
+                {% for worker_name, worker_data in history_day.items %}
+                    {
+                        name: "{{worker_name}}",
+                        data: {{ worker_data }},
+                    },
+                {% endfor %}
+            ],
+        }
+    );
+});
+</script>

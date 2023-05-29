@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% load dataprotection_tags %}
+{% load helper_tags %}
+{% load i18n %}
+{% block topnav %}admin-index{% endblock %}
+{% block title %}{% trans "Data Protection" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Data Protection" %}</h1>
+
+{% if not object_list or object_list.count == 0 %}
+<div class="alert alert-warning">
+    <h4>{% trans 'Next Steps' %}</h4>
+    {% blocktrans %}
+        To start using Data Protection in CloudBolt, click the <b>Add a Data Protection solution...</b> link below to create your
+        first Data Protection connection.
+    {% endblocktrans %}
+</div>
+{% endif %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+       href="{% url 'dataprotection_new' %}"
+       id="add_dataprotection">
+        <span class="icon-add"></span>
+        {% trans 'Add a Data Protection Solution...' %}
+    </a>
+</div>
+
+<table id="dataprotection-solutions-table" data-table class="dataTable table table-condensed">
+    <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Technology" %}</th>
+            <th>{% trans "Host" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for solution in object_list %}
+        <tr align="left">
+            <td><a href="{% url 'dataprotection_detail' solution.id %}">{{ solution.name }}</a></td>
+            <td>{{ solution|dataprotection_icon }} {{ solution.dataprotection_technology.name }}</td>
+            <td>{{ solution.ip }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+</table>
+<script type="text/javascript">
+var $table = $('#dataprotection-solutions-table');
+c2.dataTables.init('#dataprotection-solutions-table');
+</script>
+
+{% endblock content %}

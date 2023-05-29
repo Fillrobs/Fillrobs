@@ -1,0 +1,39 @@
+{% comment %}
+Template used by the TableTab
+Args:
+    tab: TableTab object
+{% endcomment %}
+
+{% load helper_tags %}
+
+
+<table id="{{ tab.table_id }}">
+    <thead>
+        {% if tab.thead_row_template %}
+            {% include tab.thead_row_template %}
+        {% else %}
+            {% for col in tab.columns %}
+                <th class="{% if forloop.first %}expand{% else %}shrink{% endif %}">
+                    {{ col }}
+                </th>
+            {% endfor %}
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for object in tab.rows %}
+
+            {% include tab.tbody_row_template %}
+
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+$(document).ready(function() {
+
+    $('#{{ table_id }}').dataTable({{ tab.table_options|to_json }});
+
+});
+</script>
+

@@ -1,0 +1,22 @@
+{% comment %}
+Used to render common.widgets.ButtonColumns
+{% endcomment %}
+
+<table class="table button-columns">
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+      {% for column in columns %}
+        <td>
+          {% for value, label in column %}
+            <label class="btn btn-default {% if value == field_value %} active {% endif %} {{ button_attrs.class }}">
+              <input type="radio" name="{{ field_name }}" value="{{ value }}">
+              {{ label }}
+            </label>
+          {% endfor %}
+        </td>
+      {% endfor %}
+    </tr>
+  </tbody>
+</table>

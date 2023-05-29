@@ -1,0 +1,26 @@
+{% extends 'dialogs/dialog.html' %}
+{% load hook_tags %}
+{% load i18n %}
+{% with action.name as action_name %}
+{% block form_content %}
+
+    {% if has_dependents %}
+        <p>
+
+        {% blocktrans %} The action  "{{ action_name }}" is in use and cannot be deleted.
+        If you want to delete it, first remove the dependents listed below.
+        {% endblocktrans %}
+        {% if action.shared %}
+        {% trans 'Alternatively, unsharing it would make it unavailable to be used in new actions.' %}
+        {% endif %}
+    {% else %}
+        <p>
+        {% blocktrans %}Are you sure you wish to remove the action {{action_name}}?{% endblocktrans %}
+        </p>
+    {% endif %}
+
+    {# List dependencies on this action #}
+    {% action_dependents action profile dependents action_type %}
+
+{% endblock %}
+{% endwith %}

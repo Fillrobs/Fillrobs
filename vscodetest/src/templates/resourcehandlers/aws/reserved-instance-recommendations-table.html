@@ -1,0 +1,124 @@
+{% load helper_tags %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-comment-dollar"></i>&nbsp<b>Your Spending</b>
+            </div>
+            <div class="panel-body" style="min-height: 8em">
+                <h2>
+                    You spent {{ currency_symbol }} {{ recommendation_summary.current_spending_past_year|floatformat:2 }}
+                </h2>
+                <i>
+                    for on demand EC2 instance charges in the past year
+                    {% infotip "This total only includes EC2 instances that have been imported into CloudBolt." %}
+                </i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="far fa-lightbulb"></i>&nbsp<b>Recommendations</b>
+            </div>
+            <div class="panel-body" style="min-height: 8em">
+                <h4>Purchase:</h4>
+                {% for instance_type, count in recommendation_summary.recommendations.instance_types.items %}
+                    &nbsp&nbsp{{ count }} {{ instance_type }} reserved instance{{ count|pluralize }}.
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fas fa-funnel-dollar"></i>&nbsp<b>Estimated Savings</b>
+            </div>
+            <div class="panel-body" style="min-height: 8em">
+                <h2>
+                    Save {{ currency_symbol }} {{ recommendation_summary.recommendations.estimated_savings|floatformat:2 }}
+                    per year
+                </h2>
+                <i>
+                This is what we estimate you will save out of your current on demand spending
+                by purchasing the {{ ri_recommendations|length }} recommended
+                reserved instance{{ ri_recommendations|length|pluralize }}.
+                </i>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" id="reserved-instance-recommendation-container">
+    <div class="col-lg-12">
+        {# initialize the data table and sort by the 'Savings' column by default #}
+        <table id="reserved-instance-recommendation-table"
+               data-table
+               data-table-sort="6,desc">
+           <thead>
+                <tr>
+                    <th>{% trans "Instance" %}</th>
+                    <th>{% trans "Instance Type" %}</th>
+                    <th>{% trans "Scope" %}</th>
+                    <th>{% trans "OS" %}</th>
+                    <th>{% trans "Fixed Price" %}</th>
+                    <th>{% trans "Recurring Charges" %}</th>
+                    <th>
+                        {% trans "Total Savings" %}
+                        {% infotip "The estimated savings over the duration of the Reserved Instance Contract in comparison to your current On Demand Costs for this server." %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for server, recommended_ri in ri_recommendations.items %}
+                    <tr>
+                        <td>
+                            {{ server|link_or_label:profile }}
+                        </td>
+                        <td>
+                            {{ recommended_ri.InstanceType }}
+                        </td>
+                        <td>
+                            {{ recommended_ri.Scope }}:&nbsp
+                            {% if recommended_ri.Scope == 'Availability Zone' %}
+                                {{ server.ec2serverinfo.availability_zone }}
+                            {% elif recommended_ri.Scope == 'Region' %}
+                                {{ server.ec2serverinfo.ec2_region }}
+                            {% endif %}
+
+                        </td>
+                        <td>
+                            {{ recommended_ri.ProductDescription }}
+                        </td>
+                        <td>
+                            ${{ recommended_ri.FixedPrice }}
+                        </td>
+                        <td>
+                            {% for recurring_charge in recommended_ri.RecurringCharges %}
+                                ${{ recurring_charge.Amount }} / {{ recurring_charge.Frequency }}
+                                <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ recommended_ri.CostSavings }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th scope="row"></th>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+

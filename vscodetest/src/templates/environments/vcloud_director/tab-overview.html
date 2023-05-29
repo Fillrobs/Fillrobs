@@ -1,0 +1,22 @@
+{% load i18n %}
+
+{% if organization %}
+    <dt>{% trans "vCD Organization:" %}</dt>
+    <dd>
+        {% if organization != "-" %}
+            {{ organization|safe }}
+        {% else %}
+            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+            <a class="icon-edit open-dialog"
+                href="{% url 'edit_env_vcd_organization' environment.id %}"></a>
+        {% endif %}
+    </dd>
+    <dt>{% trans "vCD [Org]VDC:" %}</dt>
+    <dd>
+        {% if virtual_datacenter != "-" %}
+            {{ virtual_datacenter|safe }}
+        {% else %}
+            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+        {% endif %}
+    </dd> 
+{% endif %}

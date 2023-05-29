@@ -1,0 +1,68 @@
+{% comment %}
+    Used by GCE's resourcehandlers/detail.html
+    Expects a queryset 'networks'.  Calling templates may call dataTable
+    if desired.
+{% endcomment %}
+
+{% load helper_tags %}
+<table id="networks" data-table style="table-layout: fixed;">
+    <thead>
+        <th>Name</th>
+        <th>Subnetworks</th>
+        <th>Mode</th>
+        <th>IP addresses ranges</th>
+        <th>Gateways</th>
+        <th>Actions</th>
+    </thead>
+    <tbody>
+        {% for network in networks %}
+            {% include 'resourcehandlers/gcp/tab_networks_table_item.html' %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+
+var subnet_dicts = {
+    {% for network in networks %}
+        "{{network.id}}": [
+            {% for subnetwork in network.subnetworks.all %}
+                {
+                    "name": "{{subnetwork.name}}",
+                    "region": "{{subnetwork.region}}",
+                    "cidr_block": "{{subnetwork.cidr_block}}",
+                    "gateway": "{{subnetwork.gateway|default_if_none:'<i>None</i>'}}",
+                },
+            {% endfor %}
+        ],
+    {% endfor %}
+}
+
+function fnFormatDetails ( subnets )
+{
+    var sOut = '<table style="width:100%; table-layout: fixed;"><tbody role="alert" aria-live="polite" aria-relevant="all">';
+    for (var i = 0; i < subnets.length; i++) {
+        subnet = subnets[i];
+        sOut += '<tr>';
+        sOut += "<td>{# Parent network name column #}</td>";
+        sOut += "<td>" + subnet['name'] + "</td>";
+        sOut += "<td>{# Parent network mode column #}</td>";
+        sOut += "<td>" + subnet['cidr_block'] + "</td>";
+        sOut += "<td>" + subnet['gateway'] + "</td>"
+        sOut += "<td>{# Parent network actions column #}</td>";
+        sOut += '</tr>';
+    } 
+    sOut += '</tbody></table>';
+    return sOut;
+}
+
+$(document).ready(function() {
+    var netTable = $('#networks').DataTable();
+    netTable.$('tbody> tr').each(function(){
+        var subnets = subnet_dicts[$(this).data('id')];
+        if (typeof subnets != 'undefined' && subnets.length > 0){
+            netTable.row(this).child(fnFormatDetails(subnets), 'details' ).show()
+        }
+    })    
+});
+</script>

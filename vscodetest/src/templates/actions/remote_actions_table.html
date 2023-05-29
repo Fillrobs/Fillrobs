@@ -1,0 +1,88 @@
+{% load helper_tags %}
+
+<div class="clearfix"></div>
+<p></p>
+
+<h2>Actions published on
+    {% if profile.is_cbadmin %}
+        <a href="{% url 'connectioninfo_detail' connection.id %}"
+            class="no-tooltip-affordance" data-toggle="tooltip"
+            title="Manage ConnectionInfo">{{ connection.name }}</a>
+    {% else %}
+        {{ connection.name }}
+    {% endif %}
+</h2>
+<p>
+Import an action to create a local copy. Then configure it to work within your infrastructure.
+</p>
+
+<table id="remote-actions-table" class="remote-actions" data-table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th class="shrink">Name</th>
+            <th class="expand">Description</th>
+            <th>
+                <span data-toggle="tooltip"
+                    data-max-width=600
+                    title="The action on {{ connection.name }} has these constraints. Note that the OS families, technologies, etc. must exist on your {% portal_label %} instance for the constraints to be created during import.">
+                    Recommended constraints
+                </span>
+            </th>
+            <th class="shrink"></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for action in actions %}
+        <tr>
+            <td>
+                {# enables table search/sort by type #}
+                <span class="hidden">{{ action.type_slug }}</span>
+
+                {% include 'actions/action_type_icon.html' %}
+            </td>
+            <td class="shrink">
+                {{ action.name }}
+            </td>
+            <td class="expand">
+                <p>
+                {{ action.description|linebreaksbr }}
+                </p>
+            </td>
+            <td class="shrink">
+                {% if action.os_families %}
+                    <div>
+                        OS families:
+                        {% for family in action.os_families %}
+                            <img width=16 height=16 src="{{ base_url }}{{ family.icon_url }}"
+                                class="no-tooltip-affordance" data-toggle="tooltip" title="{{ family.name }}">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% if action.resource_technologies %}
+                    <div>
+                        Resource technologies:
+                        {% for tech in action.resource_technologies %}
+                            <img width=16 height=16 src="{{ base_url }}{{ tech.icon_url }}"
+                                class="no-tooltip-affordance" data-toggle="tooltip" title="{{ tech.name }}">
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </td>
+            <td class="shrink">
+                <a class="import-link no-tooltip-affordance revealable open-dialog"
+                    data-toggle="tooltip"
+                    title="Import this action"
+                    href="{% url 'import_action_from_content_library' %}?pkg={{ action.package_url }}">
+                    <span class="fas fa-cloud-download-alt"></span>
+                </a>
+                {% include 'common/name_exists_locally_warning.html' with item=action %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<script>
+c2.dataTables.init('#remote-actions-table');
+</script>

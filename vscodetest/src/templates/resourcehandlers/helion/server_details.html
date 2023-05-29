@@ -1,0 +1,28 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            <dt>Project:</dt>
+            <dd>{{ details.location }}</dd>
+        </dl>
+        <dl>
+            <dt>Region:</dt>
+            <dd>Not Implemented</dd>
+        </dl>
+        {% if details.tags_as_list %}
+            <dl>
+                <dt>Tags:</dt>
+                <dd>
+                    {% for tag in details.tags_as_list %}
+                        <span class="cb-tag">{{ tag }}</span>
+                    {% endfor %}
+                </dd>
+            </dl>
+        {% endif %}
+    </div>
+</div>

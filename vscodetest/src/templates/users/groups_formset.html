@@ -1,0 +1,259 @@
+{% load account_tags %}
+
+<div id="editable-groups">
+    {% if formset.errors %}
+        {% comment %}
+        <ul class="errors">
+            {% for form in formset.errors %}
+                <li>{{ form }}</li>
+            {% endfor %}
+        </ul>
+        {% endcomment %}
+    {% endif %}
+
+    <form id="editGroups" method="post" action="{% url 'user_groups_formset' profile.id %}">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table id="groups" class="table table-hover" data-table="formset">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="group_cell">Group</th>
+                    {% for role in possible_roles %}
+                        <th class="shrink">
+                            <input class="check-column" type="checkbox" />
+                            {{ role|role_with_tooltip }}
+                        </th>
+                    {% endfor %}
+                    <th class="shrink">Remove</th>
+                </tr>
+                <tr class="controls">
+                    <th colspan={{ column_count }}>
+                        <button class="btn btn-default cancel">Cancel</button>
+                        <button class="btn btn-default no-more-to-add" disabled>No more groups to add</button>
+                        <button class="btn btn-default add">
+                            <span class="icon-add"></span>
+                            Add a group
+                        </button>
+                        <button class="btn btn-primary save">Save changes</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for form in formset %}
+                {% include 'users/user_groups_form_row.html' %}
+            {% endfor %}
+
+            {# row that will be duplicated when adding new groups: #}
+            {% include 'users/user_groups_form_row_template.html' with form=new_row_form %}
+            </tbody>
+            <tfoot>
+                <tr class="controls">
+                    <th class="ui-corner-br ui-corner-bl" colspan="{{ column_count }}">
+                        <button class="btn btn-default cancel">Cancel</button>
+                        <button class="btn btn-default no-more-to-add" disabled>No more groups to add</button>
+                        <button class="btn btn-default add">
+                            <span class="icon-add"></span>
+                            Add a group
+                        </button>
+                        <button class="btn btn-primary save">Save changes</button>
+                    </th>
+                </tr>
+                {% if gp.inherit_group_permissions %}
+                    <tr>
+                        <td colspan="{{ column_count }}">
+                            <div class="alert alert-info">
+                                Inheritance of group permissions is enabled, so any permissions you
+                                configure on a parent group will be propagated down to all its subgroups.
+                            </div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tfoot>
+        </table>
+    </form>
+</div>
+
+<script type="text/javascript">
+$(function() {
+
+    // Stores a list of ids that have already been used. Helps populate
+    // available options when adding a new row to the formset.
+    var usedGroupIds;
+    // Maps group ids to selectize option objects. Used to add back options
+    // that have been removed.
+    var allGroupOptions;
+
+    // Hide/show Add button depending on if there are more groups to add.
+    function hideOrShowAddButton() {
+        var $container = $('form#editGroups');
+
+        if( usedGroupIds.length >= available_groups ) {
+            $container.find('.add').hide();
+            $container.find('.no-more-to-add').show();
+        } else  {
+            $container.find('.add').show();
+            $container.find('.no-more-to-add').hide();
+        }
+    }
+
+    // When a group dropdown is updated, refresh the choices on all other
+    // group dropdowns.
+    function updateGroupChoices(selector, oldValue, newValue) {
+        var otherSelectors = $('.new-dynamic-form .group_selector select').not(selector);
+
+        // Remove old value from list of used ids and add it back to all other selectors
+        if (oldValue) {
+            var index = usedGroupIds.indexOf(oldValue);
+            if (index > -1) {
+                usedGroupIds.splice(index, 1);
+            }
+            otherSelectors.each(function() {
+                this.selectize.addOption(allGroupOptions[oldValue]);
+            })
+        }
+
+        // Add new value to list of used ids and remove it from all other selectors
+        if (newValue) {
+            usedGroupIds.push(newValue)
+            $(selector).data("prev", newValue);
+            otherSelectors.each(function() {
+                this.selectize.removeOption(newValue);
+            })
+        }
+    }
+
+    function render_formset() {
+        // Render the editable formset:
+        $('table#groups tbody tr').formset({
+            addLabel: '<span class="icon-add"></span>Add group',
+            added: group_form_added,
+            hideRemovedRows: false,
+            // Since we hide the original formset controls in order to customize them,
+            // this would need to be re-implemented anyway; don't show it.
+            showDeleteAllLink: false,
+            removed: groupFormRemoved,
+            // these 2 options allow multiple formsets on the same page
+            prefix: 'user-groups', {# Django formset must be instantiated with same prefix value #}
+            formCssClass: 'user-groups-formset'
+        });
+
+        // Keep orig formset controls so the behavior works, and also ensure it
+        // stays above the footer (re-calling formset appends it below our
+        // tfoot button, which causes new rows to be added below it).
+        $('tr.formset-controls').appendTo('table#groups tbody').hide();
+
+        // Populate initial usedGroupIds for the roles the user already has
+        // Ignore the empty template row
+        usedGroupIds = [];
+        $('.group-row:not(.empty-row)').each( function() {
+            var value = $(this).find('option:selected').val();
+            usedGroupIds.push(value);
+        });
+
+        hideOrShowAddButton();
+    }
+
+    function group_form_added(row) {
+        // Since we just duplicated the "normal" template row, we need to hide
+        // the label, and show the pull-down menu instead:
+        var $row = $(row);
+        var groupTD = $row.removeClass("empty-row").addClass('new-dynamic-form').find('td.group_cell');
+        var groupSelector = groupTD.find('.group_selector');
+        var groupLabel = groupTD.find('.group_label');
+        groupLabel.hide();
+        groupSelector.show();
+
+        // Limit menu selection only to unused groups:
+        groupSelector.find("option").each( function() {
+            var value =$(this).val();
+            if( usedGroupIds.indexOf(value) != -1 ) {
+                $(this).remove();
+            }
+        });
+
+        // Selectize the new row's group and role dropdowns
+        $row.find('select').each(function(index, select) {
+            var $select = $(select)
+            c2.selectize($select, $select.data('selectize-options'));
+        })
+
+        // If this is the first row added, store the list of all group options
+        groupSelect = groupSelector.find("select")[0]
+        if (!allGroupOptions) {
+            allGroupOptions = {};
+            $.each(groupSelect.selectize.options, function(groupId, option) {
+                allGroupOptions[groupId] = option;
+            });
+        }
+
+        // Update other selectors' choices on update
+        $(groupSelect).on("change", function() {
+            var oldValue = $(this).data("prev");
+            var newValue = $(this).val();
+            updateGroupChoices(this, oldValue, newValue)
+        }).trigger('change');
+
+        // Make sure user can see newly added row at bottom of page
+        $row.get(0).scrollIntoView(true);
+    }
+
+    function groupFormRemoved(row) {
+        var selector = $(row).find(".group_selector select")[0];
+        var oldValue = $(selector).val()
+        updateGroupChoices(selector, oldValue)
+    }
+
+    // Similar to the hack in networkTableAndFormset, this would help in this table as well if it
+    // weren't for the darn 'Add a group' becoming ineffectual after anywhere in the table gets clicked.
+    // https://cloudbolt.atlassian.net/browse/DEV-9295
+    function hackToPreventDisappearingRows() {
+        $('.networks-dynamic-form').find('input:checkbox:not(:checked):first').click().click();
+    }
+
+    // Calculate the total number of groups user could be added to (limited
+    // to those for which the request user is a user_admin) by counting the
+    // number of "option" elements in the first row (note: even the "empty"
+    // row will have the options list populated by Django):
+    var available_groups = $('.empty-row .group_selector').first().find('option').length;
+
+    c2.dataTables.init('#groups', {
+      'bStateSave': false,
+      'bPaginate': false
+    });
+
+    render_formset();
+
+    var $groupMembership = $('#groupMembership');
+
+    $groupMembership.on('click', '.cancel', function(e) {
+        e.preventDefault();
+        c2.block.block($groupMembership);
+        window.location.href = '{% url 'user_detail' profile.id %}';
+    });
+
+    $groupMembership.on('click', '.save', function(e) {
+        $('#editGroups').submit();
+    });
+
+    $groupMembership.on('click', '.add', function(e) {
+        e.preventDefault();
+        $('a.add-form').trigger('click');
+    });
+
+    $('#editGroups').bind('submit', function() {
+        c2.block.block(this);
+        // Before submitting the form, re-enable all select widgets that
+        // we previously disabled. This is needed for the data from these
+        // widgets to go through with the form:
+        $(this).find('.new-dynamic-form .group_selector select').prop('disabled', false);
+    });
+
+    $('#groupMembership').on('change',
+                             'table#groups tbody input:checkbox', function(e) {
+        // mark row red when last checkbox is unchecked, or cancel that if one is checked
+        c2.forms.markRowForDeletionOrNot('table#groups', $(this).closest('tr'));
+    });
+
+});
+</script>

@@ -1,0 +1,143 @@
+{% load helper_tags %}
+
+<div class="panel panel-default">
+    <div class="panel panel-default">
+        {% if not snapshots and not schedule %}
+            <div class="panel-heading">There is not currently a snapshot or upcoming schedule</div>
+            <div class="panel-body">
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'schedule_snapshot' server.id %}"
+                        id="schedule-snapshot">
+                        <i class="fas fa-camera"></i>
+                        <span class="action-label">Schedule a Snapshot</span>
+                    </a>
+                </div>
+            </div>
+        {% elif schedule and not snapshots %}
+            <div class="panel-heading">There is a scheduled snapshot to be taken</div>
+            <div class="panel-body">
+            <p style="text-align:center">
+                <h3>The scheduled snapshot:</h3>
+                <h5>Name: {{ name }}</h5>
+                <h5>Date: {{ pretty_schedule }}</h5>
+                <h5>Work Order: {{ work_order }}</h5>
+            </p>
+                <p>
+                    <h5>If you decide to schedule a new snapshot, the current schedule will be overwritten</h5>
+                </p>
+            <p>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'schedule_snapshot' server.id %}"
+                        id="schedule_snapshot">
+                        <i class="fas fa-camera"></i>
+                        <span class="action-label">Update Snapshot Schedule</span>
+                    </a>
+
+                </div>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="/recurring_job/{{ server.id }}/remove/{{schedule.id}}/"
+                        id="remove-schedule">
+                        <i class="fas fa-trash"></i>
+                        <span class="action-label">Remove this Scheduled Snapshot.</span>
+                    </a>
+
+                </div>
+            </p>
+            </div>
+        {% elif snapshots and schedule and not decom %}
+            <div class="panel-heading">There is currently a snapshot and a new one scheduled to be created</div>
+            <div class="panel-body">
+            <p style="text-align:center">
+                    <h3>There is currently one or more snapshots:</h3>
+                {%  for snap in snapshots %}
+                    <h5>Name: {{ snap.name }}</h5>
+                {% endfor %}
+                <h5>The current snapshot will be deleted when the new one is created.  If you decide to schedule a new snapshot, the current schedule will be overwritten</h5>
+            </p>
+            <p>
+                <h3>The scheduled snapshot:</h3>
+                <h5>Name: {{ name }}</h5>
+                <h5>Date: {{ pretty_schedule }}</h5>
+                <h5>Work Order: {{ work_order }}</h5>
+            </p>
+            <p>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'schedule_snapshot' server.id %}"
+                        id="schedule_snapshot">
+                        <i class="fas fa-camera"></i>
+                        <span class="action-label">Schedule a new Snapshot.</span>
+                    </a>
+
+                </div>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="/recurring_job/{{ server.id }}/remove/{{schedule.id}}/"
+                        id="remove-schedule">
+                        <i class="fas fa-trash"></i>
+                        <span class="action-label">Remove this Scheduled Snapshot.</span>
+                    </a>
+
+                </div>
+            </p>
+            </div>
+        {% elif snapshots and not schedule %}
+            <div class="panel-heading">There is currently a snapshot</div>
+            <div class="panel-body">
+            <p style="text-align:center">
+                    <h3>There is currently one or more snapshots:</h3>
+                {%  for snap in snapshots %}
+                    <h5>Name: {{ snap.name }}</h5>
+                {% endfor %}
+                <h5>The current snapshots will be deleted when the new one is created.</h5>
+            </p>
+            <p>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'schedule_snapshot' server.id %}"
+                        id="schedule_snapshot">
+                        <i class="fas fa-camera"></i>
+                        <span class="action-label">Schedule a new Snapshot.</span>
+                    </a>
+
+                </div>
+            </p>
+            </div>
+        {% elif snapshots and schedule and decom %}
+            <div class="panel-heading">There is currently a snapshot</div>
+            <div class="panel-body">
+            <p style="text-align:center">
+                    <h3>There is currently one or more snapshots:</h3>
+                {%  for snap in snapshots %}
+                    <h5>Name: {{ snap.name }}</h5>
+                {% endfor %}
+                <h5>The snapshot {{ decom_name }} is set to expire on {{ pretty_decom }}</h5>
+                <h5>The current snapshots will be deleted when the new one is created.</h5>
+            </p>
+            <p>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'schedule_snapshot' server.id %}"
+                        id="schedule_snapshot">
+                        <i class="fas fa-camera"></i>
+                        <span class="action-label">Schedule a new Snapshot.</span>
+                    </a>
+
+                </div>
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="/recurring_job/{{ server.id }}/remove/{{schedule.id}}/"
+                        id="remove-schedule">
+                        <i class="fas fa-trash"></i>
+                        <span class="action-label">Remove this Scheduled Snapshot.</span>
+                    </a>
+
+                </div>
+            </p>
+            </div>
+        {% endif %}
+    </div>
+</div>

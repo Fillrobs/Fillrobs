@@ -1,0 +1,59 @@
+{% load helper_tags %}
+
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        { href="{% url 'libcloud_create_location' handler.id %}" }
+        id="import-locations">
+        <span class="icon-import"></span>
+        Import {{ location_label|lower }}s
+    </a>
+</div>
+
+<table id="locations" class="stats">
+    <thead>
+        <th>{{  location_label }}</th>
+        <th>Title</th>
+        <th>Environments</th>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr>
+            <td class="name">{{ location.name }}</td>
+            <td>{{ location.title }}</td>
+            <td>
+                {% for env in location.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+                <a title="Create an environment in location '{{ location.name }}'"
+                   href="{% url 'create_libcloud_env' handler.id location.name %}"
+                   class="icon-add open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#locations').dataTable({
+        "aaSorting": [[ 1, "asc" ]],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0] }
+        ]
+    });
+
+    $('#import-locations').data('dialog_options', {
+        width: 600,
+        position: 'center',
+        wait_msg: 'Querying the resource handler...'
+        });
+});
+</script>
+

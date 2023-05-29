@@ -1,0 +1,35 @@
+{% load helper_tags %}
+{% comment %}
+    Dialog used by Chef -> Cookbooks  tab
+{% endcomment %}
+
+<table id="discovered_apps" data-table="clickable dialog">
+    <thead>
+        <tr>
+            <th> </th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Maintainer</th>
+            <th>Description</th>
+            <th>Rating</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for app in discovered_apps %}
+        <tr>
+            <td>
+                <input name="app" type="checkbox" value="{{ app.name }}"/>
+            </td>
+            <td>{{ app.name }}</td>
+            <td>{{ app.category }}</td>
+            <td>{{ app.maintainer }}</td>
+            <td>{{ app.description }}</td>
+            <td>{{ app.average_rating }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    c2.dataTables.init();
+</script>

@@ -1,0 +1,26 @@
+{% extends 'objects_tab.html' %}
+
+{% block buttons %}
+
+<a class="btn btn-default js-dialog-link"
+    href="{% url 'chef_connector_import_cookbooks' provider.id %}"
+    id="import-apps">
+    <span class="icon-import"></span>
+    Import Cookbooks from Chef Server
+</a>
+
+{% if community_import_enabled %}
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'chef_connector_import_cookbooks_from_community' provider.id %}"
+        id="import-apps-from-community"
+        data-dialog-width="70%">
+        <span class="icon-import-from-web"></span>
+        Import Cookbooks from Community Site
+    </a>
+{% endif %}
+
+{% endblock buttons %}
+
+{% block objects_table %}
+    {% include 'connectors/common/objects_table.html' with object_type='cookbook' objects=provider.chefcookbook_set.all %}
+{% endblock objects_table %}

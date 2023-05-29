@@ -1,0 +1,69 @@
+{% load infrastructure_tags %}
+{% load rh_tags %}
+{% load static %}
+{% load i18n %}
+
+{% if active_servers %}
+<h5>{% trans 'Active servers:' %}</h5>
+<div class="resource-diagram" id="resource-diagram-{{ resource.id }}">
+    {% for tier_name,tier_envs in tiers.items %}
+        <div class="tier">
+            <h4> {{ tier_name }} </h4>
+
+            {% for env_name,env in tier_envs.items %}
+                <div class="env">
+                    <img class="env-tech" width="30" height="30"
+                        data-toggle="tooltip" title="{{ env_name }}"
+                        src="{{ env.tech_icon_path }}"/>
+
+                    {% if env.active_server_count != 0 %}
+                        <div class="env-servers no-tooltip-affordance" data-toggle="tooltip"
+                            title="{{ env.active_server_count }} active server{{ env.active_server_count|pluralize }}">
+                            {% if env.active_server_count == 1 %}
+                                <img src="{% static 'img/icons/server-1.png' %}"/>
+                            {% else %}
+                                <img src="{% static 'img/icons/server-3.png' %}"/>
+                            {% endif %}
+
+                            <span class="server-count"> {{ env.active_server_count }} </span>
+                        </div>
+                    {% endif %}
+
+                    {% if env.prov_server_count != 0 %}
+                        <div class="env-servers no-tooltip-affordance" data-toggle="tooltip"
+                            title="{{ env.prov_server_count }} server{{ env.prov_server_count|pluralize }} currently being provisioned">
+                            {% if env.prov_server_count == 1 %}
+                                <img class="pulsate" src="{% static 'img/icons/server-1.png' %}"/>
+                            {% else %}
+                                <img class="pulsate" src="{% static 'img/icons/server-3.png' %}"/>
+                            {% endif %}
+
+                            <span class="server-count"> + {{ env.prov_server_count }} </span>
+                        </div>
+                    {% endif %}
+
+                    {% if env.decom_server_count != 0 %}
+                        <div class="env-servers no-tooltip-affordance" data-toggle="tooltip"
+                            title="{{ env.decom_server_count }} server{{ env.decom_server_count|pluralize }} currently being decommissioned">
+                            {% if env.decom_server_count == 1 %}
+                                <img class="pulsate" src="{% static 'img/icons/server-1.png' %}"/>
+                            {% else %}
+                                <img class="pulsate" src="{% static 'img/icons/server-3.png' %}"/>
+                            {% endif %}
+
+                            <span class="server-count"> - {{ env.decom_server_count }} </span>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="clearfix"></div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+<script>
+var $diagram = $('#resource-diagram-{{ resource.id }}');
+$(function() {
+    c2.tooltip.init($diagram);
+});
+</script>
+{% endif %}

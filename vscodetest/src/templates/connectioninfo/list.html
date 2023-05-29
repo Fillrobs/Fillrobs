@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block topnav %}connectioninfo{% endblock %}
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+{% block content %}
+    <span class="uplink"><a href="{% url 'admin_home' %}">{% trans 'Admin' %}</a></span>
+    <h1>{% trans 'Connection Info List' %}</h1>
+
+    <section class="intro">
+        <p>
+        {% blocktrans %}Connection Info consists of IP/hostname, port, protocol, username and/or password details
+        for connections to systems outside of{% endblocktrans %} {% portal_label %}. {% blocktrans %}It might be used to securely store
+        credentials for custom actions. Also used internally by{% endblocktrans %} {% portal_label %} {% blocktrans %}for a number of
+        connections, such as load balancers and accessing remote action source code.{% endblocktrans %}
+        </p>
+    </section>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_connectioninfo' %}">
+            <span class="icon-add"></span>
+            {% trans "New Connection Info" %}
+        </a>
+        <!--
+            NOTE: We are including a Terraform-specific tooltip note because that is a relatively new feature we want to help users setup.
+            If Terraform becomes less of a push, we may remove the mention, the button, or the form entirely.
+        -->
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_connectioninfo_git' %}"
+            data-toggle="tooltip"
+            title=""
+            data-html="true"
+            data-original-title="{% blocktrans %}Connection Info form for HTTP(S) Git URLs. <br> Use this for Terraform plans stored in private repos.{% endblocktrans %}">
+            <span class="icon-add"></span>
+            {% trans 'New Git Connection Info' %}
+        </a>
+    </div>
+
+    <table id="connectioninfo-table" data-table
+        {% comment %}
+        Quick fix to avoid Angular trying to interpret hostname template
+        descriptions. A less intrusive way of doing this still needs to be
+        devised.
+        {% endcomment %}
+        ng-non-bindable>
+        <thead>
+            <tr>
+                <th>{% trans 'Name' %}</th>
+                <th>{% trans 'IP/Hostname' %}</th>
+                <th>{% trans 'Labels' %}</th>
+                <th>{% trans 'Actions' %}</th>
+            </tr>
+        </thead>
+        <tbody class="clickable-tags">{# this class must wrap .cb-tag for them to appear clickable #}
+
+        {% for ci in connectioninfos %}
+            <tr>
+                <td class="connectioninfo-name">
+                    <a href="{% url 'connectioninfo_detail' ci.id %}">{{ ci.name }}</a>
+                </td>
+
+                <td class="connectioninfo-ip">
+                    {{ ci.ip }}
+                </td>
+
+                <td class="connectioninfo-labels">
+                    {% for label in ci.labels.names %}
+                       <span class="cb-tag">{{ label }}</span>
+                    {% endfor %}
+                </td>
+
+                <td class="shrink">
+                    <div class="btn-group">
+                        <a class="icon-edit btn btn-default btn-sm open-dialog"
+                            href="{% url 'edit_connectioninfo' ci.id %}"></a>
+                        <a class="icon-delete btn btn-default btn-sm open-dialog"
+                            href="{% url 'delete_connectioninfo' ci.id %}"></a>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
+
+{% block onReady %}
+    $("#connectioninfo-table").on('click', '.cb-tag', function(e) {
+        e.preventDefault();
+        var $tag = $(e.target);
+        $('.dataTables_filter').find('input').val($tag.text().trim()).trigger('keyup');
+    });
+{% endblock %}

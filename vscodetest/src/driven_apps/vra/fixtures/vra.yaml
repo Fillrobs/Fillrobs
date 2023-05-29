@@ -1,0 +1,54 @@
+
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: vra8_cred1
+    description: vra_cred
+    username: vrasvc
+    password: VmwareS0v
+    endpoint_type: vra8
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - vra8endpoint
+    workspace: 1
+    type: vra8
+    name: Vra8Endpoint
+    description: Vra8Endpoint
+- model: naming.vra8endpoint
+  pk: 1
+  fields:
+    host: vra81qa01.sovlabs.net
+    port: 443
+    ssl: true
+    credential: 1
+    workspace: 1
+- model: vra.vrapolicy
+  pk: 1
+  fields:
+    real_type:
+      - vra
+      - vra8policy
+    name: Vra8_Policy01
+    description: null
+    endpoint: 1
+    workspace: 1
+- model: vra.vra8policy
+  pk: 1
+  fields: {}
+- model: vra.vradeployment
+  pk: 1
+  fields:
+    name: rb-deployment-002
+    id: 1
+    blueprint_name: CentOS7-1
+    project_name: Project2
+    archived: false
+    deployment_info:
+      id: a8e808e1-1c96-4830-a31f-1af973ced623
+      name: rb-deployment-002
+    policy: 1
+    workspace: 1

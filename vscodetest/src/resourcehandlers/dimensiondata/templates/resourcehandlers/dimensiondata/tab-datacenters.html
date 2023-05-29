@@ -1,0 +1,37 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="open-dialog btn btn-default"
+        href="{% url 'create_dimensiondata_datacenter' handler.id %}"
+        id="import_datacenters">
+        <span class="icon-import"></span>
+        Import Data Centers
+    </a>
+</div>
+
+<table id="datacenters" data-table>
+    <thead>
+        <tr>
+        <th>Data Centers</th>
+        <th>Environments</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dc in datacenters %}
+        <tr>
+            <td class="name">{{ dc.name }}</td>
+            <td>
+                {% for env in dc.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

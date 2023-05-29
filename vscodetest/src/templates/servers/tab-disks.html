@@ -1,0 +1,34 @@
+{% load rh_tags %}
+{% load i18n %}
+
+{% if "server.add_disks" in profile.permissions and server.status == 'ACTIVE' and not in_unassigned_env and rh_can_manage_disks %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'server_add_disk' server.id disks|length %}"
+            ><span class="icon-add"></span>
+            {% trans 'Add New Disk' %}
+        </a>
+    </div>
+{% endif %}
+
+{% for disk in disks %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>
+                <i class="icon-32 icon-hdd-32"></i>
+                {{ disk }}
+            </h4>
+        </div>
+        <div class="panel-body">
+            <dl>
+                <dt>{% trans 'Disk Size:' %}</dt>
+                <dd>{{ disk.disk_size }} GB</dd>
+
+                <dt>{% trans 'UUID:' %}</dt>
+                <dd>{{ disk.uuid }}</dd>
+
+                {% tech_specific_disk_details disk profile forloop.counter0 %}
+            </dl>
+        </div>
+    </div>
+{% endfor %}

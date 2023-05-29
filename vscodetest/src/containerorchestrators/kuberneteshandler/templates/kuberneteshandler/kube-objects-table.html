@@ -1,0 +1,54 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<table id="kube-objects-table" data-table>
+  <thead>
+    <tr>
+      <th>{% trans "Name" %}</th>
+      <th>{% trans "Kind" %}</th>
+      <th>{% trans "Namespace" %}</th>
+      {% if include_resource %}
+        <th>{% trans "Resource" %}</th>
+      {% endif %}
+      {% if include_cluster %}
+        <th>{% trans "Cluster" %}</th>
+      {% endif %}
+      <th>{% trans "Actions" %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for kube_obj in kube_objects %}
+      <tr>
+        <td class="shrink">
+          {{ kube_obj.name }}
+        </td>
+        <td class="shrink">
+          {{ kube_obj.kind }}
+        </td>
+        <td class="shrink">
+          {{ kube_obj.namespace }}
+        </td>
+        {% if include_resource %}
+          <td class="shrink">
+            {{ kube_obj.resource|link_or_label:profile }}
+          </td>
+        {% endif %}
+        {% if include_cluster %}
+          <td class="shrink">
+            {{ kube_obj.container_orchestrator|link_or_label:profile }}
+          </td>
+        {% endif %}
+        <td>
+          <a class="icon-search open-dialog no-tooltip-affordance"
+             data-toggle="tooltip" title="View YAML"
+             href="{% url 'view_kube_object_yaml' kube_obj.id %}"></a>
+          {% if kube_obj.can_edit %}
+            <a class="icon-edit open-dialog no-tooltip-affordance"
+               data-toggle="tooltip" title="Edit YAML"
+               href="{% url 'edit_kube_object' kube_obj.id %}"></a>
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>

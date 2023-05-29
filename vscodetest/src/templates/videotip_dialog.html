@@ -1,0 +1,28 @@
+{% extends 'dialogs/dialog.html' %}
+{% load i18n %}
+
+{% comment %}
+This dialog has no form or header.
+{% endcomment %}
+{% block form_content %}{% endblock %}
+{% block modalHeader %}{% endblock %}
+
+{% block non_form_content %}
+<div>
+    <h1 class="h4">{{ heading }}</h1>
+    <iframe src="https://player.vimeo.com/video/{{ video_id }}" width="640" height="360" frameborder="0"
+            allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
+
+{% if doc_link %}
+    <br>
+    <p>
+        {% trans "Read more about this " %}
+        <a href="{{ STATIC_URL }}docs/HTML/{{ doc_link }}" target="cbhelp">
+            {% trans "in the documentation" %}
+            <i class="fas fa-external-link-alt"></i>
+        </a>
+    </p>
+{% endif %}
+
+{% endblock %}

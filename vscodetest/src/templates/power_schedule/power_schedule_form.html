@@ -1,0 +1,88 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+
+{% schedule_tzinfo server_or_resource.power_schedule_timezone as sched_timezone %}
+
+<p class="alert alert-warning">
+    {% blocktrans %}When editing this power schedule, all times are shown in the {{ sched_timezone }} time zone.{% endblocktrans %}
+</p>
+
+{# This section only applies when operating on an individual Server or Resource #}
+{% if server_or_resource_str == 'server' and server_or_resource.resource is not None %}
+    {% with server_resource_rendered=server_or_resource.resource|link_or_label:profile %}
+    <p class="alert alert-info">
+
+    {% if server_or_resource.has_power_schedule_on_resource %}
+        {% blocktrans %}This server belongs to the resource {{ server_resource_rendered }},
+        which already has a power schedule set that controls when this server gets powered on and off.{% endblocktrans %}
+    {% else %}
+        {% blocktrans %}This server belongs to the resource {{ server_resource_rendered }},
+        which does not yet have a power schedule set.{% endblocktrans %}
+    {% endif %}
+
+        {% trans "It's recommended to manage this power schedule from the resource, which can be done from its 'Power Schedule' tab." %}
+    </p>
+    {% endwith %}
+{% endif %}
+
+{# This section only applies when editing the Power Schedule for multiple Servers #}
+{% if servers_in_resources %}
+    <p class="alert alert-info">
+        {% blocktrans with servers_in_resources_rendered=servers_in_resources|to_csv_links:profile resources_for_servers_rendered=resources_for_servers|to_csv_links:profile count counter=servers_in_resources|length %}
+            The server {{ servers_in_resources_rendered }} belongs to the resource {{ resources_for_servers_rendered }}.
+        {% plural %}
+            The servers {{ servers_in_resources_rendered }} belong to the resources {{ resources_for_servers_rendered }}, respectively.
+        {% endblocktrans %}
+
+        {% if resources_with_power_schedule %}
+            {% blocktrans with resources_with_power_schedule_rendered=resources_with_power_schedule|to_csv_links:profile %}
+                (A power schedule is set on {{ resources_with_power_schedule_rendered }} that controls
+                when resource servers get powered on and off.)
+            {% endblocktrans %}
+        {% endif %}
+
+            {% trans "It's recommended to manage power schedules from the resource when a server is in one, which can be done from the resource's 'Power Schedule' tab." %}
+    </p>
+{% endif %}
+
+{{ form.deleted_schedules }}
+
+<div class="power-schedule-timezone">
+    {{ form.time_zone.label_tag}}
+    {{ form.time_zone }}
+</div>
+
+<div class="power-schedule-fields">
+    {{form.non_field_errors }}
+    {% for schedule in form.get_grouped_schedule_fields %}
+        <fieldset class="power-schedule bordered" id="schedule_{{schedule.id}}">
+            {% for field in schedule.fields %}
+                {% if "onday" in field.label %}
+                    Power On:
+                {% elif "offday" in field.label %}
+                    Power Off:
+                {% endif %}
+
+                {% schedule_field field form %}
+
+                {% if "onhour" in field.label%}
+                    <span class="sep">&mdash;</span>
+                {% elif "offhour" in field.label %}
+                    <span class="delete-schedule"></span>
+                {% endif %}
+            {% endfor %}
+
+            {% schedule_errors schedule form %}
+
+        </fieldset>
+
+    {%endfor%}
+</div>
+<button id="add-power-schedule" class="btn btn-default"><span class="icon-add"></span> Add Schedule</button>
+
+
+<script type="text/javascript">
+    c2.forms.initPowerScheduleForm();
+</script>

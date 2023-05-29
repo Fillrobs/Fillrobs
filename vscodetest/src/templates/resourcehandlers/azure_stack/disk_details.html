@@ -1,0 +1,18 @@
+{# added to common tab-disks.html #}
+{% load i18n %}
+
+<dt>Storage Account:</dt>
+<dd>{{ disk.storage_account }}</dd>
+
+{% if disk.disk_size == 0 or not disk.disk_size %}
+    <dt></dt>
+    <dd class="alert alert-info" role="alert">
+        {% blocktrans %}
+             Those disk details don't look right. Refresh info on this server to update this disk's attributes.
+        {% endblocktrans %}
+    </dd>
+{% endif %}
+
+{% if disk.name != 'OS Disk' %}
+    {% include 'servers/disk_actions.html' with allow_resize=False position=position %}
+{% endif %}

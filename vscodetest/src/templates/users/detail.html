@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load gravatar %}
+{% load tab_tags %}
+{% load account_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "User" %}: {{ the_user.get_full_name }} {% endblock %}
+{% block topnav %}users{% endblock %}
+
+{% block content %}
+    <h1 class="gravatar-lg">
+        {% rich_gravatar the_user 64 %}
+        {{ the_user.get_full_name }}
+    </h1>
+
+    {% draw_tabs tabs %}
+
+{% endblock content %}
+
+
+{% block onReady %}
+{% endblock %}

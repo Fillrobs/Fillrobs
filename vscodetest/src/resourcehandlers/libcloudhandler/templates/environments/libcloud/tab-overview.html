@@ -1,0 +1,10 @@
+{% if env_location %}
+<dt>{{ location_label }}:</dt>
+    <dd>
+        {% if env_location != "-" %}
+            {{ env_location }}
+        {% else %}
+            <i style='color:red'>None (must configure to use this environment)</i>
+        {% endif %}
+    </dd>
+{% endif %}

@@ -1,0 +1,18 @@
+{% extends "resourcehandlers/tab-templates.html" %}
+
+{% load helper_tags %}
+
+{% block additional_column_headers %}
+<th>
+  VMware Tools Status
+  {% infotip "Status is determined when the template is imported and may become out of date." %}
+</th>
+<th>
+  Content Library
+</th>
+{% endblock additional_column_headers %}
+
+{% block additional_column_data %}
+<td>{{ template.tools_status }}</td>
+<td>{{ template.content_library.1 }}</td>
+{% endblock additional_column_data %}

@@ -1,0 +1,49 @@
+{% extends "dialogs/dialog.html" %}
+{% load wizards_tags %}
+{% load helper_tags %}
+
+{% block form_content %}
+
+  {{ wizard.management_form }}
+
+  {% if wizard.form.forms %}
+
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+
+      <!-- form-errors: {{ form.errors }} -->
+      {% simple_form form %}
+
+    {% endfor %}
+
+  {% else %}
+
+    <!-- non_field_errors: {{ wizard.form.non_field_errors }} -->
+    <!-- form-errors: {{ wizard.form.errors }} -->
+    {% simple_form wizard.form %}
+
+  {% endif %}
+
+{% endblock form_content %}
+
+
+{% block dialog_footer %}
+  {% if pagination %}
+    <div class="btn-toolbar text-center">
+      {% wizard_pagination wizard disabled_steps "#action_form" %}
+    </div>
+  {% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock dialog_footer %}
+
+
+{% block on_ready %}
+  // Make sure enter key moves to next step, not prev
+  $('#dialog-modal form').bind('keydown', function (e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      $('.wizard-pagination-next').trigger('click');
+    }
+  });
+{% endblock on_ready %}

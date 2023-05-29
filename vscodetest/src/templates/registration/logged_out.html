@@ -1,0 +1,35 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Logged out" %}{% endblock %}
+
+{% block body %}
+<div class="panel panel-default panel-narrow">
+    <div class="panel-body text-center">
+        {% include "common/login_banner.html" %}
+
+        <p id="normal-logout">{% trans "You have been logged out." %}</p>
+        <p id="inactivity" class="alert alert-info">{% trans "You were logged out after <span id='timeout'></span> minutes of inactivity." %}</p>
+        <p class="text-center cb-login-pad-top"><a href="{{ login_url }}" class="btn btn-default">Log In&hellip;</a></p>
+    </div>
+</div>
+{% endblock body %}
+
+{% block head %}
+<script>
+    $(function () {
+        'use strict';
+
+        var minutes = window.location.href.split('inactivity-timeout-minutes=')[1];
+        if (minutes != undefined) {
+            minutes = minutes.replace(/[!\"#$%&'\(\)\*\+,\.\/:;<=>\?\@\[\\\]\^`\{\|\}~]/g, '');
+            $('#normal-logout').hide();
+            $('#timeout').text(minutes);
+            $('#inactivity').show();
+        } else {
+            $('#inactivity').hide();
+            $('#normal-logout').show();
+        }
+    });
+</script>
+{% endblock %}

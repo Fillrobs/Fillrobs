@@ -1,0 +1,13 @@
+<script>
+  $(function(){
+    c2.jobs.drawProgressBar({{ job.id }});
+  });
+</script>
+
+<div id="progress-{{ job.id }}" class="progress progress-lg">
+  <div
+    id="progress-bar-{{ job.id }}"
+    class="progress-bar progress-bar-info"
+    style="width: 0%">
+  </div>
+</div>

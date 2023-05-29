@@ -1,0 +1,43 @@
+{% extends "quick_setup/base.html" %}
+{% load helper_tags %}
+
+{% block panel_heading %}Setup Completed{% endblock %}
+{% block setup_content %}
+<style>
+    .setup {
+       position: relative;
+        height: 100%;
+    }
+    .qs-dt {
+        width: 250px !important;
+    }
+</style>
+<div class="setup">
+
+    <dl>
+        <dt class="qs-dt">Initial Administrator Account:</dt>
+        <dd>{{ profile.user.username }}
+
+            {% if profile.user.username != 'admin' %}
+                <div class="help-block">
+                    The factory-installed user named <code>admin</code> has been deleted.
+                </div>
+            {% endif %}
+        </dd>
+
+        <dt class="qs-dt">Initial Group:</dt>
+        <dd>{{ group|render_link }} (type: Organization)</dd>
+
+
+    </dl>
+</div>
+{% endblock %}
+ {% block pre_footer %}
+    <div class="text-center at-bottom">
+        <i>Use the Initial Administrator Account to Log Into CloudBolt</i>
+    </div>
+{% endblock %}
+
+{% block setup_footer %}
+    <a class="btn btn-primary btn-lg btn-block" href="/setup/">Start Using CloudBolt</a>
+{% endblock %}

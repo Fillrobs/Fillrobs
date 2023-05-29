@@ -1,0 +1,74 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{# Initially hidden to prevent ugly flash of unstyled content; give JS time to set things up. #}
+<div id="catalog-filters" class="btn-toolbar" role="toolbar" style="display:none">
+
+    <div class="btn-group" role="group">
+        <select name="filter_by_group">
+            {# this empty option enables the selectize placeholder #}
+            <option value=""></option>
+        </select>
+        <select name="filter_by_env">
+            {# this empty option enables the selectize placeholder #}
+            <option value=""></option>
+        </select>
+        <select name="filter_by_label" multiple>
+            {# this empty option enables the selectize placeholder #}
+            <option value=""></option>
+        </select>
+    </div>
+
+    <div class="btn-group" data-toggle="buttons">
+        {% for family_id, family in filter_os_families %}
+            <label class="btn btn-default" data-toggle="tooltip"
+                title="{% blocktrans %}OS family: {{ family }}{% endblocktrans %}">
+                <input type="radio" name="filter_by_os_family" value="{{ family.id }}">
+                    {{ family|os_family_icon }}
+            </label>
+        {% endfor %}
+    </div>
+
+    <div id="sortButtons" class="btn-group pull-right" data-toggle="buttons">
+        <label class="active btn btn-default" data-toggle="tooltip"
+            title="{% trans 'Sort by manager-defined sequence' %}">
+            <input type="radio" id="sort-by-sequence" name="sort" value="sequence">
+            <i class="fas fa-sort-amount-down" data-asc></i>
+            <i class="fas fa-sort-amount-up" data-desc style="display:none"></i>
+        </label>
+        <label class="btn btn-default" data-toggle="tooltip"
+            title="{% trans 'Sort by blueprint name' %}">
+            <input type="radio" id="sort-by-name" value="name" name="sort">
+            <i class="fas fa-sort-alpha-down" data-asc></i>
+            <i class="fas fa-sort-alpha-up" data-desc style="display:none"></i>
+        </label>
+    </div>
+
+    <div class="btn-group pull-right">
+        <span class="input-group addon-right">
+            <input name="text_search" type="search" class="form-control" placeholder={% trans "Search" %}
+                aria-label="Search blueprints"/>
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-search"></span>
+            </span>
+        </span>
+    </div>
+
+</div>
+
+<div id="showing-msg" class="text-center padding"></div>
+
+{% if blueprints_user_can_see %}
+    <div id="blueprint-list" class="no-vertical-spacing">
+        {% for blueprint in blueprints_user_can_see %}
+            {% blueprint_card blueprint %}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        {% include "servicecatalog/no_blueprints.html" %}
+    </div>
+{% endif %}
+
+<div class="clearfix"></div>

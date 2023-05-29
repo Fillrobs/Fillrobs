@@ -1,0 +1,58 @@
+{% load helper_tags i18n %}
+<style>
+  .server-stat-chart {
+    width: 100%;
+    max-width: 1211px;
+    height: 300px;
+    margin-bottom: 20px;
+  }
+</style>
+
+{% if not sufficient_samples %}
+    <div class="alert"
+         style="background: rgba(248, 176, 176, 0.95); display: inline-block;">
+        {% blocktrans with resource_handler=rh.name %}
+            Warning: Insufficient data returned from {{resource_handler}} for this time interval. Potentially
+            collapsing non-sequential data points.
+        {% endblocktrans %}
+    </div>
+{% endif %}
+
+{# VMWare provides metrics for CPU, Memory, Disk, Network #}
+{# AWS provides metrics for  CPU, Disk, Network #}
+{# Azure provides metrics for  CPU, Disk, Network #}
+{# GCP provides metrics for  CPU, Disk, Network #}
+{# Acropolis provides metrics for  CPU, Memory, Disk #}
+
+<div id="cpu-container" class="server-stat-chart"></div>
+
+{% if rh.type_slug == 'vmware' %}
+    <div id="mem-container" class="server-stat-chart"></div>
+{% elif rh.type_slug == 'acropolis' %}
+    <div id="mem-container" class="server-stat-chart"></div>
+{% endif %}
+
+<div id="disk-container" class="server-stat-chart"></div>
+
+{% if rh.type_slug == 'vmware' %}
+    <div id="net-container" class="server-stat-chart"></div>
+{% elif rh.type_slug == 'azure_arm' %}
+    <div id="net-container" class="server-stat-chart"></div>
+{% elif rh.type_slug == 'aws' %}
+    <div id="net-container" class="server-stat-chart"></div>
+{% elif rh.type_slug == 'gcp' %}
+    <div id="net-container" class="server-stat-chart"></div>
+{% endif %}
+
+<script>
+  // Get stats charts ready here. But they'll only be drawn now if history table has been loaded.
+  // If not, c2.history must be loading it and will then call c2.serverStats.drawCharts().
+  c2.serverStats.init({
+    cpuValues: {{ cpu_values|to_json }},
+    memValues: {{ mem_values|to_json }},
+    diskValues: {{ disk_values|to_json }},
+    netValues: {{ net_values|to_json }},
+    interval: {{ interval }},
+    points: {{ points }}
+  });
+</script>

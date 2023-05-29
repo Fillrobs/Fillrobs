@@ -1,0 +1,9 @@
+{# added to common tab-disks.html #}
+<dt>Availability Zone:</dt>
+<dd>{{ disk.availability_zone }}</dd>
+<dt>EBS Volume Type</dt>
+<dd>{{ disk.volume_type }}</dd>
+<dt>Encrypted:</dt>
+<dd>{% if disk.encrypted %}True{% else %}False{% endif %}</dd>
+
+{% include 'servers/disk_actions.html' with allow_resize=True position=position %}

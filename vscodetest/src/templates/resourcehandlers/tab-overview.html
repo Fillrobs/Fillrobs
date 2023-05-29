@@ -1,0 +1,194 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{# this template is extended by some RH-specific templates to override the handler_details block #}
+<div class="btn-toolbar">
+    {% block actions %}
+    <a class="btn btn-default open-dialog"
+        {% if edit_credentials_path_name_override %}
+            href="{% url edit_credentials_path_name_override handler.id %}"
+        {% else %}
+            href="{% url 'resourcehandler_edit' handler.id %}"
+        {% endif %}
+    >
+        <span class="icon-credentials"></span>
+        {% trans 'Edit Credentials' %}
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'resourcehandler_settings' handler.id %}">
+        <span class="icon-edit"></span>
+        {% trans 'Edit Settings' %}
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'resourcehandler_delete' handler.id %}">
+        <span class="icon-delete"></span>
+        {% trans "Delete" %}&hellip;
+    </a>
+    {% if handler.can_verify_connection %}
+    <a class="btn btn-default open-dialog"
+        {% if verify_connection_path_name_override %}
+            href="{% url verify_connection_path_name_override handler.id %}"
+        {% else %}
+            href="{% url 'resourcehandler_verify_connection' handler.id %}"
+        {% endif %}
+    >
+        <span class="icon-verify-connection"></span>
+        {% trans 'Verify Connection' %}
+    </a>
+    {% endif %}
+    {% endblock %}
+</div>
+
+<dl>
+  <dt>{% trans "Technology" %}:</dt>
+  <dd>{{ handler.resource_technology.name }}</dd>
+{% block handler_details %}
+  <dt>{% trans "Name" %}:</dt>
+  <dd>{{ handler.name}}</dd>
+  <dt>{% trans "Description" %}:</dt>
+  <dd>
+      <p {% if handler.description %} class="well well-sm" {% endif %}>
+          {{ handler.description|default:_("<i>No description</i>") }}
+      </p>
+  </dd>
+  {% if handler.ip != "N/A" %}
+      {# some technologies have no relevant IP (ex. GCE, Azure) #}
+      <dt>{% trans "IP Address" %}:</dt>
+      <dd>{{ handler.ip }}</dd>
+  {% endif %}
+  <dt>{{ username_label|default:"Username" }}:</dt>
+  <dd>{{ handler.serviceaccount }}</dd>
+{% endblock handler_details %}
+  {% for name, value in overview_extra_nv_pairs %}
+      <dt>{{ name }}:</dt>
+      <dd>{{ value }}</dd>
+  {% endfor %}
+
+{# Show Last Month's Costs for AWS #}
+{% if handler.can_get_bills %}
+    <dt>{{ last_months_cost.month }} {{ _("Cost") }}:</dt>
+    <dd>
+        {% if last_months_cost.total is not None %}
+           {{ last_months_cost.total }} {{ last_months_cost.currency }}
+        {% else %}
+            {% trans "Not Available" %}
+        {% endif %}
+    </dd>
+{% endif %}
+
+{% if handler.s3_billing_bucket %}
+    <dt>{% trans "s3 Bucket for Billing" %}:</dt>
+    <dd>
+        {{ handler.s3_billing_bucket }}
+    </dd>
+{% endif %}
+
+{# Link to Lastest Azure ARM Invoice. #}
+{% if handler.can_get_invoice %}
+    <dt>
+        {% trans "Latest Invoice" %}:
+        {%trans "Invoices are downloaded by the 'Download Azure Resource Manager' recurring job on the first day of each month. If your bill recurs on another day of the month, you may want to change the date settings for this job in Admin/Recurring Jobs to keep this invoice up to date." as tip %}
+        {% infotip tip %}
+    </dt>
+    <dd>
+        <a href="{% url 'invoice_pdf_view' handler.id %}" target="_blank">
+            {% trans "View pdf" %}
+        </a>
+    </dd>
+{% endif %}
+
+  <dt>{% trans "Environments" %}:</dt>
+  <dd>
+      <div id="read_envs">
+          {{ envs|render_list:profile }}
+      </div>
+  </dd>
+    {% if profile.show_tenant_info %}
+        <dt>{% trans "Tenant:" %}</dt>
+        <dd>{{ handler.tenant|link_or_label_none_global:profile }}</dd>
+    {% endif %}
+
+    {% if handler.can_support_console %}
+        <dt>
+            {% text_tooltip _("Console Feature:") _("Enables users to access console on servers with this Resource Handler.") %}
+        </dt>
+        <dd>
+            <div>
+                {% if modify_permission %}
+                    {# global viewer should be able to see this setting, but not change it #}
+                        <input
+                            id="rh-console-toggle"
+                            type=checkbox
+                            name=enable_console_feature
+                            data-id="{{ handler.id }}"
+                            data-toggle="toggle"
+                            data-on="Enabled"
+                            data-off="Disabled"
+                            data-width="110"
+                            data-post-url="{% url 'update_resourcehandler_console' handler.id %}"
+                            {% if handler.enable_console_feature %}
+                               checked
+                            {% endif %}
+                        />
+                {% else %}
+                    {{ handler.enable_console_feature|yesno:"Enabled,Disabled" }}
+                {% endif %}
+            </div>
+        </dd>
+    {% endif %}
+
+    <dt>
+        {% text_tooltip _("RDP/SSH Terminal:") _("Enables users to access the integrated RDP/SSH terminal for servers managed by this Resource Handler.") %}
+    </dt>
+    <dd>
+        <div>
+            {% if modify_permission %}
+                {# global viewer should be able to see this setting, but not change it #}
+                <input
+                    id="rh-terminal-toggle"
+                    type=checkbox
+                    name=enable_terminal_feature
+                    data-id="{{ handler.id }}"
+                    data-toggle="toggle"
+                    data-on="{% trans 'Enabled' %}"
+                    data-off="{% trans 'Disabled' %}"
+                    data-width="110"
+                    data-post-url="{% url 'update_resourcehandler_terminal' handler.id %}"
+                    {% if handler.enable_terminal_feature %}
+                       checked
+                    {% endif %}
+                    {% if not modify_permission %}
+                        {# global viewer should be able to see this setting, but not change it #}
+                        disabled
+                    {% endif %}
+                />
+            {% else %}
+                {{ handler.enable_terminal_feature|yesno:"Enabled,Disabled" }}
+            {% endif %}
+        </div>
+    </dd>
+
+    {% if profile.is_cbadmin and handler.resource_technology.name == 'Amazon Web Services' %}
+        <div>
+            <dt>
+                {% text_tooltip _("AWS Systems Manager Role") _("Role required for AWS SSM. You will need to add this role to the 'AWS IAM Role ARN' parameter. Both 'AWS IAM Role ARN' and 'Use Tech-Specific Script Execution' parameters will need to be enabled for all servers utilizing SSM technology.") %}
+                <span class="badge badge-secondary">Beta</span>
+            </dt>
+            {% if handler.SSM_ARN %}
+                <dd>{{ handler.SSM_ARN }}</dd>
+            {% else %}
+                <dd>
+                    <a class="btn btn-default" href="{% url 'create_aws_ssm_role' handler.id %}">
+                    Create SSM Role</a>
+                </dd>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if handler.resource_technology.name == 'Nutanix Acropolis' %}
+        <dt>{% trans "API Version" %}:</dt>
+        <dd>{{ handler.nutanix_api_version }}</dd>
+    {% endif %}
+</dl>

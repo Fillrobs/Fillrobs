@@ -1,0 +1,753 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('api-conventions',true);});
+//--></script><title>API Conventions</title><script type="text/javascript">//<!--
+var articleTitleText='API Conventions';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">API Conventions</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="cloudbolt-api-v2-0.html">CloudBolt API v2.0</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">API Conventions</span></span>
+  </div><h1 id="h1__1208883802" data-has-heading-anchor="true">
+  API Conventions
+<a href="api-conventions.html#h1__1208883802" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about API Conventions for CloudBolt API v2.0.
+</p>
+<p data-children-count="1">
+  <ul class=""><li class="CHMiniToc_heading2"><a href="api-conventions.html#h2__88273319">API URLs/Resources and Verbs</a></li><li class="CHMiniToc_heading2"><a href="api-conventions.html#h2__904191799">Query String Parameters</a></li><li class="CHMiniToc_heading2"><a href="api-conventions.html#h2__55841322">Authentication</a></li><li class="CHMiniToc_heading2"><a href="api-conventions.html#h2__379943005">Object IDs</a></li><li class="CHMiniToc_heading2"><a href="api-conventions.html#h2_166399560">Relationships and&#160;Properties</a></li></ul>
+  <br/>
+</p>
+<h2 id="h2__88273319" data-has-heading-anchor="true">
+  API URLs/Resources and Verbs
+<a href="api-conventions.html#h2__88273319" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<div id="urls-resources" data-children-count="1">
+  <br/>
+  <table class="table">
+    <thead>
+      <tr class="table-light">
+        <th>
+          URLs / Resources
+        </th>
+        <th>
+          Definition
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          <code class="path">/{plural-noun}</code>
+        </th>
+        <td>
+          Collections of type "noun".
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">/{plural-noun}/id</code>
+        </th>
+        <td>
+          Items within a collection.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">/{single-noun}</code>
+        </th>
+        <td>
+          A singleton item that exists without a collection.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">/resource-handlers/actions/sync-vms</code>
+        </th>
+        <td>
+          Functionality that is better expressed in RPC style vs. REST are exposed under an actions/subpath.
+        </td>
+      </tr>
+      <tr class="table-active">
+        <th colspan="2" style="text-align: center;">
+          Collections and items are both called resources. Collections will be more common, but two examples of singletons are:
+          <br/>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">/user</code>
+        </th>
+        <td>
+          Representing the currently authenticated user.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">/user/current-order</code>
+        </th>
+        <td>
+          The user's current order.
+        </td>
+      </tr>
+      
+      <tr class="table-active">
+        <th colspan="2" style="text-align: center;">
+          Verbs
+        </th>
+      </tr>
+      <tr>
+        <th>
+          For collections and subcollections:&nbsp;
+        </th>
+        <td>
+          <br/>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">GET</code>
+        </th>
+        <td>
+          Retrieve the collection.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">POST</code>
+        </th>
+        <td>
+          Create a new item in the collection (not applicable to all collections).
+        </td>
+      </tr>
+      <tr>
+        <th>
+          For items:
+        </th>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">GET</code>
+        </th>
+        <td>
+          Retrieve the item.
+        </td>
+      </tr>
+      <tr>
+        <th>
+          For actions:
+        </th>
+        <td>
+          <br/>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          <code class="path">POST</code>
+        </th>
+        <td>
+          Trigger the action.
+        </td>
+      </tr>
+      
+      
+      
+      
+      
+    </tbody>
+  </table>
+  
+</div>
+<div id="verbs">
+  <h3 id="h3_1191653148">
+  </h3>
+</div>
+<div id="query-string-parameters">
+  <h2 id="h2__904191799" data-has-heading-anchor="true">
+    Query String Parameters
+  <a href="api-conventions.html#h2__904191799" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CloudBolt API recognizes three special parameters that can be passed in the querystring part of the url:
+  </p>
+  <div id="attributes">
+    <h4 id="h4_483800935" data-has-heading-anchor="true">
+      Attributes
+    <a href="api-conventions.html#h4_483800935" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <p>
+      The&nbsp;<b>attributes</b>&nbsp;parameter can be used to append to the list of attributes that are returned for the Resource or Collection being retrieved. It takes a comma delimited list of the Resource attributes.
+    </p>
+    <div class="card">
+      <div class="card-header">
+        Example 
+      </div>
+      <div class="card-body">
+        /api/v2/users/?attributes=user.first-name,user.last-name,user.is-superuser
+      </div>
+    </div>
+  </div>
+  <div id="links">
+    <h4 id="h4_512944023" data-has-heading-anchor="true">
+      <br/>
+      Links
+    <a href="api-conventions.html#h4_512944023" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    
+    The&nbsp;<strong>links</strong>&nbsp;parameter is very similar to the&nbsp;<strong>attributes</strong>&nbsp;parameter, but like the name suggests, appends to the&nbsp;<em>_links</em>&nbsp;dictionary, returned for the Resource.
+    
+    <br/>
+    <br/>
+    <div class="card">
+      <div class="card-header">
+        Example 
+      </div>
+      <div class="card-body">
+        <div id="links">
+          /api/v2/servers/?links=provision-job,actions
+        </div>
+      </div>
+    </div>
+    <h4 id="h4__1623789156" data-has-heading-anchor="true">
+      <br/>
+      Filter
+    <a href="api-conventions.html#h4__1623789156" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  </div>
+  
+  The&nbsp;<strong>filter</strong>&nbsp;parameter can be used to limit the resources returned in a collection. It takes a semi-colon delimited list of key-value pairs, where the key and value are separated by a colon. It supports any Django QuerySet filter syntax where a single value of type string or numeric is expected (this includes booleans represented as 0 or 1).
+</div>
+<div id="query-string-parameters">
+  <br/>
+</div>
+<div id="query-string-parameters">
+  <div class="card">
+    <div class="card-header">
+      Example 
+    </div>
+    <div class="card-body">
+      <div id="query-string-parameters">
+        /api/v2/servers/?filter=hostname:linprodsvr0213
+      </div>
+      <div id="query-string-parameters">
+        /api/v2/servers/?filter=environment.name.contains:Dev
+      </div>
+      <div id="query-string-parameters">
+        /api/v2/users/?filter=user.first-name.startswith:A
+      </div>
+      <div id="query-string-parameters">
+        /api/v2/jobs/?filter=type:provision;status:success
+      </div>
+      <div id="authentication">
+      </div>
+    </div>
+  </div>
+</div>
+<div id="authentication">
+  <h2 id="h2__55841322" data-has-heading-anchor="true">
+    <br/>
+    Authentication
+  <a href="api-conventions.html#h2__55841322" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Access to API end-points require the use of a bearer token in the request header. The API is subject to the same authentication and permissions model as the rest of CloudBolt, meaning that the security for which users can perform which actions will be consistent, regardless of whether they use the API or the web UI. It also means that requesting the access token supports the same parameters as when logging into the CloudBolt web interface.
+  </p>
+  <p>
+    Only users with the&nbsp;API Access&nbsp;global role enabled on the user’s profile will be able to obtain a bearer token and, therefore, be able to use the API.
+  </p>
+  <div id="token-based-access-to-resources">
+    <h4 id="h4_1580448110" data-has-heading-anchor="true">
+      Token-Based Access to Resources
+    <a href="api-conventions.html#h4_1580448110" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <p>
+      Access to API resources requires the use of a bearer token in the request header. The special end-point for requesting the token is&nbsp;<strong>api/v2/api-token-auth/</strong>. The end-point expects clients to <code class="path">POST</code> a JSON representation of authentication attributes like:
+    </p>
+    <blockquote>
+      <div>
+        <ul>
+          <li>
+            username - The username for the user requesting the token.
+          </li>
+          <li>
+            password - The password to which the user credentials should be checked against
+          </li>
+          <li>
+            token - A current user token, if CloudBolt is setup with 2-factor authentication
+          </li>
+          <li>
+            domain - The AD/LDAP directory domain the user belongs to, if not an internal user.
+          </li>
+        </ul>
+      </div>
+    </blockquote>
+    <h4 id="h4__1010805061" data-has-heading-anchor="true">
+      Token Default Expiration
+    <a href="api-conventions.html#h4__1010805061" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <p>
+      The token default expiration is set to 5 minutes. To change the default expiration, add the following to the&nbsp;<code class="path">var/opt/cloudbolt/proserv/customer_settings.py</code> file:
+    </p>
+  </div>
+  <div id="token-based-access-to-resources" data-children-count="1">
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>import datetime<br>JWT_AUTH["JWT_EXPIRATION_DELTA"] = datetime.timedelta(seconds=86400)</pre></td></tr></table>
+    <br/>
+  </div>
+  <div id="token-based-access-to-resources">
+    <p>
+      Change the "seconds" to any desired amount.
+    </p>
+    <p>
+      For a complete list of all advanced settings related to the bearer token see&nbsp;<a href="http://getblimp.github.io/django-rest-framework-jwt/#additional-settings" target="_top">http://getblimp.github.io/django-rest-framework-jwt/#additional-settings</a>
+    </p>
+  </div>
+</div>
+<div id="object-ids">
+  <h2 id="h2__379943005" data-has-heading-anchor="true">
+    Object IDs
+  <a href="api-conventions.html#h2__379943005" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    There are two types of IDs used to access objects through the API. Global IDs are the recommended type of ID for your objects. They stay consistent across multiple instances of CloudBolt and make maintaining objects simple when importing and exporting. Primary Key IDs can still be used in 9.1 and greater for backwards compatibility.
+  </p>
+  <ul>
+    <li>
+      <strong>Global ID (Recommended)</strong>: Consists of a prefix which indicates the object type (e.g. BP for Blueprint), a dash, and 8 unique characters (a random combination of lowercase letters and digits). Example: BP-a238b32r. Some additional set up is required after upgrade to fully use this feature. See&nbsp;Transitioning to Global IDs&nbsp;below.
+    </li>
+    <li>
+      <strong>Primary Key ID</strong>: An object is assigned a number. Each subsequent object gets the next number in ascending order. These ID types do not persist across multiple instances of CloudBolt, which can make maintenance difficult.
+    </li>
+  </ul>
+  <div id="objects-with-global-ids">
+    <h3 id="h3__198148723" data-has-heading-anchor="true">
+      Objects with Global IDs
+    <a href="api-conventions.html#h3__198148723" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      The first objects to transition to this new Global ID are those referenced by a URL when ordering a Blueprint through the API. The specific object types, with their prefixes, are:
+    </p>
+    <ul>
+      <li>
+        Blueprint (BP)
+      </li>
+      <li>
+        Group (GRP)
+      </li>
+      <li>
+        Application (APP)
+      </li>
+      <li>
+        Environment (ENV)
+      </li>
+      <li>
+        OS Build (OSB)
+      </li>
+    </ul>
+    <p>
+      Global IDs are shown on the Details page of appropriate objects and demonstrated in the API. The objects listed above will get a Global ID assigned. The Primary Key (PK) ID found in the URL in the web UI is still available for use if desired, both for these objects and other types that do not yet support Global IDs.
+    </p>
+  </div>
+  <div id="global-ids-in-cloudbolt">
+    <h3 id="h3__161552220" data-has-heading-anchor="true">
+      Global IDs in CloudBolt
+    <a href="api-conventions.html#h3__161552220" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      Global IDs can be viewed and/or used in CloudBolt in the following locations:
+    </p>
+    <ul>
+      <li>
+        The collections list view for Blueprints, Environments, Groups, OS Builds, and Applications (view only).
+      </li>
+      <li>
+        Most places that reference a Blueprint, Environment, Group, OS Build, or Application with a link (view only).
+      </li>
+      <li>
+        When ordering a Blueprint and providing a Blueprint, Group, Environment, OS Build, or Application.
+      </li>
+      <li>
+        When specifying the Group and Environment for a server modification or decommissioning order.
+      </li>
+    </ul>
+  </div>
+  <div id="transitioning-to-global-ids" data-children-count="1">
+    <h3 id="h3_1705283489" data-has-heading-anchor="true">
+      Transitioning to Global IDs
+    <a href="api-conventions.html#h3_1705283489" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      In 9.1 and greater, Global IDs are automatically assigned to objects. In order to take advantage of the consistency of Global IDs, a transition process is required. The process to ensure Global IDs are consistent across multiple recently-upgraded CloudBolt instances depends on the object type.
+    </p>
+    <p>
+      After upgrading, all instances of included object types will have new Global IDs. CloudBolt does not have a mechanism to know which object instances in different CloudBolt servers should have the same Global ID, so you must configure them yourself.
+    </p>
+    <p>
+      In these examples, there are two CloudBolt instances: a Development environment and a Production environment.
+    </p>
+    <h3 id="h3_385619361" data-has-heading-anchor="true">
+      Blueprints and Environments
+    <a href="api-conventions.html#h3_385619361" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      Use the below steps for transitioning Blueprints. The transition steps for Environments are the same, but performed through the Environments pages. This process must be repeated for each Blueprint or Environment you wish to access and/or order through the API using its Global ID.
+    </p>
+    <ol>
+      <li>
+        In your Development environment, click&nbsp;Catalog.
+      </li>
+      <li>
+        Select the Blueprint you would like to have matching Global IDs.
+      </li>
+      <li>
+        Click&nbsp;<strong>Manage Blueprint</strong>.
+      </li>
+      <li>
+        In the&nbsp;Overview&nbsp;tab, click&nbsp;<strong>Export</strong>. Choose&nbsp;<strong>Export with instance-specific info from this CloudBolt instance</strong>.
+      </li>
+      <li>
+        Navigate to your Production environment.
+      </li>
+      <li>
+        Select the same Blueprint you exported from the Development environment.
+      </li>
+      <li>
+        Click&nbsp;<strong>Delete</strong>&nbsp;to remove the matching Blueprint that doesn’t have the same Global ID as your Development environment.
+      </li>
+      <li>
+        Click back to the&nbsp;Catalog&nbsp;main page.
+      </li>
+      <li>
+        Click&nbsp;<strong>Upload</strong>.
+      </li>
+      <li>
+        Click&nbsp;<strong>Choose File</strong>&nbsp;and select the zip file you just exported. Click&nbsp;<strong>Save</strong>. You will now have a Blueprint on each CloudBolt instance with matching Global IDs.
+      </li>
+    </ol>
+    <h3 id="h3_2071547954" data-has-heading-anchor="true">
+      Groups
+    <a href="api-conventions.html#h3_2071547954" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      Global IDs for Groups can be updated using shell_plus on the Production server to match the Global IDs in the Development server. See the suggested steps below:
+    </p>
+    <ol data-children-count="2">
+      <li data-children-count="0">
+        SSH to the Development server and open shell_plus (<code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>).
+      </li>
+      <li data-children-count="0">
+        Run the script below to capture a dictionary mapping of the Global ID for each Group name on your Development sever. It includes the name of the parent Group (when one exists), because Group names are only forced to be unique in combination with their parent’s name.
+      </li>
+      <br/>
+      <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>group_dict = {}<br>for group in Group.objects.all():<br>  group_name = group.name<br>  if group.parent:<br>    group_name = '{}/{}'.format(group.parent.name. group_name)<br>  group_dict[group_name] = group.global_id  <br>  </pre></td></tr></table>
+      <br/>
+      <li>
+        Copy the resulting dictionary (<code class="path">group_dict</code>) somewhere you can access it from your Production server.
+      </li>
+      <li data-children-count="0">
+        SSH to the Production server and open shell_plus (<code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>).
+      </li>
+      <li data-children-count="0">
+        Set a variable called <code class="path">group_dict</code> to the dictionary you captured from the Development server. Example:
+        <div>
+          <code class="path">group_dict = {'Bonds': 'GRP-y1girt9h', 'Bonds/sub-Bonds': 'GRP-uznv72nq'}</code>
+        </div>
+      </li>
+      <li data-children-count="1">
+        Run the script below to find every Group with a name (in combination with any parent’s name to improve uniqueness) in the dictionary from your Development server that exists in the Production server and set its Global ID to the correct value.<br/><br/><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>for group_name, global_id in group_dict.items():    <br>group_name_parts = group_name.split('/')     <br>    parent_name = None     <br>name = group_name_parts[-1]     <br>if len(group_name_parts) == 2:         <br>parent_name = group_name_parts[0]     <br>group = Group.objects.filter(name=name, parent__name=parent_name).first()     <br>if group:         <br>group.global_id = global_id         <br>group.save() </pre></td></tr></table></li>
+    </ol>
+    <p>
+    </p>
+    <h3 id="h3_227451197" data-has-heading-anchor="true">
+      OS Builds
+    <a href="api-conventions.html#h3_227451197" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      Global IDs for OS Builds can be updated in shell_plus on the Production server to match the Global IDs found on the Development server. See the suggested steps below:
+    </p>
+    <ol data-children-count="2">
+      <li data-children-count="0">
+        SSH to the Development server and open shell_plus <code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>.
+      </li>
+      <li data-children-count="0">
+        Run the script below to capture a dictionary mapping of the Global ID for each OS Build name on your Development server.
+      </li>
+      <br/>
+      <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>osbuild_dict = {} <br>for osbuild in OSBuild.objects.all():     <br>osbuild_dict[osbuild.name] = osbuild.global_id </pre></td></tr></table>
+      <br/>
+      <li>
+        Copy the resulting dictionary (<code class="path">osbuild_dict</code>) somewhere accessible from your Production server.
+      </li>
+      <li>
+        SSH to the Production server and open shell_plus (<code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>).
+      </li>
+      <li>
+        Set a variable called&nbsp;<code class="path">osbuild_dict</code>&nbsp;to the dictionary you captured from the Development server. 
+        <br/>
+        Example:
+        <div>
+          <code class="path">osbuild_dict = {'CentOS 6.6': 'OSB-hotoh6mk', 'Windows 2008': 'OSB-zqlnfxq1'}</code> 
+          
+        </div>
+      </li>
+      <li data-children-count="1">
+        Run the script below to find every OS Build with a name in the dictionary from your Development server that exists in the Production server and set its Global ID to the correct value.
+        <br/><br/>
+        <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>for osbuild_name, global_id in osbuild_dict.items():     <br>osbuild = OSBuild.objects.filter(name=osbuild_name).first()     <br>if osbuild:         <br>osbuild.global_id = global_id         <br>osbuild.save()</pre></td></tr></table>
+        <br/>
+      </li>
+    </ol>
+    <h3 id="h3__1592714635" data-has-heading-anchor="true">
+      Applications
+    <a href="api-conventions.html#h3__1592714635" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    Global IDs for Applications can be updated in shell_plus on the Production server to match the Global IDs found on the Development server. See the suggested steps below:
+    <ol>
+      <li>
+        SSH to the Development server and open shell_plus (<code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>).
+      </li>
+      <li>
+        Run the script below to capture a dictionary mapping of the Global ID for each Application name on your Development server.
+        <br/>
+        <br/>
+        <div data-children-count="1">
+          <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>app_dict = {} <br>for app in Application.objects.all():     <br>app_dict[app.name] = app.global_id </pre></td></tr></table>
+        </div>
+        <br/>
+      </li>
+      <li>
+        Copy the resulting dictionary (<code class="path">app_dict</code>) somewhere you can access it from your Production server.
+      </li>
+      <li>
+        SSH to the Production server and open shell_plus (<code class="path">/opt/cloudbolt/manage.py&nbsp;shell_plus</code>).
+      </li>
+      <li>
+        Set a variable called&nbsp;<code class="path">app_dict</code>&nbsp;to the dictionary you captured from the Development server. Example:
+        
+        
+          <div>
+          <code class="path">app_dict = {'http': 'APP-ixn4oyi9', 'postgresql': 'APP-x9ls2l2k'}</code> 
+        </div>
+        
+      </li>
+      <li>
+        Run the script below to find every Application with a name in the dictionary from your Development server that exists in the Production server and set its Global ID to the correct value.
+        <br/>
+        <br/>
+        <div data-children-count="1">
+          <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>for app_name, global_id in app_dict.items():     <br>app = Application.objects.filter(name=app_name).first()     <br>if app:         <br>app.global_id = global_id         <br>app.save()</pre></td></tr></table>         
+        </div>
+      </li>
+    </ol>
+  </div>
+</div>
+<div id="relationships-properties">
+  <h2 id="h2_166399560" data-has-heading-anchor="true">
+    Relationships and&nbsp;Properties
+  <a href="api-conventions.html#h2_166399560" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Resources contain relationships and properties (see “Format of HTTP success bodies (HAL)” for their representation).
+  </p>
+  <blockquote>
+    <div>
+      <ul>
+        <li>
+          relationships: Expose related resources (example: a server resource has an “owner” relationship that points to a user resource).
+        </li>
+        <li>
+          properties: Are data attached to a resource that are not resources themselves (example: a server has a “mem_size” property that is a simple numerical value).
+        </li>
+      </ul>
+    </div>
+  </blockquote>
+</div>
+<div id="format-of-http-success-bodies-hal">
+  <h3 id="h3_1457814103" data-has-heading-anchor="true">
+    Format of HTTP success bodies (HAL)
+  <a href="api-conventions.html#h3_1457814103" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    When a request for a CloudBolt API resource is successful, CloudBolt responds with an application/hal+json document. HAL stands for “Hypertext Application Language”, and defines a JSON-compliant format for expressing hyperlinks in APIs. The HAL IETF spec:&nbsp;<a href="http://tools.ietf.org/html/draft-kelly-json-hal-06" target="_top">http://tools.ietf.org/html/draft-kelly-json-hal-06</a>.
+  </p>
+  <p>
+    Using HAL gives these benefits:
+  </p>
+  <blockquote>
+    <div>
+      <ul>
+        <li>
+          A well-defined response format (so we don’t have to invent/document our own).
+        </li>
+        <li>
+          Simple discovery/traversal of relationships.
+        </li>
+        <li>
+          Clients that don’t need to know how to build URLs — only follow relationships. This reduces client/server coupling down to an interface of relationships.
+        </li>
+        <li>
+          Mechanism for including partials of related resources so they don’t have to be requested separately in many cases (imagine pre-fetching and Django ORM’s&nbsp;<cite><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">select_related</span>).</span></cite>
+        </li>
+        <li>
+          No need to update HAL-aware API clients when new relations or URLs are added or changed — the new relations will be immediately available for use.
+        </li>
+        <li>
+          Interactive point-and-click browsing of our API.
+        </li>
+      </ul>
+    </div>
+  </blockquote>
+</div>
+<div id="format-of-http-error-bodies">
+  <h3 id="h3__1786447848" data-has-heading-anchor="true">
+    Format of HTTP error bodies
+  <a href="api-conventions.html#h3__1786447848" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="" data-children-count="1"><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Python</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>{<br>  <span class="cm-string">"status_code"</span>: <span class="cm-number">400</span><span class="cm-operator">-</span><span class="cm-number">500</span>,<br>  <span class="cm-string">"detail"</span>: <span class="cm-string">"Human readable error description"</span>,<br>  <span class="cm-string">"error"</span>: <span class="cm-string">"String representation of error"</span>,<br>}</pre></td></tr></table>
+      <br/>
+      </span></span>
+  </p>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="cloudbolt-api-v2-0.html" class="articleActions_link CHNavLinkPrevious">CloudBolt API v2.0</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="getting-started-api.html" class="articleActions_link CHNavLinkNext">Getting Started</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

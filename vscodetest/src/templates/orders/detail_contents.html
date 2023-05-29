@@ -1,0 +1,170 @@
+{% load item_list %}
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% if debug_toolbar %}
+<html>
+    <head>
+        {% include 'common/head_javascript_includes.html' %}
+    </head>
+    <body>
+{% endif %}
+
+<h1> {{ pagetitle }} </h1>
+
+{% if not catalog_only_mode %}
+<div class="btn-toolbar">
+    {% order_actions %}
+</div>
+{% endif %}
+
+<div class="panel panel-default">
+  <div class="panel-body">
+
+    <dl>
+      {% if not is_cart %}
+        <dt>{% trans "Status:" %}</dt>
+        <dd>
+          <div class="alert alert-{{ order.status|order_status_to_alert_class }}">
+            {{ order|order_status_icon }} {{ order.status_display }}
+
+            {# only allow just provisioning orders for now, until social.html supports other message types #}
+            {% if enable_social_feature and order.status == "SUCCESS" and not order.decom_server_count and not order.mod_server_count %}
+                <iframe class=seamless height=24px width=100% scrolling=no
+                    src=https://s3.amazonaws.com/cb-c2-social/v6/index.html?prov={{ order.prov_server_count }}&decom={{ order.decom_server_count }}&mod={{ order.mod_server_count }}></iframe>
+            {% endif %}
+          </div>
+
+          {# Used by the view to determine whether the order detail page should be refreshed: #}
+          <span class="hidden" id="hidden_order_status">{{ order.status }}</span>
+        </dd>
+
+        {% if order.status == "DENIED" %}
+          <dt>{% trans "Reason Denied:" %}</dt>
+          <dd>
+            {% if order.denied_reason %}
+              <pre>{{ order.denied_reason }}</pre>
+            {% else %}
+              {% trans "None given." %}
+            {% endif %}
+          </dd>
+        {% endif %}
+      {% endif %}
+
+        <dt>{% trans "Requested by:" %}</dt>
+        <dd>{{ order.owner|link_or_label:profile }} {{ order.create_date|how_long_ago }}</dd>
+
+        {% if order.status == "DENIED" %}
+          <dt>{% trans "Denied by:" %}</dt>
+        {% elif order.approvers.exists %}
+          <dt>{% trans "Approved by:" %}</dt>
+        {% endif %}
+
+        {% if order.status == "DENIED" or order.approvers.exists %}
+            <dd>
+                {% if order.approvers.exists %}
+                  {# approval_history contains profile and datetime for all approvals #}
+                  {{ order.approval_history|render_list:profile }}
+                {% else %}
+                  {% if order.approved_by == null %}
+                    {% trans "System" %}
+                  {% else %}
+                    {{ order.approved_by|link_or_label:profile }}
+                  {% endif %}
+                  {# Currently order.approve_date is used for deny times #}
+                  {{ order.approve_date|when }}
+                {% endif %}
+            </dd>
+        {% endif %}
+        {% if order.status == "PENDING" %}
+          <dt>{% trans "Pending Approval From:" %}</dt>
+          <dd>{{ order.groups_for_approval|render_list:profile }}</dd>
+        {% endif %}
+
+        <dt>{% trans "Owning Group:" %}</dt>
+        <dd>{{ order.group|link_or_label:profile }}</dd>
+
+        {% if order.recipient %}
+            <dt>{% trans "Recipient:" %}</dt>
+            <dd>{{ order.recipient|link_or_label:profile }}</dd>
+        {% endif %}
+
+      {% if order.group.has_a_limited_quota %}
+        <dt>{% trans "Quota Impact:" %}</dt>
+        <dd>
+          {% quota_impact_for_order order %}
+        </dd>
+      {% endif %}
+
+      {% if show_rates %}
+        <dt>{% trans "Net Rate:" %}</dt>
+        {# Show the total rate, with a tool-tip that shows the broken-down rates #}
+        <dd>{{ order.rate_display_with_tooltip }}</dd>
+      {% endif %}
+
+      {% if order.comment %}
+        <dt>{% trans "Comment:" %}</dt>
+        <dd>{{ order.comment }}</dd>
+      {% endif %}
+    </dl>
+
+  </div>
+</div>
+
+{% if not catalog_only_mode %}
+<h2>{% trans "Order Details" %}</h2>
+<div class="orderItemLists">
+    <table id="orderItems" class="stats">
+    <thead>
+      <tr>
+        <th>{% trans "Type" %}</th>
+        <th>{% trans "Environments" %}</th>
+        <th>{% trans "Parameters" %}</th>
+        <th>{% trans "Servers/ Resource" %}</th>
+        {% if show_rates %}
+            <th>{% trans "Rate" %}</th>
+        {% endif %}
+        {% if show_scheduled_col %}
+            <th>{% trans "Scheduled Time" %}</th>
+        {% endif %}
+        <th>{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for item in items %}
+        <tr>
+            {% order_item_details_row item show_rates show_scheduled_col %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% if not catalog_only_mode %}
+<h2>{% trans "Order History" %}</h2>
+{% include "common/tab-history.html" with history_data_json_view='order_history_json' obj=order %}
+{% endif %}
+
+<script>
+$(function(){
+    {% if error_message %}
+        c2.alerts.addGlobalAlert('{{ error_message|escape_quotes_and_new_lines }}', 'error');
+    {% endif %}
+    {% if warning_message %}
+        c2.alerts.addGlobalAlert('{{ warning_message|escape_quotes_and_new_lines }}', 'warning');
+    {% endif %}
+    {% if message %}
+        c2.alerts.addGlobalAlert('{{ message|escape_quotes_and_new_lines }}', 'info');
+    {% endif %}
+
+    c2.tooltip.init($('#orderItems'));
+});
+</script>
+
+{% if debug_toolbar %}
+    </body>
+</html>
+{% endif %}

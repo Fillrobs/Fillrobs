@@ -1,0 +1,29 @@
+{% extends 'dialogs/dialog.html' %}
+
+{% block non_form_content %}
+<p>These Puppet classes are on your Puppet master but have not been imported
+into CB. Importing will make them available as applications that CB can
+install.<p>
+{% endblock non_form_content %}
+
+{% block form_content %}
+<table id='puppet-classes-for-import' data-table="dialog clickable">
+    <thead>
+        <tr>
+            <th class="shrink">Import?</th>
+            <th class="expand">Class Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for class in classes %}
+        <tr>
+            <td class="shrink"><input type="checkbox" name="{{ CLASS_PREFIX }}{{ class.name }}"></td>
+            <td class="expand">{{ class.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<script>
+    c2.dataTables.init();
+</script>
+{% endblock form_content %}

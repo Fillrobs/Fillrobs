@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load job_tags %}
+{% load order_tags %}
+{% block topnav %}portals{% endblock %}
+
+{% block content %}
+<h1>Branded Portals</h1>
+
+<section class="intro">
+    <p>
+    Portals can be used to customize colors, replace images, and rename
+    CloudBolt as it is presented to users. Each request determines the
+    correct portal to use, first by matching the domain being requested
+    with the 'domain' field on the portals. If no portal is found with a
+    matching domain, the portal with 'default' set to True is used.
+    </p>
+</section>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'portal_add' %}"
+        data-dialog-width="500px">
+        <span class="icon-add"></span>
+        Add a portal
+    </a>
+</div>
+
+<table id="portals-table" data-table>
+    <thead>
+        <tr>
+            <th>Default</th>
+            <th>Name</th>
+            {% if profile.show_tenant_info %}
+                <th>Tenant</th>
+            {% endif %}
+            <th>Login Banner</th>
+            <th>Domain</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for portal in portals %}
+        <tr>
+            <td>
+                {{ portal.is_default|render_as_checkmark }}
+            </td>
+            <td>
+                {{ portal|link_or_label:profile }}
+            </td>
+            {% if profile.show_tenant_info %}
+                <td>
+                    {{ portal.tenant|link_or_label_none_global:profile }}
+                </td>
+            {% endif %}
+            <td>
+                {% if portal.login_banner %}
+                    <img src="{{ portal.login_banner.url }}" height="30">
+                {% endif %}
+            </td>
+            <td>
+                {% if portal.domain %}
+                    <a href="{{ portal.site_url }}">{{ portal.domain }}</a>
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}

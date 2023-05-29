@@ -1,0 +1,11 @@
+{% load itsm_tags %}
+
+<div class="text-center">
+  <div class="btn-group-vertical" id="choose_technology">
+    {% for tech in technologies %}
+    <a class="btn btn-default js-dialog-link" href="{% url 'itsm_add' tech.id %}">
+      <span>{{ tech|itsm_icon }} {{ tech.name }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</div>

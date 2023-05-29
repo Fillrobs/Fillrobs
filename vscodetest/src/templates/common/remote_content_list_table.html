@@ -1,0 +1,83 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block intro_section %}
+<p>
+    {% url 'connectioninfo_detail' connection.id as detail_url %}
+    {% blocktrans with connection_name=connection.name %}Below are sample {{ content_type }}s hosted on the
+        <a href="{{ detail_url }}"
+            class="no-tooltip-affordance" data-toggle="tooltip"
+            title="Manage ConnectionInfo">{{ connection_name }}</a>.{% endblocktrans %}
+    {% blocktrans %}Import a {{ content_type }} to create a local copy.{% endblocktrans %}
+</p>
+{% endblock %}
+
+<div id="remote-{{ content_type|slugify }}-table-toolbar">
+    <a class="btn btn-default" data-include-refresh>
+        <i class="fas fa-sync"></i>
+        {% trans "Refresh" %}
+    </a>
+</div>
+<table id="remote-{{ content_type|slugify }}-table"
+    data-table
+    data-table-toolbar="#remote-{{ content_type|slugify }}-table-toolbar"
+    data-table-sort="1"
+    class="content-from-content-library">
+    <thead>
+        {% block table_header_row %}
+            <tr>
+                <th>{% trans "Import" %}</th>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Description" %}</th>
+            </tr>
+        {% endblock %}
+    </thead>
+    <tbody>
+        {% for resource in resources %}
+            {% block table_body_row %}
+                <tr>
+                    <td class="shrink">
+                        {% block import_button %}
+                            <span class="hidden">
+                                {# This hidden content is for sort order #}
+                                {% if resource.name_exists_locally %}
+                                    Zis is already imported
+                                {% else %}
+                                    New
+                                {% endif %}
+                            </span>
+                            <a data-toggle="tooltip"
+                                data-max-width="800"
+                                data-placement="right"
+                                data-html="true"
+                                {% if resource.name_exists_locally %}
+                                    class="btn btn-default import-link no-tooltip-affordance open-dialog"
+                                    title="<p><em>{{ resource.name }}</em> already exists locally.</p><p>Replace it with this {{ content_type }} or import it with a new name.</p>"
+                                {% else %}
+                                    class="btn btn-primary import-link no-tooltip-affordance open-dialog"
+                                    title="<p>Import <em>{{ resource.name }}</em></p>"
+                                {% endif %}
+                                href="{{ import_url }}?pkg={{ resource.package_url }}">
+                                <span class="fas fa-cloud-download-alt"></span>
+                            </a>
+                        {% endblock %}
+                    </td>
+                    <td class="shrink">
+                        {{ resource.name }}
+
+                        {% if resource.extra_classes %}
+                            <span class="{{ resource.extra_classes }}"></span>
+                        {% endif %}
+                    </td>
+                    <td class="expand">
+                        {{ resource.description }}
+                    </td>
+                </tr>
+            {% endblock %}
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+c2.dataTables.init('#remote-{{ content_type|slugify }}-table');
+</script>

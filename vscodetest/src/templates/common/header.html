@@ -1,0 +1,355 @@
+{% load i18n %}
+{% load account_tags %}
+{% load cache %}
+{% load helper_tags %}
+{% load license_tags %}
+{% load order_tags %}
+{% load gravatar %}
+{% get_one_fuse_url as one_fuse_url %}
+{% has_valid_onefuse_license as has_valid_onefuse_license %}
+
+{# `portal` defined in utilities/context_processors.py #}
+{% if portal.custom_banner %}
+    {# to accomodate light logos, we could add a cb-inverted class to this div #}
+    <div id="banner" class="full-container" role="banner"><div></div></div>
+{% endif %}
+
+<div class="grad full-container full-container-no-top full-container-no-bottom"
+    {# ARIA Landmarks for accessibility #}
+    role="navigation" aria-label="Navigation">
+    <nav class="nav nav-header-tabs">
+    <div class="nav-left">
+        <li data-topnav="dashboard" class="logo-item">
+            <a data-test="logo-link" href="{% url "dashboard" %}">&#8203;</a>
+        </li> {# TODO: a zero-width space fixes the tab styling. Why?!?! #}
+
+        {% comment %}
+        -- Cached Submenus --
+        Submenus are loaded asynchronously and their rendered output is cached
+        per user for a small while.  This avoids making unnecessary HTTP calls
+        for submenus that change infrequently.
+
+        The cached template fragments are loaded by utilities.context_processors.
+        {% endcomment %}
+
+        <li data-topnav="resources" class="nav-item">
+            <a data-test="resources-link" href="{% url 'resourcetypes_list' %}">{% trans "Resources" %}</a>
+            <a data-test="resources-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Resources</span></i></a>
+            {% if navbar_data.cached_submenus.resources %}
+                <ul class="dropdown-menu submenu">
+                    {{ navbar_data.cached_submenus.resources }}
+                </ul>
+            {% else %}
+                <ul class="dropdown-menu submenu" data-include="{% url "resources_submenu" %}">
+                    <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                </ul>
+            {% endif %}
+        </li>
+
+        {% if "service catalog"|is_feature_licensed %}
+            <li data-topnav="catalog" class="nav-item">
+                <a data-test="catalog-link" href="{% url 'service_catalog' %}">{% trans "Catalog" %}</a>
+                <a data-test="catalog-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Catalog</span></i></a>
+                {% if navbar_data.cached_submenus.catalog %}
+                    <ul class="dropdown-menu submenu">{{ navbar_data.cached_submenus.catalog }}</ul>
+                {% else %}
+                    <ul class="dropdown-menu submenu" data-include="{% url "catalog_submenu" %}">
+                        <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+
+        <li data-topnav="groups" class="nav-item">
+            <a data-test="groups-link" href="{% url "list_groups" %}">{% trans "Groups" %}</a>
+            <a data-test="groups-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Groups</span></i></a>
+            {% if navbar_data.cached_submenus.groups %}
+                <ul class="dropdown-menu submenu">{{ navbar_data.cached_submenus.groups }}</ul>
+            {% else %}
+                <ul class="dropdown-menu submenu" data-include="{% url "groups_submenu" %}" >
+                    <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                </ul>
+            {% endif %}
+        </li>
+
+        <li data-topnav="reports" class="nav-item">
+            <a data-test="reports-link" href="{% url "report_list" %}">{% trans "Reports" %}</a>
+            <a data-test="reports-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Reports</span></i></a>
+            {% if navbar_data.cached_submenus.reports %}
+                <ul class="dropdown-menu submenu">{{ navbar_data.cached_submenus.reports }}</ul>
+            {% else %}
+                <ul class="dropdown-menu submenu" data-include="{% url "reports_submenu" %}">
+                    <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                </ul>
+            {% endif %}
+        </li>
+
+        {% if profile.is_cbadmin or profile.global_viewer or profile.tenant_permission_set and profile.tenant %}
+            <li data-topnav="admin" class="nav-item">
+                <a data-test="admin-link" href="{% url "admin_home" %}">{% trans "Admin" %}</a>
+                <a data-test="admin-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Admin</span></i></a>
+                {% if navbar_data.cached_submenus.admin %}
+                    <ul class="dropdown-menu submenu">{{ navbar_data.cached_submenus.admin }}</ul>
+                {% else %}
+                    <ul class="dropdown-menu submenu" data-include="{% url "admin_submenu" %}">
+                        <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+
+          <li data-topnav="help" class="nav-item">
+            <a data-test="help-link" class="help-link" target="_blank"
+              {% if gp.help_url %}
+                  href="{{ gp.help_url }}"
+              {% else %}
+                 {% comment %}
+                    doc_url_path can be added to the context by views to provide links to
+                    specifically relevant parts of the docs. It should not include the first part
+                    of the URL, just everything specific to the desired page.
+                    Ex. "server-views.html#list-view"
+                 {% endcomment %}
+                  href="{{ STATIC_URL }}docs/HTML/{{ doc_url_path|default:'introduction.html'}}"
+              {% endif %}
+            >
+                {% trans "Support" %}
+            </a>
+            {% if not gp.help_url %}<a data-test="help-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Support</span></i></a>
+            <ul class="dropdown-menu submenu">
+                <div class="dropdown-menu__sidebar">
+                    <div class="sidebar__info">
+                        <div class="info-heading">
+                            <h2 class="heading-2">
+                                Support
+                            </h2>
+                        </div>
+                        <div class="info">
+                            <p class="paragraph">
+                                Product documentation including tutorials, how-to guides, reference guides, and release notes to guide your {% portal_label %} product installation and deployment.
+                            </p>
+                            <p class="paragraph">
+                                For questions or suggestions, contact support@cloudbolt.io, or visit our support portal at support.cloudbolt.io for more resources including guides, community support, product downloads, and more.
+                            </p>
+                        </div>
+                        <div class="info-btns">
+                            <a href="{{ STATIC_URL }}docs/HTML/introduction.html" target="blank" class="cb-btn cb-btn-primary">Support</a>
+                        </div>
+                    </div>
+                    <div class="dropdown-menu__actions">
+                        <div class="quick-actions">
+                            <h2 class="heading-5 bold panel-title">Quick Actions</h2>
+                            <a href="https://support.cloudbolt.io/hc/en-us/requests/new" target="blank" class="cb-btn cb-btn-secondary">Create a Support Ticket</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown-menu__content">
+                    <div class="content" id="support-content">
+                        <div class="section">
+                            <div id="intro" class="section__content">
+                                <h3 class="heading-5 bold panel-title">Introduction</h3>
+                                <a href="{{ STATIC_URL }}docs/HTML/essential-concepts.html" target="blank">Understanding {% portal_label %}</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/installing-cloudbolt.html" target="blank">Installing {% portal_label %}</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/getting-started.html" target="blank">Getting Started</a>
+                            </div>
+                            <div id="admin" class="section__content">
+                                <h3 class="heading-5 bold panel-title">{% portal_label %} Administration</h3>
+                                <a href="{{ STATIC_URL }}docs/HTML/upgrading-cloudbolt.html" target="blank">Upgrading {% portal_label %}</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/upgrading-to-9-x.html" target="blank">Upgrading to {% portal_label %} 9.X</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/maintenance-mode.html" target="blank">Maintenance Mode for {% portal_label %}</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/troubleshooting-cs.html" target="blank">Troubleshooting Tips</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/help-us-help-you.html" target="blank">Help Us Help You</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/ui-extensions.html" target="blank">UI Extensions</a>
+                            </div>
+                            <div id="resources" class="section__content">
+                                <h3 class="heading-5 bold panel-title">Additional Resources</h3>
+                                <a href="http://www.cloudbolt.io/videos" target="blank">How-To Videos</a>
+                                <a href="https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base" target="blank">Knowledge Base</a>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div id="features" class="section__content">
+                                <h3 class="heading-5 bold panel-title">Features</h3>
+                                <a href="{{ STATIC_URL }}docs/HTML/catalog.html" target="blank">Catalog</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/resources.html" target="blank">Resources</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/resource-types-xaas.html" target="blank">Resource Types (Xaas)</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/configuration-managers.html" target="blank">Configuration Managers</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/customize-vms-during-provisioning.html" target="blank">VM Customization During Provisioning</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/order-form-customization.html" target="blank">Order Form Customization</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/actions.html" target="blank">Actions</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/action-context.html" target="blank">Actions Context</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/generated-parameter-options.html" target="blank">Generated Parameter Options</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/introduction.html" target="blank">See All</a>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div id="objects" class="section__content">
+                                <h3 class="heading-5 bold panel-title">{% portal_label %} Objects</h3>
+                                <a href="{{ STATIC_URL }}docs/HTML/resource-handlers.html" target="blank">Resource Handlers</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/environments.html" target="blank">Environments</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/groups-permissions.html" target="blank">Groups and Permissions</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/users.html" target="blank">Users</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/single-sign-on-and-saml.html" target="blank">Single Sign-On and SAML</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/user-permission-and-attribute-synchronization.html" target="blank">User Permission and Attribute Synchronization</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/networks.html" target="blank">Networks</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/servers.html" target="blank">Servers</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/provisioning-engines.html" target="blank">Provision Engines</a>
+                                <a href="{{ STATIC_URL }}docs/HTML/container-orchestrators.html" target="blank">Container Orchestrators</a>
+                            </div>
+                            <div id="release" class="section__content">
+                                <h3 class="heading-5 bold panel-title">Release Versions</h3>
+                                <a href="{{ STATIC_URL }}docs/HTML/release-notes.html" target="blank">Release Notes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ul>
+            {% endif %}
+          </li>
+          {% if profile.is_cbadmin and show_content_library_menu %}
+            <li data-topnav="content-lib" class="nav-item">
+                <a data-test="library-link" href="{% url "library" %}">{% trans "Library" %}</a>
+                <a data-test="library-submenu-btn" href="#" class="submenu-btn"><i class="fa fa-chevron-down"><span class="hidden">Library</span></i></a>
+                <ul class="dropdown-menu submenu">
+                    <div class="dropdown-menu__sidebar">
+                        <div class="sidebar__info">
+                            <div class="info-heading">
+                                <h2 class="heading-2">Library</h2>
+                            </div>
+                            <div class="info">
+                                <p class="paragraph">
+                                    {% portal_label %}’s Content Library hosts samples of use cases to orchestrate your cloud. A multitude of content is available to import into your Catalog. Search content, change viewing modes, and see what’s new.
+                                </p>
+                            </div>
+                            <div class="info-btns">
+                                <a href="/library" class="cb-btn cb-btn-primary">Library Page</a>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu__actions">
+                            <!-- <div class="quick-actions">
+                                <h5 class="heading-5 bold">Quick Actions</h5>
+                                <a href="#" class="cb-btn cb-btn-secondary">Button</a>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="dropdown-menu__content">
+                        <div class="content" id="library-content">
+                            <a href="/library/?type=new">What's New</a>
+                            <a href="/library/?type=blueprints">Blueprints</a>
+                            <a href="/library/?type=orchestration-actions">Orchestration Actions</a>
+                            <a href="/library/?type=recurring-jobs">Recurring Jobs</a>
+                            <a href="/library/?type=resource-actions">Resource Actions</a>
+                            <a href="/library/?type=rules">Rules</a>
+                            <a href="/library/?type=server-actions">Server Actions</a>
+                            <a href="/library/?type=ui-extension-packages">UI Extensions</a>
+                            <a href="/library/?type=all">See All</a>
+                        </div>
+                    </div>
+                </ul>
+            </li>
+        {% endif %}
+    </div>
+    <div class="nav-right">
+        <li data-topnav="bookmarks" class="dropdown icon-item icon-item--left">
+            {# TODO: when we want to support easy bookmark adds again, add back data-add-bookmark below  #}
+            {# TODO: if possible, make the dialog stay open when you add a bookmark #}
+            <a data-test="bookmark-submenu-btn" href="#" class="submenu-btn"><i class="fas fa-bookmark"><span class="hidden">Bookmarks</span></i></a>
+            <ul id="bookmarks-submenu" class="dropdown-menu submenu"
+                {% comment %}
+                    c2.bookmarks.js needs this to reload a cached menu (i.e. when data-include is not set)
+                {% endcomment %}
+                    data-reload-url="{% url 'bookmarks_submenu' %}"
+                {% if navbar_data.cached_submenus.bookmarks %}
+                    >{{ navbar_data.cached_submenus.bookmarks }}
+                {% else %}
+                    data-include="{% url 'bookmarks_submenu' %}">
+                        <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                {% endif %}
+            </ul>
+        </li>
+        {% if profile.is_cbadmin %}
+            <li data-topnav="ccso" class="icon-item icon-item--left gravatar-lg">
+                <a data-test="ccso-btn" href="https://web.kumolus.com/cost" target="_blank">
+                    <span class="hidden">CloudBolt Cloud Cost & Security Optimization</span>
+                </a>
+            </li>
+        {% endif %}
+        <li data-test="orders-submenu-btn" data-topnav="orders" class="icon-item">
+            {% if profile.can_request %}
+                {% with cart_size=user|cart_size %}
+                    <a href="#" class="submenu-btn">
+                        <i class="fas fa-shopping-cart"><span class="hidden">Shopping Cart</span></i>&nbsp;
+                            ({{ cart_size }})
+                    </a>
+                    {% if navbar_data.cached_submenus.orders %}
+                        <ul class="dropdown-menu submenu">
+                            {{ navbar_data.cached_submenus.orders }}
+                        </ul>
+                    {% else %}
+                        <ul class="dropdown-menu submenu" data-include="{% url "orders_submenu" %}">
+                            <li><h4 class="no-link">{% trans "Loading..." %}</h4></li>
+                        </ul>
+                    {% endif %}
+                {% endwith %}
+                {% else %}
+                    <a href="{% url 'order_list' %}">
+                        <i class="icon-cart"></i>&nbsp;
+                    </a>
+                {% endif %}
+            </li>
+            <li data-topnav="user" class="dropdown gravatar-lg icon-item">
+                <a data-test="user-submenu-btn" href="#" class="submenu-btn">
+                    <i class="fas fa-user"><span class="hidden">User Profile</span></i>
+                </a>
+                <ul class="dropdown-menu submenu">
+                    <div class="dropdown-menu__sidebar">
+                        <div class="sidebar__info">
+                            <div class="info-heading">
+                                <h2 class="heading-2">
+                                    Profile
+                                </h2>
+                            </div>
+                            <div class="info">
+                                <p class="paragraph">
+                                    Quickly view a user’s profile information, assigned groups, and roles. Click Go to Full Profile to edit information for the selected user.
+                                </p>
+                            </div>
+                            <div class="info-btns">
+                                <a href="{{ profile.get_absolute_url }}" class="cb-btn cb-btn-primary">Go to Full Profile</a>
+                            </div>
+                            {% if has_valid_onefuse_license %}
+                            <div class="info-btns">
+                                <a href="{{ one_fuse_url }}" class="cb-btn cb-btn-primary-outline">Go to OneFuse</a>
+                            </div>
+                            {% endif %}
+                        </div>
+                            <div class="dropdown-menu__actions">
+                                <div class="quick-actions">
+                                    <h3 class="heading-5 bold panel-title">Quick Actions</h3>
+                                    <a href="{% url 'logout' %}" class="cb-btn cb-btn-secondary">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="dropdown-menu__content">
+                                <div class="content" id="user-content">
+                                    <div class="section" id="user-info">
+                                        <div class="img-container">
+                                            {% rich_gravatar user 32 link=False tooltip=False %}
+                                        </div>
+                                        <p><span class="bold">Username: </span> {{ user.username }}</p>
+                                        <p><span class="bold">Email: </span> {{ user.email }}</p>
+                                        <p><span class="bold">First Name: </span> {{ user.first_name }}</p>
+                                        <p><span class="bold">Last Name: </span> {{ user.last_name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </ul>
+                    </li>
+          {% if profile.is_cbadmin or profile.global_viewer %}
+              {% include 'search/menu.html' %}
+          {% endif %}
+    </div>
+  </nav>
+</div>
+<script>
+c2.bookmarks.init($('[data-topnav="bookmarks"]'));
+</script>

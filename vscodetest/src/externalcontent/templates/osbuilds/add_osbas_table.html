@@ -1,0 +1,32 @@
+{% comment %}
+This is included by templates/osbuilds/add_osbas.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<table id="possible_osbas" data-table="dialog clickable">
+    <thead>
+        <tr>
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th>{{template_label|default:"image"|title}}</th>
+            <th>Resource Handler</th>
+            <th>Current OS Build</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for osba in osbas %}
+            <tr>
+                <td><input name="osba" type="checkbox" value="{{ osba.id }}"/></td>
+                <td class="name">{{ osba.name_display }}</td>
+                <td class="resource_handler">{{ osba.rh_display }}</td>
+                <td>
+                    {% if osba.current_os_build %}
+                    {{ osba.current_os_build }} ({{ osba.current_os_build.environments.count }} environments)
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

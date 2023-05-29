@@ -1,0 +1,160 @@
+{% load helper_tags %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% comment %}
+Common template for action dialogs.  View generally provides the following context:
+  - title
+  - content: optional HTML string displayed above form (will scroll).
+    (FIXME perhaps rename the above argument?)
+  - bottom_content: optional HTML to be displayed above form.
+  - extra_onready_js: additional inline Javascript
+  - form: an optional Django form
+  - theme: optional keyword to determine the styling. "danger" is only option.
+  - rendered_form: if present, display this instead of form.as_p
+  - action_url (form action, whether normal or ajax)
+  - use_ajax: bool attr on form.
+    True (default): post via ajax and render results or errors inside the dialog.  If
+          data returned specifies a redirect_url, send browser to that URL.
+    False: submit form normally, i.e. load new page.
+  - submit: label for submit button.  Also, if this is _not_ set, there will be no
+          submit button, ajax posting, cancel button.
+  - cancel: label for cancel button.  By default, "Cancel" is used.
+  - without_cancel: bool (default False) excludes Cancel button
+  - reload_on_close: any non-empty value will cause the page to be reloaded
+    when the dialog is closed via ESC, double-click or Cancel button.
+  - max_modal_width: bool (default False) indicating modal should expand to full
+    screen width
+{% endcomment %}
+
+<div class="modal-dialog {{ theme }} {% if max_modal_width %}modal-full{% endif %}" aria-labelledby="modal-dialog-title">
+    <div class="modal-content">
+
+    {% block modalHeader %}
+        <div class="modal-header">
+
+            <h4 id="modal-dialog-title" class="modal-title">
+                {% block title %}
+                    {{ title }}
+                {% endblock title %}
+            </h4>
+            <button type="button" class="close" data-dismiss="modal"
+                title="Close this dialog"><i class="fas fa-times"></i></button>
+        </div>
+    {% endblock modalHeader %}
+
+        <div class="modal-body">
+            {% block messages %}
+                {% if messages %}
+                    <ul class="messagelist">
+                        {% for message in messages %}
+                            <li{% if message.tags %}
+                                class="{{ message.tags }}"{% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endblock messages %}
+
+            {% block non_form_content %}
+                {{ top_content }}
+                {{ content }}
+            {% endblock non_form_content %}
+
+            {# form_class may be set by the view or by C2Horizontal/VerticalFormHelper classes #}
+            <form id="action_form" class="{% dialog_form_classes form form_class %}"
+                method="POST" action="{{ action_url }}"
+                data-root-fields="{{ form.root_controlling_field_names|join:"," }}"
+                {% if ng_non_bindable %}ng-non-bindable{% endif %}
+                {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+                {% if form_target %}target="{{ form_target }}"{% endif %}>
+                {% include 'common/fake_password_field.html' %}
+
+                {% block form_content %}
+                    {% comment %}
+                        Dialogs may include "form", "rendered_form" or nothing at all.
+                        Because we use the crispy templatetag to render "form", it already includes a `csrf_token`.
+                        We just need to explicitly add it for the other two cases
+                    {% endcomment %}
+                    {% if not form %}
+                        {% csrf_token %}
+                    {% endif %}
+                    {% if rendered_form %}
+                        {{ rendered_form }}
+                    {% elif form %}
+                        {% crispy form %}
+                    {% endif %}
+                {% endblock form_content %}
+            </form>
+
+            {% block bottom_content %}
+                {{ bottom_content }}
+            {% endblock bottom_content %}
+        </div> <!-- end .modal-body -->
+
+    {% block modalFooter %}
+        <div class="modal-footer">
+        {% block dialog_footer %}
+            {% if alternate_action_url %}
+                <button class="pull-left cb-btn cb-btn-secondary open-dialog" href="{{alternate_action_url}}">{{ alternate_action_text|default:"Nevermind"}}</button>
+            {% endif %}
+
+            {% if submit %}
+                {% if not without_cancel %}
+                <button class="cb-btn cb-btn-link" data-dismiss="modal">
+                    {{ cancel|default:_("Cancel") }}
+                </button>
+                {% endif %}
+                <button class="cb-btn cb-btn-{{ theme|default:'primary' }} js-submit-form"
+                    data-loading-text="{% trans 'Submitting' %}&hellip;">
+                    {{ submit|default:_("Submit") }}
+                </button>
+            {% else %}
+                <button class="cb-btn cb-btn-link" data-dismiss="modal">
+                    {% trans "Close" %}
+                </button>
+            {% endif %}
+
+        {% endblock dialog_footer %}
+        </div>
+    {% endblock modalFooter %}
+    </div>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    {% if use_ajax == None %}
+      var useAjax = true;
+    {% else %}
+      {% if use_ajax == '' %}
+        var useAjax = true;
+      {% else %}
+        var useAjax = {{ use_ajax|to_json }};
+      {% endif %}
+    {% endif %}
+
+    var opts = {
+        'useAjax': useAjax,
+        'reloadOnClose': {{ reload_on_close|to_json }},
+        'actionURL': {{ action_url|to_json }}
+    };
+
+    {% if alt_post_data %}
+        // Replace what the action form will post
+        $('#action_form').data('altPostData', {{ alt_post_data|to_json }});
+    {% endif %}
+
+    var $dialog = $('#dialog-modal');
+    $dialog.data('dialogOptions', opts);
+
+    {{ extra_onready_js }}
+
+    c2.sliders.init();
+
+    {% block on_ready %}
+    {% endblock on_ready %}
+})();
+</script>

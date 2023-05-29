@@ -1,0 +1,38 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'provengine_sync_osbuilds' provengine.id %}"
+        id="import-osbuilds">
+        <span class="icon-import"></span>
+        Import OS builds
+    </a>
+</div>
+
+<table id="provengine-osbuilds" data-table>
+    <thead>
+        <tr>
+            <th>OS Build Name</th>
+            <th>OS Family</th>
+            <th>Guest ID</th>
+            <th>Environments</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for osbuild, os_attr, guest_id in osbuilds %}
+        <tr>
+            <td class="name">{{ osbuild.name }}</td>
+            <td>{{ osbuild.os_family|os_family_icon }} {{ osbuild.os_family.name }}</td>
+                <td>{{ guest_id|default_if_none:"<i>None</i>" }}</td>
+                <td>{{ osbuild.environments.all|length }}</td>
+                <td>
+                    <a class="icon-edit open-dialog"
+                        href="{% url 'edit_provengine_osbuild' provengine.id osbuild.id %}"></a>
+                    <a class="icon-delete"
+                        href="{% url 'provengine_delete_osbuild' provengine.id osbuild.id %}"></a>
+                </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

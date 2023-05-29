@@ -1,0 +1,70 @@
+{% load rh_tags helper_tags %}
+
+<div class="btn-toolbar">
+    <a style="display:none;" class="btn btn-default open-dialog"
+        data-dialog-width="1000px"
+        href="{% url 'import_gcp_projects' handler.id %}"
+        id="import-projects">
+        <span class="icon-import"></span>
+        Import Projects
+    </a>
+
+    <a class="btn btn-default"
+        href="{% url 'fetch_gcp_projects' handler.id %}"
+        id="fetch-projects">
+        <span class="icon icon-handler-gcp" title="Fetch Projects"></span>
+        Fetch Projects
+    </a>
+
+    <a class="btn btn-default open-dialog"
+        href="{% url 'import_gcp_project' handler.id %}"
+        id="import-project">
+        <span class="icon-import" title="Import Project Manually"></span>
+        Import Project Manually
+    </a>
+</div>
+
+<div class="clearfix"></div>
+
+<table id="projects" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Project ID</th>
+            <th>Project Number</th>
+            <th>Environment</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for project in projects %}
+        <tr>
+            <td class="id"><a href="{% url 'gcp_project_detail' handler.id project.id %}">{{ project.name }}</a></td>
+            <td class="name">{{ project.gcp_id }}</td>
+            <td class="name">{{ project.project_number }}</td>
+            <td>
+                {% for env in project.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </td>
+        </tr>
+        {% empty %}
+            <div class="alert alert-warning">
+            This resource handler has no Projects associated with it.
+            </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function() {
+        {% if request.session.open_import_dialog %}
+            $("#import-projects").click();
+        {% endif %}
+    });
+</script>

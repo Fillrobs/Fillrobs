@@ -1,0 +1,16 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+<div class="clearfix"></div>
+<p></p>
+<p>
+{% blocktrans with connection_name=connection.name %}Import a blueprint from the {{ connection_name }} to create a local copy, configure it to work within your infrastructure, and then make it available to groups by granting them <i>deploy</i> permission.
+Only users with permission to create blueprints can access this view.{% endblocktrans %}
+</p>
+
+<div id="remote-blueprint-list" class="no-vertical-spacing">
+    {% for blueprint in blueprints %}
+        {% blueprint_card blueprint remote=True %}
+    {% endfor %}
+</div>

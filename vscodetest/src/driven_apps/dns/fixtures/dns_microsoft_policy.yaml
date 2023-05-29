@@ -1,0 +1,26 @@
+- model: dns.dnspolicy
+  pk: 1
+  fields:
+    real_type:
+      - dns
+      - microsoftdnspolicy
+    workspace: 1
+    endpoint: 1
+    type: microsoft
+    name: microsoft1
+    description: 'Microsoft Test Policy #1'
+    create_a_record: true
+    pre_validate_a_record: true
+    post_validate_a_record: true
+    create_ptr_record: true
+    pre_validate_ptr_record: true
+    post_validate_ptr_record: true
+    create_c_name_record: false
+    pre_validate_c_name_record: false
+    post_validate_c_name_record: false
+    post_validation_sleep_seconds: '{{post_validation_sleep_seconds}}'
+    validation_timeout_seconds: '{{validation_timeout_seconds}}'
+    hostname_override: 'override-{{request.hostname}}'
+- model: dns.microsoftdnspolicy
+  pk: 1
+  fields: {}

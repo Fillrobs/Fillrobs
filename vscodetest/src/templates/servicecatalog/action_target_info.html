@@ -1,0 +1,28 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<dl class="vertical">
+    <dt>{% trans 'Target OS families:' %}</dt>
+    <dd>
+        {% with families=action.os_families.all %}
+            {% if families %}
+                <ul class="list-unstyled">
+                    {% for family in families %}
+                        <li>{{ family|os_family_icon }} {{ family }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <i>{% trans 'All OS families' %}</i>
+            {% endif %}
+        {% endwith %}
+    </dd>
+
+    <dt>{% trans 'Server Tiers:' %} {% blockinfotip %}{% trans "This script will run only on servers within these tiers." %}{% endblockinfotip %}</dt>
+    <dd>
+        {% if service_item.targets.all %}
+            {{ service_item.targets.all|render_list }}
+        {% else %}
+            <i>{% trans 'All servers deployed before this action runs' %}</i>
+        {% endif %}
+    </dd>
+</dl>

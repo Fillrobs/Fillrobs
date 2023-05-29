@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% load helper_tags %}
+{% load gravatar %}
+
+{% block title %}Users{% endblock %}
+{% block topnav %}users{% endblock %}
+
+{% block content %}
+
+<h1>Users</h1>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'user_create' %}">
+        <span class="icon-add"></span>
+        Create a new User
+    </a>
+
+    <div class="pull-right">
+        <span>Show:</span>
+        <select id="usersDropdownFilter" onchange="window.location.hash=this.value; c2.dataTables.reloadTable('#users-table')">
+            <option {% if show == "all" %}selected{% endif %} value="all">All users</option>
+            <option {% if show == "active" %}selected{% endif %} value="active">Active users only</option>
+            <option {% if show == "deactivated" %}selected{% endif %} value="deactivated">Deactivated users only</option>
+            <option {% if show == "super_admin" %}selected{% endif %} value="super_admin">Super admins only</option>
+            <option {% if show == "global_viewer" %}selected{% endif %} value="global_viewer">Global viewers only</option>
+            <option {% if show == "online" %}selected{% endif %} value="online">Online only</option>
+
+        </select>
+    </div>
+</div>
+
+<table id="users-table"
+    {# Start sorted by last name #}
+    data-table-sort="4"
+    data-table-sort-disabled="0"
+    data-table-source="{% url 'user_list_json' %}">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Email</th>
+            <th>Username</th>
+            {% if show_tenant_info %}
+                <th>Tenant</th>
+            {% endif %}
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Domain</th>
+            <th>
+                {% text_tooltip "Active" "Inactive users cannot log in." %}
+            </th>
+            <th> Super Admin</th>
+            {% if is_cb_admin_enabled %}
+                <th> CB Admin </th>
+            {% endif %}
+            <th> Global Viewer </th>
+            <th> Online </th>
+            <th> Last Login </th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script type="text/javascript">
+
+var $table = $('#users-table');
+
+/*
+* This function is called every time the table content is loaded. It modifies
+* params passed in the GET request.
+*/
+$table.data('table-fnServerParams', function (aoData) {
+    var show = $('#usersDropdownFilter').val();
+
+    aoData.push({'name': 'show', 'value': show});
+});
+c2.dataTables.init('#users-table');
+
+</script>
+
+{% if profile.is_cbadmin and profile.view_initial_tour %}
+    <script>
+        var profile_id = '{{ profile.id }}';
+    </script>
+    <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+    <script src="{{ STATIC_URL }}js/tours/usersTour.js"></script>
+    <script>
+        c2.usersTour.init().start();
+    </script>
+{% endif %}
+
+{% endblock content %}

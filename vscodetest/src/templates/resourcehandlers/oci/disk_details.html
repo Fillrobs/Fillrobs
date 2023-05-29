@@ -1,0 +1,6 @@
+{# added to common tab-disks.html #}
+
+{% if 'Boot Volume' not in disk.name %}
+    {# Allow resizing and deleting of non-boot volumes only #}
+    {% include 'servers/disk_actions.html' with allow_resize=True position=position %}
+{% endif %}

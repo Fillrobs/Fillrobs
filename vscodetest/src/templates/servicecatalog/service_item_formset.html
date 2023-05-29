@@ -1,0 +1,73 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{# Tab labels #}
+<ul id="service-item-nav" class="nav nav-boxed-tabs nav-stacked col-sm-3">
+    {% for form in formset %}
+        {% comment %}
+        Form errors for the ServiceBlueprintOrderForm may be returned by the
+        formset. They are inserted into the DOM via this hidden element, and then
+        moved adjacent to the appropriate field by
+        c2.orderForm.loadServiceItemForms().
+        {% endcomment %}
+        {% if forloop.first %}
+            <!--
+            <div id="order-form-errors" style="display:none">
+                {{ order_form.resource_name.errors }}
+            </div>
+            -->
+
+            {% for field in order_form %}
+                {% if field.errors %}
+                    <div class="order-form-error-fields" style="display:none" data-field-name="{{ field.name }}">
+                        {{ field.errors }}
+                    </div>
+                {% else %}
+                    {# included so error classes can be turned off for valid fields #}
+                    <div class="order-form-valid-fields" style="display:none" data-field-name="{{ field.name }}">
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        {% endif %}
+
+        {% with item=form.service_item_obj %}
+
+            <li class="service-item-handle" data-toggle="tooltip" title="{% if item.name %}{{ item.name }}{% else %}{{ item }}{% endif %}">
+            {% comment %}
+            Active and hidden classes are set by JS in c2.orderForm.init,
+            based on the value of data-show on the service-item tab-pane itself,
+            which is defined in templates/servicecatalog/service_item_formset_content.html
+            {% endcomment %}
+                <a data-toggle="tab" href="#item-{{ item.id }}">
+                    <i class="state-ready pull-right fa no-tooltip-affordance fa-check"
+                        style="display:none"
+                        data-toggle="tooltip"
+                        title="Ready"></i>
+                    <i class="state-error pull-right fa no-tooltip-affordance fa-arrow-right"
+                        style="display:none"
+                        data-toggle="tooltip"
+                        title="Form requires attention"></i>
+                    <span class="service-item-title">{% if item.name %}{{ item.name }}{% else %}{{ item }}{% endif %}</span>
+                </a>
+            </li>
+
+        {% endwith %}
+    {% endfor %}
+</ul>
+
+
+{# Tab contents #}
+<div class="tab-content col-sm-9">
+    {% include 'servicecatalog/service_item_formset_content.html' with initialize_panes=True enable_multitenancy=enable_multitenancy %}
+</div>
+
+<script>
+    $(".service-item-title").each(function() {
+        var str = $(this).html().trim(" ")
+        if(str.length > 20) {
+            $(this).html(str.substring(0,19) + '...');
+        }
+    });
+</script>

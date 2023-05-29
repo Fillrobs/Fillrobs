@@ -1,0 +1,134 @@
+{% load crispy_forms_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% comment %}
+`initialize_panes` is a boolean template parameter passed in by the include
+call (even itself, see below).  It's only True when the formset/page is first
+rendered. After that, the tab pane enclosing each SI form does not need to be
+created again.
+{% endcomment %}
+
+{% for form in formset %}
+
+    {% with item=form.service_item_obj %}
+
+    {% if render_global_errors %}
+        {% include "bootstrap3/errors.html" %}
+    {% endif %}
+
+    {% if form.has_formset %}
+        {# This creates nested panes in the case of blueprint SIs. #}
+        {# Might still need to initialize the outer-pane. #}
+        {% if initialize_panes %}
+            <div id="item-{{ item.id }}"
+                data-root-fields="{{ form.root_controlling_field_names|join:"," }}"
+                class="tab-pane
+                    service-item
+                    {{ item.type_slug }}
+                    {% if form.service_item_not_orderable %}error{% endif %}"
+
+                {# Active and hidden classes are set by JS in c2.orderForm.init #}
+                data-show="{{ item.show_on_order_form|to_json }}">
+        {% endif %}
+
+        {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
+
+        {% include 'servicecatalog/service_item_formset_content_subblueprint.html' with form=form initialize_panes=initialize_panes enable_multitenancy=enable_multitenancy %}
+
+        {% if initialize_panes %}
+            </div>
+        {% endif %}
+    {% else %} {# item is not a BPSI! deal with it normally #}
+        {# Normal SI pane that does not contain nested ones #}
+        {% if initialize_panes %}
+            <div id="item-{{ item.id }}"
+                class="tab-pane
+                    service-item
+                    {{ item.type_slug }}
+                    {% if form.service_item_not_orderable %}error{% endif %}"
+                {# Active and hidden classes are set by JS in c2.orderForm.init #}
+                {% if item.id == 0 %}
+                    {# Special case of BP params form, which should always show #}
+                    data-show="true"
+                {% else %}
+                    data-show="{{ item.show_on_order_form|to_json }}"
+                {% endif %}
+
+                {# Environments to prefetch for cost comparison. Only set on PSSIs. #}
+                {% if form.pssi_configured_env_ids %}
+                    data-configured-env-ids="{{ form.pssi_configured_env_ids|to_json }}"
+                {% endif %}
+            >
+            {% if item.has_environment_option %}
+
+                 {% service_item_details_panel item ordering=True %}
+
+                <div class="form-group environment-option
+                    {% if form.environment.errors %}has-error{% endif %}"
+                    >
+                    <label class="requiredField col-lg-3 control-label">
+                        {% trans 'Environment' %}
+                        {% if enable_multitenancy and profile.is_cbadmin %}
+                            {% blockinfotip %} {% trans "Environments that are available to this group and capable of provisioning this blueprint item. As a non-tenant-specific user, you may see environments in this list that are not visible to the group's users." %} {% endblockinfotip %}
+                        {% else %}
+                            {% blockinfotip %} {% trans "Environments that are available to this group and capable of provisioning this blueprint item." %} {% endblockinfotip %}
+                        {% endif %}
+                    </label>
+
+                    <div class="col-lg-9 order-form__section">
+                        {{ form.environment }}
+                        <ul class="help-block errorlist">
+                        {% for error in form.environment.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+            {% else %}
+                {% service_item_details_panel form.service_item.value ordering=True %}
+            {% endif %}
+
+            {% for msg in form.informational_messages %}
+                <div class="alert alert-info">{{ msg }}</div>
+            {% endfor %}
+
+            <div class="update-on-env-change">
+        {% endif %} {# End of if initialize-panel #}
+
+        {# When the environment dropdown changes, only update the following section #}
+        {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
+
+        {% if form.has_param_fields %}
+                    <div class="runtime-inputs"
+                        data-root-fields="{{ form.root_controlling_field_names|join:"," }}"
+                    >
+                        {% include 'common/fake_password_field.html' with uuid=item.id %}
+                        {% crispy form form.only_params_form_helper %}
+                    </div>
+        {% endif %}
+
+
+        {% if show_rates and item.type_slug == 'provserver' and not item.environment_selection_hook %}
+                    <div class="form-group">
+                        <label class="col-lg-3 text-right">
+                            {% trans 'Rate' %}
+                            {% blockinfotip %} {% trans "Rates shown do not include any global parameter defaults." %} {% endblockinfotip %}
+                        </label>
+                        <div id="item-{{ item.id }}-rate" class="si-rate col-lg-9">
+                            {# This text will be replaced by c2.orderForm.init if it is not applicable #}
+                            <i>{% trans 'Select an environment' %}</i>
+                        </div>
+                    </div>
+        {% endif %}
+        {# End section that changes when environment dropdown changes #}
+        {% if initialize_panes %}
+                    </div>
+                </div>
+        {% endif %}
+    {% endif %}{# End section for non-BlueprintServiceItems #}
+    {% endwith %}
+{% endfor %}

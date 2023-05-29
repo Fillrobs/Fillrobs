@@ -1,0 +1,17 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+<g style="isolation:isolate">
+    <radialGradient id="_rgradient_0" fx="0.5" fy="1" cx="0.5" cy="0.5" r="0.5" gradientTransform="matrix(1849.862,19.336,0,930.302,-459.78,56.935)" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-opacity="1" style="stop-color:rgb(255,190,15)"/>
+        <stop offset="57.391304347826086%" stop-opacity="1" style="stop-color:rgb(246,144,30)"/>
+        <stop offset="60.43478260869565%" stop-opacity="1" style="stop-color:rgb(250,110,16)"/>
+        <stop offset="90%" stop-opacity="1" style="stop-color:rgb(253,194,137)"/>
+        <stop offset="100%" stop-opacity="1" style="stop-color:rgb(255,252,250)"/>
+    </radialGradient>
+    <radialGradient id="_rgradient_1" fx="0.5" fy="1" cx="0.5" cy="0.5" r="0.5" gradientTransform="matrix(373.561,3.905,0,187.865,719.287,-1.952)" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-opacity="1" style="stop-color:rgb(255,190,15)"/><stop offset="47.82608695652174%" stop-opacity="1" style="stop-color:rgb(246,144,30)"/><stop offset="69.56521739130434%" stop-opacity="1" style="stop-color:rgb(250,110,16)"/><stop offset="90%" stop-opacity="1" style="stop-color:rgb(253,194,137)"/><stop offset="100%" stop-opacity="1" style="stop-color:rgb(255,252,250)"/>
+    </radialGradient>
+    <circle cx="465" cy="532" r="463" fill="url(#_rgradient_0)"/>
+    <circle cx="465" cy="532" r="272" fill="rgb(255,255,255)"/>
+    <circle cx="906" cy="94" r="94" fill="url(#_rgradient_1)"/>
+</g>
+</svg>

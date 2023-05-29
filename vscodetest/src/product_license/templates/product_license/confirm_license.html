@@ -1,0 +1,59 @@
+{% load helper_tags %}
+{% load static %}
+
+<!doctype html>
+<html>
+<head>
+    <meta charset=utf-8>
+    <title>{% portal_label %} License Confirmation</title>
+    <link rel="stylesheet" href="{% static 'css/c2.css' %}">
+    <script type="text/javascript">
+        window.onload = function() {
+            var backLink = document.getElementById("back-link");
+            backLink.onclick = function() {
+                window.history.back();
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="dead-center-container">
+    <div class="dead-center-content">
+    <div class="container">
+    <div class="row">
+    <div class="col-sm-10 col-sm-push-1 col-lg-8 col-lg-push-2">
+        <div class="panel panel-default">
+            <div class="panel-heading text-center">
+                <img width=200 height=49 src="{% static 'logos/cb-sw-horizontal.svg' %}">
+            </div>
+            <div class="panel-body text-left extra-padding">
+                <div class="col">
+                    <p class="attention">Welcome to {{ appliance_label }}!</p>
+                    {% if is_fuse_license %}
+                    <img width=200 height=49 src="{% static 'logos/onefuse-logo-long-color.svg' %}">
+                    {% endif %}
+                    {% include "product_license/mini_details.html" %}
+                    <p class="extra-margin">Thank you for choosing {{ appliance_label }}. If you need any assistance, please contact {{ support_email }}.</p>
+                    <form method="post" action="{% url 'product_license-upload' %}" enctype="multipart/form-data" id="license-upload-form">
+                        {% csrf_token %}
+                        <div class="form-group hide">
+                            <textarea class="license-text form-control" name="license-text" rows="5">{{ license_text }}</textarea>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary">Apply License and Configure {{ appliance_label }}</button>
+                        </div>
+                    </form>
+                    <div class="text-center">
+                        <a id="back-link" href="#">Change license</a>
+                    </div>
+                </div>{# end .col #}
+            </div>{# end .panel-body #}
+        </div>{# end .panel #}
+    </div>{# end .col... #}
+    </div>{# end .row #}
+    </div>{# end .container #}
+    </div>{# end .dead-center-content #}
+    </div>{# end .dead-center-container #}
+</body>
+</html>

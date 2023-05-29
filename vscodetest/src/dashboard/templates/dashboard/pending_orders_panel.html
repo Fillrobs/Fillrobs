@@ -1,0 +1,19 @@
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{# This panel depends on the icon click handler provided in dashboard/index.html #}
+{% if pending_orders %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">
+            {% trans 'Pending Orders' %}
+            {% trans 'Orders you are authorized to approve' as infotip_content %}
+            {% infotip infotip_content %}
+        </h2>
+    </div>
+    <div class="panel-body">
+        {% mini_orders_table pending_orders hide="Status" table_classes="simple" %}
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load tab_tags %}
+{% load i18n %}
+
+{% block topnav %}resources{% endblock %}
+{% block content %}
+
+    <h1> {{ resource }} </h1>
+
+    <div class="row">
+        {% if can_manage or actions %}
+            <div id="resource-details-sidebar" class="col-sm-3 text-center">
+                <div class="visual">
+                    <!-- if there's a Resource Type icon use it, otherwise fall back to the default Resource icon -->
+                    <i class="{{ resource.resource_type.icon|default:'fas fa-cogs' }}"></i>
+                </div>
+                {% include 'resources/details_sidebar.html'  %}
+            </div>
+            <div class="col-sm-9">
+                {% draw_tabs tabs %}
+            </div>
+        {% else %}
+            {% draw_tabs tabs %}
+        {% endif %}
+    </div>
+
+{% endblock content %}

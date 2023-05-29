@@ -1,0 +1,35 @@
+{% extends 'common/remote_content_list_table.html' %}
+{% load helper_tags %}
+
+
+{% block table_header_row %}
+    <tr>
+        <th class="shrink"></th>
+        <th style="width: 20%">Name</th>
+        <th>Type</th>
+        <th style="width: 50%">Description</th>
+        <th class="shrink">Schedule</th>
+    </tr>
+{% endblock %}
+
+{% block table_body_row %}
+    <tr>
+        <td class="shrink">
+            {% block import_button %}
+            {{ block.super }}
+            {% endblock %}
+        </td>
+        <td class="">
+            {{ resource.name }}
+        </td>
+        <td class="shrink">
+            {{ resource.job_type|title|default:"" }}
+        </td>
+        <td class="">
+            {{ resource.description }}
+        </td>
+        <td class="shrink">
+            {{ resource.schedule }}
+        </td>
+    </tr>
+{% endblock %}

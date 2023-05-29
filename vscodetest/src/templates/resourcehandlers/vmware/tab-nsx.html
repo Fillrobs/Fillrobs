@@ -1,0 +1,85 @@
+{% load helper_tags %}
+
+<div class="row">
+    <div class="col-lg-6">
+        <h2>NSX Manager</h2>
+
+        <div class="btn-toolbar">
+            {% if endpoint %}
+                <a class="open-dialog btn btn-default"
+                    href="{% url 'edit_nsx_endpoint' handler.id endpoint.id %}">
+                    <span class="icon-edit"></span>
+                    Settings
+                </a>
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'verify_nsx_endpoint' handler.id %}">
+                    <span class="icon-verify-connection"></span>
+                    Verify Connection
+                </a>
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'delete_nsx_endpoint' handler.id %}">
+                    <span class="icon-delete"></span>
+                    Delete&hellip;
+                </a>
+            {% else %}
+                <a class="open-dialog btn btn-default"
+                    href="{% url 'create_nsx_endpoint' handler.id %}">
+                    <span class="icon-add"></span>
+                    Endpoint
+                </a>
+            {% endif %}
+        </div>
+
+        {% if endpoint %}
+                <dt>URL:</dt>
+                <dd>{{ endpoint.protocol }}://{{ endpoint.ip }}:{{ endpoint.port }}</dd>
+                <dt>Username:</dt>
+                <dd>{{ endpoint.username }} </dd>
+            </dl>
+        {% else %}
+            <p>None configured.</p>
+        {% endif %}
+
+    </div>
+    <div class="col-lg-6">
+
+        <h2>Edge Gateway Configuration</h2>
+
+        <div class="btn-toolbar">
+            <a class="open-dialog btn btn-default"
+                href="{% url 'edit_nsx_edge_config' handler.id %}">
+                <span class="icon-edit"></span>
+                Configure
+            </a>
+            {% if edge_config %}
+                <a class="btn btn-default open-dialog"
+                    href="{% url 'delete_nsx_edge_config' handler.id %}">
+                    <span class="icon-delete"></span>
+                    Delete&hellip;
+                </a>
+            {% endif %}
+        </div>
+
+        {% if edge_config %}
+            <dl class="vertical">
+                <dt>Provider network:</dt>
+                <dd>{{ edge_config.provider_network|link_or_label:profile }}</dd>
+                <dt>Cluster:</dt>
+                <dd>{{ edge_config.cluster }}</dd>
+                <dt>Datastore:</dt>
+                <dd>{{ edge_config.datastore }}</dd>
+                <dt>Resource pool:</dt>
+                <dd>
+                    {% if edge_config.resource_pool == 'Resources' %}
+                        <i>Use default</i>
+                    {% else %}
+                        {{ edge_config.resource_pool }}
+                    {% endif %}
+                </dd>
+            </dl>
+        {% else %}
+            <p>None configured.</p>
+        {% endif %}
+
+    </div>
+</div>

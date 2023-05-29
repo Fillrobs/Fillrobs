@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+<form id="pkiform" method="post" action="/pki/login/">
+{% csrf_token %}
+<input type="hidden" id="id_pki_user_data" name="pki_user_data" value="" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+<script type="text/javascript">
+$(document).ready(function(){
+            $('#pkiform').submit();
+        
+});
+</script>
+
+{% endblock %}

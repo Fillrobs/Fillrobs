@@ -1,0 +1,13 @@
+/* IE 9
+ * Note: do NOT use '//' comments because this file is minified into one line.
+ */
+.ie9 {
+    /* Hide the login dialog */
+    .has-js {
+        display: none !important;
+    }
+
+    .not-supported {
+        display: block;
+    }
+}

@@ -1,0 +1,43 @@
+{% comment %}
+This template overrides the template table for generic RHs to also include
+Azure specific image attributes.
+
+This is included by templates/resourcehandlers/discover_templates.html
+which also enables the client side behaviors.
+{% endcomment %}
+{% load helper_tags %}
+
+<div id="tally-message" class="centered">
+</div>
+
+<table
+    id="discovered-images"
+    data-table="dialog clickable"
+    data-table-source="{% url 'discover_azure_arm_images_json' handler_id location %}">
+    <thead>
+    {% block template_columns %}
+        <th> <input class="check-column" type="checkbox" /> </th>
+        <th class="shrink">Publisher</th>
+        <th class="shrink">Offer</th>
+        <th class="shrink">SKU</th>
+        <th class="shrink">Version</th>
+        <th class="shrink">Label</th>
+        <th class="shrink">OS</th>
+    {% endblock %}
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<script>
+    $(document).ready(function() {
+    // Instantiate the empty dataTable with clickable behavior. This is done
+    // here via .attr() because the dynamic URL for ajax loading cannot be set as
+    // HTML attributes on the table element above.
+    var $table = $("#discovered-images");
+    $table.attr('data-table', 'clickable');
+    $table.attr('data-table-sort', '1');  // sort by column index 1.
+    c2.dataTables.init();
+    c2.dialogs.onSubmitSerializeAllSelectedRows($table, $('#action_form'));
+});
+</script>

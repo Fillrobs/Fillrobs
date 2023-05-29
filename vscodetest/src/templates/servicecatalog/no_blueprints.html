@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<p>{% trans 'No blueprints have been defined.' %}</p>
+
+{% if profile.can_create_blueprint %}
+    <p>
+    {% url 'order_list' as order_list_url %}
+    {% blocktrans %}
+        Add a blueprint now (above) or save a 
+        <a href='{{ order_list_url }}'>previous order</a> as a blueprint.
+    {% endblocktrans %}
+    </p>
+{% endif %}

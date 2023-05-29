@@ -1,0 +1,22 @@
+{% load i18n %}
+<div class="panel-body">
+    <form method="get">
+        <ul id="filters-container" class="resource-filters">
+            {% for field in filters_form.visible_fields %}
+              <li class="filter-field
+                {% if forloop.last %}
+                    filters-form-show-historical
+                {% endif %}
+              ">
+                {{ field.label_tag }}
+                {{ field }}
+              </li>
+            {% endfor %}
+
+        </ul>
+        <div class="btn-toolbar text-center">
+            <input type="button" class="btn btn-default" data-test="resource-filter-clear" value="{% trans 'Clear' %}" id="unfilter"/>
+            <input type="submit" class="btn btn-primary" data-test="resource-filter-submit" value="{% trans 'Apply' %}"/>
+        </div>
+    </form>
+</div>

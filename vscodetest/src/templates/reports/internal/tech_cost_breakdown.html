@@ -1,0 +1,112 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="chart">
+    <div id="tech-cost-breakdown">
+    </div>
+    <div>
+        {# Give the .chart class something to start with; otherwise it doesn't get applied #}
+        &nbsp;
+    </div>
+</div>
+
+<script>
+$(function() {
+
+var costBreakdown = {{ cost_breakdown|to_json }};
+var numTechs = {{ cost_breakdown|length }};
+var colors = {{ colors|to_json }};
+var i;
+var j;
+var techData = [];
+var envData = [];
+var envCount;
+var tech;
+var techColor;
+var techBreakdown;
+
+// Build the data arrays
+for (i = 0; i < numTechs; i += 1) {
+
+    tech = costBreakdown[i];
+
+    // If there are more techs than colors cycle through the color array
+    if (i < colors.length) {
+        techColor = colors[i];
+    } else {
+        techColor = colors[i - colors.length];
+    }
+
+    techData.push({
+        name: tech.name,
+        y: tech.total_cost,
+        color: techColor
+    });
+
+    // add env data
+    techBreakdown = tech.drilldown;
+    envCount = techBreakdown.env_costs.length;
+    for (j = 0; j < envCount; j += 1) {
+        brightness = 0.2 - (j / envCount) / 5;
+        envData.push({
+            name: techBreakdown.env_names[j],
+            y: techBreakdown.env_costs[j],
+            color: Highcharts.Color(techColor).brighten(brightness).get()
+        });
+    }
+}
+
+// Create the chart
+$('#tech-cost-breakdown').highcharts({
+    chart: {
+        type: 'pie'
+    },
+    title: {text: '{{ title }}'},
+    subtitle: {text: '{{ subtitle }}'},
+    series: [{
+        name: '{% trans "Technologies" %}',
+        data: techData,
+        // This includes tech names in the legend
+        showInLegend: true,
+        size: '50%'
+    }, {
+        name: '{% trans "Environments" %}',
+        data: envData,
+        size: '80%',
+        innerSize: '60%'
+    }],
+    plotOptions: {
+        pie: {
+            shadow: false,
+            center: ['50%', '50%'],
+            // Hide all labels but include tech names in legend
+            dataLabels: {enabled: false},
+            point: {
+                events: {
+                    legendItemClick: function(e) {
+                        e.preventDefault();
+                    }
+                }
+            }
+        }
+    },
+    legend: {
+        itemHoverStyle: {
+            cursor: 'default'
+        }
+    },
+    tooltip: {
+        valuePrefix: '{{ currency }}'
+    },
+    yAxis: {
+        title: {
+            text: '{% trans "Total percent" %}'
+        }
+    },
+    credits: false,
+    exporting: false
+});
+
+});
+</script>

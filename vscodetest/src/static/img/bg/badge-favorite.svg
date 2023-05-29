@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="59px" viewBox="0 0 58 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>tiles/favorite badge</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="tiles/favorite-badge" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M6.7421875,59 L57.9780273,59 C57.9780273,56.8458659 57.9780273,54.4572754 57.9780273,51.8342285 C57.9780273,49.2111816 57.9780273,34.5130098 57.9780273,7.73971294 L6.7421875,59 Z" id="Path-2" fill="#FFD529"></path>
+        <g id="icons/star" transform="translate(32.360107, 30.369856)" fill="#FFFFFF" fill-rule="nonzero">
+            <polygon id="Shape" points="12.4355 6.75163603 9.5 0.858694853 6.5645 6.75163603 3.55271368e-15 7.69634191 4.75 12.2834007 3.629 18.7598713 9.5 15.7022243 15.371 18.7598713 14.25 12.2834007 19 7.69634191"></polygon>
+        </g>
+        <polygon id="Path-3" fill="#FFF2BC" points="4.53173828 59 -1.23616167 59 58 -0.897663078 58 5.59960938"></polygon>
+    </g>
+</svg>

@@ -1,0 +1,26 @@
+{% extends "registration/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Legal Notice" %}{% endblock %}
+
+{% block body %}
+    <div class="panel panel-default panel-narrow">
+        <div class="panel-body text-center">
+            <form method="post" action="{% url 'legal_notice' %}">
+                {% csrf_token %}
+
+                <h3>{% trans "Legal Notice<" %}/h3>
+                <p>
+                    {{ notice }}
+                </p>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-secondary" data-test="legal-dismiss">{% trans "Dismiss" %}</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

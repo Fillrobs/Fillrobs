@@ -1,0 +1,45 @@
+{% load helper_tags %}
+{% comment %}
+    Custom markup for RuntimeToggleWidget.
+        Label   [toggle]    (original field)    ("Let user choose" message, hidden)
+
+    As switch is toggled, the original form field is hidden and "Let user
+    choose" shown.  Also, the hidden input that carries this choice to the
+    server side is switched between "_default_" and "_runtime_".
+{% endcomment %}
+
+<div id="runtime-widget-{{ name }}" class="runtime-group row">
+    <input id="runtime-{{ name }}" name="runtime_{{ name }}" type="hidden" value="_default_">
+
+    {% if with_toggle %}
+        <div class="no-tooltip-affordance col-lg-3"
+            style="vertical-align: top;"
+            data-toggle="tooltip"
+            title="Set a predefined value now or let the user choose at order time">
+            <input type="checkbox" {{ checked }} id="runtime-toggle-{{ name }}"
+                data-toggle="toggle"
+                data-width="115"
+                data-on="Predefine"
+                data-off="User chooses">
+        </div>
+    {% else %}
+        <div class="no-tooltip-affordance col-lg-3"
+            style="vertical-align: top;"
+            data-toggle="tooltip"
+            title="Value is provided by a single option and cannot be modified from here.">
+            <input type="checkbox" id="runtime-toggle-{{ name }}"
+                disabled="disabled"
+                data-toggle="toggle"
+                data-width="115"
+                data-off="Provided">
+        </div>
+    {% endif %}
+
+    <div class="col-lg-9">
+        <div style="display:block" class="runtime-orig"> {{ orig_widget }} </div>
+        <div style="display:none" class="runtime-user">User will choose at order time</div>
+    </div>
+</div>
+<script>
+c2.orderForm.setupRuntimeField('{{ name }}');
+</script>

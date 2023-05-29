@@ -1,0 +1,6 @@
+# Do not change the superuser_name, this is a required system account for CloudBolt
+superuser_name="admin"
+superuser_first="CB"
+superuser_last="Admin"
+superuser_password="admin"
+superuser_email="admin@domain.com"

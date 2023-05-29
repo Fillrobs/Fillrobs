@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block topnav %}admin{% endblock %}
+{% block content %}
+
+<form {% if form.is_multipart %}enctype="multipart/form-data"{% endif %}
+    class="form-horizontal bootstrap3"
+    method="post" action=".">
+    <div class="panel panel-default">
+
+        <div class="panel-body">
+            {% csrf_token %}
+            <input autocomplete="off" class="hidden" id="id_fakepasswordremembered" name="fakepasswordremembered" type="password">
+            {% crispy form %}
+        </div>
+
+        <div class="panel-footer">
+            <div class="btn-toolbar">
+                <a href="{% url 'admin_home' %}" class="btn btn-default">{% trans "Cancel" %}</a>
+                <a href="" id="email-test" class="btn btn-default">
+                    {% trans "Send Test Email" %}</a>
+                <button name="action" type="submit" value="save"
+                    class="btn btn-primary">{% trans "Save changes" %}</button>
+            </div>
+        </div>
+
+    </div>{# end .panel #}
+</form>
+
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'mail:create' %}">
+                <span class="icon-add"></span>
+                {% trans "New Email Template" %}
+            </a>
+        </div>
+        {% if emailtemplate_list %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Slug</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for emailtemplate in emailtemplate_list %}
+                <tr>
+                    <td>{{ emailtemplate.name }}</td>
+                    <td>{{ emailtemplate.slug }}</td>
+                    <td class="shrink">
+                        <div class="btn-group">
+                            <a class="icon-edit btn btn-default btn-sm open-dialog"
+                                data-dialog-width="1000"
+                                href="{% url 'mail:update' emailtemplate.id %}"></a>
+                            {% if emailtemplate.is_renamable %}
+                                <a class="icon-delete btn btn-default btn-sm open-dialog"
+                                href="{% url 'mail:delete' emailtemplate.id %}"></a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+</div>
+
+
+<script>
+$(function () {
+    $('#email-test').on('click', function(e) {
+        // Required to prevent the page from reloading
+        e.preventDefault();
+
+        var data = $('form').serialize();
+        $.post('{% url "email_test" %}', data, function(response) {
+            if (response.success) {
+                c2.alerts.addGlobalAlert(response.msg, 'success', true, 10000);
+            } else {
+                c2.alerts.addGlobalAlert(response.msg, 'error', true, 10000);
+            }
+        });
+    });
+});
+</script>
+
+{% endblock content %}

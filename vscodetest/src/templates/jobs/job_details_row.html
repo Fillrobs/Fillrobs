@@ -1,0 +1,30 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load job_tags %}
+
+{#  used by order_item_details_row.html #}
+
+<li class="list-group-item {% if job.parent_job %}child-job{% endif %}" id="job-{{ job.id }}">
+    <p>{{ job|link_or_label:profile }}</p>
+
+    {% if job.status != 'PENDING' %}
+        {% include "jobs/progress_bar.html" %}
+    {% endif %}
+
+    {% if job|get_progress_string %}
+        <pre>{{ job|get_progress_string }}</pre>
+    {% endif %}
+</li>
+
+{% for child in job.children_jobs.all %}
+    {% comment %}
+       Recursion in django templates, oh my!
+       Until 1.7, we have to set the template name in a variable to avoid infinite recursion by the template compiler
+       http://blog.elsdoerfer.name/2008/01/22/recursion-in-django-templates/
+
+       Here's the fix in 1.7: https://github.com/django/django/commit/e2f06226ea4a38377cdb69f2f5768e4e00c2d88e
+    {% endcomment %}
+    {% with templatename="jobs/job_details_row.html" %}
+        {% include templatename with job=child profile=profile %}
+    {% endwith %}
+{% endfor %}

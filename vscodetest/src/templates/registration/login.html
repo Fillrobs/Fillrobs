@@ -1,0 +1,104 @@
+{% extends "registration/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Log In" %}{% endblock %}
+{% block head %}
+<style>
+    /* These rules only apply to the no-Javascript case. */
+    .has-js {
+        display: none;
+    }
+</style>
+
+<script>
+$(function() {
+    c2.login.init();
+});
+</script>
+{% endblock head %}
+
+{% block body %}
+    <div id="login" class="panel panel-default panel-narrow">
+
+        <div class="panel-body no-js text-left">
+            <p class="alert alert-warning">
+            {% blocktrans %}Your browser does not support Javascript or is blocking scripts. This
+            may be due to restrictive security settings; check your browser
+            settings and then reload this page.{% endblocktrans %}
+            </p>
+        </div>
+        <script>
+            {# Do this as early as possible to avoid flash of content #}
+            $('.no-js').css('display', 'none');
+        </script>
+
+        <div class="panel-body has-js text-center">
+            {% include "common/login_banner.html" %}
+
+            {% if form.errors %}
+                {% for field,error in form.errors.items %}
+                    <p class="error" data-alert="true">{{error|striptags}}</p>
+                {% endfor %}
+            {% endif %}
+
+            {% if gp.admin_only_mode %}
+                <div class="full-container text-center">{% trans "Admin-only maintenance mode is enabled, non-Admins will not be able to log in." %}</div>
+            {% endif %}
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ next }}" />
+
+                <div class="form-group text-left">
+                    <label class="cb-login-label" for="id_username">{% trans "Username" %}</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group text-left">
+                    <label class="cb-login-label" for="id_password">{% trans "Password" %}</label>
+                    {{ form.password }}
+                </div>
+
+                {% if form.token.label_tag %}
+                    <div class="form-group token cb-login-pad-top">
+                        <label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="icon-lock"></i>
+                                </span>
+                                {{ form.token }}
+                            </div>
+                        </label>
+                    </div>
+                {% endif %}
+
+                <div class="form-group domain cb-login-pad-top {% if not form.domain.label %}hidden{% endif %}">
+                    {{ form.domain }}
+                </div>
+
+                <div class="form-group cb-login-pad-top">
+                    <button type="submit" data-test="login-button" class="btn btn-primary cb-login-button">{% trans "Log In" %}</button>
+                </div>
+
+                <div class="form-group">
+                    <a href="{% url "password_reset" %}">{% trans "Forgot password" %}</a>
+                </div>
+
+                {% if sso_provider %}
+                    <hr>
+                    <div class="form-group">
+                        <a href="{% url 'sso_login' sso_provider.pk %}" class="btn btn-primary cb-login-button">{% trans "Log in with "|add:sso_provider.name %}</a>
+                    </div>
+                {% endif %}
+
+            </form>
+        </div>
+        </div>
+
+        <div class="panel-body not-supported text-left" style="display:none">
+            <p class="alert alert-warning">
+            {% trans "Your web browser is not supported.  Use a modern browser like IE 11, Google Chrome, Firefox, Opera, or Safari." %}
+            </p>
+        </div>
+
+    </div>{# end .panel #}
+{% endblock body %}

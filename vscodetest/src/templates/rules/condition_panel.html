@@ -1,0 +1,88 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="rule-condition" data-id="{{ rule.id }}">
+  <div class="condition-header">
+    <span data-toggle="collapse" data-target="#condition-{{ rule.id }}-details" class="collapsed">
+
+      <span data-toggle="tooltip" title="{% blocktrans %}Expand or collapse details{% endblocktrans %}"
+        class="collapsed-indicator no-tooltip-affordance"></span>
+
+      <h2 class="h4" style="display: inline"> {{ rule.label }} </h2>
+
+      {% if rule.description %}
+        {% infotip rule.description %}
+      {% endif %}
+    </span>
+
+    <div class="pull-right">
+      <input type="checkbox" name="enable"
+          data-post-url="/api/v2/rules/{{ rule.id }}/set-enabled/"
+          data-toggle="toggle"
+          data-on="{% blocktrans %}Enabled{% endblocktrans %}"
+          data-off="{% blocktrans %}Disabled{% endblocktrans %}"
+          data-width="100"
+          {% if rule.enabled %}checked{% endif %}>
+
+      <div class="btn-group">
+        <button class="btn btn-default open-dialog" title="{% blocktrans %}Execute rule{% endblocktrans %}"
+              href="{% url 'execute_rule' rule.id %}" data-toggle="tooltip">
+          <span class="icon-start-tests"></span>
+        </button>
+        <button class="btn btn-default open-dialog" title="{% blocktrans %}Export rule (condition + actions){% endblocktrans %}"
+          href="{% url 'export_higher_level_action_password_dialog' 'rules' rule.id %}"
+          data-toggle="tooltip" data-max-width="600" {# Avoid wrapping tooltip content #}
+          data-dialog-width="800px">
+           <span class="fas fa-file-export"></span>
+        </button>
+        <button class="btn btn-default open-dialog" title="{% blocktrans %}Edit this rule's condition{% endblocktrans %}"
+          href="{% url 'event_condition_edit' rule.id %}" data-toggle="tooltip">
+          <span class="icon-edit"></span>
+        </button>
+        <button class="btn btn-default open-dialog" title="{% blocktrans %}Delete this rule{% endblocktrans %}"
+          href="{% url 'event_condition_mapping_delete' rule.id %}"  data-toggle="tooltip">
+          <span class="icon-delete"></span>
+        </button>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
+
+  <div id="condition-{{ rule.id }}-details" class="condition-details collapse">
+    {% with action=rule.condition.cast %}
+
+      {% comment %}
+        action_details_panel.html would be the right thing to do here, but
+        there are some missing pieces in the rules views, so we just use a well
+        to set it apart.
+      {% endcomment %}
+
+      <div class="well">
+        {# enables table search/sort by type #}
+        <span class="hidden">{{ action.type_slug }}</span>
+
+        {% include 'actions/action_type_icon.html' %}
+
+        <a href="{{ action.get_absolute_url }}"
+            class="no-tooltip-affordance" data-toggle="tooltip"
+            title="Manage this {{ action.type_slug }}">
+            {{ action.name }}
+            <span class="icon-cog"></span></a>
+
+        {% include 'actions/source_code_dialog_link.html' %}
+      </div>
+
+    {% endwith %}
+
+    {% if rule.condition_input_mappings.all %}
+      <dl class="dt-50">
+        {% for mapping in rule.condition_input_mappings.all %}
+          <dt> {{mapping.default_value.field.label}}: {% infotip mapping.default_value.field.description %} </dt>
+          <dd> {{mapping.default_value.display_value}} </dd>
+        {% endfor %}
+      </dl>
+    {% endif %}
+
+  </div>
+</div>

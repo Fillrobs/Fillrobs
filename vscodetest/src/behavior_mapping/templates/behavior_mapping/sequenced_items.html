@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+
+{% block topnav %}params{% endblock %}
+
+{% block content %}
+    <p>
+    Customize the sequence in which these items are displayed in forms when managing and ordering blueprints.
+    </p>
+    <div class="btn-toolbar">
+        <a class="btn btn-default js-dialog-link"
+            href="{% url 'add_sequenced_items' %}">
+            <span class="icon-add"></span>
+        </a>
+        <a class="btn btn-default js-dialog-link"
+            href="{% url 'restore_default_sequenced_items' %}">
+            <span class="fas fa-undo"></span>
+            Restore Factory Defaults
+        </a>
+    </div>
+
+    <ol id="sequenced-items">
+        {% for item in items %}
+            <li class="{% if forloop.first %} first{% endif %}">
+
+                <div class="panel panel-default" data-id="{{ item.id }}">
+                    <div class="panel-heading">
+                        {% if item.custom_field %}
+                            <span class="icon-param"></span>
+                        {% else %}
+                            {% if item.preconfig %}
+                                <span class="icon-preconfig"></span>
+                            {% else %}
+                                {# abstrations have no specific icon yet; treat them as CFs #}
+                                <span class="icon-param"></span>
+                            {% endif %}
+                        {% endif %}
+
+                        &nbsp;{{ item.label }} {% if item.name %}({{ item.name }}){% endif %}
+
+                        <a class="icon-delete"
+                            href="{% url 'remove_sequenced_item' item.id %}"
+                            data-silence-alerts="true"
+                            data-post="click"></a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+
+    <p class="indent-4">
+    All other parameters will be shown in alphabetical order below those listed
+    above.
+    </p>
+
+{% endblock content %}
+
+{% block onReady %}
+function removeItem(response, $target) {
+    if (response.success) {
+        // Remove the row of the now-deleted item
+        $target.closest('.panel').remove();
+        c2.sortable.resequenceSortables($('#sequenced-items'));
+    }
+}
+
+$('#sequenced-items .icon-delete').each(function() {
+    // Set up callbacks to remove the row from the DOM
+    $(this).data('post-callback', removeItem);
+});
+
+
+c2.sortable.sortablePanels('#sequenced-items', '{% url "resequence_items" %}');
+{% endblock %}

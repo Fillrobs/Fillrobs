@@ -1,0 +1,97 @@
+<div id="history-chart" class="panel panel-default"></div>
+
+<script>
+$(function(){
+  function drawHistoryChart() {
+    var $chart = $('#history-chart');
+
+    // return early if there is nothing to draw to --- otherwise,
+    // highcharts will raise http://www.highcharts.com/errors/13
+    if ($chart.length === 0) { return; }
+
+    var licenses = {{ usage_json }};
+    var usage_series = [];
+    for (var i = 0; i < licenses.length; i++) {
+      usage_series.push([licenses[i][0], licenses[i][1]]);
+    }
+
+    var totals = {{ count_json }};
+    var totals_series = [];
+    for (var i = 0; i < totals.length; i++) {
+      totals_series.push([totals[i][0], totals[i][1]]);
+    }
+
+    $chart.highcharts({
+      title: {
+        text: 'License Usage and Totals'
+      },
+      subtitle: {
+        text: document.ontouchstart === undefined ?
+            'Click and drag in the plot area to zoom in' :
+            'Pinch the chart to zoom in'
+      },
+      chart: {
+        zoomType: 'x'
+      },
+      xAxis: {
+        // This causes labels to be date strings converted from epoch values
+        type: 'datetime'
+      },
+      yAxis: {
+        title: {
+          text: 'Servers'
+        }
+      },
+      tooltip: {
+        formatter: function() {
+          return Highcharts.dateFormat('%b %e %Y', this.x) + '<br/>'
+                + '<b>'+ this.y +' servers</b>';
+        }
+      },
+      series: [
+        {
+          name: 'Licenses Deployed',
+          type: 'area',
+          data: usage_series
+        }, {
+          name: 'Total Licenses',
+          type: 'line',
+          step: 'left',
+          data: totals_series
+        }
+      ],
+      exporting: {
+        filename: 'C2_LicensePoolHistory_{{ pool.name }}',
+        // Custom buttons to remove the CSV choice
+        buttons: {
+          contextButton: {
+            menuItems: [
+              {
+                text: 'Print',
+                onclick: function() {
+                  this.print();
+                }
+              },
+              { separator: true },
+              {
+                text: 'Export as PNG Image',
+                onclick: function() {
+                  c2.charts.exportChartAsPNG(this,
+                    this.options.exporting.filename + '.png');
+                }
+              }
+            ]
+          }
+        }
+      },
+      credits: {
+        enabled: false
+      },
+    });
+  }
+
+  // This call is really only needed when the history tab is already active
+  // on page load; otherwise the shown event below will take effect.
+  drawHistoryChart();
+});
+</script>

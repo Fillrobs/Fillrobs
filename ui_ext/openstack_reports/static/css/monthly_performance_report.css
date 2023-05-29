@@ -1,0 +1,20 @@
+.ostack-mp-report .chart-div {
+    width: 100%;
+    margin: 15px 0px;
+    padding: 0px !important;
+}
+
+.ostack-mp-report .plot-btn {
+    margin-top: 25px;
+    margin-right: 25px;
+}
+
+.ostack-mp-report #error-message {
+    color: red;
+    font-size: 15px;
+    display: none;
+}
+
+.ostack-mp-report #chart-group{
+    display: none;
+}

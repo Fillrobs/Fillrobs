@@ -1,0 +1,35 @@
+{% load helper_tags %}
+
+
+<table id="{{ table_id }}">
+    <thead>
+        {% if thead_row_template %}
+            {% include thead_row_template %}
+        {% else %}
+            <tr>
+            {% for col in columns %}
+                <th class="{% if forloop.first %}expand{% else %}shrink{% endif %}">
+                    {{ col }}
+                </th>
+            {% endfor %}
+            </tr>
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for object in rows %}
+
+            {% include tbody_row_template %}
+
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+$(document).ready(function() {
+
+    $('#{{ table_id }}').dataTable({{ table_options|to_json }});
+
+});
+</script>
+

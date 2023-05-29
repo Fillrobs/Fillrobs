@@ -1,0 +1,16 @@
+{% extends "registration/base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Reset Password" %}{% endblock %}
+
+{% block body %}
+<div class="panel panel-default panel-narrow">
+
+    <div class="panel-body text-center">
+        {% include "common/login_banner.html" %}
+
+        {% block content %}{% endblock content %}
+    </div>
+</div>
+{% endblock %}

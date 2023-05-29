@@ -1,0 +1,57 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block si_icon %}
+    {# If the sub-BP creates a resource whose type has an icon, use that. Otherwise, old default #}
+    {% if service_item.sub_blueprint.resource_type and service_item.sub_blueprint.resource_type.icon %}
+        {{ service_item.sub_blueprint.resource_type.icon }}
+    {% else %}
+        item-type-icon
+    {% endif %}
+{% endblock %}
+
+{% block item_details_row %}
+    <div class="row">
+        <div class="col-sm-6">
+
+            {% if service_item.description %}
+                <p>{{ service_item.description }}</p>
+            {% endif %}
+
+            <dl class="vertical">
+                <dt>{% trans 'Sub-Blueprint:' %}</dt>
+                <dd>
+                    {{ service_item.sub_blueprint|link_or_label:profile }}
+                </dd>
+            </dl>
+        </div>
+
+        <div class="col-sm-6">
+            <dl class="vertical">
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                  {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+
+                <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                </dd>
+
+                <dt>{% trans 'If this item fails:' %}</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_continue_on_failure.html' %}
+
+                <dt>{% trans 'Execution Scope' %} {% include 'servicecatalog/tip_restrict_sub_blueprint_scope.html' %}:</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_restrict_sub_blueprint_scope.html' %}
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+{%  endblock item_details_row %}

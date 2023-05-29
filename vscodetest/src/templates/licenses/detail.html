@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% block topnav %}licenses{% endblock %}
+{% block title %}License Pool: {{ pool.name }}{% endblock %}
+
+{% block content %}
+
+    <h1> {{ pool.name }} </h1>
+
+    <ul class="nav nav-boxed-tabs">
+        <li class="active"><a data-toggle="tab" href="#tab-overview">Overview</a></li>
+        <li><a data-toggle="tab" href="#tab-licenses">Licenses</a></li>
+        <li><a data-toggle="tab" href="#tab-history">History</a></li>
+        <li><a data-toggle="tab" href="#tab-graph">Graph</a></li>
+    </ul>
+    <div class="tab-content">
+
+        <div id="tab-overview" class="active tab-pane">
+            {% include 'licenses/tab-overview.html' %}
+        </div>
+
+        <div id="tab-licenses" class="tab-pane">
+            {% include 'licenses/tab-licenses.html' %}
+        </div>
+
+        <div id="tab-history" class="tab-pane">
+            <table id="history-list" data-table>
+                <thead>
+                    <tr>
+                    <th>Date</th>
+                    <th>Event</th>
+                    <th>User</th>
+                    <th>Deployed</th>
+                    <th>Total Licenses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in history %}
+                        <tr>
+                        <td>
+                            {# ID for sorting by; equiv to chronological #}
+                            <span class=hidden>{{ event.id }}</span>
+                            {{ event.action_time|how_long_ago }}
+                        </td> 
+                        <td>{{ event.event_message }}</td> 
+                        <td>{{ event.owner|link_or_label:profile }}</td> 
+                        <td>{{ event.used_count }}</td> 
+                        <td>{{ event.total_count }}</td> 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div id="tab-graph" class="tab-pane">
+            {% include "licenses/tab-history-chart.html" %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/highcharts/modules/exporting.js"></script>
+    <script src="{{ STATIC_URL }}js/rgbcolor.js"></script>
+    <script src="{{ STATIC_URL }}js/canvg.js"></script>
+{% endblock %}

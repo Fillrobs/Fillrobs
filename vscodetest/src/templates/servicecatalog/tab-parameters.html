@@ -1,0 +1,157 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+{% load infrastructure_tags %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'blueprint_add_parameter' blueprint.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Add' %}
+        </a>
+        {% trans "Customize the order form and provisioning process for this blueprint by defining additional parameters that will be associated with each build item (thus every server, action, etc.) and/or the overall deployed resource." as tip %}
+        {% infotip tip width=600 placement='right' %}
+    </div>
+
+<div id="editable-params">
+    <div id="msg"></div>
+
+    <table id="param-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans 'Parameter' %}</th>
+                <th>{% trans 'Type' %}</th>
+                <th>{% trans 'Options' %}</th>
+                <th>{% trans 'Constraints' %}</th>
+                <th>
+                    {% trans "Destination" as title %}
+                    {% trans "Where the parameter will be used. It may be associated with build items in the resource (thus every server, action, etc.), the resource itself, or both when the blueprint is ordered." as tip %}
+                    {% text_tooltip title tip width=400 placement='right' hint=False %}
+                </th>
+                <th>{% trans 'Actions' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for param in custom_fields_and_preconfigs %}
+            <tr>
+                <td>
+                    {% if param.is_preconfig %}
+                        <span class="icon-preconfig"></span>
+                    {% else %}
+                        <span class="icon-param"></span>
+                    {% endif %}
+
+                    {{ param|rich_display:profile }}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        {% trans "Preconfiguration" %}
+                    {% else %}
+                        {{ param.get_type_display }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        <div class="editlink pull-left">
+                            {% if not blueprint.remote_source_url %}
+                                <a class="icon-edit open-dialog"
+                                    {# A bit wider to fit 80 col textareas #}
+                                    data-dialog-width="650px"
+                                    href="{% url 'blueprint_edit_preconfig_options' blueprint.id param.id %}"></a>
+                            {% endif %}
+                        </div>
+
+                        <ul class="options list-unstyled pull-left">
+                            {% for opt in param.options %}
+                                <li>{% preconfig_option opt %}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        {% if param.type != 'DT' %}
+                            <div class="editlink pull-left">
+                                {% if not blueprint.remote_source_url %}
+                                    <a class="icon-edit open-dialog"
+                                        {# A bit wider to fit 80 col textareas #}
+                                        data-dialog-width="650px"
+                                        href="{% url 'blueprint_edit_customfield_options' blueprint.id param.id %}"></a>
+                                {% endif %}
+
+                                {% if param.has_generated_options_support %}
+                                    {% blockinfotip %} {% trans "Options set here will be used to filter the options generated at runtime." %} {% endblockinfotip %}
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% get_field_options_as_str blueprint.custom_field_options param %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if param.is_preconfig %}
+                        <i>{% trans "Not Applicable" %}</i>
+                    {% else %}
+                        <div class="pull-left">
+                                {% if not blueprint.remote_source_url %}
+                                    <a class="icon-edit open-dialog"
+                                        href="{% url 'blueprint_edit_param_constraints' blueprint.id param.id %}"
+                                        id="edit_param_constraints"></a>
+                                {% endif %}
+                        </div>
+
+                        {% blueprint_param_constraints blueprint.id param.id %}
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="pull-left">
+                        {% if not blueprint.remote_source_url %}
+                            <a class="icon-edit open-dialog"
+                               {% if param.is_preconfig %}
+                                   href="{% url 'blueprint_edit_preconfig_use' blueprint.id param.id %}"
+                               {% else %}
+                                   href="{% url 'blueprint_edit_param_use' blueprint.id param.id %}"
+                               {% endif %}
+                                id="edit_param_use"></a>
+                        {% endif %}
+
+                    </div>
+
+                    {% if param.is_preconfig %}
+                        {% if param in blueprint.preconfigurations_for_items.all and param in blueprint.preconfigurations_for_resource.all %}
+                            {% trans 'Both' %}
+                        {% elif param in blueprint.preconfigurations_for_items.all %}
+                            {% trans 'Build Items' %}
+                        {% elif param in blueprint.preconfigurations_for_resource.all %}
+                            {% trans 'Resource' %}
+                        {% else %}
+                            {% trans 'Not Used' %}
+                        {% endif %}
+                    {% else %}
+                        {% if param in blueprint.custom_fields_for_items.all and param in blueprint.custom_fields_for_resource.all %}
+                            {% trans 'Both' %}
+                        {% elif param in blueprint.custom_fields_for_items.all %}
+                            {% trans 'Build Items' %}
+                        {% elif param in blueprint.custom_fields_for_resource.all %}
+                            {% trans 'Resource' %}
+                        {% else %}
+                            {% trans 'Not Used' %}
+                        {% endif %}
+                    {% endif %}
+
+                </td>
+                <td>
+                    {% if not blueprint.remote_source_url %}
+                        <a class="icon-delete open-dialog"
+                        {% if param.is_preconfig %}
+                            href="{% url 'blueprint_remove_preconfig' blueprint.id param.id %}"></a>
+                        {% else %}
+                            href="{% url 'blueprint_remove_parameter' blueprint.id param.id %}"></a>
+                        {% endif %}
+                    {% endif %}
+
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

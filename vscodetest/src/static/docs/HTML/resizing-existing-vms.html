@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('resizing-existing-vms',true);});
+//--></script><title>Resizing Existing VMs</title><script type="text/javascript">//<!--
+var articleTitleText='Resizing Existing VMs';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Resizing Existing VMs</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="resource-handlers.html">Resource Handlers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="azure-resource-manager.html">Azure (Resource Manager)</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Resizing Existing VMs</span></span>
+  </div><p>
+</p>
+<h1 id="h1__291993860" data-has-heading-anchor="true">Resizing Existing VMs<a href="resizing-existing-vms.html#h1__291993860" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1><p>Azure offers several sizes for Virtual Machines using human readable terms like, “Basic_A1,” or, “Standard_D3.” These terms summarize a few statistics about the compute resources that will be available to your virtual machine such as number of CPUs, amount of memory, and which type of disk you can attach. The specifics behind each size word may vary slightly between each data center and availability zone but they should be roughly equivalent. For more detailed info, see the Microsoft documentation on available sizes for&nbsp;<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes?toc=%2fazure%2fvirtual-machines%2flinux%2ftoc.json/" target="_top">Linux Virtual Machines</a>&nbsp;or for&nbsp;<a href="https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes/" target="_top">Windows Virtual Machines</a>.
+</p>
+<p>
+  Be aware that not every size is available to every machine for resizing. Microsoft warns that choices may be limited by where your existing virtual machine is deployed. The sizes you can choose from when launching a Resize Job are the union of those Azure says are available for your specific VM, and the sizes your CloudBolt Admins have configured in the CloudBolt Environment your VM is in. For example, if Azure says it can resize to&nbsp;set{‘Basic_A0’, ‘Basic_A1’, ‘Basic_A2’}&nbsp;and your CloudBolt Environment is configured with&nbsp;set{‘Basic_A1’, ‘Basic_A2’, ‘Basic_A3’}, your available choices are the union, those options which appear in both sets:&nbsp;set{‘Basic_A1’, ‘Basic_A2’}.
+</p>
+<div id="enabling-resize-vm-server-action-for-azure">
+  <h2 id="h2__847737148" data-has-heading-anchor="true">
+    Enabling Resize VM Server Action for Azure
+  <a href="resizing-existing-vms.html#h2__847737148" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    As a CloudBolt admin, you can decide whether you want to Enable or Disable the&nbsp;Resize VM&nbsp;Server Action. </p><ol><li>Navigate to&nbsp;<b>Admin&nbsp;&gt;&nbsp;Server Actions</b>&nbsp;page and find a Server Action called&nbsp;Resize VM. </li><li>Click the Enable/Disable toggle control to set it to your liking.
+  </li></ol>
+  <p>
+    When enabled, the Server Action will appear in the Server Actions column on the left hand side of the Server Details page for any Server running in Azure.
+  </p>
+</div>
+<div id="manually-resizing-a-vm">
+  <h2 id="h2_933871338" data-has-heading-anchor="true">
+    Manually Resizing a VM
+  <a href="resizing-existing-vms.html#h2_933871338" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In the CloudBolt instance, when you click on a Server to see its ServerDetails page, you’ll see a Server Action on the left hand side of the Server Details page called, ‘Resize VM.’ When you click it, CloudBolt will present a modal dialog to ask you what new size you’d like your VM to be. The choices in this dialog are constrained as described above. After you select a size, you may click, Run, and CloudBolt will start a Job to resize your VM. Once the Job is complete, you will see the values for CPU Count and Memory, shown in the,&nbsp;Hardware, section of the Overview tab on the Server Details page, have been updated to reflect the new values.
+  </p>
+</div>
+<div id="resizing-a-vm-through-the-cloudbolt-api">
+  <h2 id="h2_1067080263" data-has-heading-anchor="true">
+    Resizing a VM through the CloudBolt API
+  <a href="resizing-existing-vms.html#h2_1067080263" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    For general information on API usage, including authentication, see:&nbsp;<a href="cloudbolt-api-v2-0.html">CloudBolt API v2.0</a>
+  </p>
+  <p>
+    When requesting the JSON-serialized representation of a CloudBolt Server from the API like so:
+  </p>
+  <div class="highlight-sh notranslate" style="box-sizing: border-box; border: 1px solid #e1e4e5; overflow-x: auto; margin: 1px 0px 24px;">
+    <div class="highlight" style="box-sizing: border-box; background: #ffffff; border: none; overflow-x: auto;">
+      <pre style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 12px; margin: 0px; padding: 12px; overflow: auto; line-height: 1.4;">$ curl -H <span class="s2" style="box-sizing: border-box; color: #aa5500;">&quot;Authorization: Bearer [encrypted_token_value]&quot;</span> https://<span class="o" style="box-sizing: border-box;">[</span>cb_server<span class="o" style="box-sizing: border-box;">]</span>/api/v2/servers/<span class="o" style="box-sizing: border-box;">[</span>server_number<span class="o" style="box-sizing: border-box;">]</span>/ 
+</pre>
+  </div>
+  </div>
+  <p>
+    You will see a section listing available Server Actions including the URIs that request them:
+  </p>
+  <div class="highlight-json notranslate" style="box-sizing: border-box; border: 1px solid #e1e4e5; overflow-x: auto; margin: 1px 0px 24px;">
+    <div class="highlight" style="box-sizing: border-box; background: #ffffff; border: none; overflow-x: auto;">
+      <pre style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 12px; margin: 0px; padding: 12px; overflow: auto; line-height: 1.4;"><span class="p" style="box-sizing: border-box;">{</span> 
+<br/>
+<span class="nt" style="box-sizing: border-box; color: #1e90ff; font-weight: bold;">    &quot;_links&quot;</span><span class="p" style="box-sizing: border-box;">:</span> <span class="p" style="box-sizing: border-box;">{</span>         
+<br/>
+<span class="nt" style="box-sizing: border-box; color: #1e90ff; font-weight: bold;">        &quot;actions&quot;</span><span class="p" style="box-sizing: border-box;">:</span> <span class="p" style="box-sizing: border-box;">[</span>             
+<br/>
+<span class="p" style="box-sizing: border-box;">            {</span>                 
+<br/>
+<span class="nt" style="box-sizing: border-box; color: #1e90ff; font-weight: bold;">                &quot;Resize VM&quot;</span><span class="p" style="box-sizing: border-box;">:</span> <span class="p" style="box-sizing: border-box;">{</span>                     
+<br/>
+<span class="nt" style="box-sizing: border-box; color: #1e90ff; font-weight: bold;">                    &quot;href&quot;</span><span class="p" style="box-sizing: border-box;">:</span> <span class="s2" style="box-sizing: border-box; color: #aa5500;">&quot;/api/v2/servers/[server_number]/actions/2/&quot;</span><span class="p" style="box-sizing: border-box;">,</span>                     
+<br/>
+<span class="nt" style="box-sizing: border-box; color: #1e90ff; font-weight: bold;">                    &quot;title&quot;</span><span class="p" style="box-sizing: border-box;">:</span> <span class="s2" style="box-sizing: border-box; color: #aa5500;">&quot;Run &#39;Resize VM&#39; on &#39;[server_hostname]&#39;&quot;</span>                 
+<br/>
+<span class="p" style="box-sizing: border-box;">                }</span>             
+<br/>
+<span class="p" style="box-sizing: border-box;">            }</span>         
+<br/>
+<span class="p" style="box-sizing: border-box;">        ]</span>     
+<br/>
+<span class="p" style="box-sizing: border-box;">    }</span> 
+<br/>
+<span class="p" style="box-sizing: border-box;">}</span> 
+</pre>
+  </div>
+  </div>
+  <p>
+    Upon finding the&nbsp;<span class="guilabel" style="box-sizing: border-box; border: 1px solid #7fbbe3; background: #e7f2fa; font-size: 12.8px; font-weight: 700; border-radius: 4px; padding: 2.4px 6px; margin: auto 2px;">href</span>&nbsp;for the&nbsp;<span class="guilabel" style="box-sizing: border-box; border: 1px solid #7fbbe3; background: #e7f2fa; font-size: 12.8px; font-weight: 700; border-radius: 4px; padding: 2.4px 6px; margin: auto 2px;">Resize VM</span>&nbsp;Action, you can use it in a POST request like so:
+  </p>
+  <div class="highlight-sh notranslate" style="box-sizing: border-box; border: 1px solid #e1e4e5; overflow-x: auto; margin: 1px 0px 24px;">
+    <div class="highlight" style="box-sizing: border-box; background: #ffffff; border: none; overflow-x: auto;">
+      <pre style="box-sizing: border-box; font-family: SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, &quot;Courier New&quot;, Courier, monospace; font-size: 12px; margin: 0px; padding: 12px; overflow: auto; line-height: 1.4;">$ curl -XPOST -H <span class="s1" style="box-sizing: border-box; color: #aa5500;">&#39;Content-Type: application/json&#39;</span> -d <span class="s1" style="box-sizing: border-box; color: #aa5500;">&#39;{&quot;new_size&quot;: &quot;Basic_A2&quot;}&#39;</span> -H <span class="s2" style="box-sizing: border-box; color: #aa5500;">&quot;Authorization: Bearer [encrypted_token_value]&quot;</span> http://localhost:8000/api/v2/servers/45/actions/2/ 
+</pre>
+  </div>
+  </div>
+  <p>
+    Note that CloudBolt honors the same constraints for valid sizes in the API as it does in the UI. If you specify a size in the API that’s not valid, your job will fail.
+  </p>
+</div>
+<div>
+  <br/>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="azure-load-balancer.html" class="articleActions_link CHNavLinkPrevious">Azure Load Balancer</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="modifying-or-adding-disks.html" class="articleActions_link CHNavLinkNext">Modifying or Adding Disks</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

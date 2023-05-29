@@ -1,0 +1,53 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'edit_env_osbuilds' environment.id %}">
+        <span class="icon-edit"></span>
+        {% trans "Edit" %}
+    </a>
+
+    {# Check, in case it's possible for an env to have no region... #}
+    {% if environment.aws_region and environment.resource_handler %}
+        <a class="btn btn-default open-dialog"
+            data-dialog-width="100%"
+            href="{% url 'resourcehandler_discover_amis_for_env' environment.resource_handler_id environment.aws_region environment.id %}"
+            id="discover-{{ environment.aws_region }}">
+            <span class="icon-import"></span>
+            {% trans "Import AMIs" %}
+        </a>
+    {% endif %}
+</div>
+
+
+<div id="readonly-osbuilds">
+<table id="env-osbuilds" data-table>
+    <thead>
+        <th>{% trans "OS Build" %}</th>
+        <th>{% trans "Image" %}</th>
+        <th>{% trans "Disk Size" %}</th>
+        <th>
+            <span title="" data-toggle="tooltip" data-original-title="{% trans "Includes servers in all environments that have this OS Build" %}">{% trans "Server count" %}</span>
+        </th>
+    </thead>
+    <tbody>
+        {% for osb in os_builds %}
+        <tr>
+            <td class="name"><a href="{{ osb.get_absolute_url }}">{{ osb.os_family|os_family_icon }} {{ osb }}</a></td>
+            <td>
+                {% if osb.osba %}
+                    {{ osb.osba }}
+                {% else %}
+                    <em data-toggle="tooltip" title="{% trans "This environment&rsquo;s resource handler does not provide this OS build" %}">{% trans "None" %}</em>
+                {% endif %}
+            </td>
+            <td>
+                {{ osb.osba.total_disk_size|render_size_field:"disk_size" }}
+            <td>{{ osb.server_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>

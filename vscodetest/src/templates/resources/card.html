@@ -1,0 +1,66 @@
+{% load helper_tags %}
+{% load str_tags %}
+
+<div id="resource-{{ resource.id }}"
+    {% comment %}
+    TODO: this is hacky, fix it!
+    https://cloudbolt.atlassian.net/browse/DEV-11171
+    The "orderable" class was added to make blueprint cards not look clickable
+    to users who can't order them. An unintended side effect is that it made
+    resource cards unclickable, since both rely on blueprints.js. As a
+    short-term release stopper fix, we added the orderable class here, even
+    though the concept of a resource being orderable doesn't make much sense.
+
+    A long-term fix would:
+    * Separate the resource card and blueprint card logic
+    * Rename the class: "orderable" is confusing because we also use it in
+      datatables to mean "can be sorted". Something like "as-link" would be
+      more descriptive of what the class actually does.
+    {% endcomment %}
+    class="resource-card card-size-{{ size }} no-tooltip-affordance {{ resource.lifecycle.lower }} orderable"
+
+    data-href="{{ resource.get_absolute_url }}"
+
+    {% comment %}
+    Cards are tooltip triggers for resource description. User can pause on a card to view
+    tip but the slight delay makes it less annoying when just moving around the page.
+    {% endcomment %}
+
+    {% if resource.description %}
+        title="{% if resource.lifecycle == 'HISTORICAL' %}<p>(Resource deleted)</p>{% endif %} {{ resource.description|bleach_filter|strip_quotes }}"
+    {% else %}
+        title="{% if resource.lifecycle == 'HISTORICAL' %}<p>(Resource deleted)</p>{% endif %} {{ resource.blueprint.rendered_description|bleach_filter|strip_quotes }}"
+    {% endif %}
+        data-toggle="tooltip"
+        data-html="true"
+        data-placement="{{ tooltip_placement }}"
+        data-max-width="500px"
+    >
+    {% if size == 'large' %}
+        <div class="panel-body center-vertically">
+            <div class="center-vertically-inner">
+            {% if resource.blueprint.list_image %}
+                <img class="blueprint" src="{{ resource.blueprint.list_image.url }}"/>
+            {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="panel-footer center-vertically">
+      <div class="center-vertically-inner">
+        {% if size == 'mini' %}
+            {% if resource.blueprint.list_image %}
+                <img class="blueprint" src="{{ resource.blueprint.list_image.url }}"/>
+            {% endif %}
+        {% endif %}
+
+        <h5>
+            {# Truncate to constrain to 2 rows #}
+            {% truncate_str_middle resource.name 50 %}
+            {% if resource.resource_type.icon %}
+                <span class="{{ resource.resource_type.icon }}"></span>
+            {% endif %}
+        </h5>
+      </div>
+    </div>
+</div>

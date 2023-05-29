@@ -1,0 +1,30 @@
+{% comment %}
+Used to generate a row for the 'Bulk changes' formset on a user detail page.
+
+Args:
+    form: the bound or unbound form to be used to render fields
+{% endcomment %}
+
+{% block row_content %}
+<tr {% block row_attrs %}
+    class="group-row {{ form.id }} group-{{ form.group.value }}"
+    {% endblock %}
+    >
+    <td class="check-all">
+        <input class="check-row" {% block checkbox_data_attr %}data-row="group-{{ form.group.value }}"{% endblock %} type="checkbox" />
+    </td>
+    <td class="expand group_cell">
+        {# Needed when this row is duplicated when adding a new group: #}
+        <span class="group_selector" style="display:none;">{{ form.group }}</span>
+        <span class="group_label">{{ form.group_name.value }}</span> {# FIXME render as a link #}
+    </td>
+    {% for field in form %}
+        {% if field.name in possible_role_names %}
+            <td>{{ field }}</td>
+        {% endif %}
+    {% endfor %}
+    <td class="shrink remove">
+        {{ form.DELETE }}
+    </td>
+</tr>
+{% endblock %}

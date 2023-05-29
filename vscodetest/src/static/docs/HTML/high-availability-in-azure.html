@@ -1,0 +1,672 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('high-availability-in-azure',true);});
+//--></script><title>High Availability in Azure</title><script type="text/javascript">//<!--
+var articleTitleText='High Availability in Azure';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">High Availability in Azure</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="installing-cloudbolt.html">Installing CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="setting-up-high-availability.html">Setting up High Availability</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">High Availability in Azure</span></span>
+  </div><h1 style="title" id="h1__246429115" data-has-heading-anchor="true">
+  High Availability in Azure 
+<a href="high-availability-in-azure.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+
+<p class="lead">
+  Learn how to deploy a High Availability&nbsp;CloudBolt instance in Azure, including configuration of the external databases Azure 
+</p>
+
+
+  PostgreSQL
+
+and Azure Files for shared storage.
+<p>
+</p>
+<br/>
+
+<ul class=""><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h3_999232067">Create Instances</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h2__1491406452">Deploy Azure PostgreSQL</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h2__832181895">Deploy Azure Files NFS Share</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h2__903038785">Reboot Appliances</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h3_926321244">Configure Azure Load Balancer</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h2_240045685">Complete Configuration</a></li><li class="CHMiniToc_heading2"><a href="high-availability-in-azure.html#h2__906966800">See also</a></li></ul>
+<hr/>
+<h2 id="h3_999232067" style="" data-has-heading-anchor="true">
+  Create Instances
+<a href="high-availability-in-azure.html#h3_999232067" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  Follow steps in <a href="deploy-in-azure.html" target="_blank">Deploy in Azure</a>&nbsp;to deploy each of the required number of nodes. For a simple dual node HA deployment, follow this procedure twice to deploy two nodes. Choose an easy to remember name like cmp1, cmp2 for each node.
+</p>
+<p>
+  When choosing a region, deploy in the region closest to your on-premise infrastructure. For a public cloud only deployment, choose the region in which most of your infrastructure resides.
+</p>
+<!-- 
+&lt;p&gt;
+If you do not have network &lt;span data-comment-hotspot=&quot;chrc1634832841671&quot;&gt;connectivity&lt;/span&gt;
+&lt;/p&gt;
+-->
+<h3 id="h3__1106224908" data-has-heading-anchor="true">
+  License CloudBolt Nodes
+<a href="high-availability-in-azure.html#h3__1106224908" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  The procedure needs to be applied on both nodes before proceeding.
+</p>
+<ol>
+  <li>
+    Launch the CloudBolt web interface for each instance by visiting https://&lt;nodeip&gt;.
+  </li>
+  <li>
+    On the license page, paste in the license or upload the file and click <b>Apply License.</b>
+  </li>
+</ol>
+<h3 id="h3_1693415466" data-has-heading-anchor="true">
+  Public IPs and Jump Host
+<a href="high-availability-in-azure.html#h3_1693415466" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    For each appliance,  remove the public IP from each deployed instance if you added them during the appliance deploy.
+  </li>
+  <li>
+    If you do not have connectivity from your workstation to the private IP range where the CMP appliances are deployed you may wish to setup <a href="https://docs.microsoft.com/en-us/azure/bastion/" target="_blank">Azure Bastion</a>, <a href="https://docs.microsoft.com/en-gb/azure/cloud-shell/private-vnet" target="_blank">Cloud Shell into the virtual network</a>&nbsp;or simply a Linux VM with a public IP that you can connect to in order to proceed with configuration of each of the appliances.
+  </li>
+</ol>
+<h3 id="h3__1059533148" data-has-heading-anchor="true">
+  Upgrade CloudBolt
+<a href="high-availability-in-azure.html#h3__1059533148" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  The procedure needs to be applied on both nodes.
+  <br/>
+</p>
+<ol>
+  <li>
+    SSH into both instances, using the username/password/public key defined when you deployed the nodes.
+  </li>
+  <li>
+    Find the Upgrader <span class="inlineCode">.tgz</span> URL for the relevant release on&nbsp;<a href="https://support.cloudbolt.io/hc/en-us/sections/201319565-Download-CloudBolt" target="_blank">Support Portal CMP Downloads</a>.
+  </li>
+  <li data-children-count="1">
+    Run the following commands on both instances:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>sudo su -<br>wget [PASTE LATEST RELEASE DOWNLOAD URL HERE]<br>tar -xvzf cloudbolt_upgrader_*.tgz<br>cd cloudbolt_upgrader_9*<br>./upgrade_cloudbolt.sh</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li>
+    Wait for the upgrade to finish before continuing on.&nbsp;This may take up to ten minutes.
+  </li>
+  <li>
+    While waiting, maintain the SSH connection to both instances and continue with the DB deployment.
+  </li>
+</ol>
+<hr/>
+
+
+  <h2 style="" id="h2__1491406452" data-has-heading-anchor="true">
+    Deploy Azure PostgreSQL
+  <a href="high-availability-in-azure.html#h2__1491406452" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol>
+    <li>
+      Create Resource: <b>Azure PostgreSQL DB (Flexible Server)</b> in the Azure portal and click <b>Create.</b>
+      <ol>
+        <li>
+          First select&nbsp;<b>Subscription</b> and <b>Resource Group.</b>
+        </li>
+        <li>
+          Choose Server name, e.g. orgname-cmp-db.
+        </li>
+        <li>
+          Choose the same Region as your nodes.
+        </li>
+        <li>
+          Select <b>Production Small/Medium</b> or <b>Development.</b>
+        </li>
+        <li>
+          Select PostgreSQL Version: <b>13</b> or <b>14</b>
+        </li>
+        <li>
+          Enable high availability as required.
+        </li>
+        <li>
+          Enter Admin username: <b>cb_dba.</b>
+        </li>
+        <li>
+          Enter and note a password.
+        </li>
+      </ol>
+    </li>
+    <li>
+      Click <b>Next</b> for Networking.
+      <ol>
+        <li>
+          Select <b>Public Access (allowed IP addresses).</b>
+        </li>
+        <li>
+          Enable connectivity from Azure Services.
+        </li>
+      </ol>
+    </li>
+    <li>
+      Select <b>Create</b>. Once the database server is up and running, click on the new database to open the Overview tab and copy the Server address.
+    </li>
+    <li>
+      Select Databases from the left Menu and select <b>Create Database</b>:
+      <ul>
+        <li>
+          Database Name: <span class="inlineCode">cloudbolt</span>
+        </li>
+        <li>
+          Database Character Set:&nbsp;<span class="inlineCode">utf8mb4</span>
+        </li>
+        <li>
+          Database Collation:&nbsp;<span class="inlineCode">utf8mb4_unicode_ci</span>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <h3 id="h2_1746671993" style="" data-has-heading-anchor="true">
+    Configure Database
+  <a href="high-availability-in-azure.html#h2_1746671993" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    At this point wait until the upgrades have finished on the appliances and the PostgreSQL DB has finished deploying.
+  </p>
+  <ol>
+    <li>
+      SSH into your first instance.
+    </li>
+    
+    <li>
+      Take copy of local DB:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-keyword">export</span> <span class="cm-def">PGPASSWORD</span><span class="cm-operator">=</span><span class="cm-def">${postgresql_pass}</span><br><span class="cm-word">pg_dump</span> <span class="cm-attribute">-h</span> <span class="cm-word">localhost</span> <span class="cm-attribute">-p</span> <span class="cm-number">5432</span> <span class="cm-attribute">-U</span> <span class="cm-word">cb_dba</span> <span class="cm-attribute">-w</span> <span class="cm-attribute">--clean</span> <span class="cm-attribute">-F</span> <span class="cm-word">t</span> <span class="cm-attribute">-f</span> <span class="cm-word">/tmp</span><span class="cm-word">/cloudbolt</span><span class="cm-word">.tar</span> <span class="cm-word">cloudbolt</span></pre></td></tr></table>
+      <ul>
+      <li>
+        The following file contains the <code>postgresql_root_pass</code> and <code>postgresql_pass</code>: <code class="path">/var/opt/cloudbolt/.postgresql_password</code>
+      </li>
+    </ul>
+    </li>
+    <li>
+      Copy SQL backup to new Azure PostgreSQL Database, but replace the following with the information from your database: <code>REMOTE_DB_DNS_NAME</code>, <code>REMOTE_DB_USER</code>, and <code>REMOTE_DB_PORT</code><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-keyword">export</span> <span class="cm-def">PGPASSWORD</span><span class="cm-operator">=</span><span class="cm-def">${REMOTE_DB_PASS}</span><br><span class="cm-word">pg_restore</span> <span class="cm-attribute">-h</span> <span class="cm-word">REMOTE_DB_DNS_NAME</span> <span class="cm-attribute">-U</span> <span class="cm-word">REMOTE_DB_USER</span> <span class="cm-attribute">--no</span><span class="cm-attribute">-owner</span> <span class="cm-attribute">--role</span><span class="cm-operator">=</span><span class="cm-word">REMOTE_DB_USER</span> <span class="cm-attribute">-w</span> <span class="cm-attribute">-p</span> <span class="cm-word">REMOTE_DB_PORT</span> <span class="cm-attribute">-e</span> <span class="cm-attribute">--clean</span> <span class="cm-attribute">--if</span><span class="cm-attribute">-exists</span> <span class="cm-attribute">-d</span> <span class="cm-word">REMOTE_DB_DNS_NAME</span> <span class="cm-word">/tmp</span><span class="cm-word">/cloudbolt</span><span class="cm-word">.tar</span></pre></td></tr></table>
+      <ol>
+        <li>
+          This may take some time to complete
+        </li>
+      </ol>
+    </li>
+    <li>
+      Verify that you can connect to the remote database, run these commands to ensure they return a value. Replace the following with the information from your database: <code>REMOTE_DB_DNS_NAME</code>, <code>REMOTE_DB_USER</code>, <code>REMOTE_DB_PASS</code>, and <code>REMOTE_DB_PORT</code>&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">psql</span> <span class="cm-word">postgresql</span><span class="cm-word">:</span><span class="cm-word">/</span><span class="cm-word">/REMOTE_DB_USER</span><span class="cm-word">:REMOTE_DB_PASS</span><span class="cm-word">@REMOTE_DB_DNS_NAME</span><span class="cm-word">:REMOTE_DB_PORT</span><span class="cm-word">/cloudbolt</span> <span class="cm-attribute">-c</span> <span class="cm-string">"\l"</span> <span class="cm-word">|</span> <span class="cm-builtin">grep</span> <span class="cm-attribute">-qw</span> <span class="cm-word">cloudbolt</span></pre></td></tr></table>
+      <ul>
+        <li>The command should list the cloudbolt database if the connection was successful.
+  </li>
+  <li>
+    Copy the DATABASES section from&nbsp;<b>/opt/cloudbolt/settings_local.py</b>&nbsp;to&nbsp;<b>/var/opt/cloudbolt/proserv/customer_settings.py</b>
+  </li>
+  <li>
+    Update the password and hosts fields in the table according to your Azure DB details.
+  </li>
+  <li>
+    Stop/Disable PostgreSQL services:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-builtin">stop</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span><span class="cm-word">;</span> <span class="cm-word">systemctl</span> <span class="cm-word">disable</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span></pre></td></tr></table><ul><li>If you have deployed multiple instances, repeat the above steps on all other instances.</li></ul>
+  </li>
+      </ul>
+    </li>
+  </ol>
+
+<hr/>
+<h2 style="" id="h2__832181895" data-has-heading-anchor="true">
+  Deploy Azure Files NFS Share
+<a href="high-availability-in-azure.html#h2__832181895" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<ol>
+  <li>
+    Register the NFS 4.1 Protocol on your Subscription if it has not been done already. You can execute these commands on https://shell.azure.com (BASH) if you do not have the cli setup locally.
+  </li>
+  <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment"># Connect your Azure CLI to your Azure account, if you have not already done so.</span><br><span class="cm-word">az</span> <span class="cm-word">login</span><br><span class="cm-comment"># Provide the subscription ID for the subscription where you would like to </span><br><span class="cm-comment"># register the feature</span><br><span class="cm-def">subscriptionId</span><span class="cm-operator">=</span><span class="cm-string">"&lt;yourSubscriptionIDHere&gt;"</span><br><span class="cm-word">az</span> <span class="cm-word">feature</span> <span class="cm-word">register</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--name</span> <span class="cm-word">AllowNfsFileShares</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--namespace</span> <span class="cm-word">Microsoft</span><span class="cm-word">.Storage</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--subscription</span> <span class="cm-def">$subscriptionId</span><br><span class="cm-word">az</span> <span class="cm-word">provider</span> <span class="cm-word">register</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--namespace</span> <span class="cm-word">Microsoft</span><span class="cm-word">.Storage</span></pre></td></tr></table>
+  <li>
+    Registration approval can take up to an hour. To verify that the registration is complete, use the following commands:
+  </li>
+  <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">az</span> <span class="cm-word">feature</span> <span class="cm-word">show</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--name</span> <span class="cm-word">AllowNfsFileShares</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--namespace</span> <span class="cm-word">Microsoft</span><span class="cm-word">.Storage</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--subscription</span> <span class="cm-def">$subscriptionId</span></pre></td></tr></table>
+  <li>
+    Once the Registration has completed, create the Storage Account:
+  </li>
+  <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-def">resourceGroup</span><span class="cm-operator">=</span><span class="cm-string">"&lt;resource-group&gt;"</span><br><span class="cm-def">storageAccountName</span><span class="cm-operator">=</span><span class="cm-string">"&lt;orgname&gt;cmpfiles"</span><br><span class="cm-def">location</span><span class="cm-operator">=</span><span class="cm-string">"&lt;region&gt;"</span><br><br><span class="cm-word">az</span> <span class="cm-word">storage</span> <span class="cm-word">account</span> <span class="cm-word">create</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--resource</span><span class="cm-attribute">-group</span> <span class="cm-def">$resourceGroup</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--name</span> <span class="cm-def">$storageAccountName</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--location</span> <span class="cm-def">$location</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--sku</span> <span class="cm-word">Premium_LRS</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--kind</span> <span class="cm-word">FileStorage</span><br>    <br><br><span class="cm-word">az</span> <span class="cm-word">storage</span> <span class="cm-word">share</span><span class="cm-attribute">-rm</span> <span class="cm-word">create</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--resource</span><span class="cm-attribute">-group</span> <span class="cm-def">$resourceGroup</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--storage</span><span class="cm-attribute">-account</span> <span class="cm-def">$storageAccountName</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--name</span> <span class="cm-word">nfscmpfiles</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--enabled</span><span class="cm-attribute">-protocol</span> <span class="cm-word">NFS</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--root</span><span class="cm-attribute">-squash</span> <span class="cm-word">NoRootSquash</span> <span class="cm-word">\</span><br>    <span class="cm-attribute">--quota</span> <span class="cm-number">100</span></pre></td></tr></table>
+  <li>
+    Follow the steps to <a href="https://docs.microsoft.com/en-us/azure/storage/files/storage-files-networking-endpoints?tabs=azure-portal#restrict-access-to-the-public-endpoint-to-specific-virtual-networks" target="_blank">Restrict access to the public endpoint to specific virtual networks</a>.
+  </li>
+  <li>
+    Then on the storage account, select <b>Configuration</b>. 
+  </li>
+  <li>
+    Select <b>Disabled&nbsp;</b>for&nbsp;&nbsp;<b>Secure transfer required</b>.
+  </li>
+  <li>
+    Select <b>Save</b>.
+  </li>
+  
+  <li>
+    Once the file share is created, select the share from the list of File shares and select&nbsp;<b>Connect from Linux</b>. On this screen save the mount path from the command showing the Sample command to mount this NFS share. It will resemble a path like&nbsp;
+  </li>
+  <p>
+    <code>sudo mount -t nfs <b>&lt;storageaccount&gt;.file.core.windows.net:/<b>&lt;storageaccount&gt;</b>/nfscmpfiles</b></code>
+  </p>
+</ol>
+<h3 id="h3__1296562277" data-has-heading-anchor="true">
+  Configure NFS on Nodes
+<a href="high-availability-in-azure.html#h3__1296562277" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    SSH into both CloudBolt instances.
+  </li>
+  <li data-children-count="1">
+    Run these commands on both instances but&nbsp;<b>replace NFS path from the sample mount command above</b>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>sudo yum install nfs-utils<br>mkdir /mnt/nfs<br>sudo mount -t nfs -o vers=4,minorversion=1,sec=sys &lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles /mnt/nfs</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li data-children-count="1">
+    Run these commands&nbsp;<b>on the first instance only</b>:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>mv /var/opt/cloudbolt /mnt/nfs/cloudbolt<br>mv /var/log/cloudbolt/jobs /mnt/nfs/jobs<br>mv /var/www/html/cloudbolt/static /mnt/nfs/static</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li data-children-count="1">
+    Run these commands&nbsp;<b>on the second instance only</b>:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>rm -rf /var/opt/cloudbolt<br>rm -rf /var/log/cloudbolt/jobs<br>rm -rf /var/www/html/cloudbolt/static</pre></td></tr></table>
+    <br/>
+    <br/>
+  </li>
+  <li>
+    Run these command on <b>both instances</b>:
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>mkdir /var/opt/cloudbolt<br>mkdir /var/log/cloudbolt/jobs<br>mkdir /var/www/html/cloudbolt/static<br>sudo mount -t nfs -o vers=4,minorversion=1,sec=sys &lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/cloudbolt /var/opt/cloudbolt<br>sudo mount -t nfs -o vers=4,minorversion=1,sec=sys &lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/jobs /var/log/cloudbolt/jobs<br>sudo mount -t nfs -o vers=4,minorversion=1,sec=sys &lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/static /var/www/html/cloudbolt/static</pre></td></tr></table>
+    <br/>
+  </li>
+  <li>
+    Update fstab file on BOTH instances to automount NFS share:&nbsp;<code class="path">vi /etc/fstab&nbsp;</code>
+  </li>
+  <li data-children-count="1">
+    Add these 3 lines (<b>replace NFS path from the sample mount command above</b>).
+    <br/>
+    <br/>
+    <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Code</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre>&lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/cloudbolt /var/opt/cloudbolt nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0<br>&lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/jobs /var/log/cloudbolt/jobs nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0<br>&lt;storageaccount&gt;.file.core.windows.net:/&lt;storageaccount&gt;/nfscmpfiles/static /var/www/html/cloudbolt/static nfs rw,hard,intr,rsize=8192,wsize=8192,timeo=14 0 0</pre></td></tr></table>
+  </li>
+  <li>
+    Once those lines have been added, save the file.
+  </li>
+  <li>
+    Run&nbsp;<code class="path">mount -fav</code>&nbsp;to verify that&nbsp;the new lines work.
+  </li>
+</ol>
+<hr/>
+<h2 style="" id="h2__903038785" data-has-heading-anchor="true">
+  Reboot Appliances
+<a href="high-availability-in-azure.html#h2__903038785" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  On each appliance run&nbsp;<code>sudo reboot</code>
+</p>
+<hr/>
+<h2 id="h3_926321244" data-has-heading-anchor="true">
+  Configure Azure Load Balancer
+<a href="high-availability-in-azure.html#h3_926321244" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  These instructions will document creating an Azure Load Balancer, however we recommend you consider using Application Gateway if you have an SSL certificate ready to install.
+</p>
+<h3 id="h3__608056796" data-has-heading-anchor="true">
+  Create Load Balancer
+<a href="high-availability-in-azure.html#h3__608056796" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    Log back into the Azure portal and navigate to&nbsp;<b>Load Balancers.</b>
+  </li>
+  <li>
+    Click&nbsp;<b>Create.</b>
+  </li>
+  <li>
+    From the&nbsp;<b>Create load balancer</b>&nbsp;page:
+    <ol>
+      <li>
+        Select <b>Subscription </b>and <b>Resource Group.</b>
+      </li>
+      
+      <li>
+        Fill out the Name field, e.g. cmplb
+      </li>
+      
+      <li>
+        Select the same Region as the CloudBolt nodes.
+      </li>
+      
+      <li>
+        Select Type as Public.
+      </li>
+    </ol>
+  </li>
+  
+  <li>
+    Select Next: Front IP Configuration.
+    <ol>
+      <li>
+        Add a frontend IP configuration.
+        <ul>
+          <li>
+            Name: cmp-vip
+          </li>
+          
+          <li>
+            Public IP: Create New.
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  
+  <li>
+    Next: Backend IP Pools.
+    <ol>
+      <li>
+        Add a backend pool.
+        <ul>
+          <li>
+            Name: cmp-pool
+          </li>
+          
+          <li>
+            Virtual Network: CMP node network.
+          </li>
+          
+          <li>
+            Add Virtual Machines: all your CMP web nodes.
+          </li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  
+  <li>
+    Next: Inbound Rules.
+    <ol>
+      <li>
+        Add a load balancing rule.
+        <ul>
+          <li>
+            Name: http
+          </li>
+          
+          <li>
+            Frontend IP address, select cmp-vip (to be created)
+          </li>
+          
+          <li>
+            Port: 80
+          </li>
+          
+          <li>
+            Backend Port: 80
+          </li>
+          
+          <li>
+            Backend Pool: cmp-pool
+          </li>
+          
+          <li>
+            Health Probe:
+            <ul>
+              <li>
+                Create New
+              </li>
+              
+              <li>
+                Name: cmp-check
+              </li>
+              
+              <li>
+                Protocol: TCP
+              </li>
+              
+              <li>
+                Port: 80
+              </li>
+            </ul>
+          </li>
+          
+          <li>
+            Session Persistence: Client IP
+          </li>
+        </ul>
+      </li>
+      
+    </ol>
+    <ul>
+      <li>
+        Add a second load balancing rule
+        <ul>
+          <li>
+            Name: https
+          </li>
+          
+          <li>
+            Frontend IP address, select cmp-vip (to be created)
+          </li>
+          
+          <li>
+            Port: 443
+          </li>
+          
+          <li>
+            Backend Port: 443
+          </li>
+          
+          <li>
+            Backend Pool: cmp-pool
+          </li>
+          
+          <li>
+            Health Probe:&nbsp;cmp-check&nbsp;
+          </li>
+          
+          <li>
+            Session Persistence: Client IP
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    Next: Outbound Rules
+    <ul>
+      <li>
+        Add Outbound Rule
+        <ul>
+          <li>
+            Name: cmplb-out
+          </li>
+          <li>
+            Frontend IP address: cmp-vip
+          </li>
+          <li>
+            Backend Pool: cmp-pool
+          </li>
+          <li>
+            Port Allocation: Use default number of outbound ports
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Next: <b>Review </b>and <b>Create</b>
+  </li>
+</ol>
+<hr/>
+<h2 style="" id="h2_240045685" data-has-heading-anchor="true">
+  Complete Configuration
+<a href="high-availability-in-azure.html#h2_240045685" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  Your Azure HA deployment is complete, now proceed to <a href="guided-setup-quick-start.html">follow the Guided Setup</a>.
+</p>
+<section>
+  <hr class="article-divider"/>
+  <h2 id="h2__906966800" data-has-heading-anchor="true">
+    See also
+  <a href="high-availability-in-azure.html#h2__906966800" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ul class="CHSeeAlso_hasChildren CHSeeAlso"><li class="CHSeeAlso_item CHSeeAlso_itemSibling"><a href="high-availability-in-aws-with-postgresql.html">High Availability in AWS with PostgreSQL</a></li><li class="CHSeeAlso_item CHSeeAlso_itemSibling"><a href="upgrading-high-availability.html">Upgrading High Availability</a></li></ul>
+</section>
+  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="high-availability-in-aws-with-postgresql.html" class="articleActions_link CHNavLinkPrevious">High Availability in AWS with PostgreSQL</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="upgrading-high-availability.html" class="articleActions_link CHNavLinkNext">Upgrading High Availability</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

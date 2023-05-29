@@ -1,0 +1,13 @@
+<script>
+    var groupId = '{{group.id}}'
+    sessionStorage.setItem("groupId", groupId);
+</script>
+
+{% load infrastructure_tags %}
+{% load render_bundle from webpack_loader %}
+
+<div id="groupSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'groupServerStats' %}
+
+{% servers_table servers_empty_qs hide="Group" source="/servers/json/" filter_name="filter_by_group" filter_value=group.id %}

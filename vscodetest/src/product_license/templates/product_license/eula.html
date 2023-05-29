@@ -1,0 +1,35 @@
+{% extends "product_license/eula_base.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Accept EULA" %}{% endblock %}
+{% block content %}
+<form method="post" action="{% url 'accept_eula' %}">
+    {% csrf_token %}
+    <p>
+        {% blocktrans %}
+        Please review the EULA and indicate your acceptance using the button below.
+        {% endblocktrans %}
+    </p>
+
+    <div class="panel">
+        <label>
+            <div class="input-group">
+                <textarea rows="40" cols="80">{{ eula_text }}</textarea>
+            </div>
+        </label>
+    </div>
+
+    {% if can_accept_eula %}
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">{% trans " Accept EULA " %}</button>
+    </div>
+    {% else %}
+    <p>
+        {% blocktrans %}
+        Please ask your administrator to accept the EULA
+        {% endblocktrans %}
+    </p>
+    {% endif %}
+</form>
+{% endblock %}

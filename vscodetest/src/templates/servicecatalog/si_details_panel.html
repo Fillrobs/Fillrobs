@@ -1,0 +1,80 @@
+{% comment %}
+This template is used in several contexts (these variables are False unless specified otherwise):
+- Admin is managing a blueprint (managing=True)
+- Admin is ordering a blueprint (ordering=True)
+- Non-admin is ordering a blueprint (ordering=True)
+- Non-admin is viewing a blueprint
+{% endcomment %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+<div class="item-details panel panel-default revealer {{ service_item.type_slug }}"
+    data-id="{{ service_item.id }}">
+  <div class="panel-heading">
+
+    <span data-toggle="collapse" class="h3 panel-title collapsed"
+        data-target="#item-details-{{ service_item.id }}">
+
+        <span data-toggle="tooltip" title="Expand or collapse details"
+            class="collapsed-indicator no-tooltip-affordance"></span>
+
+        <span class="{% block si_icon %}item-type-icon{% endblock si_icon %} no-tooltip-affordance"
+            title="{{ service_item.type_desc }}"
+            data-html="true"
+            data-toggle="tooltip"
+            data-max-width="500px"></span>
+
+        {{ service_item }}
+
+        {% if service_item.description %}
+            <span class="infotip" data-toggle="tooltip"
+                title="{{ service_item.description }}"></span>
+        {% endif %}
+    </span>
+
+    <div class="pull-right">
+        {% if service_item.rate or service_item.type_slug == 'blueprint' %}
+            {{ service_item.get_rate_display }}
+        {% endif %}
+
+        {% if can_disable %}
+          <input type="checkbox" name="enable"
+            data-post-url="/api/v3/cmp/action-build-items/{{ service_item.id }}/set-enabled/"
+            data-toggle="toggle"
+            data-on="{% blocktrans %}Enabled{% endblocktrans %}"
+            data-off="{% blocktrans %}Disabled{% endblocktrans %}"
+            data-width="100"
+            {% if service_item.cast.enabled %}checked{% endif %}
+            class="hidden">
+        {% endif %}
+
+        {% if managing %}
+            {#  Without the custom style, the buttons dangle off the bottom of the panel when it's not sortable #}
+            {#  There may be a better/ more reliable way to fix this #}
+            <div class="btn-group" {% if blueprint.remote_source_url %}style="margin-top:-.5em"{% endif %}>
+              {% if service_item.can_edit %}
+                  <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                    data-toggle="tooltip"
+                    title="{% trans 'Edit this blueprint item' %}"
+                    data-href="{% url 'edit_service_item' service_item.id %}">
+                    <span class="icon-edit"></span>
+                  </a>
+              {% endif %}
+              <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                data-toggle="tooltip"
+                title="{% trans 'Delete this blueprint item' %}"
+                data-href="{% url 'delete_service_item' service_item.id %}">
+                <span class="icon-delete"></span>
+              </a>
+            </div>
+        {% endif %}
+    </div>
+  </div><!-- panel-heading -->
+  <div id="item-details-{{ service_item.id }}" class="panel-body collapse">
+    {%  block item_details_row %}
+    {%  endblock item_details_row %}
+  </div><!-- panel-body -->
+</div><!-- panel -->

@@ -1,0 +1,262 @@
+{
+  "logoPosition": "right",
+  "completedHtml": "<h3>Thank you for completing the Form</h3>",
+  "completedBeforeHtml": "<h3>Our records show that you have already completed this Form.</h3>",
+  "loadingHtml": "<h3>Loading Form...</h3>",
+  "pages": [
+    {
+      "name": "Select a VMware Environment",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "dropdown",
+              "name": "CI_VMware_environment_id",
+              "title": "Select a VMware Environment",
+              "choicesByUrl": {
+                "url": "http://localhost:8001/api/v3/cmp/inboundWebHooks/IWH-v9ny7dml/run/?token=9kyNob2Ew1U5oKGnlx8EK938Ht8aDtv6h69pKyqPNII",
+                "valueName": "id",
+                "titleName": "name"
+              }
+            },
+            {
+              "type": "panel",
+              "name": "panel2",
+              "elements": [
+                {
+                  "type": "html",
+                  "visible": false,
+                  "visibleIf": "{CI_VMware_environment_id} notempty",
+                  "name": "Import parameters from VMware",
+                  "html": "<a href='#' onclick='importVMwareparams({CI_VMwareEnvId});' id='importVMwareparams' class='btn btn-default'>Import VMware Values</a><div id='importVMwareparams_res'></div>",
+                  "description": "This will import the VMware parameters and reset the data within this page"
+                }
+              ],
+              "title": "Reset Values"
+            }
+          ]
+        }
+      ],
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "showQuestionNumbers": "on",
+        "questionStartIndex": "1",
+        "nextButtonText": "Next"
+      },
+      "page": "Select a VMware Environment"
+    },
+    {
+      "name": "VMware Environment Data",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "expression",
+              "name": "CI_vmwareEnvId",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Environment ID",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "text",
+              "name": "CI_vmwareEnvName",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Environment Name",
+              "startWithNewLine": false,
+              "columns": 1
+            },
+            {
+              "type": "expression",
+              "name": "CI_rhName",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "CMP ResourceHandler Name",
+              "startWithNewLine": false,
+              "columns": 1
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_vmwareDatastoresData",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Datastores",
+              "choices": []
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel4",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_vmwareDiskTypeData",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Disk Types",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        }
+      ],
+      "title": "VMware Environment Data",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "VMware Environment Data"
+    },
+    {
+      "name": "VMware Environment Groups",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_envGroupData",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "html": "<div id='envGroupData_{CI_envGroupData}'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "VMware Environment Groups",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "VMware Environment Groups"
+    },
+    {
+      "name": "Add a Group",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "html",
+              "name": "CI_addGroupData",
+              "visible": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "html": "<div id='addEnvGroupForm'></div><div id='addEnvGroupForm_res'></div>"
+            }
+          ]
+        }
+      ],
+      "title": "Add a Group",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Next"
+      },
+      "page": "Add a Group"
+    },
+    {
+      "name": "Extras",
+      "elements": [
+        {
+          "type": "panel",
+          "name": "panel1",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envNetworkData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Networks",
+              "showNoneItem": true,
+              "showSelectAllItem": true
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel2",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envOSBuildData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "OS Builds"
+            }
+          ]
+        },
+        {
+          "type": "panel",
+          "name": "panel3",
+          "elements": [
+            {
+              "type": "checkbox",
+              "name": "CI_envParamsData",
+              "visible": false,
+              "readOnly": true,
+              "hasOther": false,
+              "visibleIf": "{CI_VMware_environment_id} notempty",
+              "title": "Parameters"
+            }
+          ]
+        }
+      ],
+      "title": "Extras",
+      "navigationButtonsVisibility": "show",
+      "navigation": {
+        "showProgressBar": "both",
+        "showPageNumbers": true,
+        "showPrevButton": true,
+        "showNextButton": true,
+        "prevButtonText": "Previous",
+        "nextButtonText": "Finish"
+      },
+      "page": "Extras"
+    }
+  ],
+  "triggers": [
+    {
+      "type": "runexpression",
+      "expression": "{CI_VMware_environment_id} notempty",
+      "runExpression": "popVMwaredata()"
+    }
+  ],
+  "showProgressBar": "top",
+  "progressBarType": "buttons"
+}

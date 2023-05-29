@@ -1,0 +1,6 @@
+{% load resource_tags %}
+
+{% for resource_type in unique_resource_types %}
+    <h3>{{ resource_type.pluralized_label }}</h3>
+    {% resources_table parent_resource_id=resource.id resource_type=resource_type %}
+{% endfor %}

@@ -1,0 +1,9 @@
+{
+    "action-input-default-values": [],
+    "base-action-name": "Restart Apache (1)",
+    "dialog-message": "Restart Apache",
+    "enabled": "True",
+    "extra-classes": "fas fa-redo",
+    "label": "Restart Apache",
+    "submit-button-label": ""
+}

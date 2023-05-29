@@ -1,0 +1,62 @@
+{% load helper_tags %}
+{% load itsm_tags %}
+{% load hook_tags %}
+
+{% block content %}
+<div class="panel-body">
+{% if itsm %}
+    <div class="well well-sm">
+        When enabled, CloudBolt will add an entry to ITSM Service Catalog requesting Order approval. When approved or rejected, CloudBolt will update Order status.<br/>
+    </div>
+
+    <div class="clearfix">
+        <dt></dt>
+        <dd>
+            <input type=checkbox name=enabled id="service-catalog"
+                data-toggle="toggle"
+                data-on="Order enabled"
+                data-off="Order disabled"
+                data-width="200"
+                data-post-url="{% url 'toggle_itsm_hook_enabled' itsm.id hook.id %}"
+                {% if hook.debugger_enabled %}checked{% endif %}
+                {% if hook.enabled %}checked{% endif %}
+                {% if not profile.is_cbadmin %} disabled{% endif %} />
+        </dd>
+    </div>
+
+    <br />
+
+    {% include 'actions/action_input_defaults.html' with edit_url='action_trigger_edit' %}
+
+    {% if hook.supports_source_code %}
+    <div ng-non-bindable>
+        {% itsm_hook_source_code itsm hook profile %}
+    </div>
+    {% endif %}
+
+    </br>
+    <!-- Next next is for RecurringJob -->
+    <div class="well well-sm">
+        Recurring Job to sync order approval status with ServiceNow.
+        <a href="/actions/{{recurring_job_hook.id}}/">{{ recurring_job_hook.name }}</a>
+    </div>
+
+    <div ng-non-bindable>
+        {% if recurring_job_hook.supports_source_code %}
+            {% if recurring_job_hook.source_code_url %}
+                <dt>Source URL:</dt>
+                <a href="{{ recurring_job_hook.source_code_url }}">{{ recurring_job_hook.source_code_url }}</a>
+            {% endif %}
+
+            {% action_source_code recurring_job_hook profile %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+    <div class="alert alert-warning" role="alert">
+            <p>ITSM is currently not configured.</p>
+    </div>
+{% endif %}
+</div>
+{% endblock content %}

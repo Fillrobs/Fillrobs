@@ -1,0 +1,76 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<p class="help-block">
+{% trans 'A Discovery Plug-in can be used to provide logic to discover and sync existing Resources of the type described by this Blueprint.' %}
+</p>
+
+<br>
+
+{% if discovery_plugin %}
+    <div class="row">
+        <div class="col-sm-8">
+            Discovery Plug-in:
+            {% if profile.is_cbadmin %}
+                <a href="{{ discovery_plugin.get_absolute_url }}"
+                    class="no-tooltip-affordance" data-toggle="tooltip"
+                    title="Manage this {{ discovery_plugin.type_slug }}">
+                    {{ discovery_plugin.name }}
+                </a>
+            {% else %}
+                {{ discovery_plugin.name }}
+            {% endif %}
+
+            {% infotip discovery_plugin.description %}
+
+            {% if not blueprint.remote_source_url %}
+                <a title="{% trans 'Choose a different discovery plug-in' %}"
+                  href="{% url 'add_action_trigger' 'blueprint_discovery_plugin' %}?blueprint={{ blueprint.id }}"
+                class="icon-edit open-dialog"></a>
+                <a title="{% trans 'Disassociate discovery plug-in' %}"
+                  href="{% url 'disassociate_blueprint_discovery_plugin' blueprint.id %}"
+                class="icon-delete open-dialog"></a>
+            {% endif %}
+        </div>
+
+        <div class="col-sm-4">
+            <input type=checkbox name=auto_historical_resources
+                data-toggle="toggle"
+                data-on="{% trans 'Yes' %}"
+                data-off="{% trans 'No' %}"
+                data-post-url="{% url 'toggle_auto_historical_resources' blueprint.id %}"
+                {% if blueprint.auto_historical_resources %}checked{% endif %}
+                {% if blueprint.remote_source_url %}disabled{% endif %} />
+            {{ AUTO_HISTORICAL_LABEL }} {% infotip AUTO_HISTORICAL_HELP_TEXT width=400 %}
+        </div>
+    </div>
+
+    {% if file_error %}
+        <p class="text-danger">The file could not be read.
+        {% if plugin_action.source_code_url %}
+            Check your action's source code URL.
+        {% else %}
+            Edit the action and upload a new file.
+        {% endif %}
+        </p>
+        <pre class="text-danger">{{ file_error }}</pre>
+    {% else %}
+        <div ng-non-bindable style="margin-left: 2em; margin-right: 2em; margin-top: 1em">
+            {% comment %}
+            Not using the "pre-scrollable" class that is common on our ace editors (and
+            makes them shorter and scrollable) here because it makes more sense to let this fill
+            the remainder of the page and rely on the browser scrollbar
+            {% endcomment %}
+            <pre><code class="language-python">{{ file_content }}</code></pre>
+        </div>
+        <script>hljs.initHighlightingOnLoad();</script>
+    {% endif %}
+{% else %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'add_action_trigger' 'blueprint_discovery_plugin' %}?blueprint={{ blueprint.id }}">
+            <span class="icon-add"></span>
+            {% trans 'Discovery Plug-in' %}
+        </a>
+    </div>
+{% endif %}

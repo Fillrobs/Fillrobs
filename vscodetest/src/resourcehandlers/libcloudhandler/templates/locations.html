@@ -1,0 +1,68 @@
+{% comment %}
+    Used by create_location dialog view
+{% endcomment %}
+
+{% if locations_added %}
+        <p>
+        Found {{ locations_added|length }} {{loc_label|lower }}{{ locations_added|pluralize }} not
+        yet configured for use with {{ handler.name|default:"this handler" }}.
+        </p>
+
+        <table id="discovered_locations" data-table="dialog clickable">
+            <style>
+                tr.disabled {
+                    color: #c0c0c0;
+                    pointer-events: none;
+                    cursor: not-allowed;
+                }
+            </style>
+            <thead>
+                <tr>
+                    <th><input class="check-column" type="checkbox" /></th>
+                    <th>{{ loc_label }}</th>
+                    {% if has_domains %}
+                        <th>{{domain_label}}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for location in locations_added %}
+                <tr
+                        {% if location.can_import is not None and location.can_import == False %}
+                               class="disabled"
+                        {% endif %}
+                >
+                    <td>
+                        {% if location.can_import is not None and location.can_import == False %}
+                            &nbsp;
+                        {% else %}
+                        <input name="location" type="checkbox" value="{{ location.name }}"/>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {{ location.name }}
+                        {% if location.can_import is not None and location.can_import == False %}
+                         (Unable to be added with the current service account)
+                        {% endif %}
+                    </td>
+                    {% if has_domains %}
+                        <td>
+                            {{ location.domain|default:"" }}
+                        </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+{% else %}
+        <p>
+        All available {{ loc_label|lower }}s already added.
+        </p>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init();
+});
+</script>

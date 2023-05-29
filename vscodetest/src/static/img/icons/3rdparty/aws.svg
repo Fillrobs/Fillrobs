@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+<g id="aws">
+    <path d=" M 791 204 L 1000 142 L 1000 442 L 791 512 L 791 204 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 736 204 L 527 142 L 528 442 L 736 512 L 736 204 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 570 110 L 765 50 L 957 110 L 765 161 L 570 110 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 264 512 L 473 442 L 473 142 L 264 204 L 264 512 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 209 204 L 0 142 L 1 442 L 209 512 L 209 204 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 43 110 L 238 50 L 430 110 L 237 161 L 43 110 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 527 950 L 736 881 L 736 581 L 527 642 L 527 950 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 473 642 L 264 581 L 264 881 L 473 950 L 473 642 Z " id="Path" fill="rgb(247,184,58)"/>
+    <path d=" M 306 548 L 501 488 L 694 548 L 501 600 L 306 548 Z " id="Path" fill="rgb(247,184,58)"/>
+</g>
+</svg>

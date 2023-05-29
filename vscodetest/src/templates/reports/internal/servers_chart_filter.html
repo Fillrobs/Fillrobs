@@ -1,0 +1,129 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+{% block report_content %}
+    <h3>{{ chart.title }}</h3>
+
+    <div class="btn-toolbar">
+        {% if request_get_args %}
+        <a class="btn btn-default" id="reset"
+            href="{% url 'servers_chart_filter' %}">{% trans "Reset" %}</a>
+        {% endif %}
+    </div>
+
+    <div id="chart_div" class="panel panel-default"></div>
+
+    {# datatable starts empty and loads asynchronously onReady and when chart is clicked #}
+    {% servers_table servers_empty_qs as_datatable=0 show=columns %}
+{% endblock %}
+
+{% block onReady %}
+var categories = {{ chart.categories|to_json }};
+var serverCounts = {{ chart.server_counts|to_json }};
+var chartClickArgs = {{ chart.click_args_for_category|to_json }};
+
+$('#reset').on('click', function() {
+    c2.block.block();
+});
+
+function drawChart() {
+    $('#chart_div').highcharts(_.merge(c2.charts.serverBarChartDefaults, {
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: categories
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            },
+            series: {
+                allowPointSelect: true,
+                animation: false,
+                events: {
+                    click: function (e) {
+                        // Based on which category of the chart was clicked,
+                        // reload this view with the new filter in effect.
+                        window.location.href = "{% url 'servers_chart_filter' %}?"+ {{ chart.request_args }};
+                    }
+                }
+            }
+        },
+        series: [
+            {
+                name: '{% trans "Servers" %}',
+                data: serverCounts
+            }
+        ],
+        exporting: {
+            filename: '{{ chart.title }}',
+            toCSV: function() {
+                return c2.downloads.arrayToCSV(
+                    {{ chart.axes|to_json }},
+                    _.zip(categories, serverCounts));
+            }
+        },
+        tooltip: {
+            enabled: false
+        }
+    }));
+}
+
+if (categories.length > 0) {
+    drawChart();
+}
+
+
+// Load the servers table with filters specified by the view
+var $table = $('#servers');
+var oTable;
+oTable = $table.dataTable({
+    'bServerSide': true,
+    'sAjaxSource': '{% url 'server_list_json' %}',
+    // Sort by hostname.
+    'aaSorting': [[2, 'asc']],
+    'aoColumnDefs': [
+        { 'bSortable': false, 'aTargets': [ 0 ] }
+    ],
+    'bStateSave': false,
+    'oLanguage': {
+        'sEmptyTable': '{% trans "There are no servers" %}',
+    },
+    'fnServerParams': function ( aoData ) {
+        // Called whenever datatable makes the ajax call.
+
+        // Prep the payload for sending as 'filters_selected'
+        var payload = {
+            // Match the datatable query to the query (i.e. exclude HISTORICAL)
+            filter_by_status: [
+                'ACTIVE',
+                'MODIFY',
+                'PROVFAILED',
+                'PROV',
+                'DECOM'
+            ]
+        };
+
+        // Add all HTTP args representing the current dataset
+        var filters = {{ request_get_args|to_json }};
+        var value;
+        _.forEach(_.keys(filters), function(key) {
+            value = filters[key];
+            if (Array.isArray(value)) {
+                payload[key] = value;
+            } else {
+                payload[key] = [value];
+            }
+        });
+
+        aoData.push({name: 'filters_selected', value: JSON.stringify(payload)});
+        aoData.push({name: 'columns', value: '{{ columns }}'});
+    }
+});
+{% endblock %}

@@ -1,0 +1,67 @@
+{% load helper_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+<div class="clearfix"></div>
+<p></p>
+
+<table data-table>
+    <thead>
+        <tr>
+            <th> </th>
+            <th>{% trans 'Blueprint' %}</th>
+            <th>{% trans 'Description' %}</th>
+            <th>{% trans 'Blueprint Items' %}</th>
+            <th>{% trans 'Groups' %}</th>
+            <th>{% trans 'Environments' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for blueprint in blueprints_user_can_see %}
+            <tr class="revealer">
+                <td class="image">
+                    {% if blueprint.list_image %}
+                        <img class="blueprint thumbnail img-responsive" src="{{ blueprint.list_image.url }}"/>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if blueprint|can_order:profile %}
+                        <a href="{% url 'order_blueprint' blueprint.id %}">{{ blueprint.name }}</a>
+                    {% else %}
+                        {{ blueprint.name }}
+                    {% endif %}
+
+                    {% if blueprint|is_manager:profile %}
+                        <a class="manage-link h3 no-tooltip-affordance revealable"
+                            href="{{ blueprint.get_absolute_url }}">
+                            <span class="icon-cog"></span>
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if blueprint.description %}
+                        {{ blueprint.rendered_description|bleach_filter }}
+                    {% else %}
+                       <i>{% trans 'No description' %}</i>
+                    {% endif %}
+                </td>
+                <td>
+                    {% trans 'Server tiers:' %} {{ blueprint|get_attr:'_data_number_of_server_tiers' }}
+
+                    {% for os_family in blueprint|get_attr:'_data_pssi_os_family_instances' %}
+                        {# enable searching by OS Family name #}
+                        <span class="hidden">{{ os_family.name }}</span>
+
+                        {{ os_family|os_family_icon }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {{ blueprint|get_attr:'_data_groups'|length }}
+                </td>
+                <td>
+                    {{ blueprint|get_attr:'_data_environments'|length }}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

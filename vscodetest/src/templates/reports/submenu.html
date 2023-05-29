@@ -1,0 +1,54 @@
+{% load cache %}
+{% load helper_tags %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 reports_submenu user_can_view_all %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Reports
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                {% portal_label %} comes equipped with reports that provide detailed breakdowns of your data in multiple categories. Costs, servers, and usage reports are enabled by default. Custom reports are also available if you have specific reporting needs.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'report_list' %}" class="cb-btn cb-btn-primary">Reports</a>
+        </div>
+    </div>
+    <div class="dropdown-menu__actions">
+        <!-- Keep if Quick Actions needed in the future. -->
+        <!-- <div class="quick-actions">
+            <h5 class="heading-5 bold">Quick Actions</h5>
+            <a href="{% url 'create_toplevel_group' %}" class="cb-btn cb-btn-secondary open-dialog">Add a Group</a>
+        </div> -->
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="reports-content">
+        {% for category, reports in internal_reports.items %}
+            <div class="section">
+                <h3 class="heading-5 bold panel-title">{{ category }}</h3>
+                {% for report in reports %}
+                    {% if report.name == "Group Server Cost (Details)" or report.name == "Group Server Cost (Summary)" %}
+                        <a class="open-dialog" href="{{ report.url }}">
+                            {{ report.name }}
+                        </a>
+                    {% else %}
+                        <a href="{{ report.url }}">
+                            {{ report.name }}
+                        </a>
+                    {% endif %}
+                {%endfor%}
+            </div>
+            {% empty %}
+                <a>No available reports</a>
+        {% endfor %}
+    </div>
+</div>
+{% endspaceless %}
+{% endcache %}

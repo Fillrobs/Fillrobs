@@ -1,0 +1,41 @@
+{% load helper_tags %}
+{% comment %}
+  Bootstrap-styled forms
+
+  Args:
+    container_class: [form-horizontal], form-inline
+{% endcomment %}
+
+{% for hidden in form.hidden_fields %}
+  {{ hidden }}
+{% endfor %}
+
+{{ form.non_field_errors }}
+
+<div class="{{ form_class|default:"form-horizontal" }}">
+
+  {% for field in form.visible_fields %}
+    <div class="form-group {% if field.errors %}has-error{% endif %}">
+
+      {% for error in field.errors %}
+        <div class="error">
+          {{ error }}
+        </div>
+      {% endfor %}
+
+      <label for="{{ field.id_for_label }}" class="col-sm-3 control-label">
+        {{ field.label }}
+      </label>
+
+      <div class="col-sm-9">
+        {{ field }}
+      </div>
+
+      {% if field.help_text %}
+        <span class="help-block">{{ field.help_text }}</span>
+      {% endif %}
+
+    </div>
+  {% endfor %}
+
+</div>

@@ -1,0 +1,26 @@
+{% load helper_tags %}
+{% load i18n %}
+<div class="panel panel-default">
+    <div class="panel-heading revealer">
+        <h3 data-toggle="collapse" data-target="#admin-panel-xui" data-spotlight="custom ui" data-test="admin-panel-custom">
+            <span class="revealable collapsed-indicator" data-test="revealer-custom"></span>
+            <i class="fas fa-bath"></i>
+            {% trans "Admin Extensions" %}
+        </h3>
+    </div>
+    <div id="admin-panel-xui" class="panel-body collapse">
+        <p class="help-block">
+            {% url 'extensions_management' as management_url %}
+            {% blocktrans %} The admin pages below are custom <a href="{{management_url}}" data-test="ui-extensions-link"> UI Extensions </a>. {% endblocktrans %}
+        </p>
+        <ul class="list-unstyled">
+            {% for ext in extensions %}
+                <li>
+                    <a href="{% url 'render_admin_extension' ext.package ext.view_name %}" data-spotlight data-test="admin-link-{{ ext.title }}">
+                        {% text_tooltip ext.title ext.description placement="right" width=400 hint=False %}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

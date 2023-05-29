@@ -1,0 +1,48 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="open-dialog btn btn-default"
+        data-dialog-width="100%"
+        href="{% url 'associate_osba' osb.id %}"
+        id="associate-osba">
+        <span class="icon-add"></span>
+        Add {{template_label|title}}
+    </a>
+</div>
+<table id="osbas" data-table>
+    <thead>
+        <tr>
+            <th>{{template_label|title}} Name</th>
+            <th>Resource Handler</th>
+            {% if show_tenant_info%}
+                <th>Tenant</th>
+            {% endif %}
+            <th>Disk Size</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for osba in osbas %}
+            <tr>
+                <td class="name">{{ osba }}</td>
+                <td>{{ osba.rh_display }}</td>
+                {% if show_tenant_info %}
+                    <td>
+                        {# We don't have Tenants directly on OSBAs, but get from their RH #}
+                        {% if osba.resourcehandler %}
+                            {{ osba.resourcehandler.tenant|link_or_label_none_global:profile }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+                <td>
+                    {{ osba.total_disk_size|render_size_field:"disk_size" }}
+                </td>
+                <td>
+                    <a class="open-dialog icon-delete no-tooltip-affordance"
+                        title="Dissociate {{template_label|default:'image'}} from OS&nbsp;Build" data-toggle="tooltip"
+                        href="{% url 'osbuild_dissociate_osba' osb.id osba.id %}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

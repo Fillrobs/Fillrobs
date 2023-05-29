@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+{% load infrastructure_tags %}
+{% block topnav %}admin{% endblock %}
+{% block extrastyle %}
+<style type="text/css" media="all">
+    #roles-table td.controls .btn-group {
+        width: 130px;
+        display: block;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Roles" %}</h1>
+
+    <h2>{% trans "Roles Assignable to Users" %}</h2>
+    <div><i>
+        {% url 'permission_list' as permission_url %}
+        {% blocktrans %}These roles are available on all groups, and users can be assigned to these roles
+        on groups from the group details page or the user details page. Membership in a role on a
+        group will grant that role's <a href="{{ permission_url }}">permissions</a> only on the resources in that group.{% endblocktrans %}
+    </i></div><br>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'role_create' %}">
+            <span class="icon-add"></span>
+            {% trans "New role" %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            data-toggle="tooltip"
+            title={% trans "Restore recommended permissions on all out-of-the-box roles. Custom roles will not be changed." %}
+            href="{% url 'role_restore_all' %}">
+            <span class="fas fa-undo"></span>
+            {% trans "Restore defaults" %}
+        </a>
+    </div>
+
+    <table id="roles-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Label" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "Permissions" %}</th>
+                <th>{% trans "Server Actions" %}</th>
+                <th>{% trans "Resource Actions" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for role in roles %}
+            <tr>
+                <td class="shrink">
+                    {{ role.label }}
+                </td>
+
+                <td class="expand">
+                    {{ role.description }}
+                </td>
+
+                <td class="shrink">
+                    {{ role.permissions__count }}
+                </td>
+
+                <td>
+                    {% if role.has_all_server_actions_perm %}
+                        {% trans "All" %}
+                    {% else %}
+                        {{ role.server_actions__count }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if role.has_all_resource_actions_perm %}
+                        {% trans "All" %}
+                    {% else %}
+                        {{ role.resource_actions__count }}
+                    {% endif %}
+                </td>
+
+                <td class="controls">
+                    <div class="btn-group">
+                        <a class="icon-edit btn btn-default btn-sm open-dialog"
+                            href="{% url 'role_edit' role.id %}"></a>
+                        <a class="fas fa-copy btn btn-default btn-sm open-dialog"
+                            href="{% url 'role_copy' role.id %}"></a>
+                        <a class="icon-delete btn btn-default btn-sm open-dialog"
+                            href="{% url 'role_delete' role.id %}"></a>
+                        {% if role.is_default %}
+                            <a class="fas fa-undo btn btn-default btn-sm open-dialog no-tooltip-affordance"
+                                data-toggle="tooltip"
+                                title='{% trans "This out-of-the-box role has a set of recommended permissions. Click to restore factory permissions." %}'
+                            href="{% url 'role_restore' role.id %}"></a>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>{% trans "Special Roles" %}</h2>
+    <div><i>
+        {% url 'permission_list' as permission_url %}
+        {% blocktrans %}These roles contain <a href="{{ permission_url }}">permissions</a> that are automatically granted to users who meet certain criteria for objects (e.g., the server owner). These roles are not shown on the group and
+        user details pages. {% endblocktrans %}
+    </i></div><br>
+    <table id="special-roles-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Label" %}</th>
+                <th>{% trans "Description" %}</th>
+                <th>{% trans "Permissions" %}</th>
+                <th>{% trans "Server Actions" %}</th>
+                <th>{% trans "Resource Actions" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for role in special_roles %}
+            <tr>
+                <td class="shrink">
+                    {{ role.label }}
+                </td>
+
+                <td class="expand">
+                    {{ role.description }}
+                </td>
+
+                <td class="shrink">
+                    {{ role.permissions__count }}
+                </td>
+
+                <td>
+                    {% if role.has_all_server_actions_perm %}
+                        {% trans "All" %}
+                    {% else %}
+                        {{ role.server_actions__count }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    {% if role.has_all_resource_actions_perm %}
+                        {% trans "All" %}
+                    {% else %}
+                        {{ role.resource_actions__count }}
+                    {% endif %}
+                </td>
+
+                <td class="controls">
+                    <div class="btn-group">
+                        <a class="icon-edit btn btn-default btn-sm open-dialog"
+                            href="{% url 'role_edit' role.id %}"></a>
+                        <a class="fas fa-undo btn btn-default btn-sm open-dialog"
+                            href="{% url 'role_restore' role.id %}"></a>
+                    </div>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

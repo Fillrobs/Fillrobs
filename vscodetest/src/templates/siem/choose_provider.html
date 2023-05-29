@@ -1,0 +1,13 @@
+{% load siem_tags %}
+
+<div id="chooseSIEM" class="text-center">
+    <div class="btn-group-vertical" id="choose_technology">
+        {% for provider in providers %}
+        <a href="{% url 'create_siem_dialog' provider.get_slug %}"
+           class="btn btn-default js-dialog-link">
+            {% siem_icon provider %}
+             <span>{{ provider.class_title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>

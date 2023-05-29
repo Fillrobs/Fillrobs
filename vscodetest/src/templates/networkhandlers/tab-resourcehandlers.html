@@ -1,0 +1,47 @@
+{% load helper_tags %}
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'networklink_new' handler.id 'new' %}"
+        id="add_handler">
+        <span class="icon-add"></span>
+        Add a resource handler link
+    </a>
+</div>
+
+<table id="resourcehandlers" class="stats">
+    <thead>
+        <tr>
+            <th>Resource Handler</th>
+            <th>Type</th>
+            <th>IP Address</th>
+            <th>Account</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for link in handler.networkresourcelink_set.all %}
+        <tr>
+            <td class="name">{{ link.cast.resource_handler|link_or_label:profile }}</td>
+            <td class="type">
+                {{ link.cast.resource_handler.real_type.name }}
+            </td>
+            <td class="ip">
+                {{ link.cast.resource_handler.ip }}
+            </td>
+            <td class="account">
+                {{ link.cast.resource_handler.serviceaccount }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#resourcehandlers').dataTable({
+        "aaSorting": [[ 1, "asc" ]],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0] }
+        ]
+    });
+});
+</script>

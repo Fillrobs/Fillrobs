@@ -1,0 +1,9 @@
+{% load helper_tags %}
+
+{% if tag_names %}
+<span class="fas fa-tags no-tooltip-affordance"
+    data-toggle="tooltip"
+    data-html="true"
+    title="{% for tag_name in tag_names %} <span class='cb-tag'>{{ tag_name }}</span> {% endfor %}">
+</span>
+{% endif %}

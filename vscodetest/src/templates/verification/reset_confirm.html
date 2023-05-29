@@ -1,0 +1,88 @@
+{% extends "verification/base.html" %}{% load i18n %}
+
+{%block content %}
+{% if not validlink %}{% url "password_reset" as recovery_url %}
+	<p>{% blocktrans %}Sorry, this password reset link is invalid. You can still
+		<a href="{{ recovery_url }}">request a new one</a>.{% endblocktrans %}</p>
+{% else %}
+<p>
+    {% if username %}
+        {% blocktrans %}Hi, <strong>{{ username }}</strong>.{% endblocktrans %}
+	{% endif %}
+	{% if challenge_question %}
+		{% blocktrans %}Please answer the challenge question and then choose your new password.{% endblocktrans %}
+	{% else %}
+		{% blocktrans %}Please choose your new password.{% endblocktrans %}
+	{% endif %}
+</p>
+
+{% if challenge_question %}
+<br>
+<p>{% blocktrans %}<strong>Challenge Question:</strong> {{ challenge_question }}{% endblocktrans %}</p>
+{% endif %}
+
+{% if form.non_field_errors %} {% for error in form.non_field_errors %}
+	<p class="error" data-alert="true">{{error|striptags}}</p>
+{% endfor %} {% endif %}
+
+<form method="post" action="{{ generic_reset_url }}">
+	{% csrf_token %}
+
+	{% if challenge_question %}
+		<div class="form-group">
+			<label>
+				{% if form.challenge_answer.errors %}
+					{{ form.challenge_answer.errors }}
+				{% endif %}
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="icon-edit"></i>
+					</span>
+					<input type="text" name="{{ form.challenge_answer.html_name }}" aria-label="Answer"
+						autofocus="autofocus" placeholder="Answer"
+						required="" id="{{ form.challenge_answer.id_for_label }}" class="form-control">
+				</div>
+			</label>
+		</div>
+		<br>
+	{% endif %}
+	<div class="form-group">
+		<label>
+            {% if form.new_password1.errors %}
+                {{ form.new_password1.errors }}
+            {% endif %}
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="icon-credentials"></i>
+				</span>
+				<input type="password" name="{{ form.new_password1.html_name }}" aria-label="Password"
+                       autofocus="autofocus" placeholder="New password"
+                       required="" id="{{ form.new_password1.id_for_label }}" class="form-control">
+			</div>
+		</label>
+	</div>
+
+	<div class="form-group">
+		<label>
+            {% if form.new_password2.errors %}
+                {{ form.new_password2.errors }}
+            {% endif %}
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="icon-credentials"></i>
+				</span>
+				<input type="password" name="{{ form.new_password2.html_name }}" aria-label="Password"
+                       autofocus="autofocus" placeholder="Re-enter password" required="" id="{{ form.new_password2.id_for_label }}"
+                       class="form-control">
+			</div>
+		</label>
+	</div>
+
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary btn-block">{% trans "Save password" %}</button>
+	</div>
+
+</form>
+
+{% endif %}
+{% endblock %}

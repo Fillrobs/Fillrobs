@@ -1,0 +1,111 @@
+{% load helper_tags %}
+{% if query %}
+    <h4>
+        {% if page.object_list|length %}
+            {{ paginator.count }} Results
+        {% else %}
+            No results
+        {% endif %}
+
+        for &ldquo;<b>{{ query }}</b>&rdquo;
+    </h4>
+
+    {% if page.object_list|length %}
+        <p>
+        Page {{ page.number }} of {{ paginator.num_pages }} page{{ paginator.num_pages|pluralize }}.
+        </p>
+    {% endif %}
+
+
+    <ol class="list-unstyled">
+        {% for result in page.object_list %}
+            <li>
+            {% if result.content_type == "infrastructure.server" %}
+                {% include "search/includes/infrastructure/server.html" %}
+            {% elif result.content_type == "infrastructure.environment" %}
+                {% include "search/includes/infrastructure/environment.html" %}
+            {% elif result.content_type == "resourcehandlers.resourcehandler" %}
+                {% include "search/includes/resourcehandlers/resourcehandler.html" %}
+            {% elif result.content_type == "accounts.group" %}
+                {% include "search/includes/accounts/group.html" %}
+            {% elif result.content_type == "auth.user" %}
+                {% include "search/includes/accounts/user.html" %}
+            {% elif result.content_type == "servicecatalog.serviceblueprint" %}
+                {% include "search/includes/servicecatalog/serviceblueprint.html" %}
+            {% elif result.content_type == "resources.resource" %}
+                {% include "search/includes/resources/resource.html" %}
+            {% elif result.content_type == "cbadmin.staticpage" %}
+                {% include "search/includes/cbadmin/staticpage.html" %}
+            {# Slightly hacky, assumes all action models end in "Hook" #}
+            {% elif result.content_type|slice:"-4:" == "hook" %}
+                {% include "search/includes/cbhooks/action.html" %}
+            {% else %}
+                {% include "search/includes/unknown_type.html" %}
+            {% endif %}
+            </li>
+        {% empty %}
+            <li>
+                <p class="help-block">
+                    Note: each search term should have at least 3 characters and are combined using AND.
+                </p>
+
+                <br /><br />
+
+                <div id="empty-search-help" class="">
+                    <h4>Need more help?</h4>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="http://www.cloudbolt.io/videos" target="blank">
+                            How-To Videos <i class="fas fa-external-link-alt"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base" target="blank">
+                            Knowledge Base <i class="fas fa-external-link-alt"></i></a>
+                        </li>
+                        <li>
+                            {% if user.userprofile.is_cbadmin %}
+                                <a href="https://support.cloudbolt.io/hc/en-us/requests/new" target="blank">
+                                Create a Support Ticket <i class="fas fa-external-link-alt"></i></a>
+                            {% else %}
+                                Ask your {% portal_label %} administrator
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+
+    <div class="clearfix" />
+
+    <div class="search-result-pager">
+        {% if page.has_previous or page.has_next %}
+            {% if page.has_previous %}
+                <a id="search-results-page-prev"
+                    href="/" {# attr is needed to make this accessible via tab #}
+                    data-query="{{ query }}"
+                    data-page="{{ page.previous_page_number }}"
+                    >{% endif %}&laquo; Previous{% if page.has_previous %}</a>
+            {% endif %}
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            {% if page.has_next %}
+                <a id="search-results-page-next"
+                    href="/" {# attr is needed to make this accessible via tab #}
+                    data-query="{{ query }}"
+                    data-page="{{ page.next_page_number }}"
+                    >{% endif %}Next &raquo;{% if page.has_next %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+{% else %}
+
+    <p>You must type a valid query.</p>
+
+{% endif %}
+
+<script>
+$(function() {
+    c2.search.setupSearchResultBehaviors();
+});
+</script>

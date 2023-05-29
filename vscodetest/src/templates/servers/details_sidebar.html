@@ -1,0 +1,30 @@
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% server_card server %}
+
+<h4>
+    {% if server.power_status|lower != 'suspended' %}
+        {% trans 'Powered' %}
+    {% endif %}
+    <span class="power-state {{ server.power_status|lower }}">
+        {{ server.get_power_status_display|capfirst }}</span>
+</h4>
+{% if server.server_lock and server.server_lock == 'deletion' %}
+    <h4>
+        <span>{% trans 'Locked to prevent deletion' %}</span>
+    </h4>
+{% endif %}
+
+{% include "servers/actions.html" %}
+
+<style>
+#server-details-live-updates-info {
+  color: #ccc !important;
+  font-size: 85%;
+}
+</style>
+<div id="server-details-live-updates-info" class="hidden padding">
+  <div class="help-block hidden" data-include-timestamp></div>
+  <div class="alert alert-warning compact margin hidden" id="offline-alert">{% trans "Looks like you're offline" %}</div>
+</div>

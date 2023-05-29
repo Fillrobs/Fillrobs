@@ -1,0 +1,5 @@
+{# added to common tab-disks.html #}
+<dt>Availability Zone:</dt>
+<dd>{{ disk.availability_zone }}</dd>
+
+{% include 'servers/disk_actions.html' with allow_resize=False position=position %}

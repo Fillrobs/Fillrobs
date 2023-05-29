@@ -1,0 +1,49 @@
+{% extends 'servers/nic_detail.html' %}
+
+{% load helper_tags %}
+{% load rh_tags %}
+
+
+{% block nic-info %}
+    <dt>Public IP:</dt>
+    <dd>
+        {% if nic.ip %}
+            {% if nic.ip == "dhcp" %}
+                DHCP
+            {% else %}
+                {{ nic.ip|clippable }}
+            {% endif %}
+        {% else %}
+            <i>None</i>
+        {% endif %}
+    </dd>
+
+    {% if nic.private_ip %}
+        <dt>Private IP:</dt>
+        <dd>
+            {{ nic.private_ip|clippable }}
+        </dd>
+    {% endif %}
+
+    <dt>MAC:</dt>
+    <dd>{{ nic.mac|clippable }}</dd>
+
+    <dt>Network:</dt>
+    {% if nic.network %}
+        <dd style="width: 80%">
+            {% include 'servers/nic_network_subpanel.html' with network=nic.network %}
+        </dd>
+    {% else %}
+        {% comment %}
+            We know ARM NICs have a network, so if it is missing from the
+            network info, it must be just because we haven't imported it.
+            Saying 'Unrecognized' instead of 'None' is more honest.
+        {% endcomment %}
+        <dd><i>Unrecognized</i></dd>
+    {% endif %}
+
+    {% if nic.enabled_ports %}
+        <dt>Enabled ports:</dt>
+        <dd>{{ nic.enabled_ports }}</dd>
+    {% endif %}
+{% endblock %}

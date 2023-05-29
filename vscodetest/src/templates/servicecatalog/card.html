@@ -1,0 +1,87 @@
+{% load helper_tags %}
+{% load str_tags %}
+{% load tag_tags %}
+{% load i18n %}
+
+<div {% if blueprint.id %}id="blueprint-{{ blueprint.id }}"{% endif %}
+    class="blueprint-card card-size-{{ size }} {{ blueprint.status.lower }} no-tooltip-affordance revealer
+           {% if can_order %}orderable{% endif %}
+          "
+
+    {% if not remote %}
+        {# These attributes need single quotes due to the JSON double quotes #}
+        data-id='{{ blueprint.id }}'
+        data-name='{{ blueprint.name|striptags }}'
+        data-description='{{ blueprint.rendered_description|striptags }}'
+        data-groups='{{ blueprint|get_attr:"_data_groups"|to_json }}'
+        data-environments='{{ blueprint|get_attr:"_data_environments"|to_json }}'
+        data-labels='{{ blueprint|get_attr:"_data_label_ids"|to_json }}'
+        data-os-family-ids='{{ blueprint|get_attr:"_data_os_family_ids"|to_json }}'
+        data-number-of-server-tiers='{{ blueprint|get_attr:"_data_number_of_server_tiers" }}'
+        data-sequence='{{ blueprint.sequence|default:0 }}'
+
+        {# Cards are clickable but are not actual anchors; enables cards to contain other anchors #}
+        data-href="{{ blueprint.get_order_url }}"
+    {% endif %}
+    >
+    {% if size == 'large' %}
+        <div class="panel-body center-vertically">
+            <div class="center-vertically-inner">
+            {% if blueprint.list_image %}
+                <img class="blueprint" src="{{ blueprint.list_image.url }}"/>
+            {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="panel-footer center-vertically">
+      <div class="center-vertically-inner">
+        {# Tags icon is positioned by CSS #}
+        {{ blueprint.label_names|tag_infotip }}
+
+        {% if remote %}
+            <a class="import-link no-tooltip-affordance revealable open-dialog"
+                data-toggle="tooltip"
+                title={% trans "Import this blueprint" %}
+                href="{% url 'import_blueprint_from_content_library' %}?pkg={{ blueprint.url }}">
+                <span class="fas fa-cloud-download-alt"></span>
+            </a>
+        {% else %}
+            {% if can_manage %}
+                <a class="manage-link no-tooltip-affordance revealable"
+                    href="{{ blueprint.get_absolute_url }}">
+                    <span class="icon-cog"></span>
+                </a>
+            {% endif %}
+        {% endif %}
+
+        {% if size == 'mini' %}
+            <div class="blueprint-image">
+                {% if blueprint.list_image %}
+                    <img class="blueprint" src="{{ blueprint.list_image.url }}"/>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <h5>
+            {# Truncate to constrain to 2 rows #}
+            {% if size == 'mini' %}
+                {% truncate_str_middle blueprint.name 30 %}
+            {% else %}
+                {% truncate_str_middle blueprint.name 60 %}
+                {# Only add resource type icon to non-mini cards, for space reasons #}
+                {% if blueprint.resource_type and blueprint.resource_type.icon %}
+                    <span class="{{ blueprint.resource_type.icon}} no-tooltip-affordance"
+                      data-toggle="tooltip"
+                      title="{% blocktrans with resource_type=blueprint.resource_type.label %}Creates a {{ resource_type }}{% endblocktrans %}">
+                    </span>
+                {% endif %}
+            {% endif %}
+
+            {% if blueprint.description %}
+                {% infotip blueprint.rendered_description %}
+            {% endif %}
+        </h5>
+      </div>
+    </div>
+</div>

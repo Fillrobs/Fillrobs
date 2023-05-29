@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load hook_tags %}
+{% block topnav %}admin{% endblock %}
+{% load i18n %}
+{% block content %}
+<h1>{% trans 'Rules' %}</h1>
+
+<div class="pull-right">
+
+    {% if show_content_library %}
+    <a class="btn btn-default no-tooltip-affordance" href="{% url 'library' %}?type=rules"
+        data-toggle="tooltip" data-placement="left"
+        title="{% blocktrans %}View and import Rules from the Content Library{% endblocktrans %}">
+        {% trans 'Import from the Content Library' %}
+        <i class="fas fa-cloud-download-alt"></i>
+    </a>
+    {%endif%}
+</div>
+
+<div class="tab-content">
+    <div id="local-content-view" class="tab-pane active">
+
+        <section class="intro">
+            <p>
+            {% blocktrans %}
+            Rules can be used to check for issues in the environment and take
+            corrective action, automate policies, and adapt proactively to the state of
+            a system.  Each <em>If</em> condition is tested periodically and may
+            trigger its <em>Then</em> actions.
+            {% endblocktrans %}
+            {% include "common/docs_link.html" with url="rules.html" %}
+            </p>
+        </section>
+
+        <div class="btn-toolbar">
+            <div class="btn-group btn-wrapper">
+                <button class="btn btn-sm btn-primary open-dialog" title="{% trans 'Check and Execute Rules' %}"
+                href="{% url 'execute_rules' %}">
+                <span class="icon-start-tests"></span>
+                {% trans 'Execute Rules' %}
+                </button>
+            </div>
+            <div class="btn-group btn-wrapper">
+                <button type="button" data-toggle="dropdown" aria-haspopup="true"
+                        class="edit-action btn btn-sm btn-default dropdown-toggle selection-action">
+                    {% trans 'Add a Rule' %}&nbsp;&nbsp;<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a class="btn-sm default open-dialog" tabindex="-1"
+                                data-href="{% url 'add_action_trigger' 'condition' %}">
+                            <span class="icon-add"></span> {% trans 'Create New' %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-sm open-dialog" tabindex="-1"
+                                data-href="{% url 'upload_action_trigger' 'rules' %}">
+                            <span class="fas fa-upload"></span> {% trans 'Upload Rule' %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+        <table id="rules"
+        {% comment %}
+        This directive lets us first hook up a custom draw callback below,
+        before initializing the DataTable.
+        {% endcomment %}
+        data-table-no-auto-init>
+        <thead>
+            <tr>
+            <th> {% trans 'If' %} </th>
+            <th> </th>
+            <th> {% trans 'Then' %} </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rule in rules %}
+            <tr>
+                <td>
+                {% include "rules/condition_panel.html" %}
+                </td>
+
+                <td class="icon-column">
+                <i class="fas fa-arrow-right"></i>
+                </td>
+
+                <td>
+                <ol class="action-group list-unstyled">
+                    {% for action in rule.hookpointaction_set.all %}
+                    <li>
+                        {% include "actions/action_details_panel.html" with url_prefix='rule_action' enable_endpoint='orchestration' %}
+                    </li>
+                    {% endfor %}
+                </ol>
+
+                <div class="btn-toolbar pull-right">
+                    <a class="btn btn-sm btn-default open-dialog add-hook"
+                    href="{% url 'add_action_trigger' rule.name %}"
+                        data-hook-type="{{ rule.label }}">
+                        <span class="icon-add"></span>
+                        <em>{% trans 'Then' %}</em> {% trans 'Action' %}
+                    </a>
+                </div>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+{% block onReady %}
+var $table = $('#rules');
+$table.on('table:draw', function (e, oSettings) {
+  // restore open panels after a table page is drawn
+  c2.collapsible.init($table);
+});
+
+c2.dataTables.init('#rules');
+{# Hover style is unhelpful on this page #}
+$table.removeClass('table-hover');
+{% endblock %}

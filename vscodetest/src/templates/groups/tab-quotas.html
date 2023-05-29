@@ -1,0 +1,52 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load quota_tags %}
+{% load i18n %}
+
+
+{% if not can_edit_quota %}
+    <p>
+        {% trans "You do not have permissions to edit quotas for this group." %}
+    </p>
+{% else %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'edit_group_quota_limit' group.id %}">
+            <span class="icon-edit"></span>
+            {% trans "Edit quota limits" %}
+        </a>
+    </div>
+{% endif %}
+
+    <table id="quota-table" class="stats">
+        <thead>
+            <tr>
+                <th>{% trans "Quota Item" %}</th>
+                <th class="text-center">{% trans "Bar Chart" %}</th>
+                <th>{% trans "Limit" %}</th>
+                <th>{% trans "Used" %}</th>
+                <th>{% trans "Delegated" %}</th>
+                <th>{% trans "Available" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for qdict in quota_items %}
+              <tr class="{% cycle 'odd' 'even' %}">
+                <td>{{ qdict.header }}</td>
+                <td class="text-center quota-view">{{ qdict.quota_item|quota_to_chart }}</td>
+                <td>
+                    {%if qdict.quota_item.has_limit %}
+                        {{ qdict.quota_item.limit|render_quota_value:qdict.units }} &nbsp;
+                    {% else %}
+                        {% trans "(Unlimited)" %}
+                    {% endif %}
+                </td>
+                <td>{{ qdict.quota_item.used|render_quota_value:qdict.units }}</td>
+                <td>{{ qdict.quota_item.delegated|render_quota_value:qdict.units }}</td>
+                <td>{{ qdict.quota_item.available|render_quota_value:qdict.units }}</td>
+              </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p>{% trans 'Parent group:' %} {{ group.parent|link_or_label:profile }}</p>

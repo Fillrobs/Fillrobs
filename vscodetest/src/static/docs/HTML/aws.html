@@ -1,0 +1,616 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('aws',true);});
+//--></script><title>AWS</title><script type="text/javascript">//<!--
+var articleTitleText='AWS';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">AWS</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="resource-handlers.html">Resource Handlers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">AWS</span></span>
+  </div><h1 id="h1__278552399" data-has-heading-anchor="true">
+  AWS&nbsp;
+<a href="aws.html#h1__278552399" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about&nbsp;the AWS Resource Handler in CloudBolt.
+</p>
+<p>
+  <ul class=""><li class="CHMiniToc_heading2"><a href="aws.html#h2__1873403999">Setting up the AWS Resource Handler</a></li><li class="CHMiniToc_heading2"><a href="aws.html#h2_1530476108">Environments</a></li><li class="CHMiniToc_heading2"><a href="aws.html#h2__376160010">AWS Windows Instances</a></li><li class="CHMiniToc_heading2"><a href="aws.html#h2_1291509812">Images</a></li><li class="CHMiniToc_heading2"><a href="aws.html#aws-billing">Importing and Viewing AWS Billing Data</a></li><li class="CHMiniToc_heading2"><a href="aws.html#h2_1457519068">Provision to EC2 Dedicated Hosts</a></li><li class="CHMiniToc_heading2"><a href="aws.html#h2__1937479489">Modifying or Adding Volumes</a></li></ul>When an AWS Resource Handler is created, CloudBolt provides a choice of Regions to be imported, and one CloudBolt Environment will be created for each. Additionally, VPCs can be specified for each CloudBolt AWS Environment to build and&nbsp;manage instances within a specific VPC.
+</p>
+
+  <p>
+    Enhanced multipayer account capabilities are also available through the use of the AWS Identity and Access Management (IAM) Role integration. See set up step 5 in <a href="aws.html#h2__1873403999">Setting up the AWS Resource Handler</a>.
+  </p>
+  <hr/>
+  <h2 id="h2__1873403999" data-has-heading-anchor="true">
+    Setting up the AWS Resource Handler
+  <a href="aws.html#h2__1873403999" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol>
+    <li>
+      Go to <b>Admin</b> &gt; <b>Resource Handlers</b>.
+    </li>
+    <li>
+      Click <b>+Add a new resource handler...</b>
+    </li>
+    <li>
+      Select Amazon Web Services.
+    </li>
+  </ol>
+  <img src="../Storage/cloudbolt-docs/Resource%20Handlers/aws-iam-role-arn.png" alt="" style="width: 400px; height: 281px;"/>
+  <ol>
+    <li value="4">
+      Enter your Access Key ID and Secret Access Key. See the <a href="https://signin.aws.amazon.com/signin?redirect_uri=https%3A%2F%2Fconsole.aws.amazon.com%2Fconsole%2Fhome%3Fstate%3DhashArgs%2523%26isauthcode%3Dtrue&amp;client_id=arn%3Aaws%3Aiam%3A%3A015428540659%3Auser%2Fhomepage&amp;forceMobileApp=0" target="_blank">Security Credentials</a> section of the AWS Console.
+    </li>
+    <li>
+      Optionally, enter the ARN for the Identity and Access Management (IAM) Role you wish CloudBolt to assume. 
+      <ol>
+        <li>
+          This is defined in the target AWS, on the My Security Credentials page under Roles. See <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html" target="_blank">AWS Identity and Access Management</a> on Amazon's docs for greater detail.
+        </li>
+      </ol>
+      
+    </li>
+  </ol>
+  
+
+<div id="environments">
+  
+    <h4 id="h4__58687313" data-has-heading-anchor="true">AWS Servers Detail View<a href="aws.html#h4__58687313" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4><p>AWS Servers will display the IAM Profile ARN in the Amazon Web Services Details section of the Server Details, when an ARN exists for that server.</p>
+  
+</div>
+<div id="environments">
+  <hr/>
+  <h2 id="h2_1530476108" data-has-heading-anchor="true">
+    Environments
+  <a href="aws.html#h2_1530476108" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Each AWS Environment comes with tech-specific out-of-the-box Parameters and options to allow for easeful deployment and customization of AWS instances from CloudBolt. Networks and AMIs may also be imported for each Environment.
+  </p>
+  <p>
+    Find Tech-Specific AWS Parameters on the “AWS Parameters” tab on the Environment:
+  </p>
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          AWS Parameter Name
+        </th>
+        <th class="dxhe-resizable-table-cell">
+          Description
+          <br/>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          Availability Zone
+          <br/>
+        </th>
+        <td>
+          Allows you to optionally launch new AWS instances into a specific availability zone within a Region, to protect an application from the failure of a single Amazon data center.
+          <br/>
+        </td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          
+          Elastic IP
+        </th>
+        <td>
+          Allows you to specify an Elastic IP at provision time.
+        </td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          Dedicated Host
+          <br/>
+        </th>
+        <td><p>
+          Add this Parameter to an Environment to launch this instance onto the selected Dedicated Host. 
+          <br/>
+          <br/>
+          Note that either this <b>or</b> <i>Dedicated Host Group</i> should be selected, and if you enter a value for both, <i>Dedicated Host</i> will take precedence. These options will also not include any Host that has been added to a Host Resource Group, as AWS does not allow launching instances on those directly, instead requiring use of the Group.</p><p>See <a href="aws.html#h2_1457519068">Provision to Dedicated EC2 Hosts</a>.</p></td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          Dedicated Host Group
+          <br/>
+        </th>
+        <td><p>
+          Add this Parameter to an Environment to launch this instance into the selected Host Resource Group. 
+          <br/><br/>Note that either this or Dedicated Host should be selected, and if you enter a value for both the specific Dedicated Host will take precedence.</p><p>See&nbsp;<a href="aws.html#h2_1457519068">Provision to Dedicated EC2 Hosts</a>.<br/></p></td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          
+          Auto-Delete EBS Volumes on Termination
+        </th>
+        <td>
+          True by default, this sets your volumes to be deleted automatically when deleting the attached instance.
+        </td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          EBS Volume Type
+          <br/>
+        </th>
+        <td>
+          <p>
+            A required Parameter for specifying volume type when provisioning or adding a disk to an existing Server.
+          </p>
+          <div class="CHBoxShowMore">
+            <div class="showMoreLabel nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+              <i class="mdi mdi-chevron-down-box mr-2"></i><a href="javascript:void(0)">Available EBS Volume Types</a>    
+            </div>
+            <div class="hideLabel Article_hiddenBlock nonPrintable" style="margin-top: 10px; margin-bottom: 10px; cursor: pointer; display:table" onclick="toggleBox(this)">
+              <i class="mdi mdi-chevron-down-box mr-2"></i><a href="javascript:void(0)">Available EBS Volume Types</a>
+            </div>
+            <div class="showMoreContent Article_hiddenBlock" style="padding-left: 20px">
+              io1, gp2, 
+              
+                gp3,
+              
+              st1, sc1, standard
+            </div>
+          </div>
+          <p>
+            <br/>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          Instance Type
+        </th>
+        <td>
+          Allows you to designate the available instance type(s) at provision time.
+        </td>
+      </tr>
+      <tr style="height: 25px;">
+        <th class="dxhe-resizable-table-cell">
+          IOPS
+        </th>
+        <td>
+          Input/Output Operations Per Second. This Parameter is dependent on EBS Volume Type and is required for creating io1 volumes.
+        </td>
+      </tr>
+      <tr style="height: 4px;">
+        <th class="dxhe-resizable-table-cell">
+          
+          Key Pair Name
+        </th>
+        <td>
+          Name of a Key Pair defined in this Resource Handler. Stored on an instance during launch to enable secure key-based access.
+        </td>
+      </tr>
+      <tr>
+        <th class="dxhe-resizable-table-cell">
+          Security Groups
+        </th>
+        <td>
+          Allows you to predefine allowed Security Groups on the Order Form at provision time.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="environments">
+  <div class="alert alert-info">
+    <i class="mdi mdi-information"></i> An AWS Environment will discover which instance types, key pairs, and Security Groups are available.
+  </div>
+</div>
+<div id="environments">
+  <hr/>
+  <h2 id="h2__376160010" data-has-heading-anchor="true">
+    AWS Windows Instances
+  <a href="aws.html#h2__376160010" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  AWS for Windows has a few differences when running remote scripts.
+</div>
+<h3 id="h3_214486384" data-has-heading-anchor="true">
+  <br/>
+  AWS Windows VMs
+<a href="aws.html#h3_214486384" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; text-align: left; background-color: #ffffff;">Windows VMs on AWS allow providing a password for running remote scripts. This can be provided as described in the Remote Scripts&nbsp;<a href="passwords.html">Passwords</a> section. </span>
+</p>
+<p>
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif; text-align: left; background-color: #ffffff;">Either a password or SSH key may be given, depending on the VM and desired behavior. If a password is provided, CloudBolt will simply use it. If not, CloudBolt will attempt to obtain the Administrator password from EC2 using the provided SSH key, but that operation will only succeed if the VM is configured correctly in EC2 for get_password_data to be successful.</span>
+  <br/>
+</p>
+<p>
+  By default, AWS relies on&nbsp;<a href="ssh-keys.html">SSH Keys</a>&nbsp;to access VMs.
+</p>
+<h4 id="h4_1239360355" data-has-heading-anchor="true">
+  AWS Tech-Specific Script Execution
+<a href="aws.html#h4_1239360355" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  To run Remote Scripts on AWS&nbsp;without entering a&nbsp;username/password, enable&nbsp;<a href="aws-tech-specific-execution.html">Tech-Specific Script Execution</a>.
+</p>
+<div id="images">
+  <h2 id="h2_1291509812">
+  </h2>
+  <hr/>
+  <h2 id="h2_1291509812" data-has-heading-anchor="true">
+    Images
+  <a href="aws.html#h2_1291509812" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    When you import AMIs in CloudBolt, CloudBolt will create an OS Build for that AMI. If you import the corresponding AMI in other regions, CloudBolt will automatically reuse the pre-existing OS Build, and associate the newly imported AMI with it. This will only happen if the name of the OS Build has not been altered and matches the name of the AMI. However, CB Admins can edit the OS Build for an AMI to override that default behavior.
+  </p>
+</div>
+<div id="importing-and-viewing-aws-billing-data">
+  <h2 id="aws-billing">
+  </h2>
+  <hr/>
+  <h2 id="aws-billing" data-has-heading-anchor="true">
+    Importing and Viewing AWS Billing Data
+  <a href="aws.html#aws-billing" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In CloudBolt, you can import your AWS billing data and view billed costs for individual servers and CloudBolt groups.
+  </p>
+  
+</div>
+<h3 id="h3__1796431065" data-has-heading-anchor="true">
+  Set Up
+<a href="aws.html#h3__1796431065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+
+<ol>
+  <li>
+    First, set up an S3 bucket in AWS to have billing reports exported as .csv files. See&nbsp;<a href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-reports-gettingstarted-s3.html" target="_top">Setting Up an Amazon S3 Bucket for AWS Cost and Usage Reports</a>.
+  </li>
+  <li>
+    In CloudBolt, go to the detail view of the AWS Resource Handler associated with the account for which billing is being exported. 
+  </li>
+  <li>
+    Click &nbsp;<b>Edit Settings</b>&nbsp;&gt; enter the Name of the S3 bucket under&nbsp;<b>S3 billing bucket</b>.
+  </li>
+</ol>
+<p>
+  The recurring job&nbsp;Import Public Cloud Billing Data&nbsp;is set to automatically run once a month. You can configure its cron schedule to run at an opportune time after bills come in, or just run the job manually to sync existing billing data.
+</p>
+<h3 id="h3_1784390593" data-has-heading-anchor="true">
+  Viewing
+<a href="aws.html#h3_1784390593" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<div id="importing-and-viewing-aws-billing-data">
+  <p>
+    View billing summaries on the Billing tab of AWS Servers, AWS Resource Handlers, and Groups. 
+  </p>
+  <ul>
+    <li>
+      Groups Billing tabs will display a graph with data aggregated per-Resource Handler, where you’ll see the charges for EC2 instances within each Resource Handler for that group. 
+    </li>
+    
+    <li>
+      Servers will show billed charges for the instance only, excluding charges for any associated resources. 
+    </li>
+    
+    <li>
+      CloudBolt will also recommend reserved instances that can be purchased through the EC2 portal which can save money for individual instances. View these recommendations from the&nbsp;Billing&nbsp;tab on your Resource Handlers.
+    </li>
+  </ul>
+  <hr/>
+  
+    <p>
+    </p>
+    <h2 id="h2_1457519068" data-has-heading-anchor="true">
+      Provision to EC2 Dedicated Hosts
+    <a href="aws.html#h2_1457519068" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+    <p>
+      CloudBolt provides the ability to provision AWS VMs directly to one of your <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html" target="_blank">EC2 Dedicated Hosts</a>. If you would like the option to provision AWS VMs to an EC2 Dedicated Host, follow the steps below.
+    </p>
+    <div class="alert alert-info">
+      <i class="mdi mdi-information mr-2"></i><b>Note: </b>This feature is enabled using Tech-Specific Parameters for AWS. Choose a value for <b>either&nbsp;</b><i>Dedicated Host&nbsp;</i><b>or </b><i>Dedicated Host Group</i>. If both are given values, <i>Dedicated Host</i> will be the default.
+    </div>
+    <h3 id="h3_1644201065" data-has-heading-anchor="true">
+      Prerequisites
+    <a href="aws.html#h3_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>If using <b>Dedicated Host</b>&nbsp;in CloudBolt:</p>
+    <ul>
+      <li>
+        An AWS Dedicated Host.</li>
+      </ul>
+    <div>If using <b>Dedicated Host Group</b> in CloudBolt:</div><ul><li>
+        An AWS Dedicated Host Group with correct licensing.
+      </li>
+      <li>
+        At least one licensed AMI that is allocated to a Dedicated Host. This is required to provision into a Host Group. 
+        <ul>
+          <li>
+            Make note of the licensed AMI ID, as you will need it in CloudBolt.​
+          </li>
+          <li>
+            In AWS, search for License Manager &gt; Customer Managed Licenses.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="h3__64463965" data-has-heading-anchor="true">
+      Set up Dedicated Hosts in CloudBolt
+    <a href="aws.html#h3__64463965" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <ol>
+      <li>
+        In your AWS Resource Handler, click <b>Import AMIs</b> and select the AMI that is <b>not</b> licensed.
+        <ol>
+          <li>
+            If you select an AMI that is associated with a license configuration, during provisioning AWS will assume you want a Host <i>Group</i>&nbsp;and will give an error.
+          </li>
+        </ol>
+      </li>
+      <li>
+        Select an&nbsp;<b>Environment</b>.
+        <br/>
+      </li>
+      <li>
+        Navigate to the <b>AWS Parameters</b> tab.</li>
+      
+          <li>Click&nbsp;<b>Import</b>&nbsp;on the&nbsp;Parameter to bring in values from AWS. Once a Host is added to a Host Group in AWS, it&nbsp;will not appear in the Host Parameter options.</li>
+        <li>
+        <span>Cho</span>ose a value for <b>Dedicated Host</b>.</li>
+      <li>On the Order Form, select an option for Dedicated Host.</li>
+    </ol>
+    <h3 id="h3__1998087300" data-has-heading-anchor="true">
+      Set up Dedicated Host Groups in CloudBolt
+    <a href="aws.html#h3__1998087300" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <ol>
+      <li>
+        In your AWS Resource Handler, click&nbsp;<b>Import AMIs</b>&nbsp;and select the AMI that <b>is</b> licensed.
+      </li>
+      <li>
+        Select an&nbsp;<b>Environment</b>.
+        <br/>
+      </li>
+      <li>
+        Navigate to the&nbsp;<b>AWS Parameters</b>&nbsp;tab</li>
+      <li>Click&nbsp;<b>Import</b>&nbsp;on the Parameters to bring in values from AWS.</li>
+      <li>Choose a value for&nbsp;<b>Dedicated Host Group</b>.</li>
+      <li>On the Order Form, select a value for Dedicated Host Group.
+      </li>
+    </ol>
+    <div class="alert alert-info">
+      <i class="mdi mdi-information mr-2"></i>If there are no options for the Dedicated Host or Dedicated Host Group Parameters in a particular Environment, either because they haven't been imported yet or none exist, the Order Form will display a freeform text field. An error will show if an invalid object is entered.
+    </div>
+    <h3 id="h3__1998087300" data-has-heading-anchor="true"><br/>Error Messages
+    <a href="aws.html#h3__1998087300" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th style="width: 699px;" class="dxhe-resizable-table-cell">
+            CloudBolt Error Message
+            <br/>
+          </th>
+          <th style="width: 458px;" class="dxhe-resizable-table-cell">
+            Potential Cause
+            <br/>
+          </th>
+          <th style="width: 381px;" class="dxhe-resizable-table-cell">
+            Proposed Solution
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="width: 699px;" class="dxhe-resizable-table-cell">
+            <span class="inlineCode">An error occurred (InvalidParameterValue) when calling the RunInstances operation: Multiple resource groups match the host bound licenses in request for customer ------------.</span><div></div></th>
+          <td style="width: 458px;">An AMI was selected that is associated with a license configuration in a Dedicated Host Group&nbsp;and you did not select a Dedicated Host Group.</td>
+          <td style="width: 381px;">
+            Select another AMI that is not associated with a license configuration.<br/>
+          </td>
+        </tr>
+        </tbody>
+    </table>
+    <div>
+    </div>
+  
+</div>
+<div id="modifying-or-adding-volumes">
+  <hr/>
+  <h2 id="h2__1937479489" data-has-heading-anchor="true">
+    Modifying or Adding Volumes
+  <a href="aws.html#h2__1937479489" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    AWS has some specific Parameters associated with volumes that other Resource Handlers do not have. In addition to Disk Size, you  may also need to specify Parameters around EBS Volumes. 
+  </p>
+  <ul>
+    <li>
+      If you do not specify an EBS Volume Type it will default to gp2.
+    </li>
+    <li>
+      If adding an io1 volume, you will also need to specify an amount of IOPS which must be greater than 100. 
+    </li>
+    <li>
+      When creating a gp2 volume, the size must be greater than 4GB. When creating sc1 or st1 volumes, the size must be greater than 500GB. 
+    </li>
+    <li>
+      You can also specify if you want the Volume to be encrypted with AWS standard encryption.
+    </li>
+  </ul>
+  <p>
+    When placing a modification order to add or change disks in the API, these are the accepted Parameters:
+  </p>
+  <blockquote>
+    <div>
+      <div>
+        <div>
+          disk_size: The size to change the original volume to
+        </div>
+        <div>
+          new_disk_size: The size for the new volume to be added
+        </div>
+        <div>
+          ebs_volume_type: The ebs volume type for the new volume, currently accepted values are [io1, gp2, 
+          
+            gp3,
+          
+          st1, sc1, standard]
+        </div>
+        <div>
+          iops: Accepted when using io1 volume type
+        </div>
+        <div>
+          aws_volume_encryption: Submitted with True or False Boolean Value to encrypt the additional volume
+        </div>
+      </div>
+    </div>
+  </blockquote>
+</div>
+  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="alibaba-cloud.html" class="articleActions_link CHNavLinkPrevious">Alibaba Cloud</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="aws-govcloud-us-and-aws-china.html" class="articleActions_link CHNavLinkNext">AWS GovCloud (US) and AWS China</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

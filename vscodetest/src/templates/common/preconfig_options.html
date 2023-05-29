@@ -1,0 +1,64 @@
+{% extends "dialogs/dialog.html" %}
+{% load i18n %}
+
+{% block form_content %}
+    {{ formset.management_form }}
+    <p>{% trans "Define options which the user will be able to choose from." %}</p>
+
+    {{ formset.non_form_errors }}
+
+    <table id="preconfig-options" class="stats">
+        <thead>
+            <tr>
+                <th>{% trans "Option" %}</th>
+                <th>{% trans "Show" %}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% if not formset.total_form_count %}
+            <tr><td span=2><i>{% trans "No options available for this preconfiguration. Please use the global preconfigs page to add options to it." %}</i><td></tr>
+        {% endif %}
+
+        {% for form in formset %}
+            <tr>
+                {{ form.option_id }}
+                {{ form.option_label }}
+                <td>{{ form.option_label.value }}</td>
+                <td class="opt">{{ form.option_used }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+<p>&nbsp;</p>
+<div id="unconstrained" style="display:none" class="alert alert-success padding">
+    {% trans "<b>Unconstrained</b>: all options will be available, even new ones added later in the Admin." %}
+</div>
+<div id="constrained" style="display:none" class="alert alert-info padding">
+    {% trans "<b>Only the selected options</b> will be available; new ones added later in the Admin must be explicitly added to this environment." %}
+    {% trans "To unconstrain this preconfiguration, uncheck all boxes." %}
+</div>
+
+
+<script>
+function set_unconstrained() {
+    var num_checked = $('.opt input:checked').length;
+    if (num_checked == 0) {
+        $('#unconstrained').show();
+        $('#constrained').hide();
+    } else {
+        $('#constrained').show();
+        $('#unconstrained').hide();
+    }
+}
+
+$(function() {
+    $('#preconfig-options input[type=checkbox]').on('change', set_unconstrained);
+    set_unconstrained();
+    $('#preconfig-options').clickable();
+});
+</script>
+
+{% endblock form_content %}

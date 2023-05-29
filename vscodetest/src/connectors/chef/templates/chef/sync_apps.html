@@ -1,0 +1,37 @@
+{% comment %}
+    Dialog used by Chef -> Cookbooks and Roles tabs
+{% endcomment %}
+
+{% if discovered_apps %}
+    <p>
+    {{ discovered_apps|length }} new {{ app_type_name }}s were discovered.
+    </p>
+
+    <table id="discovered_apps" data-table="clickable">
+        <thead>
+            <tr>
+                <th> </th>
+                <th>{{ app_type_name.capitalize }} Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for app in discovered_apps %}
+            <tr>
+                <td><input name="app" type="checkbox" value="{{ app }}"/></td>
+                <td class="name">{{ app }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% else %}
+    <p>
+    Unable to locate any new {{ app_type_name }}s in Chef at this time.
+    </p>
+{% endif %}
+
+<script type="text/javascript">
+$(document).ready(function() {
+    c2.dataTables.init();
+});
+</script>

@@ -1,0 +1,43 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+<div id="group-details-environments">
+    {# comment would be nice to eventually make this look like the environment table, with icons for the RH, etc #}
+    <dl>
+        <dt>{% trans "Direct Environments:" %}</dt>
+        <dd>
+            {% if user_can_manage_environments %}
+                <div class="btn-toolbar">
+                    <a class="btn btn-default open-dialog"
+                        href="{% url 'group_edit_environments' group.id %}">
+                        <span class="icon-edit"></span>
+                        {% trans "Edit" %}
+                    </a>
+                </div>
+            {% endif %}
+            <div id="read_envs">
+                {{ group.environments.all|render_list:profile }} <br>
+            </div>
+        </dd>
+        <dt>{% trans "Inherited Environments:" %}</dt>
+        <dd>
+            <div id="read_inherited_envs">
+                {{ group.inherited_environments.all|render_list:profile }}
+            </div>
+        </dd>
+        <dt>
+            {% trans "Unconstrained Environments:" %}
+            {% if enable_multitenancy and profile.is_cbadmin %}
+                <div id="unconstrained_tenant_warning" style="font-weight: 100; font-size: 0.9em;" >
+                    {% trans "For a tenant-specific user, this list will show only environments in their tenant." %}
+                </div>
+            {% endif %}
+        </dt>
+        <dd>
+            <div id="read_unconstrained_envs">
+                {{ unconstrained_environments.all|render_list:profile }}
+            </div>
+        </dd>
+    </dl>
+</div>

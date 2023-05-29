@@ -1,0 +1,20 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block item_details_row %}
+    <div class="row">
+        <div class="col-sm-12">
+
+            <p>{% trans 'Blueprint-wide parameters available to all build items and/or the overall deployed resource' %}</p>
+
+            <table class="definitions">
+            </table>
+        </div><!-- col 1 -->
+
+    </div><!-- row -->
+
+{%  endblock item_details_row %}

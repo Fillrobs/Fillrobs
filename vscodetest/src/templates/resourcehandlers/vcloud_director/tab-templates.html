@@ -1,0 +1,78 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+{% for location in locations %}
+
+<div class="btn-toolbar pull-right">
+    <a class="btn btn-default open-dialog"
+        data-dialog-width="100%"
+        href="{% url 'resourcehandler_discover_templates_for_location' handler.id location.uuid %}"
+        id="discover-{{ location.name }}">
+        <span class="icon-import"></span>
+        Import templates
+    </a>
+</div>
+
+<h3>{{ location.name }} Organization</h3>
+
+<div class="clearfix"></div>
+
+<table id="templates-{{ location.name }}" data-table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>OS</th>
+            <th>Total Disk Size</th>
+            <th>Environments</th>
+            <th>Credentials</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for template in location.templates %}
+        <tr>
+            <td>
+                {{ template.name }}
+            </td>
+            <td>
+                {{ template.os_build.os_family|os_family_icon }} {{ template.os_build.name }}
+                <a href="{% url 'resourcehandler_change_osbuild' handler.id template.id location.uuid %}"
+                    class="icon-edit open-dialog"></a>
+            </td>
+            <td>
+                {{ template.total_disk_size|render_size_field:"disk_size" }}
+            </td>
+            <td>
+                {% for env in template.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+                <a title="Add template to some environments..."
+                    href="{% url 'link_template_to_envs' handler.id template.id %}"
+                    class="icon-edit open-dialog"></a>
+            </td>
+            <td>
+                {% template_credentials template template_label %}
+            </td>
+            <td>
+                <a class="icon-delete"
+                    href="{% url 'resourcehandler_delete_osba' handler.id template.id %}"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+{% empty %}
+    <div class="alert alert-warning">
+    This resource handler has no organizations associated with it.
+    Before importing templates, you must import at least one organization.
+    </div>
+{% endfor %}

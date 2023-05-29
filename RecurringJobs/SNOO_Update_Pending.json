@@ -1,0 +1,10 @@
+{
+    "description": null,
+    "enabled": true,
+    "label": "SNOO_Update_Pending",
+    "last_updated": "2022-07-13",
+    "name": "SNOO_Update_Pending",
+    "package_contents": [
+        "SNOO_Update_Pending/SNOO_Update_Pending.py",
+    ]
+}

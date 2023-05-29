@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div id="toggle-sync-{{ ta.id }}">
+    <input type=checkbox name=bidirectional_sync
+        data-toggle="toggle"
+        data-on="{% trans 'Bidirectional' %}"
+        data-off="{% trans 'Out Only' %}"
+        data-width="120"
+        data-post-url="{% url 'toggle_taggable_attribute_sync' ta.id %}"
+        {% if ta.bidirectional_sync == True %}checked{% endif %}
+        {% if disabled %}disabled{% endif %}
+    />
+</div>

@@ -1,0 +1,16 @@
+<h3>{{ iprange }}</h3>
+
+{% if resource_pool %}
+    <p>
+        Manage from the <a href="{{ network.get_resource_pool.get_absolute_url }}">
+        {{ network.get_resource_pool }}</a> resource pool page.
+    </p>
+
+{% else %}
+   <p>No resource pool present.</p>
+   <a class="btn btn-default open-dialog"
+       href="{% url 'network_add_pool' network.id %}">
+       <span class="icon-add"></span>
+       Add Range of IPs
+   </a>
+{% endif %}

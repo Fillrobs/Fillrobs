@@ -1,0 +1,71 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+    {% block actions %}
+    <a class="btn btn-default open-dialog" id="edit-osb"
+        href="{% url 'osbuild_edit' osb.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default open-dialog" id="delete-osb"
+        href="{% url 'osbuild_delete' osb.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+    {% endblock %}
+</div>
+
+<dl>
+  <dt>Name:</dt>
+  <dd>{{ osb.name}}</dd>
+
+  <dt>Description:</dt>
+  <dd>
+      <p {% if osb.description %} class="well well-sm" {% endif %}>
+          {{ osb.description|default:"<i>No description</i>" }}
+      </p>
+  </dd>
+
+  <dt>OS Family:</dt>
+  <dd>{{ osb.os_family|os_family_icon_html }}&nbsp;&nbsp;{{ osb.os_family }}</dd>
+
+  {% if global_rate %}
+    <dt>Global Rate:</dt>
+    <dd>
+      {% render_rate global_rate gp.rate_time_unit %}
+    </dd>
+  {% endif %}
+
+    <dt>
+        <span data-toggle="tooltip"
+              title="{% trans "Used to access this OS Build in the API" %}">
+            {% trans "Global ID" %}</span>:
+    </dt>
+    <dd>{{ osb.global_id }}</dd>
+
+  <dt><span title="Environments that expose this OS Build" data-toggle="tooltip">Environments</span>:</dt>
+  <dd>
+    <table class="numeric-stats" style="width: 400px">
+    {% for env in envs_with_rates %}
+        <tr>
+            <th>
+                {{ env|link_or_label:profile }}
+            </th>
+            <td>
+                {% if env.osb_rate %}
+                    {% render_rate env.osb_rate gp.rate_time_unit %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+  </dd>
+  {# profile.show_tenant_info is not used here, because this is the one details view where the tenant admins #}
+  {# can see global objects in addition to objects from their tenant #}
+  {% if enable_multitenancy %}
+      <dt>{% trans "Tenant:" %}</dt>
+      <dd>{{ osb.tenant|link_or_label_none_global:profile }}</dd>
+  {% endif %}
+</dl>

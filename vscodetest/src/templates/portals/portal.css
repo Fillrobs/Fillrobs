@@ -1,0 +1,226 @@
+body, html {
+    background: none repeat scroll 0 0 {{ portal.content_bg_color }};
+}
+body {
+    background-color: {{ portal.content_bg_color }}!important;
+    color: {{ portal.content_text_color }};
+}
+
+.catalog-filters--inner {
+    background-color: {{ portal.content_bg_color }};
+    color: {{ portal.content_text_color }};
+}
+
+{% if portal.heading_text_color %}
+    h1, h2, h3, h4, h5, h6 {
+        color: {{ portal.heading_text_color }};
+    }
+{% endif %}
+
+
+.security-message {
+    color: {{ portal.security_text_color }};
+    background-color: {{ portal.security_bg_color }};
+    font-size: 0.9em;
+    /* override default 1em padding */
+    padding: 0.5em;
+}
+
+/* Header Colors */
+#header {
+    color: {{ portal.topnav_text_color }};
+    background-color: {{ portal.topnav_bg_color }};
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Style top menu links but not those in submenus */
+#header nav.nav > div > li > a {
+    color: {{ portal.topnav_text_color }};
+    border-bottom: 4px solid rgba(196, 225, 255,0);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: open_sans,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    height: 100%;
+    padding: .6rem .4rem !important;
+    background-color: transparent;
+}
+
+#header nav.nav > div > li {
+    padding: 0 .5rem;
+}
+
+#header nav.nav > div > li a.submenu-btn {
+    cursor: pointer;
+    padding-left: .1rem !important;
+}
+
+
+
+{% if portal.custom_banner %}
+    #banner {
+        {% if portal.banner_bg_color %}
+            background-color: {{ portal.banner_bg_color }};
+        {% endif %}
+        width: 100%;
+    }
+
+    #banner div{
+        {# Image is actually inserted by templates/common/header.html #}
+        /* Keep logo proportional within max dimensions */
+        background: url("{{ portal.custom_banner.url }}") no-repeat center;
+        {% if portal.custom_banner.height %}
+            height: {{portal.custom_banner.height}}px;
+        {% else %}
+            height: 80px;
+        {% endif %}
+    }
+{% endif %}
+
+{% if portal.login_banner %}
+    .loginout #banner {
+        {% comment %}
+        NOTE: The login_banner.width does not work for JPEG files!
+        width: {{ portal.login_banner.width }}px;
+        {% endcomment %}
+
+        top: 100px;
+    }
+{% endif %}
+
+{% if portal.header_logo %}
+    .nav-header-tabs > div > li[data-topnav="dashboard"] a {
+        background-image: url({{portal.header_logo.url}});
+    }
+{% endif %}
+
+{% if portal.footer_logo %}
+    #footer .footer-logo div{
+        background: url({{portal.footer_logo.url}}) no-repeat center;
+        background-size: contain;
+        height: {{portal.footer_logo.height}}px;
+        max-height: 40px;
+    }
+{% else %}
+    #footer .footer-logo div{
+        background: url(/static/logos/cb-logo-footer.svg) no-repeat center;
+        height: 32px;
+        background-size: 6rem;
+    }
+{% endif %}
+
+{% if portal.loading_image %}
+    .spinner {
+        animation: pulse 1.3s infinite;
+        background: url({{portal.loading_image.url}}) no-repeat 0 0;
+        background-size: contain;
+    }
+{% endif %}
+
+{% if portal.login_background_image %}
+    .splash {
+        background: url({{portal.login_background_image.url}}) no-repeat center;
+        background-size: cover;
+    }
+{% endif %}
+/* Nav menu hover colors dynamically calculated based on header bg color */
+
+.nav-header-tabs > div > li > a:hover,
+.nav-header-tabs > div > li > a:focus,
+.nav-header-tabs > div > li.open > a,
+.nav-header-tabs > div > li.open > a:focus,
+.nav-header-tabs > div > li.open > a:hover {
+    background-color: transparent;
+    color: {{ portal.topnav_hover_bg_color }} !important;
+    border-bottom: 4px solid {{ portal.topnav_hover_bg_color }} !important;
+}
+
+.nav-header-tabs > div > li.active > a,
+.nav-header-tabs > div > li.active > a:focus {
+    background-color: transparent !important;
+    color: {{ portal.topnav_active_bg_color }} !important;
+    border-bottom: 4px solid {{ portal.topnav_active_bg_color }} !important;
+}
+
+
+/* Content styles */
+#tooltip-container .tooltip-inner {
+    color: {{ portal.tooltip_text_color }};
+    background-color: {{ portal.tooltip_bg_color }};
+    word-wrap: break-word;
+}
+
+
+/* Footer colors */
+#footer {
+    color: {{ portal.footer_text_color }};
+    background-color: {{ portal.footer_bg_color }};
+    min-height: 40px;
+    padding: 0.25rem;
+}
+
+/* Gradients from a bit lighter to a bit darker than the solid bg colors.
+ */
+#header .grad {
+    /*
+     * It would be simpler to overlay a semi-transparent dark gradient so it
+     * wouldn't need to be dynamically calculated, but would not work well on many
+     * colors (esp darker ones). */
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+#footer.grad {
+    background-image: linear-gradient(to bottom, {{ portal.footer_bg_grad_top }}, {{ portal.footer_bg_grad_bottom }});
+}
+
+.spinner-inline div {
+    display: inline-block;
+    background-color: {{ portal.topnav_hover_bg_color }};
+    width: 10px;
+    height: 10px;
+    border-radius: 4px;
+    -webkit-animation: spinner-inline 1s ease-in-out infinite;
+       -moz-animation: spinner-inline 1s ease-in-out infinite;
+         -o-animation: spinner-inline 1s ease-in-out infinite;
+            animation: spinner-inline 1s ease-in-out infinite;
+
+}
+
+.spinner-inline div:nth-child(2) {
+  animation-delay: 0.09s;
+}
+.spinner-inline div:nth-child(3) {
+  animation-delay: 0.18s;
+}
+.spinner-inline div:nth-child(4) {
+  animation-delay: 0.27s;
+}
+.spinner-inline div:nth-child(5) {
+  animation-delay: 0.36s;
+}
+
+@-webkit-keyframes spinner-inline {
+    0% { opacity:1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-moz-keyframes spinner-inline {
+    0% { opacity:1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@-o-keyframes spinner-inline {
+    0% { opacity:1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes spinner-inline {
+    0% { opacity:1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}

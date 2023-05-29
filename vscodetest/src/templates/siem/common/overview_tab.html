@@ -1,0 +1,32 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'edit_siem' siem.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'delete_siem' siem.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+    {% if siem.installation_status != "Installed" %}
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'install_siem_from_database' siem.id %}">
+        <span class="icon-cog"></span>
+        Install from database
+    </a>
+    {% endif %}
+</div>
+
+<dl>
+    {% if siem.installation_status != "Installed" %}
+        <dt>Installation Status:</dt>
+        <dd>{{ siem.installation_status }}</dd>
+    {% endif %}
+    {% for label, value in siem.summary_info.items %}
+        <dt>{{ label }}:</dt>
+        <dd>{{ value }}</dd>
+    {% endfor %}
+</dl>

@@ -1,0 +1,65 @@
+{% load i18n %}
+<div class="panel-body">
+    <form method="get">
+        <ul id="filters-container">
+            <li class="filter-field">
+              <span>{{ filters_form.start_date.label_tag }}</span>
+              <div class="input-group input-daterange daterange-group">
+                  {{ filters_form.start_date }}
+                  <div class="input-group-addon">{% trans "to" %}</div>
+                  {{ filters_form.end_date }}
+              </div>
+              <i id="daterange-error-message" class="daterange-error"></i>
+              {# All and Clear Buttons #}
+              <div id="daterange-selectize-toolbar" class="selectize-toolbar btn-group">
+                  <button class="select-all-options btn btn-default btn-xs" data-toggle="tooltip" data-test="history-filter-daterange-all" title="" data-original-title={% trans "Select all items" %}>
+                      <i class="fas fa-asterisk"></i>
+                  </button>
+                  <button class="select-no-options btn btn-default btn-xs" data-toggle="tooltip" data-test="history-filter-daterange-clear" title="" data-original-title={% trans "Clear selection" %}>
+                      <i class="fas fa-times"></i>
+                  </button>
+              </div>
+            </li>
+            <li class="filter-field">
+              {{filters_form.filter_by_owner.label_tag}}
+              {{filters_form.filter_by_owner}}
+            </li>
+            <li class="filter-field">
+              {{filters_form.filter_by_group.label_tag}}
+              {{filters_form.filter_by_group}}
+            </li>
+          </ul>
+          <ul id="filters-container">
+            <li class="filter-field">
+              {{filters_form.filter_by_status.label_tag}}
+              {{filters_form.filter_by_status}}
+            </li>
+            <li class="filter-field">
+              {{filters_form.filter_by_blueprint.label_tag}}
+              {{filters_form.filter_by_blueprint}}
+            </li>
+            <li class="filter-field">
+              {{filters_form.filter_by_environment.label_tag}}
+              {{filters_form.filter_by_environment}}
+            </li>
+          </ul>
+        <div class="btn-toolbar text-center">
+            <input type="button" class="btn btn-default" data-test="order-filter-clear" value="{% trans 'Clear' %}" id="unfilter"/>
+            <input type="submit" class="btn btn-primary" data-test="order-filter-submit" value="{% trans 'Apply' %}"/>
+        </div>
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    c2.datepicker.initDatePicker();
+</script>
+<style>
+  .filter-field {
+    width: 32% !important;
+    margin-right: 1%;
+  }
+  .filter-field input {
+    width: 100%;
+  }
+</style>

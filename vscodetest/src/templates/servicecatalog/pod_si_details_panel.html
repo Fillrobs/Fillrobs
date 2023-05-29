@@ -1,0 +1,85 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block si_icon %}icon-30 icon-container-orchestrator-{{service_item.cast.container_orchestrator.cast.type_slug}}{% endblock %}
+
+
+{%  block item_details_row %}
+    {% with podaction=service_item.cast %}
+    <div class="row">
+        <div class="col-sm-6">
+            <dl class="vertical">
+                <dt>{% trans 'Available Environments:' %}</dt>
+                {% if podaction.deploy_new_cluster and podaction.new_cluster_build_items %}
+                    <dd>Deploying to Kubernetes Cluster provisioned in <b>{{ podaction.new_cluster_build_item.name }}</b></dd>
+                {% elif podaction.environments.all.count > 0 %}
+                    <dd>{{ podaction.environments.all|join:", " }}</dd>
+                {% else %}
+                    <dd><i>Please add a "Kubernetes Cluster" resource to this Blueprint, or configure this Container Object to use an existing Environment.</i></dd>
+                {% endif %}
+
+                {% if podaction.images %}
+                    <dt>{% trans 'Images:' %}</dt>
+                    <dd>{{ podaction.images }}</dd>
+                {% endif %}
+
+                {% if managing %}
+                    {% include 'files/file_input_defaults.html' with obj_with_file=podaction edit_url="edit_service_item" %}
+                {% endif %}
+            </dl>
+        </div>
+        <div class="col-sm-6">
+            <dl class="vertical">
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                  {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+                {% if managing %}
+                    <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+                    <dd>
+                        {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+    {% if managing %}
+        <dl class="vertical">
+            <dt>
+            {% if podaction.config_file %}
+                {% trans 'Config file:' %}
+                <a href="{% url 'config_file_detail' podaction.config_file.id %}">{{ podaction.config_file.determine_name }}</a>
+            {% else %}
+                {% trans 'Config file (automatically generated):' %}
+            {% endif %}
+            </dt>
+            <dd ng-non-bindable>
+                {% if podaction.config_file.location_type == 'upload' and not blueprint.remote_source_url %}
+                    <a href="{% url 'edit_config_file_contents' podaction.config_file.id %}"
+                        data-dialog-width="1000"
+                        data-prevent-esc-closing="true"
+                        class="no-tooltip-affordance open-dialog">
+                        <span class="glyphicon glyphicon-edit"></span>
+                        {% trans 'Edit file contents' %}
+                    </a>
+                {% endif %}
+
+                {% infotip podaction.description %}
+
+                {% with content=podaction.config_file_content %}
+                    {% if content %}
+                        <div ng-non-bindable>
+                            <pre class="pre-scrollable lines-40"
+                            ><code class="language-yaml">{{ content }}</code></pre>
+                        </div>
+                        <script>hljs.initHighlightingOnLoad();</script>
+                    {% endif %}
+                {% endwith %}
+            </dd>
+        </dl>
+    {% endif %}
+    {% endwith %}
+{%  endblock item_details_row %}

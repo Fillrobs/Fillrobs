@@ -1,0 +1,61 @@
+{% extends "reports/internal/base.html" %}
+{% load form_tags %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block server_side_csv_export %}{% endblock %}
+
+{% block inlinecss %}
+    {% comment %}
+    Some layout tweaks.  Extension writers can override or inherit and extend
+    this block (using block.super) as desired.
+    {% endcomment %}
+
+    .form-section {
+        max-width: 600px;
+        margin: 2em 0;
+    }
+{% endblock %}
+
+{% block content %}
+    <h1>{{ pagetitle }}</h1>
+
+    {% if intro %}
+        <p class="intro">
+            {{ intro }}
+        </p>
+    {% endif %}
+
+
+    {% if form %}
+        <div class="form-section">
+
+            <form id="form-{{ report_slug|slugify }}" class="bootstrap3 form-horizontal" method="POST" action="">
+
+                {% comment %}
+                To make extension writing simpler, this template does the work
+                of getting a form helper to turn off rendering of the <form>
+                via crispy tag. Otherwise the submit button stops working.
+                {% endcomment %}
+                {% get_draw_without_form_tag_helper "draw_without_form_tag" %}
+
+                {% crispy form draw_without_form_tag %}
+
+                <button type="submit" class="btn btn-primary"><i class="fas fa-play"></i> {% trans "Run Report" %}</button>
+            </form>
+
+        </div>
+    {% endif %}
+
+
+    {% block report_content %}
+        <div id="chart-{{ report_slug|slugify }}" class="panel panel-default"></div>
+    {% endblock %}
+
+{% endblock %}
+
+
+{% block onReady %}
+    // Enable date picker widget on form fields
+    $('.render_as_datepicker').datepicker();
+{% endblock %}

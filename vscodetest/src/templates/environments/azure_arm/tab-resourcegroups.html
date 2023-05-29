@@ -1,0 +1,97 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default"
+            href="{% url 'discover_azure_arm_resourcegroups_for_env' environment.id %}">
+            <span class="icon-import"></span>
+            {% trans "Sync existing resource groups" %}
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'add_azure_arm_resourcegroup' environment.id %}">
+            <span class="icon-add"></span>
+            {% trans "Add " %}
+        </a>
+
+        <button
+            class="btn btn-default"
+            data-toggle="popover"
+            data-html="true"
+            data-content-selector="#resourcegroups-popover-content">
+            <span class="infotip"></span>
+        </button>
+        <div class="popover-content-el" id="resourcegroups-popover-content">
+            <p>{% blocktrans %}Azure Resource Groups contain resources under Azure's Resource 
+            Management deployment model. They are specific to a region, so importing 
+            them means associating them with a specific Environment.
+            To sync any Resource Groups that haven't already been synced, click
+            on the "Sync existing resource groups" button. This will also remove any 
+            Resource Groups that have been deleted from the Azure portal.{% endblocktrans %}
+            </p>
+            <p>{% blocktrans %}All Resource Groups are available when provisioning a server or 
+            configuring a Blueprint. To hide an existing resource group, toggle
+            its Availability to 'Disabled'.{% endblocktrans %}
+            </p>
+            <p>{% blocktrans %}Deleting a Resource Group will also delete it in Azure, which will 
+            delete any resources associated with it. That action cannot be undone.{% endblocktrans %}
+            </p>
+        </div>
+    </div>
+
+<div>
+    <div id="msg"></div>
+
+    <table id="group-list">
+        <thead>
+            <tr>
+                <th>{% trans "Availability" %} {% infotip _("Enable which resource groups are available when provisioning a server or configuring a Blueprint.") %}</th>
+                <th>{% trans "Resource Group" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td>
+                    <input class="toggleProperty" type="checkbox"
+                      data-href="{% url 'toggle_boolean_resourcegroup' object.id %}" name="is_active"
+                      {% if object.is_active %}checked="checked"{% endif %}
+                      {% if not profile.is_cbadmin %} disabled{% endif %}>
+                </td>
+                <td>
+                    {{ object }}
+                </td>
+                <td>
+                    <a class="icon-delete open-dialog"
+                        href="{% url 'delete_azure_arm_resourcegroup' object.id %}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+$(function() {
+    var $form = $('#group-list');
+
+    // Convert all checkboxes into toggle switches
+    $form.find('input[type=checkbox]').each(function() {
+        var $box = $(this);
+        $box.data('post-url', $box.attr('data-href') + "?prop=" + $box.attr('name'));
+        $box.bootstrapToggle({
+            'width': 100,
+            'on': '{% trans "Enabled" %}',
+            'off': '{% trans "Disabled" %}'
+        });
+    });
+
+    // Initialize now instead of with the html prop, so the checkboxes
+    // are formatted first.
+    $form.dataTable();
+
+    c2.toggles.enablePostOnChange('input[type=checkbox]');
+});
+</script>

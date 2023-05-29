@@ -1,0 +1,16 @@
+{# Used in various disk_details.html #}
+{% load i18n %}
+
+{% if "server.remove_disks" in profile.permissions or "server.resize_disks" in profile.permissions and allow_resize %}
+    <dt>{% trans 'Actions:' %}</dt>
+    <dd>
+        {% if "server.resize_disks" in profile.permissions and allow_resize %}
+            <a class="icon-edit open-dialog"
+                href="{% url 'server_resize_disk' disk.server.id disk.id position %}"></a>
+        {% endif %}
+        {% if "server.remove_disks" in profile.permissions %}
+            <a class="icon-delete open-dialog"
+                href="{% url 'server_delete_disk' disk.server.id disk.id %}"></a>
+        {% endif %}
+    </dd>
+{% endif %}

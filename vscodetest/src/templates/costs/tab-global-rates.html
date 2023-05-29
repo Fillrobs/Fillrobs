@@ -1,0 +1,168 @@
+{% load account_tags %}
+{% load helper_tags %}
+
+<span class="pull-right">
+    <a class="js-dialog-link icon-edit btn btn-default"
+        href="{% url 'edit_global_hw_rates' %}"
+        title="Edit global hardware rates"
+        data-toggle="tooltip"></a>
+</span>
+<h2>Hardware</h2>
+
+<table id="#resource-rates" class="table table-hover">
+    <thead>
+        <th>Resource</th>
+        <th class="text-right">Rate</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>CPU count</td>
+        <td class="numerical align-to-sort-heading">
+            {% render_rate global_cpus_rate units %}</td>
+    </tr>
+    <tr>
+        <td>Memory size (per GB)</td>
+        <td class="numerical align-to-sort-heading">
+            {% render_rate global_mem_rate units %}</td>
+    </tr>
+    <tr>
+        <td>Disk size (per GB)</td>
+        <td class="numerical align-to-sort-heading">
+            {% render_rate global_disk_rate units %}</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="clearfix"></div>
+<br/>
+
+<span class="pull-right">
+    <a class="js-dialog-link icon-edit btn btn-default"
+        {# accomodate looong OS Build names, e.g. AMIs #}
+        data-dialog-width="800px"
+        href="{% url 'edit_global_osbuild_rates' %}"
+        title="Edit global OS build rates"
+        data-toggle="tooltip"></a>
+</span>
+<h2>OS Builds</h2>
+<table id="osbuilds-table" class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th>Family</th>
+        <th class="text-right">Servers</th>
+        <th class="text-right">Rate</th>
+    </thead>
+    <tbody>
+        {% for os_rate in global_os_rates %}
+            <tr>
+                <td class="expand">
+                    {{ os_rate.os_build|render_link }}
+                </td>
+                <td class="shrink">{{ os_rate.family|os_family_icon }}
+                                   {{ os_rate.family.name|default:"Unknown" }}</td>
+                {# this column needs a bit of padding to line up with its header #}
+                <td class="numerical align-to-sort-heading">{{ os_rate.num_servers }}</td>
+                <td class="shrink text-right">
+                    {% render_rate os_rate.rate units %}
+                    &nbsp;
+                    <a class="icon-edit js-dialog-link"
+                        {# accomodate looong OS Build names, e.g. AMIs #}
+                        data-dialog-width="800px"
+                        href="{% url 'edit_global_osbuild_rates' %}?osb={{ os_rate.osbuild_id }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="clearfix"></div>
+<br/>
+
+<span class="pull-right">
+    <a class="js-dialog-link icon-edit btn btn-default"
+        data-dialog-width="800px"
+        href="{% url 'edit_global_application_rates' %}"
+        title="Edit global application rates"
+        data-toggle="tooltip"></a>
+</span>
+<h2>Applications</h2>
+<table id="applications-table" class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th class="text-right">Servers</th>
+        <th class="text-right">Rate</th>
+    </thead>
+    <tbody>
+        {% for app_rate in global_app_rates %}
+            <tr>
+                <td>{{ app_rate.label }}</td>
+                <td class="numerical align-to-sort-heading">
+                    {{ app_rate.num_servers }}
+                </td>
+                <td class="numerical align-to-sort-heading">
+                    {% render_rate app_rate.rate units %}
+                    &nbsp;
+                    <a class="icon-edit js-dialog-link"
+                        data-dialog-width="800px"
+                        href="{% url 'edit_global_application_rates' %}?app={{ app_rate.app_id }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="clearfix"></div>
+<br/>
+
+<span class="pull-right">
+    <a class="js-dialog-link icon-edit btn btn-default"
+        data-dialog-width="800px"
+        href="{% url 'edit_global_extra_rates' %}"
+        title="Edit global parameter rates"
+        data-toggle="tooltip"></a>
+</span>
+<h2>Parameters</h2>
+<table id="extra-table" class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th class="text-right">Servers</th>
+        <th class="text-right">Rate</th>
+    </thead>
+    <tbody>
+        {% for cf_rate in global_extra_rates %}
+            <tr>
+                <td>{{ cf_rate.label }}</td>
+                <td class="numerical align-to-sort-heading">
+                    {{ cf_rate.num_servers }}
+                </td>
+                <td class="numerical align-to-sort-heading">
+                    {% render_rate cf_rate.rate units %}
+                    &nbsp;
+                    <a class="icon-edit js-dialog-link"
+                        data-dialog-width="800px"
+                        href="{% url 'edit_global_extra_rates' %}?app={{ cf_rate.cf_id }}"></a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#osbuilds-table").dataTable({
+        aoColumnDefs: [
+            {sType: 'currency', aTargets: [3]}
+        ]
+    });
+    $("#applications-table").dataTable({
+        aoColumnDefs: [
+            {sType: 'currency', aTargets: [2]}
+        ]
+    });
+    $("#extra-table").dataTable({
+        aoColumnDefs: [
+            {sType: 'currency', aTargets: [2]}
+        ]
+    });
+});
+</script>

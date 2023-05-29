@@ -1,0 +1,27 @@
+{% comment %}
+Template renders a list of tabs or a TabGroup, defined as context variable `tabs`.
+{% endcomment %}
+
+<div class="tabs-wrapper">
+    <nav class="nav-boxed-tabs tabs">
+        <ul class="nav nav-boxed-tabs tabs__primary">
+            {% for tab in tabs %}
+                <li class="{% if forloop.first %}active{% endif %} tab" data-tab="{{tab.id}}" data-test="{{tab.id}}">
+                    <a href="#{{ tab.id }}" data-toggle="tab">
+                        {{ tab.label }}{{ tab.label_suffix }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+
+
+    <div class="tab-content">
+        {% for tab in tabs %}
+            <div id="{{ tab.id }}" class="tab-pane{% if forloop.first %} active{% endif %}">
+                {{ tab.render }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<script src="/static-b0175/js/moreTabs.min.js"></script>

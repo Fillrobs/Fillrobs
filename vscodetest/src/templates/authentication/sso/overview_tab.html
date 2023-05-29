@@ -1,0 +1,39 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link"
+       href="{% url 'edit_sso' sso.pk %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default js-dialog-link"
+       href="{% url 'edit_sso_certificates' sso.pk %}">
+        <span class="glyphicon glyphicon-certificate"></span>
+        Certificates
+    </a>
+    <a class="btn btn-default js-dialog-link"
+       href="{% url 'edit_sso_idp_metadata' sso.pk %}">
+        <span class="icon-upload"></span>
+        Upload IdP XML
+    </a>
+    <a class="btn btn-default"
+       href="{% url 'sso_metadata_download' sso.pk %}">
+        <span class="glyphicon glyphicon-download"></span>
+        Download Metadata XML
+    </a>
+    <a class="btn btn-default js-dialog-link"
+       href="{% url 'delete_sso' sso.pk %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+<div>
+    <dl>
+        <dt>Technology:</dt>
+        <dd>{{ summary_info.sso_provider_name }}</dd>
+        <dt>Single Sign-On URL:</dt>
+        <dd>{{ summary_info.sso_url | clippable }}</dd>
+        <dt>Metadata URL / Entity ID:</dt>
+        <dd>{{ summary_info.metadata_url | clippable }}</dd>
+    </dl>
+</div>

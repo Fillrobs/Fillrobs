@@ -1,0 +1,418 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('continuous-infrastructure-testing',true);});
+//--></script><title>Continuous Infrastructure Testing (CIT)</title><script type="text/javascript">//<!--
+var articleTitleText='Continuous Infrastructure Testing (CIT)';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Continuous Infrastructure Testing (CIT)</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">Using CloudBolt</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="orchestration.html">Orchestration</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Continuous Infrastructure Testing (CIT)</span></span>
+  </div><h1 id="h1_1972318159" data-has-heading-anchor="true">
+  Continuous Infrastructure Testing (CIT)
+<a href="continuous-infrastructure-testing.html#h1_1972318159" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p id="what-is-cit">
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;" data-children-count="1">Continuous Infrastructure Testing (CIT) can execute end-to-end functional tests on the elements of your virtualization environment that are most sensitive to change. You can create CIT tests that can be scheduled or run on demand and the feature provides web-based reporting and test management.&nbsp;<ul class=""><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2__1475108292">How Does It Work?</a></li><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2__1990620654">Why Is It Useful?</a></li><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2__407982997">Functional Test Description</a></li><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2_1994998491">Getting Started with CIT</a></li><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2_598202920">Running Tests</a></li><li class="CHMiniToc_heading2"><a href="continuous-infrastructure-testing.html#h2__293158085">Interpreting Test Results</a></li></ul><a href="recurring-jobs.html"></a></span></p>
+<p id="what-is-cit">
+</p>
+<div id="how-does-it-work">
+  <h2 id="h2__1475108292" data-has-heading-anchor="true">
+    How Does It Work?
+  <a href="continuous-infrastructure-testing.html#h2__1475108292" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CIT can ensure that your environment is working correctly by re-running previously successful orders and making sure that they still succeed. Action tests can also be used to test anything you can write an action for. You can be immediately notified of test failures via email.
+  </p>
+</div>
+<div id="why-is-it-useful">
+  <h2 id="h2__1990620654" data-has-heading-anchor="true">
+    Why Is It Useful?
+  <a href="continuous-infrastructure-testing.html#h2__1990620654" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Modern virtualized IT environments are constantly changing. The unexpected effects of changes to storage, network, server configuration, passwords, DNS, VM images, and applications can cause failures in your VM environment.
+  </p>
+  <p>
+    Rather than testing infrastructure components in isolation, CIT executes end-to-end functional tests against the VM environment using the CloudBolt web interface. If the Continuous Infrastructure Tests pass, you have proven that all of the systems that participate in provisioning and decommissioning are functioning. Depending on your environment, these systems may include:
+  </p>
+  <ul>
+    <li>
+      Network
+    </li>
+    <li>
+      Storage
+    </li>
+    <li>
+      Virtualization host systems
+    </li>
+    <li>
+      Public cloud providers
+    </li>
+    <li>
+      DNS
+    </li>
+    <li>
+      Asset tracking systems
+    </li>
+    <li>
+      Monitoring systems
+    </li>
+    <li>
+      Backup systems
+    </li>
+    <li>
+      Hostname reservation systems
+    </li>
+    <li>
+      Change management systems
+    </li>
+    <li>
+      Other infrastructure CloudBolt is managing
+    </li>
+  </ul>
+  <p class="text-danger">
+    <i class="mdi mdi-alert mr-2"></i> If a Continuous Infrastructure Test fails, follow steps to <a href="continuous-infrastructure-testing.html#h3_730476978">Fixing Tests</a>.
+  </p>
+</div>
+<div id="functional-test-description">
+  <h2 id="h2__407982997" data-has-heading-anchor="true">
+    Functional Test Description
+  <a href="continuous-infrastructure-testing.html#h2__407982997" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CIT’s provision and decommission tests, based on orders, verify that the following actions complete as expected:
+  </p>
+  <ul>
+    <li>
+      Provision a server or resource with specified parameters
+    </li>
+    <li>
+      Install any applications included in the original order
+    </li>
+    <li>
+      Execute enabled orchestration hooks
+    </li>
+    <li>
+      Test the expected status and output of jobs
+    </li>
+    <li>
+      Decommission the server
+    </li>
+  </ul>
+  <p>
+    Action tests can be used to verify any aspect of your environment that is not dependent on provisioning, whether that’s connecting to an external system for a status or just wanting to make sure your scripts are running successfully.
+  </p>
+</div>
+<div id="getting-started-with-cit">
+  <h2 id="h2_1994998491" data-has-heading-anchor="true">
+    Getting Started with CIT
+  <a href="continuous-infrastructure-testing.html#h2_1994998491" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In order to make use of the CloudBolt CIT feature, start by creating your tests. A CIT test can be made from either an action or an order.
+  </p>
+  <div id="create-tests-from-orders">
+    <h3 id="h3__412922478" data-has-heading-anchor="true">
+      Create tests from orders
+    <a href="continuous-infrastructure-testing.html#h3__412922478" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      When creating CIT tests from orders, CIT operates by re-running previously successful or failed orders. So, the first step is to create these orders.
+    </p>
+    <ol>
+      <li>
+        Create a new order and ensure it gets submitted and approved.
+      </li>
+      <li>
+        Follow the job progress to make sure the order completes.
+      </li>
+      <li>
+        Once the order has completed, a new button will appear on the order details page labeled&nbsp;Add to CIT. This will add a CIT test for this order.
+      </li>
+    </ol>
+  </div>
+  <div id="create-tests-from-actions">
+    <h3 id="h3_1623189218" data-has-heading-anchor="true">
+      Create tests from actions
+    <a href="continuous-infrastructure-testing.html#h3_1623189218" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <ol>
+      <li>
+        Go to&nbsp;Admin&nbsp;&gt;&nbsp;Continuous Infrastructure Testing
+      </li>
+      <li>
+        Click on&nbsp;New Action Test, located near the top of the page.
+      </li>
+      <li>
+        From here, you may choose an existing action or create a new one.
+      </li>
+    </ol>
+  </div>
+</div>
+<div id="running-tests">
+  <h2 id="h2_598202920" data-has-heading-anchor="true">
+    Running Tests
+  <a href="continuous-infrastructure-testing.html#h2_598202920" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    To run the Continuous Infrastructure Tests manually:
+  </p>
+  <ol>
+    <li>
+      In the CloudBolt web interface, click the&nbsp;Admin&nbsp;tab.
+    </li>
+    <li>
+      In the&nbsp;Orchestration&nbsp;section, click the&nbsp;Continuous Infrastructure Testing&nbsp;link.
+    </li>
+    <li>
+      The&nbsp;Continuous Infrastructure Testing&nbsp;list page loads.
+    </li>
+    <li>
+      Click&nbsp;Execute Tests&nbsp;to run either all tests or a subset based on labels, or click a play button for individual testing.
+    </li>
+  </ol>
+  <div id="scheduling-tests">
+    <h3 id="h3__1011062075" data-has-heading-anchor="true">
+      Scheduling Tests
+    <a href="continuous-infrastructure-testing.html#h3__1011062075" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      To set the schedule for your Continuous Infrastructure Tests, edit the schedule for the “Run all CIT Tests” recurring job. See&nbsp;<a href="recurring-jobs.html">Recurring Jobs</a>&nbsp;for more details on scheduling.
+    </p>
+    <div id="owner-of-test-jobs-orders">
+      <h4 id="h4__979374547" data-has-heading-anchor="true">
+        Owner of Test Jobs &amp; Orders
+      <a href="continuous-infrastructure-testing.html#h4__979374547" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+      <p>
+        By default, when CIT tests are run by the recurring job, the jobs and orders that they create will not have an owner. If you need those jobs and orders to have an owner, you can use the&nbsp;Edit CIT Settings&nbsp;button on the&nbsp;Continuous Infrastructure Testing&nbsp;page to select a default owner for your CIT tests. When configured, CIT runs triggered by the recurring job will use that user as the owner for all their jobs and orders. We recommend that if you set a default owner for CIT tests, you may want to use a user with a name that makes it obvious it is not an actual human initiating these tests, such as cit_owner. Please also ensure that the selected user has any permissions necessary for your particular tests, although there are not any specific requirements out-of-the-box.
+      </p>
+      <p>
+        Note that when tests are run manually the user who started them will always be the owner, regardless of whether a default CIT owner is configured.
+      </p>
+    </div>
+  </div>
+  <div id="retrying-tests">
+    <h3 id="h3_1541638477" data-has-heading-anchor="true">
+      Retrying Tests
+    <a href="continuous-infrastructure-testing.html#h3_1541638477" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      To make a test automatically retry on failure, edit the test details and set the “Max Retries” attribute. The test will automatically rerun until the test passes or the max number of retries is met. Tests that initially failed but succeeded on retry will be marked with a status of “Warning” instead of “Failure”.
+    </p>
+    <p>
+      CIT will wait for 10 minutes (default) before rerunning failed tests. To change the default, click&nbsp;<b>Edit CIT Settings</b>.
+    </p>
+  </div>
+  <div id="fixing-tests">
+    <h3 id="h3_730476978" data-has-heading-anchor="true">Fixing Tests<a href="continuous-infrastructure-testing.html#h3_730476978" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>Although there is currently no way to modify the original Order that was used to create the test (and therefore unable to modify the original test directly), the following steps below can be used to provide a workaround solution to fix failing tests.</p>
+    <ol>
+      <li>From the <b>Jobs</b> page, click on the Job that is failing.</li>
+      <li>On the <b>Jobs / &lt;Job Name&gt;</b> page, click on "Order # &lt;number&gt; &lt;Job Title&gt;" at the top of the Content box.</li>
+      <li>You will be re-directed to the original <b>Order </b>page.</li>
+      <li><b>Duplicate the Order</b>.</li>
+      <li><b>Make the required modifications </b>(refer to Job logs for failures).</li>
+      <li><b>Run the Order</b> and verify a successful run.</li>
+      <li><b>Create a new CIT test </b>from the duplicated Order's result.</li>
+      <li><b>Delete the original failing CIT test</b>.</li>
+    </ol>
+  </div>
+  <div id="emailing-reports">
+    <h3 id="h3_638864729" data-has-heading-anchor="true">
+      Emailing Reports
+    <a href="continuous-infrastructure-testing.html#h3_638864729" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      CloudBolt can email the results of Continuous Infrastructure Tests to one or more recipients. To configure email reports:
+    </p>
+    <ol>
+      <li>
+        In the CloudBolt web interface, click the&nbsp;Admin&nbsp;tab.
+      </li>
+      <li>
+        In the&nbsp;Miscellaneous Settings&nbsp;section’s “CB Admin E-mail” field, type a comma-separated list of the email addresses you want CloudBolt to send Continuous Infrastructure Test reports to.
+      </li>
+      <li>
+        Click&nbsp;Save changes.
+      </li>
+    </ol>
+    <p>
+      CloudBolt will email the results of Continuous Infrastructure Tests on failure.
+    </p>
+  </div>
+  <div id="parallel-execution-of-tests">
+    <h3 id="h3_1164676617" data-has-heading-anchor="true">
+      Parallel Execution of Tests
+    <a href="continuous-infrastructure-testing.html#h3_1164676617" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      CIT is able to run groups of tests in parallel. It will look for tests with a label like “serialgroup:&lt;group name&gt;” and run the tests within the same group (exact same label) in serial, while letting the different groups run in parallel. Unlabelled tests will be treated as an implicit group, running in serial amongst themselves but at the same time as any defined groups. If you do not use any labels starting with “serialgroup:”, all CIT tests will run in serial.</p><table class="warningBox" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+	  <td class="warningBoxImageCell">
+	    <img alt="Warning" src="../Storage/cloudbolt-docs/warning.png"/>
+	  </td>
+	  <td>Do not attempt to add more than one label starting with “serialgroup:” to any test. Each test can only be in one serial group.&nbsp;<br/></td></tr></tbody></table><p>
+    </p>
+    <div>
+      
+    </div>
+  </div>
+</div>
+<div id="id4">
+  <h2 id="h2__293158085" data-has-heading-anchor="true">
+    Interpreting Test Results
+  <a href="continuous-infrastructure-testing.html#h2__293158085" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In the&nbsp;Progress&nbsp;section of the&nbsp;Job Details&nbsp;page, you will see detailed output for each test. There you will see important details about failures and successes as well as links to any relevant jobs.
+  </p>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="vrealize-orchestrator.html" class="articleActions_link CHNavLinkPrevious">VMware vRealize Orchestrator</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="infrastructure-health-checking-with-cit.html" class="articleActions_link CHNavLinkNext">Infrastructure Health Checking with CIT</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

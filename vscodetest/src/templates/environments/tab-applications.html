@@ -1,0 +1,27 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+<H3>{% trans "Applications provided by" %} <a href="{{ app_provider.get_absolute_url }}#apps">{{ app_provider.name }}</A></H3>
+
+<table id="env-apps" data-table>
+    <thead>
+      <th>{% trans "Application name" %}</th>
+        {% if not connector %}
+        <th>{% trans "OS Builds" %}</th>
+        {% endif %}
+        <th>{% trans "Server count" %}</th>
+    </thead>
+    <tbody>
+        {% for app in apps %}
+        <tr>
+            <td class="name">{{ app.name }}</td>
+            {% if not connector %}
+                <td class="osbuilds">
+                    {{ app.os_builds.all|render_osbuild_list }}
+                </td>
+            {% endif %}
+            <td>{{ app.get_active_server_count }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

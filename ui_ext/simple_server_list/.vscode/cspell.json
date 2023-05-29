@@ -1,0 +1,4 @@
+{
+    "ignoreWords": ["cbadmin","boto"],
+    "enabled": true
+}

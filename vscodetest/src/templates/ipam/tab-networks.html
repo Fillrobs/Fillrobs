@@ -1,0 +1,59 @@
+{% load rh_tags helper_tags i18n %}
+<div class="btn-toolbar">
+    <p>Network CIDRs from your IPAM system.</p>
+    <a class="btn btn-default open-dialog"
+       data-dialog-width="1000px"
+       href="{% url 'ipam_import_networks' ipam.id %}"
+       id="import-projects">
+        <span class="icon-import"></span>
+        Import IPAM Networks
+    </a>
+</div>
+
+<table id="networks" data-table>
+    <thead>
+    <tr>
+        <th>CIDR</th>
+        <th>Resource Handler Networks {% infotip "Any Resource Handler networks added to this list will delegate IP management to this IPAM network." %}</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for network in ipam.network_list %}
+        <tr>
+            <td>{{ network.CIDR }}{% if network.cast.section_name %} - {{ network.cast.section_name }}{% endif %}</td>
+            <td>
+                <div style="float:left; padding-right: 10px;">
+                    {% if not network.is_available_for_import %}
+                    <a class="icon-edit open-dialog"
+                       href="{% url 'ipam_network_mapping_edit' ipam.id network.id %}"
+                       title="{% trans 'Modify Resource Network Associations' %}">
+                    </a>
+                    {% endif %}
+                </div>
+                {% if network.resource_networks.exists %}
+                    <div style="float:left;">
+                        {% for resource_network in network.resource_networks.all %}
+                              {% if not forloop.last %}
+                                  <a href="{% url 'network_detail' resource_network.id %}">{{ resource_network }}</a>,
+                              {% else %}
+                                  <a href="{% url 'network_detail' resource_network.id %}">{{ resource_network }}</a>
+                              {% endif %}
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    None
+                {% endif %}
+            </td>
+            <td>
+                {% if not network.is_available_for_import %}
+                <a class="icon-delete" href="{% url 'ipam_remove_network' ipam.id network.id %}">
+                {% else %}
+                <a class="{{ network.action_icon }}" href="{{ network.action_url}}">
+                {% endif %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

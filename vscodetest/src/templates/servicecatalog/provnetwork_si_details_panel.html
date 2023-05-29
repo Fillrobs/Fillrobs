@@ -1,0 +1,54 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block item_details_row %}
+    <div class="row">
+        <div class="col-sm-6">
+
+            {% if service_item.description %}
+                <p>{{ service_item.description }}</p>
+            {% endif %}
+
+            <dl class="vertical">
+                <dt>{% trans 'IPv4 Block' %} {% blockinfotip %} {% trans 'IPv4 address range in CIDR notation' %}{% endblockinfotip %}</dt>
+                <dd>
+                    {{ service_item.ipv4_block }}
+                </dd>
+
+                {% if service_item.name_template %}
+                    <dt>{% trans 'Name template:'</dt>
+                    <dd ng-non-bindable>{{ service_item.name_template }}</dd>
+                {% endif %}
+
+                <dt>{% trans 'Server Tiers' %} {% blockinfotip %}{% trans "This network will be available only to servers within these tiers." %}{% endblockinfotip %}:</dt>
+                <dd>
+                    {% if service_item.servers.all %}
+                        {{ service_item.servers.all|render_list }}
+                    {% else %}
+                        <i>{% trans 'None' %}</i>
+                    {% endif %}
+                </dd>
+            </dl>
+        </div>
+
+        <div class="col-sm-6">
+            <dl class="vertical">
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                  {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+                {% if managing %}
+                    <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+                    <dd>
+                        {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+
+{%  endblock item_details_row %}

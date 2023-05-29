@@ -1,0 +1,46 @@
+{% block content %}
+    {% if data_protection %}
+        <h1>{{ data_protection }}</h1>
+    {% else %}
+        <h1>Data Protection</h1>
+    {% endif %}
+
+    {% if data_protection %}
+
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+               href="{% url 'dataprotection_edit' data_protection.id %}">
+                <span class="icon-edit"></span>
+                Edit Credentials
+            </a>
+            <a class="btn btn-default open-dialog"
+               href="{% url 'dataprotection_delete' data_protection.id %}">
+                <span class="icon-delete"></span>
+                Remove&hellip;
+            </a>
+            <a class="btn btn-default open-dialog verify"
+               href="{% url 'dataprotection_verify_connection' data_protection.id %}">
+                <span class="icon-verify-connection"></span>
+                Verify Connection
+            </a>
+        </div>
+
+        <dl>
+            <dt>Technology:</dt><dd>{{ data_protection.dataprotection_technology.name }}</dd>
+            <dt>IP Address:</dt><dd>{{ data_protection.ip }}</dd>
+            <dt>Username:</dt><dd>{{ data_protection.serviceaccount }}</dd>
+        </dl>
+
+    {% else %}
+        <div class="alert alert-info">
+            <p>No data protection solution has been added yet.</p>
+        </div>
+        <br>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog" href="{% url 'dataprotection_add' %}">
+                <span class="icon-add"></span>
+                Add Data Protection
+            </a>
+        </div>
+    {% endif %}
+{% endblock content %}

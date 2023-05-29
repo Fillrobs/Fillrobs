@@ -1,0 +1,56 @@
+{% load helper_tags %}
+{% load account_tags %}
+{% load i18n %}
+
+<div class="chart">
+    <div id="cost-by-top-users">
+    </div>
+    <div>
+        {# Give the .chart class something to start with; otherwise it doesn't get applied #}
+        &nbsp;
+    </div>
+</div>
+
+<script>
+$(function() {
+
+$('#cost-by-top-users').highcharts({
+    chart: {type: 'column'},
+    title: {text: '{% trans "Cost of Top Users" %}'},
+    series: [{
+        data: {{ rates|to_json }},
+        showInLegend: false
+    }],
+    yAxis: {
+        min: 0,
+        title: {text: '{{ currency }}/{{ rate_time_unit }}'}
+    },
+    xAxis: {
+        categories: {{ users|to_json }}
+        {% comment %}
+            (Also need to change the 'users' context var to be UserProfile objects.)
+
+        [
+            {% for profile in users %}
+                '{% rich_gravatar profile 32 %}' {% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ]
+
+        {% endcomment %}
+    },
+    tooltip: {
+        headerFormat: '{point.key}: ',
+        pointFormat: '<b>{{ currency }}{point.y:.02f}/{{ rate_time_unit }}</b>',
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            legend: false
+        }
+    },
+    credits: false,
+    exporting: false
+});
+
+});
+</script>

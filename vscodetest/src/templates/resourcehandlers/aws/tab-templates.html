@@ -1,0 +1,80 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+{% for region in regions %}
+
+<div class="btn-toolbar pull-right">
+    <a class="btn btn-default open-dialog"
+        data-dialog-width="100%"
+        href="{% url 'resourcehandler_discover_amis' handler.id region.name %}"
+        id="discover-{{ region.name }}">
+        <span class="icon-import"></span>
+        Import AMIs
+    </a>
+</div>
+
+<h3>{{ region.name|region_display_name }} Region</h3>
+
+<div class="clearfix"></div>
+
+<table id="templates-{{ region.name }}" data-table>
+    <thead>
+        <tr>
+            <th>AMI ID</th>
+            <th>AMI Name</th>
+            <th>OS Build</th>
+            <th>Total Disk Size</th>
+            <th>Architecture</th>
+            <th>Root Device Type</th>
+            <th>Environments</th>
+            <th>Credentials</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ami in region.amis %}
+        <tr>
+            <td class="id">{{ ami.ami_id }}</td>
+            <td class="name">{{ ami.os_name }}</td>
+            <td>
+                {{ ami.os_family|os_family_icon }}
+                <a href="{{ ami.os_build.get_absolute_url }}">{{ ami.os_build.name }}</a>
+                <a href="{% url 'resourcehandler_change_osbuild' handler.id ami.id region.name %}"
+                    class="icon-edit open-dialog"></a>
+            </td>
+            <td>
+                {{ ami.total_disk_size|render_size_field:"disk_size" }}
+            </td>
+            <td>{{ ami.arch }}</td>
+            <td>{{ ami.root_device_type }}</td>
+            <td>
+                {% for env in ami.envs %}
+                {% if forloop.last %}
+                {{ env|link_or_label:profile }}
+                {% else %}
+                {{ env|link_or_label:profile }},
+                {% endif %}
+                {% empty %}
+                None
+                {% endfor %}
+                <a title="Add AMI to some environments..."
+                    href="{% url 'link_amis_to_envs' handler.id ami.id %}"
+                    class="icon-edit open-dialog"></a>
+            </td>
+            <td>
+                {% template_credentials ami 'AMI' %}
+            </td>
+            <td>
+                <a class="icon-delete"
+                    href="{% url 'resourcehandler_delete_osba' handler.id ami.id %}"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% empty %}
+    <div class="alert alert-warning">
+    This resource handler has no EC2 regions associated with it.
+    Before importing AMIs, you must import at least one region.
+    </div>
+{% endfor %}

@@ -1,0 +1,60 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+<table class="{{ table_classes }}">
+    <thead>
+        {% if show_header %}
+          <tr>
+            <th>{% trans "Order" %}</th>
+            {% if 'Type' in columns %}
+                <th>{% trans "Type" %}</th>
+            {% endif %}
+            {% if 'Status' in columns %}
+                <th>{% trans "Status" %}</th>
+            {% endif %}
+            {% if 'Group' in columns %}
+                <th>{% trans "Group" %}</th>
+            {% endif %}
+            {% if 'Owner' in columns %}
+                <th>{% trans "Owner" %}</th>
+            {% endif %}
+            {% if with_actions %}
+                <th>{% trans "Actions" %}</th>
+            {% endif %}
+          </tr>
+        {% endif %}
+    </thead>
+    <tbody>
+        {% for order in orders %}
+            <tr>
+                <td><a href="{{ order.get_absolute_url }}">#{{ order.id }}</a></td>
+                {% if 'Type' in columns %}
+                    <td>{{ order|order_pictograph }}</td>
+                {% endif %}
+                {% if 'Status' in columns %}
+                    <td>{{ order|order_status_icon }}</td>
+                {% endif %}
+                {% if 'Group' in columns %}
+                    <td>{{ order.group }}</td>
+                {% endif %}
+                {% if 'Owner' in columns %}
+                    <td>
+                        {% if order.owner %}
+                            {% rich_gravatar order.owner.user 32 %}
+                            {{ order.owner }}
+                        {% endif %}
+                    </td>
+                {% endif %}
+                {% if with_actions %}
+                    <td>{% order_actions %}</td>
+                {% endif %}
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="{{ columns|length }}" class="centered">{% trans "No orders" %}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,7 @@
+{% load helper_tags %}
+
+<a class="open-dialog"
+    href="{% url 'video_tip' video_id video_name %}?doc_link={{ doc_link|urlencode }}&bottom_content={{ bottom_content|urlencode }}"
+    data-dialog-width="700">
+    <i class="icon-videotip no-tooltip-affordance" data-toggle="tooltip" title="Watch a video demonstrating {{ video_name }}"></i>
+</a>

@@ -1,0 +1,157 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<p class="help-block" style="margin:10px">{{ top_message }}</p>
+
+{% if product_pie_values or product_series_values %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="chart-product-pie" class="panel panel-default" style="height: 400px"></div>
+        </div>
+        <div class="col-lg-6">
+            <div id="product-series-chart" class="panel panel-default" style="height: 400px"></div>
+        </div>
+    </div>
+{% endif %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div id="chart-spending-bar" class="panel panel-default" style="height:400px"></div>
+        </div>
+    </div>
+
+<script>
+    var colors = [
+        '#a8ddb5',
+        '#7bccc4',
+        '#4eb3d3',
+        '#2b8cbe',
+        '#0868ac',
+      ];
+    // The product type pie chart for last month
+    var $pieChart = $('#chart-product-pie');
+    var pieCategories = {{ product_pie_categories|to_json }};
+    var pieValues = {{ product_pie_values|to_json }};
+    var pieRows = _.zip(pieCategories, pieValues);
+
+    c2.charts.pie($pieChart, {
+      colors: colors,
+      title: {text: "Last Month's Spending by Service (Top 3)"},
+        series: [{
+            type: 'pie',
+            name: "Cost ({{ rate_currency_unit }})",
+            data: pieRows,
+            showInLegend: true,
+            size: '80%',
+            innerSize: '60%'
+        }],
+        plotOptions: {
+            pie: {
+                shadow: false,
+                center: ['50%', '50%'],
+                // Hide all labels but include tech names in legend
+                dataLabels: {
+                  enabled: true,
+                  format: '{point.name} <br> {point.percentage:.1f}%',
+                },
+                point: {
+                    events: {
+                        legendItemClick: function(e) {
+                            e.preventDefault();
+                        }
+                    }
+                }
+            }
+        },
+        tooltip: {
+            pointFormat: '<b>{{ currency_symbol }} {point.y:.2f}</b> {series.name}'
+        },
+        credits: { enabled: false },
+        exporting: false,
+    });
+
+    // The product type series chart for the past year
+    var productSeriesValues = {{ product_series_values|to_json }};
+    var productSeriesCategories = {{ product_series_categories|to_json }};
+    var productSeries = c2.charts.buildSeriesFromObject(productSeriesValues, 'spline');
+    var $productSeriesChart = $('#product-series-chart');
+
+    $productSeriesChart.highcharts(_.merge(
+        c2.charts.billingSeriesDefaults,
+        {
+          colors: colors,
+          tooltip: {
+            headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+            pointFormat: '<b>{{ currency_symbol }} {point.y:.2f}</b>'
+          },
+          title: {
+            text: 'Monthly Cost Per Service (Top 3)'
+          },
+          xAxis: {
+            type: 'datetime',
+            tickInterval: 5,
+            labels: {
+              format: '{value:%b %Y}'
+            },
+            categories: c2.charts.getCategoriesAsDates(productSeriesCategories),
+          },
+          series: productSeries,
+          yAxis: {
+            labels: {
+              format: '{{ currency_symbol }} {value:.2f}'
+            }
+          },
+          legend: {enabled: true},
+        }
+    ));
+
+
+    // The RI vs. On Demand Instance Spending Bar chart for the past year
+    var spendingCategories = {{ spending_bar.categories|to_json }};  // list of months
+    var spendingValuesBySeriesName = {{ spending_bar.values_by_series_name|to_json }};
+    var spendingSeries = c2.charts.buildSeriesFromObject(spendingValuesBySeriesName, 'column');
+    var $spendingChart = $('#chart-spending-bar')
+
+    $spendingChart.highcharts(_.merge(
+      {
+        chart: {
+          type: 'column'
+        },
+        plotOptions: {
+          column: {
+            series: {
+              animation: false
+            }
+          }
+        },
+        title: {
+          text: 'EC2 Instance Spending by Month'
+        },
+        xAxis: {
+          categories: c2.charts.getCategoriesAsDates(spendingCategories),
+          labels: {
+            format: '{value:%b %Y}'
+          },
+        },
+        yAxis: {
+          labels: {
+            format: '{{ currency_symbol }} {value:.2f}'
+          },
+          title: {
+            text: 'Cost ({{ rate_currency_unit }})'
+          }
+        },
+        series: spendingSeries,
+        tooltip: {
+          headerFormat: '<b>{point.x:%b %Y}</b> <br>',
+          pointFormat: '{series.name}: <b>{{ currency_symbol }} {point.y:.2f}</b>'
+        },
+        credits: { enabled: false }
+      }
+    ));
+
+    $(window).load(function() {
+      $(window).resize();
+    });
+
+</script>

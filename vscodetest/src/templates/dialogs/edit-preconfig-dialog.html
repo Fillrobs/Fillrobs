@@ -1,0 +1,178 @@
+{% extends 'dialogs/dialog.html' %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block form_content %}
+
+{% for field in form.hidden_fields %}
+    {{ field }}
+{% endfor %}
+
+{{ form.non_field_errors }}
+
+<table id="preconfig-options-table" class="table table-boxed">
+    <thead>
+      <tr>
+        <th>{% trans "Option name" %}</th>
+        <th>{% trans "Parameter Values" %}</th>
+        <th>
+            <span title data-html="true" data-toggle="tooltip" data-original-title="
+                {% blocktrans trimmed %}A numeric value that determines the vertical position of the
+                option.  Options with lower values will appear at the top.  Ex.
+                'small' would typically be set to 1, 'medium' to 2, and 'large'
+                to 3.{% endblocktrans %}">
+                {% trans "Order" %}
+                <span class="glyphicon glyphicon-question-sign"></span>
+            </span>
+        </th>
+        <th>{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {% for row in form.rows %}
+        <tr name="{{ row.name_field.opt_id }}">
+            <td class="option-name">
+                {{ row.name_field.errors }}
+                {{ row.name_field.label }} {{ row.name_field }}
+            </td>
+            <td class="parameter-values">
+                <table class="form-table">
+                    {% for field in row.value_fields %}
+                    <tr class="param">
+                        <th class="nowrap">
+                            <label class="control-label" for="{{ field.name }}">{% text_tooltip field.label field.help_text %}</label>
+                        </th>
+                        <td class="nowrap">
+                            {{ field }}<span class="control-label"> {{ field.units_string }}</span>
+                            {{ field.errors }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                {{ row.order_field.errors }}
+                {{ row.order_field }}
+            </td>
+            <td>
+                <a class="delete_option_button icon-delete" name="{{ row.name_field.opt_id }}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+
+<a class="btn btn-default"
+    id="add_preconfig_option">
+    <span class="icon-add"></span>
+    {% trans "Add option" %}
+</a>
+
+{% comment %}
+This row template gets rendered when creating new options. The Django variables
+(curly braces) are populated initially, but lodash template variables (<%= %>)
+are populated when the template is rendered into its final form below.
+{% endcomment %}
+{% with form.default_row as default_row %}
+    <script id="row-template" type="text/html">
+        <tr name="new<%= newOptionNumber %>">
+            <td class="option-name">
+                {{ default_row.name_field.errors }}
+                {{ default_row.name_field.label }} {{ default_row.name_field }}
+            </td>
+            <td class="parameter-values">
+                <table class="form-table">
+                    {% for field in default_row.value_fields %}
+                    <tr class="param">
+                        <th class="nowrap">
+                            <label class="control-label"
+                                for="{{ field.name }}<%= newOptionNumber %>">
+                                {% text_tooltip field.label field.description %}
+                            </label>
+                            {{ field.errors }}
+                        </th>
+                        <td class="nowrap">
+                            {{ field }}<span class="control-label"> {{ field.units_string }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </td>
+            <td>
+                {{ default_row.order_field.errors }}
+                {{ default_row.order_field }}
+            </td>
+            <td>
+                <a class="delete_option_button icon-delete" name="new"></a>
+            </td>
+        </tr>
+    </script>
+{% endwith %}
+
+<script>
+(function () {
+    'use strict';
+    var rowTemplate = _.template(document.getElementById('row-template').innerHTML);
+    var $optionsTable = $('#preconfig-options-table');
+
+    $optionsTable.find('.render_as_datepicker').datepicker();
+
+    // Used to name newly-added options with a likely unique number. Will monotonically increase.
+    var newOptionNumber = $optionsTable.find('tr').length;
+
+    function makeNewRow() {
+        // Render the template for this option number
+        var newRowHtml = rowTemplate({
+            'newOptionNumber': newOptionNumber
+        });
+        var $newRow = $(newRowHtml);
+
+        // Update the "name" and "id" attributes of all new input tags in this row
+        $newRow.find("input,select,textarea").each( function() {
+            var $el = $(this);
+            var name = $el.attr("name");
+            if (name) {
+                name = name.replace("new", "new" + newOptionNumber);
+                $el.attr({
+                    name: name,
+                    id: 'id_' + name,
+                });
+            }
+        });
+
+        // Initialize any newly added deferred-selectize widgets
+        $newRow.find("[data-selectize-options]").each(function () {
+            var $select = $(this);
+            $select.selectize($select.data('selectize-options'));
+        });
+
+        $newRow.find(".render_as_datepicker").removeClass('hasDatepicker').datepicker();
+
+        newOptionNumber += 1;
+        return $newRow;
+    }
+
+    $('#add_preconfig_option').click( function(e) {
+        e.preventDefault();
+
+        var $newRow = makeNewRow();
+        $optionsTable.find('> tbody').append($newRow);
+    });
+
+    // Initialize any deferred selectize widgets
+    $optionsTable.find("[data-selectize-options]").each(function () {
+        var $select = $(this);
+        $select.selectize($select.data('selectize-options'));
+    });
+
+    $optionsTable.on('click', '.delete_option_button', function (e) {
+        var $delButton = $(this);
+        var $row = $delButton.closest('tr');
+        $row.remove();
+    });
+
+})();
+</script>
+{% endblock form_content %}

@@ -1,0 +1,90 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'resourcepool_value_add' resource_pool.id %}">
+        <span class="icon-add"></span>
+        New Resource Pool Value
+    </a>
+    <a class="btn btn-default"
+        href="{% url 'resourcepool_upload_csv' resource_pool.id %}">
+        <span class="icon-upload"></span>
+        Upload values in CSV format
+    </a>
+</div>
+
+<table id="resource-pool-values" data-table>
+    <thead>
+      <tr>
+        <th>Server</th>
+        <th>{% text_tooltip "Resource" "The deployed resource where a value is used" %}</th>
+
+        {% for cf in custom_fields %}
+            <th>{{ cf.label }}</th>
+        {% endfor %}
+
+        {% if resource_pool.include_hostname %}
+            <th>Hostname</th>
+        {% endif %}
+
+        {% if resource_pool.include_ipaddress %}
+            <th>IP Address</th>
+        {% endif %}
+
+        {% if resource_pool.include_mac %}
+            <th>MAC Address</th>
+        {% endif %}
+
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for rpvs, cfvs in values %}
+        <tr>
+            <td>
+                {% if rpvs.server %}
+                    {{ rpvs.server|link_or_label:profile }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+            <td>
+                {% if rpvs.resource %}
+                    {{ rpvs.resource|link_or_label:profile }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+            </td>
+
+            {% for cfv in cfvs %}
+                <td>
+                {% if cfv %}
+                    {{ cfv.display_value }}
+                {% else %}
+                    <i>None</i>
+                {% endif %}
+                </td>
+            {% endfor %}
+
+            {% if resource_pool.include_hostname %}
+                <td>{{ rpvs.hostname|default:"<i>None</i>" }}</td>
+            {% endif %}
+
+            {% if resource_pool.include_ipaddress %}
+                <td>{{ rpvs.ip|default:"<i>None</i>" }}</td>
+            {% endif %}
+
+            {% if resource_pool.include_mac %}
+                <td>{{ rpvs.mac|default:"<i>None</i>" }}</td>
+            {% endif %}
+
+            <td>
+                <a class="icon-edit open-dialog"
+                    href="{% url 'resourcepool_value_edit' resource_pool.id rpvs.id %}"></a>
+                <a class="icon-delete open-dialog"
+                    href="{% url 'resourcepool_value_delete' resource_pool.id rpvs.id %}"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% load helper_tags %}
+
+{% blockinfotip %}
+    <ul class='list-unstyled text-left'>
+        <li>
+            {% trans '<em>Restricted</em>: Actions in this sub-blueprint may <b>only</b> act on servers <em>within</em> that blueprint.' %}
+        </li>
+        <li>
+            {% trans '<em>Unrestricted</em>: Actions in this sub-blueprint may act on <b>all</b> servers in this resource.' %}
+        </li>
+    </ul>
+{% endblockinfotip %}

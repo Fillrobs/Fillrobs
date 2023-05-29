@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load tab_tags %}
+{% block title %}ITSM Settings{% endblock %}
+{% block topnav %}itsm(s){% endblock %}
+
+{% block content %}
+    <h1> {{ itsm.name }} </h1>
+
+    {% draw_tabs tabs %}
+{% endblock content %}

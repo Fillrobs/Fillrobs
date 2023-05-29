@@ -1,0 +1,68 @@
+{% load helper_tags %}
+
+{% block extrastyle %}
+<style type="text/css" media="all">
+    .modal.fade .modal-dialog {
+        max-width: 1024px !important;
+        width: 1024px !important;
+    }
+</style>
+{% endblock %}
+
+<div id="tally-message" class="centered">
+</div>
+
+<div class="ami-selection-section">
+    <table id="amis">
+        <thead>
+        {% block template_columns %}
+            <th><!-- checkboxes --></th>
+            <th class="shrink">AMI ID</th>
+            <th class="expand">Name/Description</th>
+            <th class="shrink">Windows</th>
+            <th class="shrink">Architecture</th>
+            <th class="shrink">Root Device Type</th>
+            <th class="shrink">Owner ID</th>
+            <th class="shrink">Owner Alias</th>
+        {% endblock %}
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    function loadAMIsTable() {
+        // Add filter form fields as GET args to the ajax
+        // and trigger a reload of the dataTable.
+        var filterFields = $('#ami-filters').serialize();
+        var oTable = $('#amis').DataTable();
+        oTable.ajax.url(
+            '{% url 'resourcehandler_discover_amis_json' handler.id region_name %}?'
+            + filterFields
+        );
+        oTable.ajax.reload();
+    }
+
+
+    // Instantiate the empty dataTable with clickable behavior. This is done
+    // here via .attr() because the dynamic URL for ajax loading cannot be set as
+    // HTML attributes on the table element above.
+    var $table = $("#amis");
+    $table.attr('data-table', 'clickable');
+    $table.attr('data-table-sort', '2');
+    c2.dataTables.init();
+    c2.dialogs.onSubmitSerializeAllSelectedRows($table, $('#action_form'));
+    loadAMIsTable();
+
+
+    $('#ami-filters').submit(function (e) {
+        e.preventDefault();
+        loadAMIsTable();
+    });
+
+    // Modify button text for showing tally of selected AMIs
+    $('button.submit span').html('Import <span id="tally"></span> selected AMIs');
+});
+</script>

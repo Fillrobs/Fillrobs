@@ -1,0 +1,43 @@
+{% extends 'common/tab-billing.html' %}
+{% load i18n helper_tags %}
+
+{% block summary_table %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>Cost Summary</h4>
+        </div>
+        <div class="panel-body">
+            {% for stat, number in summary_stats.items %}
+            <dl>
+                <dt style="padding: 5px; width: 50%">{{ stat|title }}:</dt>
+                <dd style="padding: 5px">{{ currency_symbol }} {{ number|floatformat:2 }}</dd>
+            </dl>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+<script>
+{% block highcharts_options %}
+  var dailyValues = {{ daily_values|to_json }};
+  var dailySeries = c2.charts.buildServerBillingSeries(dailyValues);
+  var yAxis = {
+    labels: {
+      format: '{{ currency_symbol }} {value:.3f}'
+    },
+    title: {
+      text: 'Cost ({{ rate_currency_unit }})'
+    }
+  };
+
+  var monthlyValues = {{ monthly_values|to_json }};
+  var monthlySeries = [
+     {
+        showInLegend: false,
+        name: 'Month Total',
+        data: monthlyValues
+     }
+   ];
+
+{% endblock %}
+</script>

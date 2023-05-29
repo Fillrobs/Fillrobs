@@ -1,0 +1,69 @@
+{% comment %}
+Template for wizard_pagination templatetag.
+
+Uses Bootstrap styles.
+
+Context:
+    wizard: object from Django's form wizard framework
+    step_info: list of dicts with more convenient values
+{% endcomment %}
+
+<ul class="wizard-pagination">
+    {% if wizard.steps.prev %}
+        <li>
+            <a class="wizard-pagination-prev" data-step="{{ wizard.steps.prev }}" href="#">&larr; Prev</a>
+        </li>
+    {% endif %}
+
+    {% for step in step_info %}
+        {# the wizards.pagination module dynamically disables steps beyond the next one #}
+        <li class="{% if step.active %}active{% else %}{% if step.disabled %}disabled{% endif %}{% endif %}">
+            <a href="#" data-step="{{ step.index }}">{{ step.display }}</a>
+        </li>
+    {% endfor %}
+
+    <li>
+        <a class="wizard-pagination-next" data-step="{{ wizard.steps.next }}" href="#">
+            {% if wizard.steps.next %}Next{% else %}Finish{% endif %} &rarr;
+        </a>
+    </li>
+</ul>
+
+<script>
+$(function () {
+    $('.wizard-pagination li a').click(function (e) {
+        e.preventDefault();
+        var $link = $(this);
+        // ignore clicks on disabled items
+        var $parent = $link.closest('li');
+        if ($parent.hasClass('disabled') || $parent.hasClass('active')) {
+            return;
+        }
+
+        // the form related to this paginator
+        {% if form_selector %}
+          {# the selector was specified in the wizard_pagination tag #}
+          var $form = $('{{ form_selector }}');
+        {% else %}
+          {# no selector specified; find form containing the paginator #}
+          var $form = $link.closest('form');
+        {% endif %}
+
+        // For links going backward, add a hidden form field that will tell
+        // the wizard to skip form processing. Otherwise, simply submit the
+        // form.
+        var step = $link.data('step');
+        if (step < {{ wizard.steps.current }}) {
+            var $gotoInput = $('<input type="hidden" name="wizard_goto_step"/>');
+            $gotoInput.val(step).appendTo($form);
+        }
+
+        // If inside a dialog, block it by default to avoid confusion if the response is slow.
+        var $dialog = $('#dialog-modal');
+        if ($dialog) {
+            c2.block.block($dialog.find('.modal-content'));
+        }
+        $form.submit();
+    });
+});
+</script>

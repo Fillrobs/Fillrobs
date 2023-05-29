@@ -1,0 +1,66 @@
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'ldap_credentials_dialog' ldap.id %}">
+        <span class="icon-credentials"></span>
+        Credentials
+    </a>
+    <a class="btn btn-default open-dialog"
+        data-dialog-width=700
+        href="{% url 'ldap_settings_edit' ldap.id %}">
+        <span class="icon-edit"></span>
+        Settings
+    </a>
+    <a class="btn btn-default open-dialog verify"
+        href="{% url 'ldap_settings_verify_connection' ldap.id %}">
+        <span class="icon-verify-connection"></span>
+        Verify Connection
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'ldap_settings_delete' ldap.id %}">
+        <span class="icon-delete"></span>
+        Remove&hellip;
+    </a>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body">
+        <dl>
+            <dt>IP Address:</dt>
+            <dd>{{ ldap.ip }}</dd>
+            <dt>Port:</dt>
+            <dd>{{ ldap.port }}</dd>
+            <dt>Protocol:</dt>
+            <dd>{{ ldap.protocol }}</dd>
+            <dt>Service Account:</dt>
+            <dd>{{ ldap.serviceaccount }}</dd>
+            <dt>Version:</dt>
+            <dd>{{ ldap.version }}</dd>
+            <dt>Base DN:</dt>
+            <dd>{{ ldap.base_dn }}</dd>
+            <dt>LDAP Filter:</dt>
+            <dd>{{ ldap.ldap_filter|default:"<i>None</i>" }}</dd>
+            <dt>Disabled Filter:</dt>
+            <dd>{{ ldap.disabled_filter|default:"<i>None</i>" }}</dd>
+            <dt>LDAP Domain:</dt>
+            <dd>{{ ldap.ldap_domain }}</dd>
+            <dt>Username LDAP field:</dt>
+            <dd>{{ ldap.ldap_username }}</dd>
+            <dt>First name LDAP field:</dt>
+            <dd>{{ ldap.ldap_first }}</dd>
+            <dt>Last name LDAP field:</dt>
+            <dd>{{ ldap.ldap_last }}</dd>
+            <dt>E-mail LDAP field:</dt>
+            <dd>{{ ldap.ldap_mail|default:"<i>None</i>" }}</dd>
+            <dt>E-mail Format:</dt>
+            <dd>
+                <code ng-non-bindable>
+                    {{ ldap.email_format|default:"<i>None</i>" }}
+                </code>
+            </dd>
+            <dt>Auto create user:</dt>
+            <dd>{{ ldap.auto_create_user }}</dd>
+            <dt>Imported users:</dt>
+            <dd>{{ ldap.userprofile_set.count }}</dd>
+        </dl>
+    </div>
+</div>

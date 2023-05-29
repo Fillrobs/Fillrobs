@@ -1,0 +1,79 @@
+<div class="refresh">
+    <a class="btn btn-default" data-include-refresh>
+        <i class="fa fa-refresh"></i>
+        Refresh
+    </a>
+    <span data-include-timestamp></span>
+</div>
+
+<table class="dataTable no-footer">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Service</th>
+            <th>Status</th>
+            {% if verbose %}
+                <th>Duration</th>
+            {% endif %}
+            <th></th>
+        </tr>
+    </thead>
+    {% for plugin in plugins %}
+    <tr>
+        <td class="status_{{ plugin.status }}"></td>
+        <td>{{ plugin.identifier }}</td>
+        <td>{{ plugin.pretty_status }}</td>
+        {% if verbose %}
+            <td>{{ plugin.time_taken|floatformat:4 }} seconds</td>
+        {% endif %}
+        <td>
+            {% comment %}
+            <!-- {% if plugin.can_restart %}
+                <a class="btn btn-default" href="{% url 'health_check:restart' plugin.service_name %}">
+                    <i class="fa fa-refresh"></i>
+                    Restart
+                </a>
+            {% endif %} -->
+            {% endcomment %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% if plugins_prodonly %}
+<h3>Services not expected to function in dev mode</h3>
+<table class="dataTable no-footer">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Service</th>
+            <th>Status</th>
+            {% if verbose %}
+                <th>Duration</th>
+            {% endif %}
+            <th></th>
+        </tr>
+    </thead>
+    {% for plugin in plugins_prodonly %}
+    <tr>
+        <td class="status_{{ plugin.status }}"></td>
+        <td>{{ plugin.identifier }}</td>
+        <td>{{ plugin.pretty_status }}</td>
+         {% if verbose %}
+            <td>{{ plugin.time_taken|floatformat:4 }} seconds</td>
+        {% endif %}
+        <td>
+            {% comment %}
+            <!-- {% if plugin.can_restart %}
+                <a class="btn btn-default" href="{% url 'health_check:restart' plugin.service_name %}">
+                    <i class="fa fa-refresh"></i>
+                    Restart
+                </a>
+            {% endif %} -->
+            {% endcomment %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}

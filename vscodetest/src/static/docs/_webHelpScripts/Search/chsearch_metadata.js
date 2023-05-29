@@ -1,0 +1,1 @@
+﻿if(!window['chsearch_metadata'])window['chsearch_metadata']={};window['chsearch_metadata'].options={"fieldWeights":{"html":1,"title":5},"weightRoundingFactor":10000};

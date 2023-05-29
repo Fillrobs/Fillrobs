@@ -1,0 +1,118 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load gravatar %}
+{% load i18n %}
+
+<style>
+    dt {
+        min-width: 8em;
+    }
+</style>
+
+<div id="user-overview">
+    <div class="btn-toolbar">
+        {# Do not allow management of users imported from LDAP #}
+        {% if can_manage_profile %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'user_edit' the_profile.id %}">
+                <span class="icon-edit"></span>
+                {% trans "Manage profile" %}
+            </a>
+        {% endif %}
+        {% if can_delete_profile %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'user_delete' the_profile.id %}">
+                <span class="icon-delete"></span>
+                {% trans "Delete" %}
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <dl>
+                <dt>{% trans "Email" %}:</dt>
+                <dd>
+                    <a href="mailto:{{ the_user.email }}">{{ the_user.email }}</a>
+                </dd>
+
+                <dt>{% trans "Username" %}:</dt>
+                <dd>{{ the_user.username }}</dd>
+
+                <dt>{% trans "Last Login" %}:</dt>
+                <dd>{{ the_user.last_login }}</dd>
+
+                <dt>{% trans "Status" %}:</dt>
+                <dd>
+                    {% if the_user.is_active %}
+                        <font color="green">{% trans "Active" %}</font>
+                    {% else %}
+                        <font color="red">{% trans "Deactivated" %}</font>
+                    {% endif %}
+                </dd>
+
+                {% if enable_multitenancy %}
+                    <dt>{% trans "Tenant" %}:</dt>
+                    <dd>{{ the_profile.tenant|link_or_label_blank_none:request_profile|default:"No tenant" }}</dd>
+
+                    <dt>{% trans "Tenant Roles" %}:</dt>
+                    <dd>{{ the_profile.tenant_roles.all|join:", "|default:"None" }}</dd>
+                {% endif %}
+
+                {% if request_profile.is_cbadmin or request_profile.global_viewer %}
+                    <dt>{{ 'super_admin'|perm_with_tooltip }}:</dt>
+                    <dd>{{ the_profile.super_admin|yesno:"Yes,No" }}</dd>
+
+                    <dt>{{ 'devops_admin'|perm_with_tooltip }}:</dt>
+                    <dd>{{ the_profile.devops_admin|yesno:"Yes,No" }}</dd>
+                    {% if is_cb_admin_enabled %}
+                        <dt>{{ 'cbadmin'|perm_with_tooltip }}:</dt>
+                        {# user.is_superuser means "CB Admin"#}
+                        <dd>{{ the_profile.user.is_superuser|yesno:"Yes,No" }}</dd>
+                    {% endif %}
+
+                    <dt>{{ 'global_viewer'|perm_with_tooltip }}:</dt>
+                    <dd>{{ the_profile.global_viewer|yesno:"Yes,No" }}</dd>
+
+                    <dt>{{ 'api_access'|perm_with_tooltip }}:</dt>
+                    <dd>{{ the_profile.api_access|yesno:"Yes,No" }}</dd>
+                {% endif %}
+
+                {% if the_profile.is_cbadmin %}
+                    <dt>{{ 'view_initial_tour'|perm_with_tooltip }}:</dt>
+                    <dd>{{ the_profile.view_initial_tour|yesno:"On,Off" }}</dd>
+                {% endif %}
+
+                <dt>{% trans "Domain" %}:</dt>
+                <dd>{{ the_profile.ldap|link_or_label:request_profile }}</dd>
+
+                <dt>{% trans "Active Servers" %}:</dt>
+                <dd>
+                    {{ active_servers }}
+                </dd>
+
+                {# Users may manage their own gravatar #}
+                {% portal_label as portal_lbl %}
+                {% if avatars_enabled %}
+                  {% if the_profile == request_profile %}
+                    <dt>
+                        <span data-toggle="tooltip"
+                            title="{% blocktrans %}Gravatar is a free service that lets you
+                            associate one or more images with your email
+                            addresses. {{ portal_lbl }} uses this to provide a
+                            better, more social user experience.{% endblocktrans %}">
+                            {% trans "Your Gravatar" %}:
+                        </span>
+                    </dt>
+                    <dd>
+                        <a href="https://gravatar.com" target="_blank">
+                            {% gravatar the_user.email 20 %}{% trans "Manage" %}
+                            <span class="glyphicon glyphicon-new-window"></span>
+                        </a>
+                    </dd>
+                  {% endif %}
+                {% endif %}
+            </dl>
+        </div>
+    </div>
+</div>

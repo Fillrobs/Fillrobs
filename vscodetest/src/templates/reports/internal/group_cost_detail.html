@@ -1,0 +1,23 @@
+{% extends "reports/internal/base.html" %}
+{% load i18n %}
+
+{% block report_content %}
+
+<p class="help-block">
+{% trans "This report may take a minute or two. Once it completes, it will be cached for this group and date range, making it blazingly fast from then on." %}
+</p>
+
+<p class="help-block">
+{% trans "This report shows a row for each different server rate during the time period. If a server's rate changed during the time period, there will be multiple rows for that server, with one row for each different rate during the period. A single row will be shown for servers whose rate did not change during the time period." %}
+</p>
+
+<div id="gcd"
+    class="padding"
+    data-include="{% url 'run_group_cost_detail' %}?pagetitle={{ report_slug|urlencode:"" }}&group={{ group.id }}&start_date={{ start_ymd }}&end_date={{ end_ymd }}"
+    data-block="true">
+    <div class="text-center" style="height: 450px;">
+        {% trans "Crunching server usage numbers..." %}
+    </div>
+</div>
+
+{% endblock %}

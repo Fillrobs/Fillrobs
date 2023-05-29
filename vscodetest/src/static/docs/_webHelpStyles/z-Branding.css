@@ -1,0 +1,75 @@
+/* OVERRIDES */
+::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb:vertical
+{
+  background: rgba(0,0,0,0.5);
+  border-radius: 6px;
+  border: transparent;
+  -webkit-border-radius: 100px;
+}
+::-webkit-scrollbar,
+::-webkit-scrollbar:vertical:hover,
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:horizontal
+{
+  all: inherit;
+  width: 8px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: none !important;
+  background-color: transparent;
+}
+#pnlContainer_cphMain_articleSelector_pnlHeader {
+  display: none !important;
+}
+.ArticleEditor_header {
+  padding: 30px 50px !important;
+}
+.ArticleEditor_contentFrame {
+  padding: 0px !important;
+  
+}
+.ArticleTitle_container {
+  font-size: 32px !important;
+  font-weight: 500 !important;
+  color: #1f1a47 !important;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+}
+.ArticleSelector_tabContent {
+  box-shadow: inset -30px 0 32px -30px rgba(0,0,0,.1) !important;
+  background-color: #FFF !important;
+}
+
+.TocTreeLight_treeContainer .CHTree_desktopView .CHTree_nodeChildrenL1 div.CHTree_nodeContent {
+  padding-left: 24px !important;
+  
+}
+
+.TocTreeLight_treeContainer .CHTree_tree {
+  font-size: 12.5px;
+  /*padding-left: 15px !important;*/
+  
+}
+
+/* BREADCRUMBS */
+.BaseMaster_mainMenuContainer .CHBreadcrumb_item > a,
+.BaseMaster_mainMenuContainer .CHBreadcrumb_item > a:hover,
+.BaseMaster_mainMenuContainer .CHBreadcrumb_item > a:visited {
+  text-decoration: underline !important;
+  color: white !important;
+}
+.BaseMaster_mainMenuContainer .ClearSky_breadcrumb a:hover {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.BaseMaster_mainMenuContainer .CHBreadcrumb_item {
+  color: rgba(255, 255, 255, 0.75) !important; 
+}
+.BaseMaster_mainMenuContainer .CHBreadcrumb_itemSelf {
+  font-weight: bold;
+  color: white !important;
+}
+table.LightComboBox_container,
+.dxeButtonEdit_DefaultTheme .dxeEditArea_DefaultTheme {
+  background-color: transparent !important; 
+}

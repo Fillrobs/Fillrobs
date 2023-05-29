@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="17px" viewBox="0 0 15 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/download</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Catalog" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1260.000000, -88.000000)" fill="#3A97F4" fill-rule="nonzero" id="Group-9">
+            <g transform="translate(0.000000, 53.000000)">
+                <g id="Group-6" transform="translate(1177.000000, 24.500000)">
+                    <g id="icons/download" transform="translate(90.500000, 18.500000) rotate(-270.000000) translate(-90.500000, -18.500000) translate(82.000000, 11.000000)">
+                        <path d="M14.6191406,7.5 L12.1191406,7.5 L8.61914062,11 L5.11914062,7.5 L2.61914062,7.5 L0.619140625,11.5 L0.619140625,12.5 L16.6191406,12.5 L16.6191406,11.5 L14.6191406,7.5 Z M0.619140625,13.5 L16.6191406,13.5 L16.6191406,14.5 L0.619140625,14.5 L0.619140625,13.5 Z M9.61914062,4.5 L9.61914062,0.5 L7.61914062,0.5 L7.61914062,4.5 L4.11914062,4.5 L8.61914062,9 L13.1191406,4.5 L9.61914062,4.5 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

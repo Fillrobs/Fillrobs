@@ -1,0 +1,220 @@
+{% load helper_tags %}
+{% load hook_tags %}
+{% load i18n %}
+{% load connector_tags %}
+
+{% with input_mappings=action.input_mappings.all %}
+<div class="panel panel-default action-details" data-id="{{ action.id }}">
+    <div class="panel-heading">
+        <span data-toggle="collapse" data-target="#action-{{ action.id }}-details"
+            class="collapsed">
+
+            <span data-toggle="tooltip" title="Expand or collapse details"
+                class="collapsed-indicator no-tooltip-affordance"></span>
+
+            {% include 'actions/action_type_icon.html' %}
+
+            {# the `action` object here either has a name or a label property #}
+            {{ action.name }} {{ action.label }}
+
+            {% if action.extra_classes %}
+                <span class="{{ action.extra_classes }}"></span>
+            {% endif %}
+
+            {% infotip action.description %}
+        </span>
+
+        {% with undefined_inputs=action|get_required_inputs_missing_defaults %}
+            {% if undefined_inputs %}
+                <span class="fas fa-exclamation-triangle no-tooltip-affordance"
+                    style="color: red"
+                    data-toggle="tooltip"
+                    data-html="true"
+                    title= "{% blocktrans %}This action will fail until all required inputs have been assigned default values (use the <i class='fas fa-pencil-alt'></i> button to the right).<p><p>To change anything else about these inputs, go edit the underlying action.{% endblocktrans %}"
+                    ></span>
+            {% endif %}
+        {% endwith %}
+
+        <div class="pull-right">
+            {% if 'SUCCESS' in action.run_on_statuses %}
+                <span class="fas fa-check no-tooltip-affordance action-constraint"
+                    data-toggle="tooltip"
+                    data-max-width="300px"
+                    title="{% blocktrans %}Runs only when status of main job is Success (or Warning){% endblocktrans %}"></span>
+            {% endif %}
+            {% if 'FAILURE' in action.run_on_statuses %}
+                <span class="fas fa-exclamation-circle no-tooltip-affordance action-constraint"
+                    data-toggle="tooltip"
+                    data-max-width="300px"
+                    title="{% blocktrans %}Runs only when status of main job is Failure (or Canceled){% endblocktrans %}"></span>
+            {% endif %}
+                <span class="no-tooltip-affordance"
+                    {% comment %}
+                        Only show the tooltip where run_on_statuses can actually be edited
+                    {% endcomment %}
+                    {% if action.allow_run_on_statuses %}
+                        data-toggle="tooltip"
+                        title="{% blocktrans %}In addition to enabling this action, it can be run only for certain job results.  Edit the action to learn more.{% endblocktrans %}"
+                    {% endif %}
+                >
+            {% if not skip_enabled_control %}
+                    {# Note: this toggle requires enable_endpoint to be passed to the template #}
+                    {% if enable_endpoint %}
+                    <input type="checkbox" name="enable"
+                        data-post-url="/api/v2/{{ enable_endpoint }}-actions/{{ action.id }}/set-enabled/"
+                        data-toggle="toggle"
+                        data-reload-page-on-toggle="{{ reload_page_on_toggle|default:False }}"
+                        data-on="{% blocktrans %}Enabled{% endblocktrans %}"
+                        data-off="{% blocktrans %}Disabled{% endblocktrans %}"
+                        data-width="100"
+                        {% if action.enabled %}checked{% endif %}>
+                    {% endif %}
+                </span>
+            {% endif %}
+            <div class="btn-group">
+                {% if url_prefix != "rule_action" %}
+                {# rule_actions are exported along the accompanying condition as a rule export #}
+                    <button
+                        title="{% blocktrans %}Export action{% endblocktrans %}"
+                        href="{% url 'export_higher_level_action_password_dialog' url_prefix|add:'s' action.id %}"
+                        class="btn btn-default open-dialog"
+                        data-dialog-width="800px"
+                        data-toggle="tooltip"
+                        ><span class="fas fa-file-export"></span></button>
+                {% endif %}
+                <button
+                    title="{% blocktrans %}Edit action{% endblocktrans %}"
+                    href="{% url url_prefix|add:'_edit' action.id %}"
+                    class="btn btn-default open-dialog"
+                    data-dialog-width="800px"
+                    data-toggle="tooltip"
+                    {% if blueprint_id and remote_blueprint %}disabled{% endif %}
+                    ><span class="icon-edit"></span></button>
+                {% if blueprint_id %}
+                {# Special case of resource actions on BP's management tab #}
+                    <button
+                        title="{% blocktrans %}Remove action{% endblocktrans %}"
+                        href="{% url 'resource_action_remove_blueprint' action.id blueprint_id %}"
+                        class="btn btn-default open-dialog"
+                        data-toggle="tooltip"
+                        {% if remote_blueprint %}disabled{% endif %}
+                        ><span class="icon-delete"></span></button>
+                {% else %}
+                    <button
+                        title="{% blocktrans %}Delete action{% endblocktrans %}"
+                        href="{% url url_prefix|add:'_delete' action.id %}"
+                        class="btn btn-default open-dialog"
+                        data-toggle="tooltip"
+                        ><span class="icon-delete"></span></button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div id="action-{{ action.id }}-details" class="panel-body collapse">
+        {% with underlying_action=action.hook.cast %}
+            <div class="row">
+                <div class={% if url_prefix == 'action_trigger' %}"col-sm-6"{% else %}"col-sm-12"{% endif %}>
+                    <h5>{{ action.type_slug|capfirst }}:</h5>
+                    {% if action.type_slug != "plugin" or profile.is_cbadmin %}
+                        <a href="{{ underlying_action.get_absolute_url }}"
+                            class="no-tooltip-affordance" data-toggle="tooltip"
+                            title="{% trans 'Manage this ' %}{{ action.type_slug }}">
+                            {{ underlying_action.name }}
+                            <span class="icon-cog"></span></a>
+                    {% else %}
+                        {{ underlying_action.name }}
+                    {% endif %}
+
+                    {% if url_prefix == 'server_action' %}
+                        <h5>
+                            {{ SA_CONDITION_LABEL }}:
+                            {% infotip SA_CONDITION_HELP_TEXT %}
+                        </h5>
+                        {% if action.condition %}
+                            {{ action.condition|link_or_label:profile }}
+                            <a title="{% trans 'Choose a different condition plug-in' %}"
+                              href="{% url 'add_action_trigger' 'server_action_condition' %}?condition_for={{ action.id }}"
+                            class="icon-edit open-dialog"></a>
+                            <a title="{% trans 'Disassociate condition plug-in' %}"
+                            href="{% url 'disassociate_serveraction_condition' action.id %}"
+                            class="icon-delete open-dialog"></a>
+                        {% else %}
+                            {% trans "None" %}
+                            <a title="{% trans 'Choose a display condition plug-in' %}"
+                              href="{% url 'add_action_trigger' 'server_action_condition' %}?condition_for={{ action.id }}"
+                            class="icon-edit open-dialog"></a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% with bp_constraints=action.blueprints.all %}
+                        {% if bp_constraints %}
+                            <h5>{% trans "Blueprints" %}:</h5>
+                            {{ bp_constraints|render_list:profile }}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                {# Orchestration Actions only #}
+                {% if url_prefix == 'action_trigger' %}
+                    <div class="col-sm-6">
+                        <h5>{% trans 'If this action fails' %}:{% infotip CONTINUE_FAILURE_TIP %}</h5>
+                        <input type=checkbox name=continue_on_failure
+                            data-toggle="toggle"
+                            data-on="Continue on failure"
+                            data-off="Fail the job"
+                            data-width="160"
+                            data-post-url="{% url 'toggle_action_continue_on_failure' action.id %}"
+                            {% if action.continue_on_failure %}checked{% endif %} />
+                    </div>
+                {% endif %}
+            </div>
+
+            {% include 'actions/action_input_defaults.html' with edit_url=url_prefix|add:'_edit' %}
+
+            {% if underlying_action.supports_source_code %}
+                <h5> {% trans 'Code' %}: </h5>
+                <div ng-non-bindable>
+                    {% action_source_code underlying_action profile id_suffix=action.id %}
+                </div>
+            {% endif %}
+
+            {% with os_families=underlying_action.os_families.all %}
+                {% if os_families %}
+                <h5>{% blocktrans %}OS families{% endblocktrans %}:</h5>
+                <ul>
+                    {% for family in os_families %}
+                        <li>{{ family|os_family_icon }} {{ family }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+
+            {% with configuration_managers=underlying_action.configuration_managers.all %}
+                {% if configuration_managers %}
+                <h5>{% blocktrans %}Configuration Managers{% endblocktrans %}:</h5>
+                <ul>
+                    {% for connector in configuration_managers %}
+                        <li>{% connector_icon connector.cast %} {{ connector }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+
+            {% with body=underlying_action.body subject=underlying_action.subject %}
+                {% if subject or body %}
+                    <h5>{% blocktrans %}Subject{% endblocktrans %}:</h5>
+                    <div ng-non-bindable>
+                        <pre>{{ subject }}</pre>
+                    </div>
+
+                    <h5>{% blocktrans %}Body{% endblocktrans %}:</h5>
+                    <div ng-non-bindable>
+                        <pre>{{ body }}</pre>
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+        {% endwith %}
+    </div>
+</div>
+{% endwith %}

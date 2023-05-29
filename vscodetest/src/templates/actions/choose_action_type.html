@@ -1,0 +1,16 @@
+<div class="text-center">
+  <div class="btn-group-vertical">
+    {% for type in types %}
+      <a class="btn btn-default open-dialog {{ type.extra_class }}"
+        data-toggle="tooltip" data-placement="right"
+        title="{{ type.description }}"
+        href="{{ type.url }}">
+        <span class="action-icon icon-{{ type.icon }}" title="{{ type.name }}"></span>
+        <span>{{ type.name }} </span>
+        {% if type.beta %}
+            <span class="badge badge-secondary"> Beta</span>
+        {% endif %}
+      </a>
+    {% endfor %}
+  </div>
+</div>

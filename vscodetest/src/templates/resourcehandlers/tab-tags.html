@@ -1,0 +1,85 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<p class="help-block">
+    {% if handler.resource_technology.type_slug == 'vmware' %}
+        {% trans 'Tags are only synchronized with vCenter 6.5 or greater.' %}
+    {% endif %}
+
+    
+    {% trans "Tags can be linked to" %} {% portal_label %} {% blocktrans %} server attributes here. Once linked, the tag's value will be synchronized with the value of the server attribute.{% endblocktrans %} 
+    </p>
+
+<br />
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'create_taggable_attribute' handler.id %}">
+        <span class="icon-add"></span> {% trans 'Add Tag' %}
+    </a>
+</div>
+
+<table id="tags"
+    data-table
+    data-table-sort="1,asc">
+    <thead>
+        <tr>
+            <th>{% trans 'Tag Name' %}</th>
+            {% trans "Attribute" as attribute %}
+            {% trans "Property of a Server whose value will be assigned to the tag value" as attribute_description %}
+            <th>{% text_tooltip attribute attribute_description %}</th>
+            <th>{% trans 'Actions' %}</th>
+            {% trans "Syncing" as title %}
+            {% trans "With bidirectional sync enabled for tags linked to server attributes, the tag value will override server attributes whenever the server's info is synced into CloudBolt" as description %}
+            <th>{% text_tooltip title description %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ta in taggable_attributes %}
+        <tr>
+           <td>{{ ta.label }}</td>
+           <td>{{ ta.attribute }}</td>
+           <td>
+               <a class="icon-edit open-dialog"
+                  href="{% url 'edit_taggable_attribute' ta.id %}"></a>
+               <a class="icon-delete open-dialog"
+                  href="{% url 'delete_taggable_attribute' ta.id %}"></a>
+            </td>
+            <td>
+                <div class="toggle-sync-static">
+                    {% if ta.attribute in OPTIONALLY_MUTABLE_SERVER_ATTRIBUTES %}
+                        {% include 'tags/sync_dropdown.html' with disabled=False %}
+                    {% else %}
+                        {% include 'tags/sync_dropdown.html' with disabled=True %}
+                   {% endif %}
+               </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+    // Select the static parent element and then capture click events dynamically
+    // for the child elements because those are re-created. 
+    $(".toggle-sync-static").on("click", ".toggle-sync-options li a", function(e) {
+        e.preventDefault();
+        var url = this.getAttribute('data-href');
+        var tag_id = this.getAttribute('data-tag-id');
+        var buttonSelector = '#toggle-sync-' + tag_id;
+        var $button = $(buttonSelector);
+        var data = this.getAttribute('data-value');
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            type: "POST",
+            data: {'bidirectional_sync': data},
+            success: function (response) {
+                $button.html(response);
+            },
+            error: function (xhr, errmsg, err) {
+                console.log('error handler response: ' + xhr + ', ' + errmsg + ', ' + err);
+            }
+        })
+    });
+</script>

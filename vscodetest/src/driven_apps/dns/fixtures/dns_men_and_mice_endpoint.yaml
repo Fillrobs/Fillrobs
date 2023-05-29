@@ -1,0 +1,27 @@
+- model: naming.endpoint
+  pk: 1
+  fields:
+    real_type:
+      - naming
+      - menandmiceendpoint
+    workspace: 1
+    type: men_and_mice
+    name: MenAndMiceEndpoint
+    description: My Men and Mice
+    single_threaded: false
+- model: naming.menandmiceendpoint
+  pk: 1
+  fields:
+    host: mmsuite93.sovlabs.net
+    port: 80
+    ssl: false
+    credential: 1
+- model: credentials.modulecredential
+  pk: 1
+  fields:
+    workspace: 1
+    name: men_and_mice_cred1
+    description: men_and_mice_test
+    username: administrator
+    password: VmwareS0v
+    endpoint_type: men_and_mice

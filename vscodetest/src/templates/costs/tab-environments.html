@@ -1,0 +1,120 @@
+{% load account_tags %}
+{% load helper_tags %}
+
+
+<div class="btn-toolbar">
+    <a href="{% url 'add_custom_rate_for_env' %}" class="open-dialog btn btn-default">
+        <i class="icon-add"></i> Add an environment</a>
+</div>
+
+<p class="help-block">Default currency unit: {{ currency }} / {{ units }}</p>
+
+<table id="envs-with-custom-rates"
+    data-table
+    data-table-sort-disabled="5"
+    >
+    <thead>
+        <tr>
+            <th></th>
+            <th>Environment</th>
+            <th>Currency Unit</th>
+            <th>Hardware</th>
+            <th>OS Builds</th>
+            <th>Applications</th>
+            <th>Parameters</th>
+        </tr>
+    </thead>
+    <tbody class="overflow-auto">
+        {% for rates in env_rates %}
+        {% with env=rates.environment %}
+        <tr>
+            {# This is first col because wide content may overflow #}
+            <td>
+                <div class="btn-toolbar">
+                    <a href="{% url 'edit_custom_rate_for_env' env.id %}"
+                        class="open-dialog btn btn-default"
+                        data-dialog-width="800px">
+                        <i class="icon-edit"></i>
+                    </a>
+                </div>
+            </td>
+            <td class="nowrap">
+                {# Only CB admins can view this page, so no need to check permissions #}
+                {{ env|render_link }}
+            </td>
+            {% if env.rate_currency_unit %}
+                <td>{{ env.rate_currency_unit }} / {{ units }}</td>
+            {% else %}
+                <td>{{ currency }} / {{ units }}</td>
+            {% endif %}
+            <td>
+                {% if rates.cpu or rates.mem or rates.disk %}
+                    <table class="numeric-stats table-condensed" style="width:100%">
+                    {% if rates.cpu is not None %}
+                        <tr>
+                            <th>CPU</th>
+                            <td>{% render_rate rates.cpu with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endif %}
+                    {% if rates.mem is not None %}
+                        <tr>
+                            <th>Mem</th>
+                            <td>{% render_rate rates.mem with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endif %}
+                    {% if rates.disk is not None %}
+                        <tr>
+                            <th>Disk</th>
+                            <td>{% render_rate rates.disk with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endif %}
+                    </table>
+                {% endif %}
+            </td>
+            <td>
+                {% if rates.osbuild %}
+                    <table class="numeric-stats table-condensed" style="width:100%">
+                    {% for osbuild_rate in rates.osbuild %}
+                        <tr>
+                            <th>
+                                {{ osbuild_rate.osbuild.os_family|os_family_icon }}
+                                {# Only CB admins can view this page, so no need to check permissions #}
+                                {{ osbuild_rate.osbuild|render_link }}
+                            </th>
+                            <td>{% render_rate osbuild_rate.rate with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            </td>
+            <td>
+                {% if rates.app %}
+                    <table class="numeric-stats table-condensed" style="width:100%">
+                    {% for app_rate in rates.app %}
+                        <tr>
+                            <th>{{ app_rate.label }}</th>
+                            <td>({{ app_rate.num_servers }} servers):</td>
+                            <td>{% render_rate app_rate.rate with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            </td>
+            <td>
+                {% if rates.param %}
+                    <table class="numeric-stats table-condensed" style="width:100%">
+                    {% for param_rate in rates.param %}
+                        <tr>
+                            {# Only CB admins can view this page, so no need to check permissions #}
+                            <th>{{ param_rate.param|render_link }}:</th>
+                            <td>{% render_rate param_rate.rate with_currency=False show_zero=True %}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                {% endif %}
+            </td>
+        </tr>
+        {% endwith %}
+        {% endfor %}
+    </tbody>
+</table>

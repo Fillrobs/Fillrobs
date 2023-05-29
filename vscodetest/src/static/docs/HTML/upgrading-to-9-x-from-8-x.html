@@ -1,0 +1,552 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('upgrading-to-9-x-from-8-x',true);});
+//--></script><title>Upgrading to 9.X from 8.X</title><script type="text/javascript">//<!--
+var articleTitleText='Upgrading to 9.X from 8.X';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Upgrading to 9.X from 8.X</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="upgrading-cloudbolt.html">Upgrading CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Upgrading to 9.X from 8.X</span></span>
+  </div><h1 id="h1__1908055183" data-has-heading-anchor="true">
+  Upgrading to 9.X from 8.X<a href="upgrading-to-9-x-from-8-x.html#h1__1908055183" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<ul class=""><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2_172748205">Use Latest Versions</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2__514962446">Install CloudBolt 9.X</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2_1306473668">Export CloudBolt 8.X</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2__250669509">Import CloudBolt on 9.X</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2__1646278176">Run Django Database Migrations</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2_1649977211">Create New Database Objects</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2__1076191705">Collect Static Files</a></li><li class="CHMiniToc_heading2"><a href="upgrading-to-9-x-from-8-x.html#h2_505383174">Change Upgrade Prefix</a></li></ul>
+<div id="use-latest-versions">
+  <h2 id="h2_172748205" data-has-heading-anchor="true">
+    Use Latest Versions
+  <a href="upgrading-to-9-x-from-8-x.html#h2_172748205" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <div>
+    
+    <p>
+      Use this&nbsp;page on our live documentation (docs.cloudbolt.io) instead of the documentation on your local CloudBolt instance. Our online docs have the latest versions of the instructions and utilities required for an upgrade. Using the latest versions ensures that you will get the benefit of any updates we have made.
+    </p>
+  </div>
+  <ul>
+    <li>
+      Download the latest version of&nbsp;<a href="../Storage/cloudbolt-docs/System/cb_export.py" target="_top"><code style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">cb_export.py</code></a>&nbsp;and copy it to your existing CloudBolt&nbsp;<strong>8.X</strong>&nbsp;instance. You can run this utility from anywhere on your filesystem. For example, if you put&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_export.py</span>&nbsp;in the&nbsp;</span></code><span style="">/var/tmp</span>&nbsp;directory, then you would call&nbsp;<span style="">python&nbsp;/var/tmp/cb_export.py&nbsp;[ARGS]</span>&nbsp;to run it. See&nbsp;Export CloudBolt 8.X&nbsp;below for more details on&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_export.py</span>.</span></code>
+    </li>
+    <li>
+      Download the latest version of&nbsp;<a href="../Storage/cloudbolt-docs/System/cb_import.py" target="_top"><code style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">cb_import.py</code></a>&nbsp;and copy it to your new CloudBolt&nbsp;<strong>9.X</strong>&nbsp;instance. You can run this utility from anywhere on your filesystem. For example, if you put&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_import.py</span>&nbsp;in the&nbsp;</span></code><span style="">/var/tmp</span>&nbsp;directory, then you would call&nbsp;<span style="">python&nbsp;/var/tmp/cb_import.py&nbsp;[ARGS]</span>&nbsp;to run it. See&nbsp;Import CloudBolt on 9.X&nbsp;below for more details on&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_import.py</span>.</span></code>
+    </li>
+  </ul>
+</div>
+<div id="install-cloudbolt-9-x">
+  <h2 id="h2__514962446" data-has-heading-anchor="true">
+    Install CloudBolt 9.X
+  <a href="upgrading-to-9-x-from-8-x.html#h2__514962446" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  
+    <div class="alert alert-warning"><i class="mdi mdi-alert mr-2"></i><b>Pre-requisite: </b>Install <b>9.4.6.2</b> first and once the install is complete, upgrade to the latest 9.X version. Contact Customer Support to obtain the link to download version 9.4.6.2</div>
+  
+  <p>
+    You install CloudBolt 9.X in the same way that you install any CloudBolt, it will just be running on the CentOS 7.6 operating system instead of CentOS 6. See&nbsp;<a href="installing-cloudbolt.html">Installing CloudBolt</a>.
+  </p>
+</div>
+<div id="export-cloudbolt-8-x">
+  <h2 id="h2_1306473668" data-has-heading-anchor="true">
+    Export CloudBolt 8.X
+  <a href="upgrading-to-9-x-from-8-x.html#h2_1306473668" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">We have prepared a command line tool,&nbsp;</span></span>cb_export.py, to take care of archiving and compressing all of the standard CloudBolt files and directories into a single&nbsp;.tar.gz&nbsp;compressed archive. The utility is modular enough to allow users to easily add additional files and directories to include in the export or to mark specific files or directories to be excluded from the export.
+  <p>
+    On our largest internal testing servers, a full export completed in approximately 60 minutes.
+  </p>
+  <div id="cb-export-usage">
+    <h3 id="h3_1085370735" data-has-heading-anchor="true">
+      <span style="">cb_export</span>&nbsp;Usage
+    <a href="upgrading-to-9-x-from-8-x.html#h3_1085370735" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    The export utility will not run if either the Apache web server (<span style="">httpd</span>) or the job engine is active. This is to prevent an active CloudBolt from making changes to files and directories as they are being compressed, which could break the export.
+    <ul>
+      <li>
+        <span style="">service&nbsp;httpd&nbsp;stop</span>&nbsp;will stop Apache
+      </li>
+      <li>
+        There are 3 potential ways to stop the job engine, depending on your version of CloudBolt
+      </li>
+      <li>
+        <ul>
+          <li>
+            supervisor-based job engine:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">supervisorctl&nbsp;stop&nbsp;jobengine:*</span></span></code>
+          </li>
+          <li>
+            celery-based job engine:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">supervisorctl&nbsp;stop&nbsp;celeryd:*</span></code>
+          </li>
+          <li>
+            cron-based job engine:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">service&nbsp;crond&nbsp;stop</span></code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div>
+      <table class="infoBox" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td class="infoBoxImageCell">
+              <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+            </td>
+            <td class="infoBoxText">
+              service&nbsp;crond&nbsp;stop&nbsp;only stops cron from automatically restarting the job engine and does not kill running job engine processes, but running job engine processes will die either within 60 seconds or once they complete all of their jobs, whichever is later.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      cb_export&nbsp;can be called as a Python script from anywhere on the filesystem once copied to your CloudBolt instance, (e.g.&nbsp;python&nbsp;/tmp/cb_export.py&nbsp;-is) or it can be called as a Django management command on CloudBolt 9.x or greater (e.g.&nbsp;python&nbsp;manage.py&nbsp;cb_export&nbsp;-is). Either way, the utility will be run as a Django management command behind the scenes because it needs access to various settings defined in Django.
+    </div>
+    <p>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">You can run&nbsp;</span></span><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_export</span>&nbsp;with the&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">--help</span>&nbsp;or&nbsp;</span></code><span style="">-h</span>&nbsp;option to print the help text, but the same information is also provided here in a different format.
+    </p>
+    <p>
+      The export utility will include the following directories:
+    </p>
+    <blockquote>
+      <div>
+        <ul>
+          <li>
+            <span style="">VARDIR/opt/cloudbolt</span>&nbsp;where VARDIR is defined in Django settings
+          </li>
+          <li>
+            <code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">MEDIA_ROOT</span>&nbsp;and&nbsp;</span></code>STATIC_TESTS_DIR, where each is defined in Django settings
+          </li>
+        </ul>
+      </div>
+    </blockquote>
+    <p>
+      The export utility will enable maintenance mode when it starts and disable it when the export completes, much like an upgrade.
+    </p>
+    <h4 id="h4_1511584348" data-has-heading-anchor="true">
+      Options
+    <a href="upgrading-to-9-x-from-8-x.html#h4_1511584348" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <ul>
+      <li>
+        <b>Default Files</b>
+        <ul>
+          <li>
+            You can view what will be included in the default export with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-l&nbsp;or&nbsp;</span></code>--list-defaults&nbsp;option. This will also list the sizes of those files and directories.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Dry Run</b>
+        <ul>
+          <li>
+            You can run this utility without making any changes to examine its output messages by running it with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-d&nbsp;or&nbsp;</span></code><code>--dry-run&nbsp;option.</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Job Logs</b>
+        <ul>
+          <li>
+            By default, the export will include the job logs directory defined by the&nbsp;JOBTHREAD_LOGPATH&nbsp;Django setting, which defaults to&nbsp;/var/log/cloudbolt/jobs/. This can be turned off with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-nj&nbsp;or&nbsp;</span></code><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">--no-job-logs</span>&nbsp;option. If your job log directory is too large, you might wish to handle transferring your job logs outside of this export process. The job logs need to be moved to the new CloudBolt instance so that links to view or download a job log from the job details page will still work for jobs that were run on the old CloudBolt instance.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>MySQL</b>
+        <ul>
+          <li>
+            By default, the export will include a database dump of the MySQL database this CloudBolt instance uses. This utility uses the&nbsp;<span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">mysqldump</span>&nbsp;command for the database dump. If including the database dump in the export, the exporter will use the ‘default’ database defined in the&nbsp;DATABASES&nbsp;Django setting for database, username, and password. If the password is not defined in those settings, then the user will be prompted for this password as this utility runs.
+          </li>
+          <li>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;"></span>The utility also includes the default MySQL configuration files, if they exist:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">/etc/my.cnf&nbsp;and&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">/etc/mysql/my.cnf.</span></code>
+          </li>
+          <li>
+            All the MySQL functionality (database dump and config files) can be excluded with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-nm&nbsp;or&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">--no-mysql&nbsp;option.</span></code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Apache</b>
+        <ul>
+          <li>
+            By default, the utility includes the following configuration files for Apache:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">/etc/httpd/conf/httpd.conf,&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">/etc/httpd/conf.d/ssl.conf, and&nbsp;</span></code><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">/etc/httpd/conf.d/wsgi.conf</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">.</span>
+          </li>
+          <li>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;"></span>These files can be excluded with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-na&nbsp;or&nbsp;</span></code><code>--no-apache&nbsp;option.</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>CloudBolt Secrets</b>
+        <ul>
+          <li>
+            By default, the CloudBolt secrets directory (/var/opt/cloudbolt/secrets) is excluded from the export, but it can be included with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">-is&nbsp;or&nbsp;</span></code><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">--include-secrets</span><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">&nbsp;option. The directory contains secret keys used to encrypt and decrypt sensitive fields stored on the CloudBolt database. Your new CloudBolt instance&nbsp;</span><strong style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">must</strong>&nbsp;have these keys to properly access sensitive fields included in the database dump. If you do not include the secrets directory in this export, then you&nbsp;<strong style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">must</strong><span style="font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Roboto, &quot;Helvetica Neue&quot;, Ubuntu, sans-serif;">&nbsp;transfer it to your new CloudBolt in a different manner.</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>SSL Certificates</b>
+        <ul>
+          <li>
+            Users can include the&nbsp;<code>-ic&nbsp;or&nbsp;</code><span style="">--include-certs</span>&nbsp;option to add certificates to the export. Certificates will be included from the following directories:&nbsp;<span style="">/etc/pki/tls/certs</span>&nbsp;and&nbsp;<code>/etc/pki/tls/private.</code>
+          </li>
+          <li>
+            Including certificates in an unencrypted&nbsp;.tar.gz&nbsp;file has security implications because secret information will be saved in a format that anyone can read, so be sure you want to include this information before using this option.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Extra Files and Directories</b>
+        <ul>
+          <li>
+            Users can specify their own files and directories to include as arguments after the options. The user-specified directories and files will be moved to the same paths on the destination machine by the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_import</span>&nbsp;utility.</span></code>
+          </li>
+          <li>
+            For example, if you wanted to include certain pet-related data from a CloudBolt 8.X machine in the export, you could run&nbsp;<code>python&nbsp;cb_export.py&nbsp;/tmp/dog_photos/&nbsp;/var/opt/cat_stories/*.txt.</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Exclude Files and Directories</b>
+        <ul>
+          <li>
+            Users can specify files and directories to exclude from the import (including default CloudBolt directories or their children) using the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">-ex</span>&nbsp;or&nbsp;</span></code>--exclude&nbsp;option. Users can include this option as many times as they want. Excluded directories that are within included directories will be temporarily moved to&nbsp;/var/tmp/cb_export_tmp&nbsp;while their parent directory is archived and compressed. Paths to exclude will&nbsp;<strong>always</strong>&nbsp;override default paths and paths to include.
+          </li>
+          <li>
+            For example, if you wanted to include all logs CloudBolt logs in an export except for the job engine log, then you could run&nbsp;<code>python&nbsp;manage.py&nbsp;cb_export&nbsp;/var/log/cloudbolt/&nbsp;-ex&nbsp;/var/log/cloudbolt/jobengine.log</code>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <b>Output Directory</b>
+        <ul>
+          <li>
+            By default, the final compressed archive will be saved to the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">/var/tmp/</span>&nbsp;directory. This can be overridden with the&nbsp;</span></code><span style="">-o</span>&nbsp;or&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">--output</span>&nbsp;option. The compressed archive will be named&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cbdumpv1_YYYYMMDD_HHMMSS.tgz</span>, where the&nbsp;</span></code><span style="">YYYYMMDD_HHMMSS</span>&nbsp;is a timestamp.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div id="import-cloudbolt-on-9-x">
+  <h2 id="h2__250669509" data-has-heading-anchor="true">
+    Import CloudBolt on 9.X
+  <a href="upgrading-to-9-x-from-8-x.html#h2__250669509" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  We have prepared a command line tool,&nbsp;cb_import.py, to take care of extracting and moving the various files and directories contained within the compressed archive created by&nbsp;<code>cb_export.py.</code>
+  <h3 id="h3__1962688586" data-has-heading-anchor="true">
+    <span style="">cb_import</span>&nbsp;Usage
+  <a href="upgrading-to-9-x-from-8-x.html#h3__1962688586" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  You&nbsp;<strong>must</strong>&nbsp;verify values for the following Django settings before running this utility:&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">DATABASES</span>,&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">VARDIR</span>,&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">MEDIA_ROOT</span>, and&nbsp;</span></code><span style="">STATIC_TESTS_DIR</span>. The default values can be found in&nbsp;/opt/cloudbolt/settings.py&nbsp;and any overrides can be found in&nbsp;<span style="">/var/opt/cloudbolt/proserv/customer_settings.py</span>. This utility will use these settings to determine which database to connect to and where to extract certain directories.cb_import&nbsp;can be called as a Python script from anywhere on the filesystem once copied to your CloudBolt instance, (e.g.&nbsp;python&nbsp;/tmp/cb_import.py&nbsp;cbdump...tar.gz) or it can be called as a Django management command on CloudBolt 9.x or greater (e.g.&nbsp;<span style="">python&nbsp;manage.py&nbsp;cb_import&nbsp;cbdump...tar.gz</span>). Either way, the utility will be run as a Django management command behind the scenes because it needs access to various settings defined in Django.
+</div>
+<div id="import-cloudbolt-on-9-x">
+  <br/>
+</div>
+<div id="import-cloudbolt-on-9-x">
+  The import utility will extract the compressed archive specified in the command invocation to the system’s temporary directory as determined by the Python Standard Library function&nbsp;<span style="">tempfile.gettempdir</span>. The system’s temporary directory can be altered from the default of&nbsp;<span style="">/tmp</span>&nbsp;by setting a new directory in the&nbsp;<span style="">TMPDIR</span>&nbsp;environment variable. As the import runs it will copy the files and directories from the extracted import to their destinations. The extracted import will be deleted when the importer exits, successfully or otherwise.
+  <br/>
+  <br/>
+  The compressed archive will be extracted to temporary directory that will be deleted once this command finishes running. Files in the extracted archive are deleted as they are processed to conserve space.
+</div>
+<div id="import-cloudbolt-on-9-x">
+  <br/>
+</div>
+<div id="import-cloudbolt-on-9-x">
+  Space requirements are estimated cautiously to prevent a failure mid-import that leaves CloudBolt in a broken state. If the utility determines that your system lacks enough disk space to run the import safely, you can fix it with one or a combination of the following options:
+  <br/>
+  <br/>
+  <blockquote>
+    <div>
+      <ul>
+        <li>
+          Add more disk space.
+        </li>
+        <li>
+          Free unused space on the CentOS 7.6 machine. The&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">/tmp/</span>&nbsp;and&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">/var/tmp</span>&nbsp;directories might be good options for cleaning.</span></code>
+        </li>
+        <li>
+          Decrease the size of your export. Try excluding the job logs from the export with the&nbsp;<span style="">-nj</span>&nbsp;option or excluding the MySQL configuration files and dump with the&nbsp;<span style="">-nm</span>&nbsp;option. All of this can be copied over after the the import command completes without issue.
+        </li>
+      </ul>
+    </div>
+  </blockquote>All files and directories that are written by this utility will maintain owner, group, permission, and timestamp information. Existing files that match those in the export will be overwritten. Files within existing directories that the import utility is writing to will not be deleted, only updated or created.
+</div>
+<div id="import-cloudbolt-on-9-x">
+  <br/>
+</div>
+<div id="import-cloudbolt-on-9-x">
+  <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">You can run&nbsp;</span></span><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">cb_import</span>&nbsp;with the&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">--help</span>&nbsp;or&nbsp;</span></code><span style="">-h</span>&nbsp;option to print the help text, but the same information is also provided here in a different format.
+  <h4 id="h4__610184117" data-has-heading-anchor="true">
+    Options
+  <a href="upgrading-to-9-x-from-8-x.html#h4__610184117" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <ul>
+    <li>
+      <b>Dry Run</b>
+      <ul>
+        <li>
+          You can run this utility without making any permanent changes to examine its output messages by running it with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">-d</span>&nbsp;or&nbsp;</span></code><span style="">--dry-run</span>&nbsp;option. This&nbsp;<strong>will</strong>&nbsp;extract the compressed archive to a temporary directory to examine its contents, but it will be deleted once the utility finishes running (or if it encounters an exception).
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <b>Backups</b>
+      <ul>
+        <li>
+          By default, the utility will create backups of existing files and directories before potentially overwriting them. Files will be backed up in place by moving the existing file to&nbsp;<span style="">&lt;FILE_NAME&gt;.bak</span>. Directories will be backed up in place as compressed archives with the name&nbsp;<span style="">&lt;DIR_NAME&gt;.bak.tar.gz</span>. Backups can be turned off with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">-nb</span>&nbsp;or&nbsp;</span></code><span style="">--no-backups</span>&nbsp;option.
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <b>MySQL Load</b>
+      <ul>
+        <li>
+          If the extracted directory contains a MySQL database dump (the file is&nbsp;<span style="">cb_mysql_dump.sql</span>), then that will be used to load the database, overwriting any existing database that matches the default defined in the&nbsp;<span style="">DATABASES</span>&nbsp;Django setting. The database load can be skipped with the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">-nd</span>&nbsp;or&nbsp;</span></code><code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">--no-database-load</span>&nbsp;option. If the database load fails for any reason,&nbsp;</span></code><span style="">cb_mysql_dump.sql</span>&nbsp;will be copied to the&nbsp;<span style="">/tmp/</span>&nbsp;directory so that the database load can be run manually with&nbsp;mysql&nbsp;&lt;&nbsp;/tmp/cb_mysql_dump.sql.
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <blockquote></blockquote>
+</div>
+<div id="run-django-database-migrations">
+  <h2 id="h2__1646278176" data-has-heading-anchor="true">
+    Run Django Database Migrations
+  <a href="upgrading-to-9-x-from-8-x.html#h2__1646278176" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  If your export included a database dump and load, you will need to run database migrations. This is because the database on your new CloudBolt 9.X instance will be in the exact same state as the database on your CloudBolt 8.X instance, but the CloudBolt 9.X instance will have code and schema changes that the CloudBolt 8.X instance lacks.
+  <p>
+    Fortunately, running Django database migrations is straightforward.
+  </p>
+  <ol>
+    <li>
+      Log in to your CloudBolt 9.X machine.
+    </li>
+    <li>
+      Run the Django migration management command&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">python&nbsp;/opt/cloudbolt/manage.py&nbsp;migrate</span>.&nbsp;</span></code><span style="">/opt/cloudbolt/</span>&nbsp;is the default directory for CloudBolt, but your root CloudBolt directory could be somewhere else.
+    </li>
+    <li>
+      Wait for the migrations to complete, then restart httpd&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">systemctl&nbsp;restart&nbsp;httpd</span>.</span></code>
+    </li>
+  </ol>
+</div>
+<div id="create-new-database-objects">
+  <h2 id="h2_1649977211" data-has-heading-anchor="true">
+    Create New Database Objects
+  <a href="upgrading-to-9-x-from-8-x.html#h2_1649977211" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  To pull in new functionality that is dependent on out-of-the-box database objects (such as new Orchestration Actions and Recurring Jobs), run the&nbsp;<span style="">create_objects</span>&nbsp;Python script, which is run behind the scenes as part of every CloudBolt upgrade.
+  <ol>
+    <li>
+      Log in to your CloudBolt 9.X machine.
+    </li>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">Run the&nbsp;</span></span><span style="">create_objects.py</span>&nbsp;script. By default, this script can be run with&nbsp;<span style="">python&nbsp;/opt/cloudbolt/initialize/create_objects.py</span>, but it might be in a different directory if you have overridden the default CloudBolt directory structure.
+    </li>
+  </ol>
+  This is necessary because the import process completely overwrites the database of your new CloudBolt 9.X instance with data from your old 8.X instance, which wipes out any new functionality that depends on database objects. The&nbsp;<span style="">create_objects</span>&nbsp;script will&nbsp;<strong>not</strong>&nbsp;overwrite changes that you have made to existing out-of-the-box Actions or Plugins.
+</div>
+<div id="collect-static-files">
+  <h2 id="h2__1076191705" data-has-heading-anchor="true">
+    Collect Static Files
+  <a href="upgrading-to-9-x-from-8-x.html#h2__1076191705" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  This step is only required if your CloudBolt instance has UI Extensions (XUIs) or customized HTML templates, but it will not damage your CloudBolt to perform it. By default, XUIs are in the&nbsp;<span style="">/var/opt/cloudbolt/proserv/xui/</span>&nbsp;directory and customized HTML templates are in the&nbsp;<span style="">/var/opt/cloudbolt/proserv/templates/</span>&nbsp;directory. 
+</div>
+<div id="collect-static-files">
+  <br/>
+</div>
+<div id="collect-static-files">
+  To collect static files for CloudBolt:
+  <ol>
+    <li>
+      Log in to your CloudBolt 9.X machine.
+    </li>
+    <li>
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">Run&nbsp;</span></span>python&nbsp;/opt/cloudbolt/manage.py&nbsp;collectstatic. If you want to review a dry run to confirm the changes this will make, you can use the&nbsp;<code><span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"><span style="">-n</span>&nbsp;or&nbsp;</span></code><code><span style="">--dry-run</span>&nbsp;option.</code>
+    </li>
+    <li>
+      Before making any changes to CloudBolt, Django will confirm that you want to rebuild your static files.
+    </li>
+  </ol>
+</div>
+<div id="change-upgrade-prefix">
+  <h2 id="h2_505383174" data-has-heading-anchor="true">
+    Change Upgrade Prefix
+  <a href="upgrading-to-9-x-from-8-x.html#h2_505383174" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  It is unlikely you will need to change your upgrade prefix. When your CloudBolt server checks for compatible upgraders, it can use a prefix to select a different version. If you are directed by a CloudBolt support engineer, you can configure your prefix by doing the following:
+  <ol>
+    <li>
+      Open your&nbsp;<span style="">customer_settings.py</span>&nbsp;file.
+    </li>
+    <li>
+      Update the variable VERSION_INFO, a dict with a key ‘RELEASE_VERSION_PREFIX’. Add a line:&nbsp;VERSION_INFO.update({'RELEASE_VERSION_PREFIX':&nbsp;'the_new_prefix'})
+    </li>
+  </ol>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="postgresql-database.html" class="articleActions_link CHNavLinkPrevious">Upgrade your Database to PostgreSQL</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="upgrading-9-4.html" class="articleActions_link CHNavLinkNext">Upgrade Using a Yum Repository </a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

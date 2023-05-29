@@ -1,0 +1,36 @@
+{% comment %}
+Used by views to show remote content.
+Args:
+    content_type: plural label for this type of object
+
+This requires the calling template to provide a div containing two tab-panes having these IDs:
+    local-content-view
+    content-library-view
+
+{% endcomment %}
+
+{% load i18n %}
+
+{% if show_content_library %}
+    <div class="pull-right">
+        <div class="btn-group" data-toggle="button-tabs" data-buttontabs-persist="off">
+            <a href="#local-content-view" class="btn btn-default active"
+                data-toggle="tooltip" data-placement="top"
+                title="{% blocktrans %}View {{ content_type }} available on this server{% endblocktrans %}">
+                <span class="glyphicon glyphicon-list"></span>
+            </a>
+
+            <a class="btn btn-default no-tooltip-affordance"
+                href="#content-library-view"
+                data-toggle="tooltip" data-placement="top"
+                title="{% blocktrans %}View and import {{ content_type }} from the Content Library{% endblocktrans %}">
+                <i class="fas fa-cloud-download-alt"></i>
+            </a>
+        </div>
+    </div>
+    <script>
+    $(function() {
+        c2.buttonTabs.init();
+    });
+    </script>
+{% endif %}

@@ -1,0 +1,42 @@
+{% load helper_tags %}
+{% load rh_tags %}
+{% load i18n %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            {% if details.sockets %}
+                <dt>{% trans "Sockets" %}:</dt>
+                <dd>{{ details.sockets}}</dd>
+            {% endif %}
+            {% if details.vcpus_per_socket %}
+                <dt>{% trans "vCPUs per socket" %}:</dt>
+                <dd>{{ details.vcpus_per_socket}}</dd>
+            {% endif %}
+
+            {% if show_snapshots %}
+            <dt>
+                 {% portal_label as portal_lbl %}
+                 <span data-toggle="tooltip"
+                    title="{% blocktrans %}All snapshots currently on the server that have been created with {{ portal_lbl }}{% endblocktrans %}">
+                    {% trans "Snapshots" %}</span>:
+            </dt>
+            <dd>
+                {% for snapshot in details.snapshots.all %}
+                    {{ snapshot.get_name_with_date_created }}
+
+                    <a class="open-dialog"
+                        href="{% url 'server_delete_snapshot' server.id snapshot.id %}"
+                        id="delete_snapshot">
+                        <span class="icon-delete"></span>
+                    </a>
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>

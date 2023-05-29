@@ -1,0 +1,46 @@
+{% comment %}
+Renders the `datatable` template tag.
+{% endcomment %}
+
+{% load helper_tags %}
+
+<table ng-app="cb"
+    id="{{ table_config.table_id }}"
+    {% if table_config.table_classes %} class="{{ table_config.table_classes }}"{% endif %}
+    {% if table_config.sort_by_column %} data-table-sort="{{ table_config.sort_by_column }}" {% endif %}
+    {% if table_config.unsortable_column_indices %} data-table-sort-disabled="{{ table_config.unsortable_column_indices|to_csv }}" {% endif %}
+
+    {# Do not init datatable quite yet; first add some data attrs below #}
+    data-table-no-auto-init>
+    <thead>
+        <tr>
+            {% for heading in table_config.get_column_headings %}
+                <th> {{ heading }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in rows %}
+            <tr>
+                {% for col in row %}
+                    <td>{{ col }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(function() {
+    var $table = $('#{{ table_config.table_id }}');
+    var $toolbar = $('#{{ table_config.table_id }}-toolbar');
+    if ($toolbar.length) {
+        // Prepare the toolbar DOM fragment with all client-side
+        // behavior and pass it along to the c2 DataTable API.
+        c2.dataTables.setupToolbarBehavior($table, $toolbar);
+        $table.data('table-toolbar', $toolbar);
+    }
+
+    c2.dataTables.init('#{{ table_config.table_id }}');
+});
+</script>

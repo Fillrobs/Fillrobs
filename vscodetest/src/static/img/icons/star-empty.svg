@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/star-empty</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icons/star-empty" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M16,6.204 L10.472,5.401 L8,0.392 L5.528,5.401 L0,6.204 L4,10.103 L3.056,15.608 L8,13.009 L12.944,15.608 L12,10.103 L16,6.204 Z M8,11.773 L4.508,13.609 L5.175,9.721 L2.35,6.968 L6.254,6.401 L8,2.864 L9.746,6.401 L13.65,6.968 L10.825,9.721 L11.492,13.609 L8,11.773 Z" id="Shape" fill="#737373" fill-rule="nonzero"></path>
+    </g>
+</svg>

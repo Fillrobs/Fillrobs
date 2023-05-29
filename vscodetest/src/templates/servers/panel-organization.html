@@ -1,0 +1,78 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+{% load rh_tags %}
+{% load tag_tags %}
+
+<div id="panel-organization" class="panel panel-default revealer">{# revealer class is for the edit links #}
+    <div class="panel-heading">
+        <h3> {% trans 'Organization' %} </h3>
+    </div>
+    <div class="panel-body">
+        <dl class="dt-30 line-height-32">
+            <dt>{% trans 'Owner:' %}</dt>
+            <dd {% if "server.change_attributes" in profile.permissions %}
+                    data-inline-form-url="{% url 'edit_arbitrary_server_attribute_inline' server.id 'owner' %}"
+                {% endif %}
+                >
+                {% rich_gravatar server.owner.user 32 link=False %}
+                {{ server.owner|link_or_label:profile }}
+            </dd>
+
+            <dt>{% trans 'Group:' %}</dt>
+            <dd {% if "server.change_attributes" in profile.permissions %}
+                    data-inline-form-url="{% url 'edit_arbitrary_server_attribute_inline' server.id 'group' %}"
+                {% endif %}
+                >{{ server.group|link_or_label:profile }}</dd>
+
+            {% if profile.is_cbadmin and server.management_groups.exists %}
+                <dt>{% trans 'Management Groups:' %}</dt>
+                <dd data-inline-form-url="{% url 'edit_arbitrary_server_attribute_inline' server.id 'management_groups' %}">
+                    {{ server.management_groups.all|to_csv_links:profile }}
+                </dd>
+            {% endif %}
+
+            {% if server.environment.data_center and gp.enable_dcs_feature %}
+                <dt>{% trans 'Datacenter:' %}</dt>
+                <dd>{{ server.environment.data_center|link_or_label:profile }}</dd>
+            {% endif %}
+
+            <dt>{% trans 'Environment:' %}</dt>
+            <dd {% if "server.change_attributes" in profile.permissions %}
+                    data-inline-form-url="{% url 'edit_arbitrary_server_attribute_inline' server.id 'environment' %}"
+                {% endif %}
+                >{{ server.environment|link_or_label:profile }}</dd>
+
+            {% if server.resource_handler != server.environment.resource_handler %}
+                <dt class="resource-handler">{% trans 'Resource handler:' %}</dt>
+                <dd>{{ server.resource_handler|resource_handler_icon }} {{ server.resource_handler|link_or_label:profile }}</dd>
+            {% endif %}
+
+            {% if server.resource_id %}
+                <dt>{{ server.resource.resource_type.label }}:</dt>
+                <dd>
+                    {{ server.resource|link_or_label:profile }}
+                </dd>
+                <dt>{% text_tooltip _('Tier:') _('The tier within the deployed resource that this server belongs to') %}</dt>
+                <dd>
+                    {{ server.service_item }}
+                </dd>
+            {% endif %}
+
+            <dt>{% trans 'Labels:' %}</dt>
+            <dd>
+                {% for tag in server.tags.all %}
+                    {{ tag|tag }}
+                {% empty %}
+                    <i>{% trans 'None' %}</i>
+                {% endfor %}
+                {% if "server.manage_labels" in profile.permissions %}
+                    <a href="{% url 'server_edit_tags' server.id %}" class="open-dialog revealable"><i class="icon-edit"></i></a>
+                {% endif %}
+            </dd>
+        </dl>
+    </div>
+</div>
+<script>
+c2.inlineEdits.init('#panel-organization');
+</script>

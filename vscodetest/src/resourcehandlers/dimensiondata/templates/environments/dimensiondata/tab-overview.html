@@ -1,0 +1,20 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{%  if env_dimensiondata_datacenter %}
+<dt>Data Center:</dt>
+    <dd>{{ env_dimensiondata_datacenter }}</dd>
+{% endif %}
+
+{%  if env_dimensiondata_netdom %}
+<dt>Network Domain:</dt>
+<dd>
+    {%  if env_dimensiondata_netdom != '-' %}
+        {{ env_dimensiondata_netdom }}
+    {% else %}
+        <i>{% trans "None" %}</i>
+    {% endif %}
+</dd>
+{% endif %}
+
+

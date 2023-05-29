@@ -1,0 +1,53 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel-heading">
+    <h4>
+        <i class="icon-32 icon-nic-32"></i>
+        {{ nic.display }}
+    </h4>
+</div>
+<div class="panel-body">
+    <dl>
+        {% block nic-info %}
+
+            <dt>IP:</dt>
+            <dd>
+                {% if nic.ip == "dhcp" %}
+                    DHCP
+                {% else %}
+                    {{ nic.ip|clippable }}
+                {% endif %}
+            </dd>
+
+            {% if nic.private_ip %}
+                <dt>Private IP:</dt>
+                <dd>
+                    {{ nic.private_ip|clippable }}
+                </dd>
+            {% endif %}
+
+            <dt>Network:</dt>
+            {% if nic.network %}
+                <dd style="width: 80%">
+                    {% include 'servers/nic_network_subpanel.html' with network=nic.network %}
+                </dd>
+            {% else %}
+                <dd><i>None</i></dd>
+            {% endif %}
+
+            {% if nic.subnetwork_name %}
+                <dt>Subnetwork:</dt>
+                <dd>{{ nic.subnetwork_name }}</dd>
+            {% endif %}
+
+            {% if nic.bootproto and nic.get_bootproto_display != 'None'%}
+                <dt>Boot protocol:</dt>
+                <dd>{{ nic.get_bootproto_display }}</dd>
+            {% endif %}
+
+        {% endblock %}
+
+        {% block extra-nic-info %}{% endblock %}
+    </dl>
+</div>

@@ -1,0 +1,54 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'license_pool_edit' pool.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'license_pool_delete' pool.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+
+<dl>
+    <dt>Total Licenses</dt>
+    <dd>
+        {{ pool.count }}
+    </dd>
+    <dt>Deployed</dt>
+    <dd>
+        {{ pool.used }}
+    </dd>
+    <dt>Available for Deployment</dt>
+    <dd>
+        {{ pool.available }}
+    </dd>
+    <dt>License Type</dt>
+    <dd>
+        {{ pool.get_type_display }}
+    </dd>
+    <dt>Applications</dt>
+    <dd>
+        <ul>
+        {% for app in pool.applications.all %}
+            <li>
+                {{ app }}
+            </li>
+        {% endfor %}
+        </ul>
+    </dd>
+
+    <dt>OS Builds</dt>
+    <dd class="os_builds">
+        <ul>
+        {% for build in pool.os_builds.all %}
+            <li>
+                {{ build.os_family|os_family_icon }} &nbsp;{{ build }}
+            </li>
+        {% endfor %}
+        </ul>
+    </dd>
+</dl> 

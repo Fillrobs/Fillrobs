@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+{% block topnav %}portals{% endblock %}
+
+{% block content %}
+    <h1> {{ portal.name }} </h1>
+
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_edit' portal.id %}"
+            data-dialog-width="1000px">
+            <span class="icon-edit"></span>
+            Edit
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_edit_images' portal.id %}"
+            data-dialog-width="1000px">
+            <i class="far fa-image"></i>
+            Images
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_edit_basic_colors' portal.id %}"
+            data-dialog-width="1000px">
+            <i class="fas fa-paint-brush"></i>
+            Basic Colors
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_edit_advanced_colors' portal.id %}"
+            data-dialog-width="1000px">
+            <i class="fas fa-paint-brush"></i>
+            Advanced Colors
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_edit_email_settings' portal.id %}"
+            data-dialog-width="1000px">
+            <i class="fas fa-envelope"></i>
+            Email Settings
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'portal_clone' portal.id %}"
+            id="clone_portal">
+            <span class="icon-duplicate"></span>
+            {% trans "Clone" %}
+        </a>
+        {% if not portal.is_default %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'portal_delete' portal.id %}">
+                <span class="icon-delete"></span>
+                Remove&hellip;
+            </a>
+        {% else %}
+            <a class="btn btn-default"
+                data-toggle="popover"
+                data-html="true"
+                data-content-selector="#delete-popover-content">
+                <span class="icon-delete"></span>
+                Remove&hellip;
+            </a>
+            <div class="popover-content-el" id="delete-popover-content">
+                <p>The default portal cannot be deleted. To delete this portal,
+                first set a different portal to be the default.</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-8">
+
+                    <dl class="vertical">
+                        <dt>Name:</dt>
+                        <dd>{{ portal.name}}</dd>
+                        <dt>Domain:</dt>
+                        <dd>
+                            {% if portal.domain %}
+                                <a href="{{ portal.site_url }}">{{ portal.domain }}</a>
+                            {% else %}
+                                <i>None</i>
+                            {% endif %}
+                        </dd>
+                        <dt>Login LDAP domains:</dt>
+                        <dd>
+                            {% for ldap in portal.ldaps.all %}
+                                {{ ldap|link_or_label:profile }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                <i>None</i>
+                            {% endfor %}
+                        </dd>
+                        <dt>Local Credential Store:</dt>
+                        <dd>
+                            {% if portal.enable_local_credentials_store == None %}
+                                <i>Inherited</i>
+                            {% elif portal.enable_local_credentials_store%}
+                                <i>Enabled</i>
+                            {% else %}
+                                <i>Disabled</i>
+                            {% endif %}
+                        </dd>
+                        <dt>Single Sign-On Provider:</dt>
+                        <dd>
+                            {% if portal.sso_provider %}
+                                <a href="{{ portal.sso_provider.get_absolute_url }}">{{ portal.sso_provider }}</a>
+                            {% else %}
+                                <i>None</i>
+                            {% endif %}
+                        </dd>
+                        <dt>Is the default portal:</dt>
+                        <dd><i>{{ portal.is_default }}</i></dd>
+                        {% if portal.tenant and profile.show_tenant_info %}
+                            <dt>Tenant:</dt>
+                            <dd>{{ portal.tenant|link_or_label:profile }}</dd>
+                    {% endif %}
+                    </dl>
+                </div>
+                <div class="col-xs-4">
+                    {% if portal.custom_banner %}
+                            <dt>Top banner:</dt>
+                            <dd>
+                            <img src="{{ portal.custom_banner.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                    {% if portal.login_banner %}
+                            <dt>Login banner:</dt>
+                            <dd>
+                            <img src="{{ portal.login_banner.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                    {% if portal.header_logo %}
+                            <dt>Header logo:</dt>
+                            <dd>
+                            <img src="{{ portal.header_logo.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                    {% if portal.footer_logo %}
+                            <dt>Footer logo:</dt>
+                            <dd>
+                            <img src="{{ portal.footer_logo.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                    {% if portal.loading_image %}
+                            <dt>Loading image:</dt>
+                            <dd>
+                            <img src="{{ portal.loading_image.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                    {% if portal.login_background_image %}
+                            <dt>Login background image:</dt>
+                            <dd>
+                            <img src="{{ portal.login_background_image.url }}" style="max-height:80px">
+                            </dd>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

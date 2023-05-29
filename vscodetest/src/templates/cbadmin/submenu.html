@@ -1,0 +1,120 @@
+{% load cache %}
+{% load helper_tags %}
+{% load admin_tags %}
+{% load i18n %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% cache 300 admin_submenu request.user.id %}
+{% spaceless %}
+<div class="dropdown-menu__sidebar">
+    <div class="sidebar__info">
+        <div class="info-heading">
+            <h2 class="heading-2">
+                Admin
+            </h2>
+        </div>
+        <div class="info">
+            <p class="paragraph">
+                View all of the menu items accessible to {% portal_label %} Admins in one place. Options are available
+                based on user permissions. Menu items not allowed due to permissions still show in grey.
+            </p>
+        </div>
+        <div class="info-btns">
+            <a href="{% url 'admin_home' %}" class="cb-btn cb-btn-primary">Admin</a>
+        </div>
+    </div>
+    <div class="dropdown-menu__actions">
+        <!-- Keep if Quick actions needed in the future. -->
+        <!-- <div class="quick-actions">
+                <h5 class="heading-5 bold">Quick Actions</h5>
+                <a href="{% url 'create_toplevel_group' %}" class="cb-btn cb-btn-secondary open-dialog">Add a Group</a>
+            </div> -->
+    </div>
+</div>
+<div class="dropdown-menu__content">
+    <div class="content" id="admin-content">
+        {% if profile.is_cbadmin or profile.global_viewer %}
+        <div class="section">
+            <div id="environments" class="section__content">
+                <h3 class="heading-5 bold panel-title">{% trans "Environments" %} ({{ all_env_count }})</h3>
+                {% for env in environments%}
+                <li>{{ env|render_link }}</li>
+                {% endfor %}
+                <li><a href="{% url 'env_list' %}">See All</a></li>
+            </div>
+            <div id="resources" class="section__content">
+                <h3 class="heading-5 bold panel-title">{% trans "Resource Handlers" %} ({{ all_rh_count }})</h3>
+                {% for rh in resource_handlers %}
+                <li>{{ rh|render_link }}</li>
+                {% endfor %}
+                <li><a href="{% url 'resourcehandler_list' %}">See All</a></li>
+            </div>
+        </div>
+        {% endif %}
+        <div class="section">
+            <div id="internal-entities" class="section__content">
+                <h3 class="heading-5 bold panel-title">CloudBolt Objects</h3>
+                {% admin_link "OS Builds" "osbuild_list" "osbuild.manage" "" %}
+                {% admin_link "Parameters" "customfields_list" "" "" %}
+            </div>
+            <div id="external-systems" class="section__content">
+                <h3 class="heading-5 bold panel-title">Integrations</h3>
+                {% admin_link "Resource Handlers" "resourcehandler_list" "resourcehandler.manage" "" %}
+                {% admin_link "Environments" "env_list" "environment.manage" "" %}
+            </div>
+            {% comment %}
+            The only people who can see this are CB Admins, Global Viewers, and Tenant Admins, so
+            this check essentially hides the sections for Tenant Admins, who will never be able to
+            see any of the links and would just see empty "Orchestration" and "Activity" headers
+            {% endcomment %}
+            {% if profile.is_cbadmin or profile.global_viewer %}
+            <div id="orchestration" class="section__content">
+                <h3 class="heading-5 bold panel-title">Orchestration</h3>
+                {% admin_link "Server Actions" "server_actions" "" "" global_viewer_allowed=False %}
+                {% admin_link "Orchestration Actions" "orchestration_actions" "" "" global_viewer_allowed=False %}
+                {% admin_link "Resource Actions" "resource_actions" "" "" global_viewer_allowed=False %}
+                {% admin_link "Recurring Jobs" "recurring_job_list" "" "" %}
+                {% admin_link "Continuous Infrastructure Testing" "cit_list" "" "" %}
+                {% if profile.api_access %}
+                {% admin_link "API Browser" "api" "" "" %}
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+        <div class="section">
+            {% if profile.is_cbadmin or profile.global_viewer %}
+            <div id="activity" class="section__content">
+                <h3 class="heading-5 bold panel-title">Activity</h3>
+                {% admin_link "History" "all_history_events_list" "" "" %}
+                {% admin_link "Orders" "order_list" "" "" %}
+                {% admin_link "Jobs" "job_list" "" "" %}
+            </div>
+            {% endif %}
+            <div id="system" class="section__content">
+                <h3 class="heading-5 bold panel-title">System</h3>
+                {% admin_link "System Status" "health_check:index" "" "" %}
+                {% admin_link "Miscellaneous Settings" "misc_settings" "" "" %}
+            </div>
+            <div id="security" class="section__content">
+                <h3 class="heading-5 bold panel-title">Security</h3>
+                {% admin_link "Users" "user_list" "user.manage" "" %}
+                {% admin_link "Roles" "role_list" "" "" %}
+                {% admin_link "Permissions" "permission_list" "" "" %}
+            </div>
+            <div id="maintenance" class="section__content">
+                <h3 class="heading-5 bold panel-title">Maintenance</h3>
+                {% admin_link "Version & Upgrade Info" "version_detail" "" "" %}
+                <li><a href="{{ STATIC_URL }}docs/HTML/release-notes.html" target="blank">Release Notes</a></li>
+            </div>
+            {% if profile.is_cbadmin or profile.global_viewer %}
+            <div id="support-tools" class="section__content">
+                <h3 class="heading-5 bold panel-title">Support Tools</h3>
+                {% admin_link "View Application Log" "collect_application_dot_log" "" "" %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endspaceless %}
+{% endcache %}

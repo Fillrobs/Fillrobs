@@ -1,0 +1,44 @@
+{# added to common hooks/details.html #}
+{% load helper_tags %}
+
+<tr>
+    <th>OS Families</th>
+    <td>
+        {% for fam in hook.os_families.all %}
+            {{ fam.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            <span style="color:red"><i>None</i></span>
+            {% endfor %}
+    </td>
+<tr>
+    <th>Hook script path</th>
+    <td>
+        {% if hook.module_file %}
+            {{ hook.module_file }}
+        {% else %}
+            <i>None</i>
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>Commandline Arguments</th>
+    <td>
+        {% if hook.commandline_args %}
+            <code ng-non-bindable>{{ hook.commandline_args }}</code>
+        {% else %}
+            <i>None</i>
+        {% endif %}
+    </td>
+</tr>
+<tr>
+    <th>Hook environments</th>
+    <td>
+        {% for env in hook.environments.all %}
+            {{ env|link_or_label:profile }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
+            <i>Available for all environments</i>
+        {% endfor %}
+        <a class="icon-edit open-dialog"
+            href="{% url 'hook_edit_environments' hook.id %}"></a>
+    </td>
+</tr>

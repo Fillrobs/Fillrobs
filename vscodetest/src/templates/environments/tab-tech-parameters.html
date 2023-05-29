@@ -1,0 +1,90 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<form id="import_params_form" action="{% url 'env_import_customfields' environment.id %}" method="post">
+    {% csrf_token %}
+    <div class="btn-toolbar">
+        {% block actions %}
+        <button type="submit" class="btn btn-default" id="import-params"
+            data-toggle="tooltip" data-html="true" 
+            title="{% trans "Import parameter options from resource handler. All previous options will be replaced." %}"
+            data-loading-text="{% trans "Importing parameters..." %}">
+            <span class="icon-import"></span>
+            {% blocktrans with environment_rh_name=environment.resource_handler.name %}
+                Import parameters from {{ environment_rh_name }}{% endblocktrans %}
+        </button>
+        {% endblock %}
+    </div>
+</form>
+
+<div id="tech-params">
+
+    <div id="msg"></div>
+
+    <table id="tech-params-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Parameter" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Options" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for param in tech_params %}
+            <tr>
+                <td class="name">
+                    <span class="icon-param"></span>
+                    {{ param|rich_display:profile }}
+                </td>
+                <td>
+                    {{ param.get_type_display }}
+                </td>
+                <td class="param-options">
+                    {% get_field_options_as_str environment.custom_field_options param %}
+                </td>
+                <td>
+                    <form action="{% url 'env_import_customfield_options' environment.id param.id %}"
+                          method="post">
+                        {% csrf_token %}
+                        <a class="icon-delete open-dialog"
+                           href="{% url 'env_delete_customfield' environment.id param.id %}"></a>
+                        {% if param.type != "TUP" %}
+                            {# we do not support editing tuple CFVs in the UI yet #}
+                            <a class="icon-edit open-dialog"
+                                href="{% url 'env_edit_customfield_options' environment.id param.id %}"></a>
+                        {% endif %}
+                        {% if param.has_generated_options_support %}
+                            {% infotip _("Options set here will be used to filter the options generated at runtime.") %}
+                        {% else %}
+                            {# only show the import link for non-generated parameters #}
+                            <a class="icon-import import-param no-tooltip-affordance" href="#"
+                               data-toggle="tooltip" data-html="true" 
+                               title="{% blocktrans with param_label=param.label %}
+                                   Import options for {{ param_label }} from resource handler."{% endblocktrans %}>
+                            </a>
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <br/>
+</div>
+
+
+<script type="text/javascript">
+    $('.btn#import-params').on('click', function() {
+        $(this).button('loading');
+        return true;
+    });
+
+    $('.import-param').on('click', function(e) {
+        e.preventDefault();
+        c2.block.block();
+        $(this).closest('form').submit();
+    });
+</script>

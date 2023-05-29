@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+{# Styles defined in forms.less #}
+
+<form method="post" action="" class="form-inline inline-editable-form">
+    {% crispy form %}
+
+    <div class="btn-toolbar">
+        <a data-btn-save class="btn btn-primary btn-sm" tabindex="0">
+            <i class="fas fa-check"></i>
+        </a>
+        <a data-btn-cancel tabindex="0">
+            <i class="fas fa-times"></i>
+        </a>
+    </div>
+</form>

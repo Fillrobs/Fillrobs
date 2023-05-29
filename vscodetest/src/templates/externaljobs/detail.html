@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% block title %}External Job {{ extjob.id }}{% endblock %}
+{% block breadcrumbs %}{% endblock breadcrumbs %}
+
+{% load admin_list %}
+{% load item_list %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+
+@import "{{ STATIC_URL }}css/base.css";
+
+
+{% block content %}
+
+<div align="center">
+    <span class="detailHeader">
+        {{ extjob }}
+    </span>
+</div>
+
+
+<table id="job_status_table" border="0" cellspacing="5" cellpadding="5" style="width:100%;">
+<tr>
+    <td class="detailLabel">Originating {% portal_label %} Job:</td>
+    <td class="detailValue">
+        <a href="{% url 'job_detail' extjob.job.id %}" class="detailLink">{{ extjob.job }}</a>
+    </td>
+</tr>
+<tr>
+    <td class="detailLabel">Status:</td>
+    <td class="detailValue" id="job_status_cell">{{ extjob.get_status.capitalize }}</td>
+</tr>
+<tr>
+    <td class="detailLabel">Date Started:</td>
+    <td class="detailValue" id="job_status_cell">{{ extjob.get_startdate|default:"" }}</td>
+</tr>
+<tr>
+    <td class="detailLabel">Date Finished:</td>
+    <td class="detailValue" id="job_status_cell">{{ extjob.get_enddate|default:"" }}</td>
+</tr>
+<tr>    
+    <td class="detailLabel">Progress:</td>
+    <td class="detailValue">{{ extjob.get_progress|default:"" }} </td>
+</tr>
+<tr>    
+    <td class="detailLabel">Output:</td>
+    <td class="detailValue"><PRE>{{ extjob.get_stdout|default:"" }}</PRE></td>
+</tr>
+<tr>    
+    <td class="detailLabel">Error Output:</td>
+    <td class="detailValue">{{ extjob.get_stderr|default:"" }} </td>
+</tr>
+</table>
+{% endblock content %}

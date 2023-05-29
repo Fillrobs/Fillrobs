@@ -1,0 +1,23 @@
+- model: dns.dnspolicy
+  pk: 1
+  fields:
+    real_type:
+      - dns
+      - menandmicednspolicy
+    workspace: 1
+    endpoint: 1
+    type: men_and_mice
+    name: men_and_mice1
+    description: 'Men And Mice Test Policy #1'
+    create_a_record: true
+    pre_validate_a_record: true
+    post_validate_a_record: true
+    create_ptr_record: true
+    pre_validate_ptr_record: true
+    post_validate_ptr_record: true
+    create_c_name_record: false
+    pre_validate_c_name_record: false
+    post_validate_c_name_record: false
+    post_validation_sleep_seconds: '{{post_validation_sleep_seconds}}'
+    validation_timeout_seconds: '{{validation_timeout_seconds}}'
+    hostname_override: 'override-{{request.hostname}}'

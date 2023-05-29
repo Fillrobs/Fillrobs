@@ -1,0 +1,38 @@
+{% load helper_tags %}
+{% load itsm_tags %}
+{% load hook_tags %}
+
+{% block content %}
+<div class="panel-body">
+
+    <div class="well well-sm">
+        The default {{ itsm.itsm_technology }} behavior is provided, and can be customized. When customizing, keep in mind that function arguments are not
+        configurable, and the return values for each function should be preserved.
+    </div>
+
+    {% if not hook.enabled %}
+        <div class="clearfix">
+            <dt></dt>
+            <dd>
+                <input type=checkbox name=enabled
+                    data-toggle="toggle"
+                    data-on="Orchestration enabled"
+                    data-off="Orchestration disabled"
+                    data-width="200"
+                    data-post-url="{% url 'toggle_itsm_hook_enabled' itsm.id hook.id %}"
+                    {% if hook.debugger_enabled %}checked{% endif %}
+                    {% if not profile.is_cbadmin %} disabled{% endif %} />
+            </dd>
+        </div><br />
+    {% endif %}
+
+    {% include 'actions/action_input_defaults.html' with edit_url='action_trigger_edit' %}
+
+    {% if hook.supports_source_code %}
+        <div ng-non-bindable>
+            {% itsm_hook_source_code itsm hook profile %}
+        </div>
+    {% endif %}
+    </div>
+</div>
+{% endblock content %}

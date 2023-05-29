@@ -1,0 +1,193 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+<div id="group-details-overview">
+    <div class="btn-toolbar">
+        {% if user_can_change_attributes %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'group_edit' group.id %}">
+            <span class="icon-edit"></span>
+            {% trans "Edit" %}
+        </a>
+        {% endif %}
+        {% if user_can_delete %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'group_delete' group.id %}">
+                <span class="icon-delete"></span>
+                {% trans "Delete" %}&hellip;
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <dl class="dt-20">
+                <dt>{% trans "Description:" %}</dt>
+                <dd>
+                    <div {% if group.description %} class="well well-sm" {% endif %}>
+                        {% if group.description %}
+                            {{ group.description }}
+                        {% else %}
+                            {% trans "<i>No description</i>" %}
+                        {% endif %}
+                    </div>
+                </dd>
+
+                <dt>{% trans "Parent Group:" %}</dt>
+                <dd>
+                    {% if group.parent %}
+                        {{ group.parent|link_or_label:profile }}
+                    {% else %}
+                        <i> {% trans "None" %} </i>
+                    {% endif %}
+                </dd>
+
+                <dt>{% trans "Subgroups:" %}</dt>
+                <dd>
+                    {{ group.group_set.all|render_list:profile }}
+                    {% if user_can_create_subgroup %}
+                        <a class="btn btn-default open-dialog"
+                            href="{% url 'group_create_subgroup' group.id %}">
+                            <span class="icon-add"></span>
+                            {% trans "Add a subgroup" %}
+                        </a>
+                    {% endif %}
+                </dd>
+
+                <dt>{% trans "Levels to Show:" %}</dt>
+                <dd>
+                    {{ group.levels_to_show|default:"" }}
+                </dd>
+
+                <dt>
+                    <span data-toggle="tooltip" title="{{ AUTO_APPROVAL_TIP }}">{% trans "Auto Approval" %}</span>:
+                </dt>
+                <dd>
+                    {% if group.allow_auto_approval %} {% trans "On" %} {% else %} {% trans "Off" %} {% endif %}
+                </dd>
+                
+                <dt>{% trans "Approval Actions:" %}</dt>
+                <dd>
+                    {{ group.get_approval_orchestration_actions|render_list:profile }}
+                </dd>
+
+                <dt>
+                    <span data-toggle="tooltip"
+                    title='{% trans "Additional Groups, which may not be descendants of this Group, for which \"Approvers\" of this Group have the ability to approve Orders." %}'>
+                    {% trans "Approval Permission:" %}
+                    </span>
+                </dt>
+                <dd>
+                    {{ group.can_approve.all|render_list:profile }}
+                    {% if profile.is_cbadmin %}
+                        <a class="btn btn-default open-dialog"
+                            href="{% url 'group_approval_groups' group.id %}">
+                            <span class="icon-add"></span>
+                            {% trans "Add approval groups" %}
+                        </a>
+                    {% endif %}
+                </dd>
+
+                <dt>
+                    <span data-toggle="tooltip"
+                          title="{% trans "Used to access this Group in the API" %}">
+                        {% trans "Global ID" %}</span>:
+                </dt>
+                <dd>{{ group.global_id }}</dd>
+
+
+            </dl>
+
+        </div>
+        <div class="col-lg-6">{# Column 2 #}
+
+            <dl class="dt-20">
+                <dt>{% trans "Users:" %}</dt>
+                <dd>
+                    {{ user_count }} &nbsp;<i class="icon-user"></i>
+                </dd>
+
+                <dt>
+                    <span data-toggle="tooltip"
+                          title='{% trans "Number of resources of all types that belong to this group (does not include sub-groups)" %}'>
+                          {% trans "Resources" %}</span>:</dt>
+                <dd>
+                    {{ resource_cnt }} &nbsp;<i class="icon-resource"></i>
+                </dd>
+
+                <dt>{% trans "Servers:" %}</dt>
+                <dd>
+                    {% if group.hasSubgroups %}
+                        {% blocktrans with group_count=group.server_count %}In this group: {{ server_cnt }}
+                        <br>
+                        Including subgroups: {{ group_count }}
+                        {% endblocktrans %}
+                    {% else %}
+                        {% blocktrans %}{{ server_cnt }}{% endblocktrans %}
+                    {% endif %}
+                    &nbsp;<i class="icon-server"></i>
+                </dd>
+
+                {% if enable_rates_feature %}
+                    <dt>
+                        <span data-toggle="tooltip"
+                              title='{% trans "Total cost of all active servers and resources in this group (does not include sub-groups)" %}'
+                        >{% trans "Rate" %}</span>:
+                    </dt>
+                    <dd>
+                        {{ group.rate_display_with_tooltip }}
+                    </dd>
+                {% endif %}
+
+            </dl>
+
+        </div>
+    </div>
+    {% if ldap_mappings %}
+    <br />
+    <div>
+        <h3>{% trans "Linked LDAP Permissions" %}</h3>
+
+        <table id="ldap-mapping-table" data-table>
+            <thead>
+                <tr>
+                    <th>{% trans "Domain" %}</th>
+                    <th>{% trans "Organizational Unit" %}</th>
+                    <th>{% trans "LDAP Group" %}</th>
+                    <th>{% portal_label %} {% trans "Roles" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            {% for mapping in ldap_mappings %}
+                <tr>
+                    <td>
+                        {{ mapping.ldap_utility|link_or_label_blank_none:profile|default:_("<i>Any</i>") }}
+                    </td>
+                    <td>
+                        {{ mapping.ldap_ou_dn|short_dn|default:_("<i>Any</i>") }}
+                    </td>
+                    <td>
+                        {{ mapping.ldap_group_dn|short_dn|default:_("<i>Any</i>") }}
+                    </td>
+                    <td>
+                    {% for mapping_group in mapping.ldapmappinggroup_set.all %}
+                        <p>
+                            {{ mapping_group.group_display }}: {{ mapping_group.role_display }}
+                        </p>
+                    {% empty %}
+                        <p>
+                            <i class="fas fa-exclamation-triangle state-warning"></i>
+                            {% trans "No roles defined" %}
+                        </p>
+                    {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>

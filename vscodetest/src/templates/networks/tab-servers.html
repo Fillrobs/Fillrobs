@@ -1,0 +1,13 @@
+<script>
+    var networkId = '{{network.id}}'
+    sessionStorage.setItem("networkId", networkId);
+</script>
+
+{% load infrastructure_tags %}
+{% load render_bundle from webpack_loader %}
+
+<div id="networksSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'networksServerStats' %}
+
+{% servers_table empty_qs source="/servers/json/" filter_name="filter_by_network" filter_value=network.id %}

@@ -1,0 +1,18 @@
+{% load i18n %}
+
+{% if managing %}
+    <input type=checkbox name=execute_in_parallel
+        data-toggle="toggle"
+        data-on="{% trans 'Immediately' %}"
+        data-off="{% trans 'After completion' %}"
+        data-width="180"
+        data-post-url="{% url 'toggle_execute_in_parallel' service_item.id %}"
+        {% if service_item.execute_in_parallel %}checked{% endif %}
+        {% if blueprint.remote_source_url %}disabled{% endif %} />
+{% else %}
+    {% if service_item.execute_in_parallel %}
+        {% trans 'Immediately' %}
+    {% else %}
+        {% trans 'After completion' %}
+    {% endif %}
+{% endif %}

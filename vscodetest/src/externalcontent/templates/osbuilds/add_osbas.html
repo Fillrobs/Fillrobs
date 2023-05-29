@@ -1,0 +1,16 @@
+{% load helper_tags %}
+{% if osbas %}
+    {% include table_template %}
+{% else %}
+    {% block no_templates %}
+    <p>
+    There are no templates/images that can be associated with '{{ osb }}' at this time.
+    </p>
+    {% endblock %}
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init();
+});
+</script>

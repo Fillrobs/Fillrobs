@@ -1,0 +1,51 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% if "server.manage_parameters" in profile.permissions %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'server_add_parameter' server.id %}">
+            <span class="icon-add"></span>
+            {% trans 'Add' %}
+        </a>
+    </div>
+{% endif %}
+
+<div id="editable-params">
+    <div id="msg"></div>
+
+    <table id="params-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans 'Parameter' %}</th>
+                <th>{% trans 'Value' %}</th>
+                <th>{% trans 'Actions' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for field, display_value in server_params %}
+            <tr>
+                <td>
+                    <span class="icon-param"></span>
+                    {{ field|rich_display:profile }}
+                </td>
+                <td class="param-value">
+                    {{ display_value }}
+                    {% if "server.manage_parameters" in profile.permissions %}
+                        <a class="icon-edit open-dialog"
+                            href="{% url 'server_edit_parameter' server.id field.id %}"></a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if "server.manage_parameters" in profile.permissions and not field.required %}
+                        <a class="icon-delete open-dialog"
+                            href="{% url 'server_delete_cfv' server.id field.id %}"></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

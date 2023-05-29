@@ -1,0 +1,151 @@
+{% load i18n %}
+{% load helper_tags %}
+{% load tag_tags %}
+
+{% comment %}
+This template is reused in servicecatalog/order.html, but with detail_view=False.
+{% endcomment %}
+
+{% if detail_view %}
+    {# Only blueprint managers can get to the detail view. #}
+    <div class="btn-toolbar">
+        {% if blueprint.status != 'HISTORICAL' %}
+          {% if blueprint.groups_that_can_deploy %}
+              <a class="btn btn-default btn-primary deploy"
+                  href="{% url 'order_blueprint' blueprint.id %}"
+                  >{% trans 'Order' %}</a>
+          {% else %}
+              <div class="btn-wrapper"
+                  data-toggle="tooltip"
+                  title="{% trans 'No groups have been given permission to order this blueprint yet.' %}" >
+                  <a class="btn btn-default"
+                      href="{% url 'order_blueprint' blueprint.id %}"
+                      disabled>{% trans 'Order' %}</a>
+              </div>
+          {% endif %}
+        {% endif %}
+
+        <a class="btn btn-default open-dialog {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'edit_blueprint' blueprint.id %}"
+            id="edit-blueprint">
+            <span class="icon-edit"></span>
+            {% trans 'Edit' %}
+        </a>
+        {% if blueprint.status != 'HISTORICAL' %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'delete_blueprint' blueprint.id %}">
+                <span class="icon-delete"></span>
+                {% trans 'Delete' %}&hellip;
+            </a>
+        {% endif %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'duplicate_blueprint' blueprint.id %}">
+            <span class="icon-duplicate"></span>
+            {% trans 'Duplicate' %}&hellip;
+        </a>
+        <a class="btn btn-default open-dialog"
+            href="{% url 'export_blueprint_password_dialog' blueprint.id %}">
+            <i class="fas fa-file-export"></i>
+            {% trans 'Export' %}&hellip;
+        </a>
+
+        {% if profile.is_cbadmin %}
+            <a class="btn btn-default open-dialog"
+                href="{% url 'set_blueprint_remote_source' blueprint.id %}">
+                <span class="fas fa-external-link-alt"></span>
+                {% trans 'Configure Remote Source' %}
+            </a>
+            {% videotip '353634708' 'Blueprints in Remote Source Control' 'blueprints-from-remote-source.html' %}
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="row">
+    <div class="col-xs-8">
+        {% if detail_view %}
+            <dl class="dt-20">
+                {% if blueprint.remote_source_url %}
+                    <dt>{% trans 'Remote Source URL:' %}</dt>
+                    <dd>
+                        {{ blueprint.remote_source_url }}
+                        {% if blueprint.last_cached %}
+                            {% blockinfotip %}
+                                {% blocktrans with last_cached=blueprint.last_cached|date:datetime_format %}
+                                    Last refreshed {{ last_cached }}
+                                {% endblocktrans %}
+                            {% endblockinfotip %}
+                        {% endif %}
+                        <a title="{% trans 'Refresh Blueprint from Remote Source URL' %}"
+                            href="{% url 'refresh_blueprint_from_remote_source' blueprint.id %}"
+                            class="open-dialog"><i class="fas fa-sync-alt"></i></a>
+                    </dd>
+                {% endif %}
+                <dt>{% trans 'Description:' %}</dt>
+                <dd>{% if blueprint.description %}
+                        <span class="contains-md">{{ blueprint.rendered_description|bleach_filter }}</span>
+                    {% else %}
+                        <i>{% trans 'No description' %}</i>
+                    {% endif %}
+                </dd>
+                {% if blueprint.resource_name_template and blueprint.resource_type %}
+                    <dt>{% trans 'Resource Name Template:' %}</dt>
+                    <dd>{{ blueprint.resource_name_template }}</dd>
+                {% endif %}
+                <dt>{% trans 'Resource Type:' %}</dt>
+                {% if not blueprint.resource_type %}
+                    <dd>{% trans 'No overall resource. Will only provision servers and/or run actions.' %}</dd>
+                {% else %}
+                    <dd>{{ blueprint.resource_type.label }}</dd>
+                {% endif %}
+                {% if not blueprint.is_orderable %}
+                    <dt>{% trans 'Directly Orderable:' %}</dt>
+                    <dd>{% trans 'No. Only available for inclusion in other blueprints.' %}</dd>
+                {% endif %}
+                {% if parent_blueprints %}
+                    <dt>{% trans 'Parent Blueprints:' %}</dt>
+                    <dd>{{ parent_blueprints|render_list:profile }}</dd>
+                {% endif %}
+                <dt>{% trans 'Labels:' %}</dt>
+                <dd>
+                    {% for tag in blueprint.tags.all %}
+                        {{ tag|tag }}
+                    {% empty %}
+                        <i>{% trans 'None defined' %}</i>
+                    {% endfor %}
+                    {% if not blueprint.remote_source_url %}
+                        <a href="{% url 'assign_blueprint_labels' blueprint.id %}"
+                            class="open-dialog"><i class="icon-edit"></i></a>
+                    {% endif %}
+                </dd>
+                {% if gp.show_recipient_field_on_order_form == 'only_enabled_bps' %}
+                    <dt>{% trans 'Show "Recipient" Field:' %}</dt>
+                    <dd>{{ blueprint.show_recipient_field_on_order_form|yesno:'Yes,No' }}</dd>
+                {% endif %}
+                <dt>
+                    <span data-toggle="tooltip"
+                          title="{% trans "Used to access and order this Blueprint in the API" %}">
+                        {% trans "Global ID" %}</span>:
+                </dt>
+                <dd>{{ blueprint.global_id }}</dd>
+            </dl>
+        {% else %}
+            {% if blueprint.description %}
+                {{ blueprint.rendered_description|bleach_filter }}
+            {% else %}
+                <i>{% trans 'No description' %}</i>
+            {% endif %}
+        {% endif %}
+    </div>
+    <div class="col-xs-4">
+        <dl class="vertical">
+            <dd>
+            {% if blueprint.list_image %}
+                <img class="blueprint img-responsive" src="{{ blueprint.list_image.url }}"/>
+            {% endif %}
+            </dd>
+        </dl>
+    </div>
+</div>
+
+{# at narrow window sizes, keep content inside of panel #}
+<div class="clearfix"></div>

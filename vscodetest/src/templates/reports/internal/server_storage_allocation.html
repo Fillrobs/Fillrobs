@@ -1,0 +1,38 @@
+{% extends "reports/internal/base.html" %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% block report_content %}
+    {{ block.super }}
+
+    <table id="servers" ng-app="cb"
+        data-table
+        data-table-sort-disabled="0,1,2,3,4,5"
+        data-table-source="{% url 'server_storage_allocation_json' %}"
+      >
+        <thead>
+            <tr>
+                <th>
+                    {% server_pictograph_legend %}
+                </th>
+                <th>{% trans "Server" %}</th>
+                <th>{% trans "Storage (in GB)" %}</th>
+                <th>{% trans "Owner" %}</th>
+                <th>{% trans "Group" %}</th>
+                <th>{% trans "Environment" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+{% endblock report_content %}
+
+{% block onReady %}
+    var oTable = $("table#servers").dataTable();
+
+    // Custom callback to draw the chart after loading table. This
+    // clobbers our default dataTable callback.
+    oTable.on('table:draw', function (e, oSettings) {
+        c2.charts.drawStorageChart(oTable._('tr', {filter: 'applied'}));
+    });
+{% endblock onReady %}

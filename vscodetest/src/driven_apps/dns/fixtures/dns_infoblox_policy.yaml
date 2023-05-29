@@ -1,0 +1,28 @@
+- model: dns.dnspolicy
+  pk: 1
+  fields:
+    real_type:
+      - dns
+      - infobloxdnspolicy
+    workspace: 1
+    endpoint: 1
+    type: infoblox
+    name: infoblox1
+    description: 'Infoblox Test Policy #1'
+    create_a_record: true
+    pre_validate_a_record: true
+    post_validate_a_record: true
+    create_ptr_record: true
+    pre_validate_ptr_record: true
+    post_validate_ptr_record: true
+    create_c_name_record: false
+    pre_validate_c_name_record: false
+    post_validate_c_name_record: false
+    post_validation_sleep_seconds: '{{post_validation_sleep_seconds}}'
+    validation_timeout_seconds: '{{validation_timeout_seconds}}'
+    hostname_override: 'override-{{request.hostname}}'
+- model: dns.infobloxdnspolicy
+  pk: 1
+  fields:
+    create_host_record: true
+    remove_fixed_address_record: true

@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<button type="button" class="btn btn-default open-dialog"
+    data-href="{% url 'custom_resource_report_columns' %}"
+    data-toggle="tooltip"
+    data-dialog-width="800px"
+    data-html="true"
+    title='{% trans "Customize the columns shown in this report" %}'>
+    {% trans "Change Columns" %}&hellip;
+</button>
+
+<a class="btn btn-default"
+    href="{% url 'export_internal_report' %}?report=custom_resource_report&rep_format=csv&filename={{ report_slug|urlencode }}"
+    >
+    <i class="fas fa-download"></i>
+    {% trans "Export as CSV" %}
+</a>

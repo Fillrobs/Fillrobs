@@ -1,0 +1,72 @@
+{% load tag_tags %}
+{% load i18n %}
+
+<ol class="list-group{% if not is_nested %} root-list-group{% endif %}">
+    {% if tag_tree.tag %}
+        <li class="revealer list-group-item">
+            <!-- Display the tag name with our helper tag -->
+            {{ tag_tree.tag|tag }}
+
+            <!-- Show Action buttons on hover over -->
+            <a href="{% url 'update_blueprint_label' tag_tree.tag.id %}"
+                class="open-dialog no-tooltip-affordance revealable"
+                data-toggle="tooltip"
+                data-test="label-edit-{{tag_tree.tag.id}}"
+                title="{% trans 'Edit' %}"
+            >
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+            <a href="{% url 'delete_blueprint_label' tag_tree.tag.id %}"
+                class="open-dialog no-tooltip-affordance revealable"
+                data-toggle="tooltip"
+                data-test="label-delete-{{tag_tree.tag.id}}"
+                title="{% trans 'Delete' %}"
+            >
+                <i class="fas fa-times"></i>
+            </a>
+        </li>
+    {% endif %}
+
+    <!-- Recursively build up this template from the retursive data structure -->
+    {% for child in tag_tree.children %}
+        <li class="list-group-item">
+            {% include "servicecatalog/catalog_management_label_tree.html" with tag_tree=child is_nested=True %}
+        </li>
+    {% endfor %}
+</ol>
+
+<!-- We only want to define these styles on the top-level interation of this template for efficiency's sake -->
+{% if not is_nested %}
+    <style>
+    /* Remove borders that can visually double-up with nested list-groups */
+    .list-group .list-group-item:first-child {
+        border-top: 0;
+    }
+    .list-group .list-group-item:last-child {
+        border-bottom: 0;
+    }
+
+    /* Fix padding accumulated by nested list-groups */
+    .list-group .list-group .list-group-item:first-child {
+        padding-top: 0;
+    }
+    .list-group .list-group .list-group-item:last-child {
+        padding-bottom: 0;
+    }
+
+    /* Customize list-group-item element size:
+        - Stretch border to the right of the container
+        - Swap left padding with margin to align the top border with its parent
+    */
+    .list-group-item {
+        padding-left: 0px;
+        margin-left: 15px;
+        padding-right: 0px;
+    }
+
+    /* Remove extra space on the left for the root template */
+    .root-list-group>.list-group-item {
+        margin-left: 0;
+    }
+    </style>
+{% endif %}

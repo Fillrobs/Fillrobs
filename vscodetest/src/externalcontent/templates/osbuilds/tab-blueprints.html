@@ -1,0 +1,30 @@
+{% load helper_tags %}
+
+{% if blueprints %}
+    <p>This OS Build is used by the following blueprints:</p>
+
+    <table id="blueprints" data-table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blueprint in blueprints %}
+                <tr>
+                    <td>
+                        {% if blueprint.list_image %}
+                            <img class="blueprint" src="{{ blueprint.list_image.url }}" height="20"/>
+                        {% endif %}
+                    </td>
+                    <td class="name"><a href="{{ blueprint.get_absolute_url }}">{{ blueprint.name }}</a></td>
+                    <td>{{ blueprint.rendered_description }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    This OS Build is not in use by any blueprints.
+{% endif %}

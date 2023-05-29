@@ -1,0 +1,24 @@
+{% comment %}
+Also available as `helper_tags.docs_link`.
+
+Args:
+    icon_only: if True, no text is shown
+    url: optional deep link. Default is docs home page.
+    tooltip: optional tooltip content.
+    title: optional link text (default 'Learn more').
+{% endcomment %}
+
+{% load i18n %}
+
+{% trans "Learn more in the docs <p>(new window)</p>" as default_tooltip %}
+{% trans "Learn more" as default_title %}
+<a href="{{ STATIC_URL }}docs/HTML/{{ url|default:'introduction.html' }}"
+    id="docs-link"
+    target="help"
+    class="no-tooltip-affordance"
+    data-toggle="tooltip"
+    data-html="true"
+    title="{{ tooltip|default:default_tooltip }}">
+    {% if not icon_only %} {{ title|default:default_title }} {% endif %}
+    <i class="icon-help"></i>
+</a>

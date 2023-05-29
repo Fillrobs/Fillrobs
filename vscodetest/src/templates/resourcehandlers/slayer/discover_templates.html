@@ -1,0 +1,34 @@
+{% load helper_tags %}
+{% if templates_added %}
+    <p>
+        {{ templates_added|length }} new template{{ templates_added|pluralize }} were discovered.
+    </p>
+    {% include template_table_template %}
+
+{% else %}
+    {% block no_templates %}
+    <p>
+    Unable to locate any new VM templates at this time.
+    </p>
+    {% endblock %}
+{% endif %}
+
+{% if templates_removed %}
+    <br>
+    <div class="ui-corner-all ui-helper-clearfix ui-state-highlight padding">
+        <p>
+            The following {{ template|pluralize }} were removed because they no longer exist on the resource handler:
+        </p>
+        <ul class="removed">
+            {% for osba in templates_removed %}
+                <li><b>{{ osba.template_name }}</b></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init();
+});
+</script>

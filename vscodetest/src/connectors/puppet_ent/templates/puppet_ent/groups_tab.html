@@ -1,0 +1,13 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'puppet_ent_connector_import_groups' provider.id %}">
+        <span class="icon-import"></span>
+        Import Groups
+    </a>
+</div>
+
+{% block objects_table %}
+     {% include 'connectors/common/objects_table.html' with object_type='group' objects=provider.pegroup_set.all %}
+{% endblock objects_table %}

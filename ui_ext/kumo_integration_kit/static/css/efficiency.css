@@ -1,0 +1,260 @@
+#efficiency-tab {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#efficiency-tab * {
+  box-sizing: border-box;
+}
+
+#efficiency-tab .hidden {
+  display: none;
+}
+
+#efficiency-tab #cost-accordion a {
+  color: #000000;
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 16px;
+}
+
+#efficiency-tab .csv a {
+  color: #000000;
+  font-weight: bold;
+  background-color: transparent;
+  font-size: 18px;
+}
+
+#efficiency-tab .panel-default>.panel-heading .badge {
+  font-size: 18px;
+  background-color: #000000;
+}
+
+#efficiency-tab .cost_efficiency_tabs li {
+  padding: 5px 40px;
+  cursor: pointer;
+}
+
+#efficiency-tab .cost_efficiency_tabs li:hover {
+  background-color: #dcdbdb;
+  color: #222;
+}
+
+#efficiency-tab .cost_efficiency_tabs li.active {
+  background-color: #c9c7c7;
+  color: #222;
+  border: 2px solid rgb(109, 110, 110)
+}
+
+#efficiency-tab .dropdown-toggle {
+  height: 34px !important;
+}
+
+#efficiency-tab .div-box {
+  padding-left: 15px;
+}
+
+/* #efficiency-tab .csv {
+  float: right;
+} */
+
+#efficiency-tab .disabled-li {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+#efficiency-tab #listServicesModal .modal-dialog{
+  display: contents;
+  text-align: left;
+  vertical-align: middle;
+}
+
+#listServicesModal .modal-content {
+  width: 95%;
+  height: auto;
+  top: 35px;
+  left: 35px;
+  min-height: unset !important;
+  max-height: none !important;
+  overflow-y: unset !important;
+}
+
+#listServicesModal .modal-header .form-control{
+  margin-inline: 5px !important;
+}
+
+#listServicesModal .modal-header{
+  display: block;
+}
+
+#listServicesModal #modal-service{
+  margin-bottom: 10px;
+  width: auto;
+}
+
+#listServicesModal .fa-file-excel{
+  color: #2aa522;
+  margin-top: 10px;
+  margin-inline: 10px;
+  cursor: pointer;
+}
+
+#efficiency-tab .fa-file-excel{
+  cursor: pointer;
+}
+
+#efficiency-tab .tab-content {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgb(0 0 0 / 5%);
+  padding: 20px;
+  min-height: 20em;
+}
+
+#efficiency-tab .scroll-wide-content {
+  height: 1200px;
+  overflow-y: auto;
+ }
+
+
+#efficiency-tab #cost-accordion-table_wrapper .scroll-wide-content {
+  height: auto !important;
+  overflow-y: auto;
+}
+
+ #efficiency-tab .scroll-wide-content th {
+  position: sticky;
+  top: -1px;
+  z-index: 5;
+ }
+
+ #efficiency-tab .panel-body dataTables-header {
+  padding-bottom: 3px !important;
+ }
+
+#efficiency-tab .panel {
+  margin-bottom: 0 !important;
+}
+
+#efficiency-tab .width-adjust-15 {
+  width: 15%;
+  float: left;
+}
+
+#efficiency-tab .width-adjust-85 {
+  width: 85%;
+  float: left;
+}
+
+#efficiency-tab .tagList {
+  margin-top: 4px;
+}
+
+#efficiency-tab #listServicesModal .modal{
+  padding: 40px !important;
+  overflow-x: hidden;
+  overflow-y: hidden !important;
+}
+
+#efficiency-tab #listServicesModal .modal-body {
+    overflow-y: hidden !important;
+    max-height: 100% !important;
+}
+
+#efficiency-tab .dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: none;
+}
+
+#efficiency-tab #list-service-detail td.details-control {
+  vertical-align: middle;
+  text-align: center;
+  cursor: pointer;
+}
+
+#efficiency-tab h2 {
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 4px;
+}
+
+#efficiency-tab .chart-data h3 {
+  font-weight: bold;
+  word-break: break-word;
+  font-size: 20px !important;
+  margin-bottom: 0px;
+}
+
+#efficiency-tab .chart-data h4{
+  word-break: break-word;
+  font-size: 14px;
+}
+
+#efficiency-tab .selectize-input, 
+#efficiency-tab .selectize-dropdown,
+#efficiency-tab .selectize-dropdown-content,
+#efficiency-tab select.form-control { 
+  font-size: 14px !important;
+}
+
+#efficiency-tab .selectize-control .selectize-input input,
+#efficiency-tab #cost-tags select,
+#efficiency-tab #cost-values select,
+#efficiency-tab #select-tags select,
+#efficiency-tab #select-values select{
+  font-size: 14px !important;
+}
+
+#efficiency-tab .filter-data h3{
+  font-size: 14px;
+}
+
+#efficiency-tab .top-10{
+  margin-top: 10px;
+}
+
+#efficiency-tab #modal-csv-download {
+  margin-top: -7px;
+}
+
+#listServicesModal #tagSelectListBox {
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+
+@media only screen and (max-height: 1500px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 950px !important;
+  }
+}
+
+@media only screen and (max-height: 1250px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 750px !important;
+  }
+}
+
+@media only screen and (max-height: 1060px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 550px !important;
+  }
+}
+
+@media only screen and (max-height: 880px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 400px !important;
+  }
+}
+
+@media only screen and (max-height: 800px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 350px !important;
+  }
+}
+
+@media only screen and (max-height: 700px) {
+  #efficiency-tab #listServicesModal .scroll-wide-content {
+    max-height: 250px !important;
+  }
+}

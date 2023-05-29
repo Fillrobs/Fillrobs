@@ -1,0 +1,51 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% if can_manage_parameters %}
+    <div class="btn-toolbar">
+        <a class="btn btn-default open-dialog"
+            href="{% url 'resource_add_parameter' resource.id %}">
+            <span class="icon-add"></span>
+            {% trans "Add" %}
+        </a>
+    </div>
+{% endif %}
+
+<div id="editable-params">
+    <div id="msg"></div>
+
+    <table id="params-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Parameter" %}</th>
+                <th>{% trans "Value" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cf, display_value in resource_params %}
+            <tr>
+                <td class="shrink">
+                    <span class="icon-param"></span>
+                    {{ cf|rich_display:profile }}
+                </td>
+                <td class="param-value expand">
+                    {{ display_value}}
+                    {% if can_manage_parameters %}
+                        <a class="icon-edit open-dialog"
+                            href="{% url 'resource_edit_parameter' resource.id cf.id %}"></a>
+                    {% endif %}
+                </td>
+                <td class="shrink">
+                    {% if can_manage_parameters %}
+                        <a class="icon-delete open-dialog"
+                            href="{% url 'resource_delete_parameter' resource.id cf.id %}"></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

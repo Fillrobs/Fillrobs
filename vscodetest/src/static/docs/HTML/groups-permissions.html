@@ -1,0 +1,905 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('groups-permissions',true);});
+//--></script><title>Groups, Roles, and Permissions</title><script type="text/javascript">//<!--
+var articleTitleText='Groups, Roles, and Permissions';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Groups, Roles, and Permissions</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Groups, Roles, and Permissions</span></span>
+  </div><h1 id="h1__684960833" data-has-heading-anchor="true">
+  Groups, Roles, and Permissions
+<a href="groups-permissions.html#h1__684960833" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn how Groups, Roles, and Permissions work together in CloudBolt and how to use them.
+</p>
+
+<p>
+  <ul class=""><li class="CHMiniToc_heading2"><a href="groups-permissions.html#h2_2071547954">Groups</a></li><li class="CHMiniToc_heading2"><a href="groups-permissions.html#h2_829284379">Group Roles</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3_543871853">Out-of-the-Box Roles</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3_823779737">OneFuse Roles</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3__244755394">Restore Defaults</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3__137368874">Duplicate Roles</a></li><li class="CHMiniToc_heading2"><a href="groups-permissions.html#h2_1570836332">Special Roles</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3__1632646614">Delegated Group Administration</a></li><li class="CHMiniToc_heading2"><a href="groups-permissions.html#h2__1500001873">Changing a User’s Role(s)</a></li><li class="CHMiniToc_heading3"><a href="groups-permissions.html#h3_1194915224">Inheritance of Group Permissions</a></li><li class="CHMiniToc_heading2"><a href="groups-permissions.html#h2__322854237">Customizing Roles</a></li></ul></p>
+<p>See also: 
+</p><ul>
+  <li>
+    <a href="permissions.html">Permissions</a>
+  </li>
+  <li>
+    <a href="global-roles.html" target="_blank">Global Roles</a>
+  </li>
+</ul>
+  <p></p>
+<hr/>
+<h2 id="h2_2071547954" data-has-heading-anchor="true">
+  Groups
+<a href="groups-permissions.html#h2_2071547954" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  <strong>Groups</strong>&nbsp;associate&nbsp;<strong><a href="users.html">Users</a></strong>&nbsp;with&nbsp;<strong><a href="environments.html">Environments</a></strong>&nbsp;and help you&nbsp;manage permissions, approval processes, and quotas.&nbsp;Groups can represent a business unit, department, team, project, or any other set of users. Permissions for Groups of Users can also be used for access and approval workflows in CloudBolt.
+</p>
+<ol>
+  <li>
+    In the navigation menu, click&nbsp;<b>Groups</b>.
+  </li>
+  <li>
+    Click&nbsp;<b>Groups&nbsp;</b>for quick access to the Groups page, or view Your Groups, number of Users, Servers, Resources, and Rates for Groups and up to three levels of Sub-groups.
+  </li>
+</ol>
+<p>
+  Each group has the same set of roles to which users can belong, and which grant permissions within that group. For example, a user could be a requester within one group and an approver in another.
+</p>
+<p>
+  Groups are stored hierarchically in CloudBolt to help you:
+</p>
+<ul>
+  <li>
+    Easily model organizational structures for staff.
+  </li>
+  <li>
+    Delegate permission to administer the groups to the appropriate person within these organizations.
+  </li>
+</ul>
+<div>
+  <table class="infoBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+        </td>
+        <td class="infoBoxText">
+          You can define any type for Groups, but you are required to explicitly make new group types capable of ordering resources. Navigate to <b>Admin &gt; System &gt; Miscellaneous Settings. </b>Edit <b>Valid group types for Orders.</b>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="group-roles-who-can-do-what">
+  <h2 id="h2_829284379">
+  </h2>
+  <hr/>
+  <h2 id="h2_829284379" data-has-heading-anchor="true">
+    Group Roles
+  <a href="groups-permissions.html#h2_829284379" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Roles grant specific privileges to Group members. Those privileges apply only to Resources and Environments that are associated with the Group. There are a total of five out-of-the-box roles on Groups, and you can also configure your own.
+  </p>
+  <table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+        </td>
+        <td class="infoBoxText">
+          <b>Example:</b>&nbsp;A user with the default Requestor role on a Group is allowed to request Resources in the Environments associated with the Group.&nbsp;By default, a Resource Admin role on that same Group can manage any of the Servers that belong to that Group. &nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="h3_543871853" data-has-heading-anchor="true">
+    Out-of-the-Box Roles
+  <a href="groups-permissions.html#h3_543871853" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Click&nbsp;<b>Admin</b>&nbsp;&gt;&nbsp;<b>Roles</b>.
+  </p>
+  <p>
+    Each user within a Group can be assigned any combination of these roles, and depending on which roles they have, a user will be given the ability to perform certain individual or Group-related actions.
+  </p>
+  <p>
+    Administrators can customize what permissions each of these roles have as desired, or  delete them if they are not needed.
+  </p>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th style="width: 157px;">
+          Role Name
+        </th>
+        <th style="width: 1087px;">
+          Description
+        </th>
+        <th>
+          Permissions Included Out-of-the-Box
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th style="width: 157px;">
+          Approver
+        </th>
+        <td style="width: 1087px;">
+          Approve any requested orders for fulfillment.
+        </td>
+        <td>
+          <ul>
+            <li>
+              order.approve
+            </li>
+            <li>
+              order.view&nbsp;
+            </li>
+            <li>
+              order.change_attributes
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 157px;">
+          Group Admin
+        </th>
+        <td style="width: 1087px;">
+          Manages organizational aspects of this Group: membership and permissions, sub-Group creation and management, and delegation of responsibilities to other Group members.
+        </td>
+        <td>
+          <ul>
+            <li>
+              group.view
+            </li>
+            <li>
+              group.change_attributes
+            </li>
+            <li>
+              group.delete
+            </li>
+            <li>
+              group.create_subgroup
+            </li>
+            <li>
+              group.manage_members
+            </li>
+            <li>
+              group.manage_subgroup_quotas
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 157px;">
+          Requestor
+        </th>
+        <td style="width: 1087px;">
+          Request Orders for creating, modifying, or deleting Servers individually or within a Group to which they belong.
+        </td>
+        <td>
+          <ul>
+            <li>
+              order.submit
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 157px;">
+          Resource Admin
+        </th>
+        <td style="width: 1087px;">
+          Manages technical configurations for this Group, such as Parameters and Networks. Can also manage Blueprints and Servers.
+        </td>
+        <td>
+          <ul>
+            <li>
+              order.submit
+            </li>
+            <li>
+              server.view
+            </li>
+            <li>
+              server.control_power
+            </li>
+            <li>
+              server.manage_snapshots
+            </li>
+            <li>
+              server.manage_nics
+            </li>
+            <li>
+              server.change_resources
+            </li>
+            <li>
+              server.console
+            </li>
+            <li>
+              server.remote_terminal
+            </li>
+            <li>
+              server.manage_applications
+            </li>
+            <li>
+              server.change_attributes
+            </li>
+            <li>
+              server.manage_labels
+            </li>
+            <li>
+              server.manage_parameters
+            </li>
+            <li>
+              server.delete
+            </li>
+            <li>
+              server.manage_credentials
+            </li>
+            <li>
+              server.view_handler_specific_details
+            </li>
+            <li>
+              resource.view
+            </li>
+            <li>
+              resource.change_attributes
+            </li>
+            <li>
+              resource.manage_parameters
+            </li>
+            <li>
+              group.view
+            </li>
+            <li>
+              group.change_attributes
+            </li>
+            <li>
+              group.manage_networks
+            </li>
+            <li>
+              group.manage_parameters
+            </li>
+            <li>
+              blueprint.manage
+            </li>
+            <li>
+              blueprint.any_group_can_deploy
+            </li>
+            <li>
+              server.view_power_schedule
+            </li>
+            <li>
+              server.manage_power_schedule
+            </li>
+            <li>
+              server.add_disks
+            </li>
+            <li>
+              server.remove_disks
+            </li>
+            <li>
+              server.resize_disks
+            </li>
+            <li>
+              server.remove_disks
+            </li>
+            <li>
+              resource.view_power_schedule
+            </li>
+            <li>
+              resource.manage_power_schedule
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th style="width: 157px;">
+          Viewer
+        </th>
+        <td style="width: 1087px;">
+          Basic permissions to view Group Servers, members, and activity.
+        </td>
+        <td>
+          <ul>
+            <li>
+              order.view
+            </li>
+            <li>
+              server.view
+            </li>
+            <li>
+              resource.view
+            </li>
+            <li>
+              group.view
+            </li>
+            <li>
+              server.view_power_schedule
+            </li>
+            <li>
+              resource.view_power_schedule
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <section>
+  <h3 id="h3_823779737" data-has-heading-anchor="true">OneFuse Roles<a href="groups-permissions.html#h3_823779737" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p></p>
+    <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          Role Name
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Permissions Included once OneFuse is Licensed
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Workspace Admin
+        </th>
+        <td>
+          Ability to manage workspace users and content for OneFuse
+        </td>
+        <td>
+          <ul>
+            <li>
+              group.create_subgroup
+            </li>
+            <li>
+              group.manage_members
+            </li>
+            <li>
+              module.view
+            </li>
+            <li>
+              policy.list
+            </li>
+            <li>
+              policy.manage
+            </li>
+            <li>
+              policy.execute
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Workspace Member
+        </th>
+        <td>
+          Ability to manage workspace content (e.g. endpoints, policies, etc) for OneFuse
+        </td>
+        <td>
+          <ul>
+            <li>
+              module.view
+            </li>
+            <li>
+              policy.list
+            </li>
+            <li>
+              policy.manage
+            </li>
+            <li>
+              policy.execute
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Workspace Viewer
+          
+          <div class="alert alert-info mt-2">
+            <i class="mdi mdi-information mr-2"></i> Note: the Role label may be named as "Viewer" if CMP was licensed first.
+          </div>
+        </th>
+        <td>
+          Basic permission to view workspace content (e.g. endpoints, policies, etc) for OneFuse
+        </td>
+        <td>
+          <ul>
+            <li>
+              module.view
+            </li>
+          </ul>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+  
+</div>
+<h3 id="h3__244755394" data-has-heading-anchor="true">
+  <br/>
+  Restore Defaults
+<a href="groups-permissions.html#h3__244755394" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<div id="group-roles-who-can-do-what">
+</div>
+<ul>
+  <li>
+    <div id="group-roles-who-can-do-what">
+      Click&nbsp;Restore defaults&nbsp;to return all out-of-the-box roles to their default configuration. This also reinstates deleted default roles.
+      
+    </div>
+    <div id="group-roles-who-can-do-what">
+      <span style="font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;"></span>
+    </div>
+  </li>
+  <li>
+    <div id="group-roles-who-can-do-what">
+      In the&nbsp;<strong>Actions</strong>&nbsp;column, click the curved arrow icon to restore individual out-of-the-box roles to their default configurations.
+    </div>
+  </li>
+</ul>
+<div id="group-roles-who-can-do-what">
+  <table class="infoBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+        </td>
+        <td class="infoBoxText">
+          <span style="text-align: left; font-family: Arial, &quot;Helvetica Neue&quot;, Helvetica, sans-serif;">
+            Neither of the Restore defaults actions will affect any user-defined roles.</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="special-roles">
+  
+    <h3 id="h3__137368874" data-has-heading-anchor="true">
+      Duplicate Roles
+    <a href="groups-permissions.html#h3__137368874" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      Duplicate an existing User Role, copying its associated permissions.
+    </p>
+    <ol>
+      <li>
+        In CloudBolt, click <b>Admin</b> &gt; <b>Roles</b>.
+      </li>
+      <li>
+        In the <b>Actions</b> column, click <i class="fas fa-copy"></i> to <b>Copy</b>.
+      </li>
+      <li>
+        Add a Label, unique Name, and optional Description for this Duplicate Role.
+      </li>
+      <li>
+        Click <b>Duplicate</b>.
+      </li>
+    </ol>
+    <table class="infoBox" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td class="infoBoxImageCell">
+            <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+          </td>
+          <td class="infoBoxText">
+            Duplicated Roles do not copy Server Actions, Resource Actions, or Groups.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <br/>
+</div>
+<div id="special-roles">
+  <h2 id="h2_1570836332">
+  </h2>
+  <hr/>
+  <h2 id="h2_1570836332" data-has-heading-anchor="true">
+    Special Roles
+  <a href="groups-permissions.html#h2_1570836332" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    When viewing the Roles UI, there are separate sections for Roles Assignable to Users (Group Roles) and Special Roles. The Special Roles are not assignable, but are instead determined by context. For example, the Resource Owner role comes into play whenever determining permissions for a Resource that the user owns.
+  </p>
+  <p>
+    By default, these Special Roles get all of the permissions for the particular object type. For example, a Server Owner can do anything to a Server they own.
+  </p>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>
+          Role Name
+        </th>
+        <th>
+          Description
+        </th>
+        <th>
+          Permissions Included Out-of-the-Box
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>
+          Job Owner
+        </th>
+        <td>
+          Permissions that are granted to Owners of Jobs.
+        </td>
+        <td>
+          <ul>
+            <li>
+              job.view
+            </li>
+            <li>
+              job.view_logs
+            </li>
+            <li>
+              job.cancel
+            </li>
+            <li>
+              job.rerun
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Resource Owner
+        </th>
+        <td>
+          Permissions that are granted to Owners of Resources.
+        </td>
+        <td>
+          <ul>
+            <li>
+              resource.view
+            </li>
+            <li>
+              resource.change_attributes
+            </li>
+            <li>
+              resource.manage_parameters
+            </li>
+            <li>
+              resource.all_actions
+            </li>
+            <li>
+              resource.view_power_schedule
+            </li>
+            <li>
+              resource.manage_power_schedule
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Server Owner
+        </th>
+        <td>
+          Permissions that are granted to Owners of Servers.
+        </td>
+        <td>
+          <ul>
+            <li>
+              server.view
+            </li>
+            <li>
+              server.control_power
+            </li>
+            <li>
+              server.manage_snapshots
+            </li>
+            <li>
+              server.manage_nics
+            </li>
+            <li>
+              server.change_resources
+            </li>
+            <li>
+              server.console
+            </li>
+            <li>
+              server.remote_terminal
+            </li>
+            <li>
+              server.manage_applications
+            </li>
+            <li>
+              server.change_attributes
+            </li>
+            <li>
+              server.manage_labels
+            </li>
+            <li>
+              server.manage_parameters
+            </li>
+            <li>
+              server.delete
+            </li>
+            <li>
+              server.manage_credentials
+            </li>
+            <li>
+              server.view_handler_specific_details
+            </li>
+            <li>
+              server.all_actions
+            </li>
+            <li>
+              server.view_power_schedule
+            </li>
+            <li>
+              server.manage_power_schedule
+            </li>
+            <li>
+              server.add_disks
+            </li>
+            <li>
+              server.remove_disks
+            </li>
+          </ul>
+        </td>
+      </tr>
+      
+      
+      
+      
+    </tbody>
+  </table>
+</div>
+<div id="delegated-group-administration">
+  <h3 id="h3__1632646614">
+    <br/>
+  </h3>
+  <h3 id="h3__1632646614" data-has-heading-anchor="true">
+    Delegated Group Administration
+  <a href="groups-permissions.html#h3__1632646614" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Delegated group administration allows organizations to decentralize CloudBolt administration at the group level by giving select users the ability to administer entire groups. Because by default Group Admins are only able to make changes within their group and not the entire CloudBolt instance, delegated group administration is a safe way for CloudBolt admins to delegate administrative responsibilities to others so that it may match existing organizational structure.
+  </p>
+  <table class="infoBox tipBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/success.png"/>
+        </td>
+        <td class="infoBoxText">
+          Example: if Barbara is the technical head of the investment banking division of a financial company, she might be given the out-of-the-box Group Admin role of the CloudBolt group called Investment Banking. As groups can be nested, Barbara could perform her own delegated group administration by creating subgroups for any Investment Banking subdivisions and give the Group Admin role for those subgroups to other users (assuming the Group Admin role has not been customized to remove those permissions). Delegation can also be accomplished on a more fine-grained level by associating permissions such as group.create_subgroup and group.manage_members with roles and assigning users to those roles in a group.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <table class="infoBox" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td class="infoBoxImageCell">
+          <img alt="Information" src="../Storage/cloudbolt-docs/info.png"/>
+        </td>
+        <td class="infoBoxText">
+          If a user has only the default Group Admin role, no other roles are automatically implied. This means that the Group Admin user would not automatically be able to request or approve orders unless they or another Group Admin gives them the appropriate roles and privileges.&nbsp;
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div id="changing-a-users-role-s">
+  <h2 id="h2__1500001873">
+  </h2>
+  <hr/>
+  <h2 id="h2__1500001873" data-has-heading-anchor="true">
+    Changing a User’s Role(s)
+  <a href="groups-permissions.html#h2__1500001873" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Roles granted to users for a particular group can be configured by going to the group details view and opening the Users tab or on the User’s profile page.
+  </p>
+</div>
+<div id="inheritance-of-group-permissions">
+  <h3 id="h3_1194915224" data-has-heading-anchor="true">
+    Inheritance of Group Permissions
+  <a href="groups-permissions.html#h3_1194915224" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    There is an option on the Groups list page to enable inheritance of Group permissions from parent groups to subgroups. This applies to both internal and external users, but only Group Roles.
+  </p>
+  <p>
+    When inheritance is first enabled, all currently-configured Users and their Roles on any parent group will be inherited down to all its subgroups. Such inherited permissions will be marked as such in the UI, and cannot be removed from the subgroups.
+  </p>
+  <p>
+    From then on, while inheritance is enabled, any changes made to permissions on a parent group will be propagated down to its subgroup(s). This applies when a User is given a new Group Role (including through an&nbsp;“External User Sync” action) or a Role is removed for a User in that Group. A new subgroup will also automatically get its parent group’s permissions on creation.
+  </p>
+  <p>
+    Inheritance can be disabled from the Groups list page if it is no longer needed. It will change the existing permissions so they are no longer considered inherited and can be removed, but will not automatically remove them itself.
+  </p>
+</div>
+<div id="customizing-roles">
+  <h2 id="h2__322854237">
+  </h2>
+  <hr/>
+  <h2 id="h2__322854237" data-has-heading-anchor="true">
+    Customizing Roles
+  <a href="groups-permissions.html#h2__322854237" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    In addition to showing all the default Group Roles and Special Roles, the Roles page in the CloudBolt UI also allows editing those roles, creating new Group Roles, and deleting Group Roles.
+  </p>
+  <p>
+    The set of permissions that a user has in a particular context is the sum of all the permissions across all the Group Roles they have in the applicable group, as well as any Special Roles that apply.
+  </p>
+  <p>
+    A distinction should be made between the effect of having a permission on a Group Role and a Special Role. With a Group Role, that permission will apply to all objects in the Group, but with a Special Role the objects where the user will have that permission will only be those where they match the criteria of that Special Role. For example, the server.view permission in the default Viewers role means that any user with that role in a Group will be able to view all servers in that Group. However, having the server.view permission in the default Server Owner role only allows users to see servers they own.
+  </p>
+  <p>
+    When editing a Role, the configuration can consist of both permissions for various pieces of CloudBolt functionality (e.g., server.manage_snapshots) and giving that Role permission to run various Server Actions and Resource Actions. There are two possible approaches with regards to privileges for Actions. There are special permissions, server.all_actions and resource.all_actions, that can be used to give a Role permission to run all Server and Resource Actions, respectively. Alternatively, a Role can be given permission to only run specific Actions by using the Server Actions and Resource Actions fields.
+  </p>
+  <p>
+    For Special Roles, there are some limitations on what can be changed. For one, they cannot be deleted. They also cannot be renamed. When editing, the permissions and actions fields are modified according to the Role being edited to improve clarity. For example, giving non-server permissions to or associating Resource Actions with the Server Owner role doesn’t really make sense, so those options are not available.
+  </p>
+  
+</div>
+<div>
+  <br/>
+</div>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="ldap-authentication.html" class="articleActions_link CHNavLinkPrevious">LDAP Authentication</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="permissions.html" class="articleActions_link CHNavLinkNext">Permissions</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

@@ -1,0 +1,134 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% if editable %}
+
+    <div id="msg"></div>
+    <form id="editNetworksForm" method="post" action="">
+        <!--
+        the JS that formats this table table hooks on to the editNetworksForm ID, do not change that ID, or the table
+        ceases to function
+        -->
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <div class="btn-toolbar padding">
+            <button class="btn btn-default cancel">{% trans "Cancel" %}</button>
+            <button class="btn btn-primary" type="submit">{% trans "Save changes" %}</button>
+        </div>
+
+        <table id="networks" data-table="formset">
+            <thead>
+                <tr>
+                <th class="expand">{% trans "Network" %}</th>
+                <th class="nic">{{ blank_networks_form.nic1.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic2.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic3.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic4.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic5.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic6.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic7.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic8.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic9.label }}</th>
+                <th class="nic">{{ blank_networks_form.nic10.label }}</th>
+
+                {% if formset.can_delete %}
+                    <th>{% trans "Remove" %}</th>
+                {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="network_form_template" style="display:none">
+                    <td class="network">
+                        {{ blank_networks_form.network_id }}
+                    </td>
+                    <td class="nic nic1">{{ blank_networks_form.nic1 }}</td>
+                    <td class="nic nic2">{{ blank_networks_form.nic2 }}</td>
+                    <td class="nic nic3">{{ blank_networks_form.nic3 }}</td>
+                    <td class="nic nic4">{{ blank_networks_form.nic4 }}</td>
+                    <td class="nic nic5">{{ blank_networks_form.nic5 }}</td>
+                    <td class="nic nic6">{{ blank_networks_form.nic6 }}</td>
+                    <td class="nic nic7">{{ blank_networks_form.nic7 }}</td>
+                    <td class="nic nic8">{{ blank_networks_form.nic8 }}</td>
+                    <td class="nic nic9">{{ blank_networks_form.nic9 }}</td>
+                    <td class="nic nic10">{{ blank_networks_form.nic10 }}</td>
+                    {% if formset.can_delete %}
+                        <td>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% for form in formset %}
+                <tr class="{{ form.id }}">
+                    <td class="network">{{ form.network_name.value }} {{ form.network_id }}</td>
+                    <td class="nic nic1"><i class="hidden">{{ form.nic1.value }}</i>{{ form.nic1 }}</td>
+                    <td class="nic nic2"><i class="hidden">{{ form.nic2.value }}</i>{{ form.nic2 }}</td>
+                    <td class="nic nic3"><i class="hidden">{{ form.nic3.value }}</i>{{ form.nic3 }}</td>
+                    <td class="nic nic4"><i class="hidden">{{ form.nic4.value }}</i>{{ form.nic4 }}</td>
+                    <td class="nic nic5"><i class="hidden">{{ form.nic5.value }}</i>{{ form.nic5 }}</td>
+                    <td class="nic nic6"><i class="hidden">{{ form.nic6.value }}</i>{{ form.nic6 }}</td>
+                    <td class="nic nic7"><i class="hidden">{{ form.nic7.value }}</i>{{ form.nic7 }}</td>
+                    <td class="nic nic8"><i class="hidden">{{ form.nic8.value }}</i>{{ form.nic8 }}</td>
+                    <td class="nic nic9"><i class="hidden">{{ form.nic9.value }}</i>{{ form.nic9 }}</td>
+                    <td class="nic nic10"><i class="hidden">{{ form.nic10.value }}</i>{{ form.nic10 }}</td>
+                    {% if formset.can_delete %}
+                        <td>
+                            {{ form.DELETE }}
+                        </td>
+                    {% endif %}
+                </tr>
+            {% empty %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <script type="text/javascript">
+        {# Make network options available to c2.networkTableAndFormset #}
+        $('body').data('possibleNetworks', {{ possible_networks|to_json }});
+    </script>
+
+{% else %}
+    <div id="networkListBox">
+        {% if user_can_edit_networks %}
+            <div class="btn-toolbar padding">
+                <a href="javascript:void(0)" class="btn btn-default convertToForm">
+                    <span class="icon-edit"></span>
+                    {% trans "Make changes" %}
+                </a>
+                {% if environment and can_sync_subnets %}
+                    {% trans "Import Subnets" as default_label %}
+                    <a href="{% url 'sync_subnets' environment.id %}" class="btn btn-default">
+                        <span class="icon-import"></span>
+                        {{ import_label|default:default_label }}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <table id="networks" data-table>
+            <thead>
+                <tr>
+                    <th class="expand">{% trans "Network" %}</th>
+                    {% for nic in nics_used %}
+                    <th class="nic nowrap">{{nic}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for net, nics in current_networks.items %}
+                <tr>
+                    <td class="name">{{ net|link_or_label:profile }}</a></td>
+                    {% for nic in nics_used %}
+                        {# Use em tags to repr check mark; content is required to enable datatable sorting #}
+                        <td class="nic nic{{ forloop.counter }}">{% if nic in nics %}<em>{% trans "Yes" %}</em>{% endif %}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <script type="text/javascript">
+        {# One-time setup for the buttons and formset #}
+        c2.networkTableAndFormset.init('{{ table_url }}', '{{ vpc_id }}');
+    </script>
+{% endif %}

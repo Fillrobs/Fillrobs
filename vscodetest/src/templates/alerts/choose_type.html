@@ -1,0 +1,11 @@
+<div id="chooseAlertChannelType" class="text-center">
+    <div class="btn-group-vertical" id="choose_type">
+        {% for type in types %}
+        <a href="{{ type.create_url }}"
+           class="btn btn-default js-dialog-link">
+            <i class="{{ type.class_icon }}"></i>
+            <span>{{ type.class_title }}</span>
+        </a>
+        {% endfor %}
+    </div>
+</div>

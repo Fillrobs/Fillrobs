@@ -1,0 +1,7 @@
+{% load account_tags %}
+
+<div class="pull-center">
+    {% for profile in profiles %}
+        {% rich_gravatar profile size %}
+    {% endfor %}
+</div>

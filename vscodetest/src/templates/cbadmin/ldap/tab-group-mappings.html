@@ -1,0 +1,99 @@
+{% load helper_tags %}
+
+{% if ootb_ldap_disabled_reason %}
+<p>
+    <strong>{{ ootb_ldap_disabled_reason }}</strong> You can still configure LDAP mappings, but they will not be used when users log in. To resolve this, visit the <a href="{% url 'orchestration_actions' %}#type-None">Orchestration Actions</a> page.
+</p>
+{% endif %}
+
+<p>
+    Map your LDAP OUs and groups to {% portal_label %} Groups and Roles here.
+    Each mapping consists of two parts: the LDAP criteria required for a user
+    to receive permissions, and the permissions that they should receive.
+    Permissions will be determined and set each time the user logs in, including
+    removal of any permissions that are no longer assigned by the mappings.
+    {% docs_link title="See the documentation for more details." url="user-permission-and-attribute-synchronization.html" %}
+</p>
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'ldap_mapping_add' ldap.id %}">
+        <span class="icon-add"></span>
+        New LDAP Mapping
+    </a>
+    {% if ldap_group_mappings %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'ldap_mapping_sync_all' ldap.id %}">
+            <span class="icon-sync"></span>
+            Sync Mappings
+        </a>
+    {% endif %}
+</div>
+
+<table id="ldap-group-mapping-table" data-table>
+    <thead>
+        <tr>
+        <th>Organizational Unit</th>
+        <th>LDAP Group</th>
+        <th>{% portal_label %} Global Roles</th>
+        <th>{% portal_label %} Group Roles</th>
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+
+    {% for mapping in ldap_group_mappings %}
+        <tr>
+            <td>
+                {{ mapping.ldap_ou_dn|short_dn|default:"<i>Any</i>" }}
+            </td>
+            <td>
+                {{ mapping.ldap_group_dn|short_dn|default:"<i>Any</i>" }}
+            </td>
+            <td>
+            {% if is_cb_admin_enabled and mapping.is_cbadmin %}
+                <p>CB Admin{% infotip "Group roles cannot be added to this mapping." %}</p>
+            {% endif %}
+            {% if mapping.is_super_admin %}
+                <p>Super Admin{% infotip "Group roles cannot be added to this mapping." %}</p>
+            {% endif %}
+            {% if mapping.is_devops_admin %}
+                <p>Devops Admin </p>
+            {% endif %}
+            {% if mapping.is_global_viewer %}
+                <p>Global Viewer</p>
+            {% endif %}
+            {% if mapping.has_api_access %}
+                <p>API Access</p>
+            {% endif %}
+            </td>
+            <td>
+            {% for mapping_group in mapping.ldapmappinggroup_set.all %}
+                <p>
+                    {{ mapping_group.group_display }}: {{ mapping_group.role_display }}
+                    <a class="icon-edit open-dialog"
+                        href="{% url 'ldap_mapping_group_edit' ldap.id mapping.id mapping_group.id %}"></a>
+                    <a class="icon-delete"
+                        href="{% url 'ldap_mapping_group_delete' ldap.id mapping.id mapping_group.id %}"></a>
+                </p>
+                {% empty %}
+                <p>
+                    No group roles defined
+                </p>
+            {% endfor %}
+            {% if not mapping.is_super_admin and not mapping.is_cbadmin %}
+                <a class="open-dialog" href="{% url 'ldap_mapping_group_add' ldap.id mapping.id %}">
+                    <i class="icon-add"></i> Add Group Roles</a>
+            {% endif %}
+            </td>
+
+            <td>
+                <a class="icon-edit btn btn-default btn-sm open-dialog"
+                    href="{% url 'ldap_mapping_edit' ldap.id mapping.id %}"></a>
+                <a class="icon-delete btn btn-default btn-sm open-dialog"
+                    href="{% url 'ldap_mapping_delete' ldap.id mapping.id %}"></a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

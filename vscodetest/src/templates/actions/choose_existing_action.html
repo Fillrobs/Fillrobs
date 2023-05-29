@@ -1,0 +1,47 @@
+{# Skip the step of letting them choose whether to create or select existing for non-CB admins with plugins #}
+{% load i18n %}
+{% if script_type != "CloudBolt plug-in" or profile.is_cbadmin %}
+    <div id="creation-options">
+        <div class="btn-toolbar">
+            <a class="btn btn-primary open-dialog" href="{{ add_url }}">
+                <span class="icon-add"></span> {% trans 'Add a new' %} {{ script_type }}
+            </a>
+        </div>
+        <div class="btn-toolbar">
+            <a class="btn btn-primary choose-existing">
+                <span class="icon-check"></span> {% trans 'Choose an existing shared' %} {{ script_type }}
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{# For non-CB admins with plugins, start with this showing since they can't create plugins #}
+<div id="existing-section" {% if script_type != "CloudBolt plug-in" or profile.is_cbadmin %}style="display:none"{% endif %}>
+    <span>
+    {{ existing_table_message }}
+    </span>
+    {% include 'actions/existing_actions_list.html' %}
+    {% if script_type != "CloudBolt plug-in" or profile.is_cbadmin %}
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog choose-existing" href="{{ add_url }}">
+                <span class="icon-add"></span> {% blocktrans %}Nevermind, add a new {{ script_type }} instead{% endblocktrans %}
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+$(function () {
+    var actions_table = $("#existing-section");
+    var submit_button = $('#dialog-modal .js-submit-form');
+
+    {% if script_type != "CloudBolt plug-in" or profile.is_cbadmin %}
+        submit_button.hide();
+    {% endif %}
+    $('.choose-existing').on('click', function() {
+        actions_table.show();
+        submit_button.show();
+        $('#creation-options').hide();
+    });
+});
+</script>

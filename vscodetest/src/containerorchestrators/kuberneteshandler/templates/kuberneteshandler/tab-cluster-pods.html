@@ -1,0 +1,23 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<table id="kubeClusterPodDetailsTable"
+       data-table
+       data-table-no-auto-init
+       data-table-source="{% url 'pod_table_view' kube_id %}"
+>
+    <thead>
+      <tr>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Image" %}</th>
+        <th>{% trans "Node" %}</th>
+        <th>{% trans "Ready" %}</th>
+        <th>{% trans "Status" %}</th>
+        <th>{% trans "Restarts" %}</th>
+        <th>{% trans "Age" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {# will be populated by dataTable based on AJAX responses #}
+    </tbody>
+</table>

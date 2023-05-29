@@ -1,0 +1,25 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'import_flows' engine.id %}"
+        id="import-flows">
+        <span class="icon-import"></span>
+        Import flows
+    </a>
+</div>
+
+{% include 'orchestrationengines/flows-table.html' %}
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#import-flows').data('dialog_options', {
+        width: 800,
+        height: 400,
+        position: 'center',
+        wait_msg: 'Querying {{ engine.name }}\'s Repository For Flows...'
+    });
+});
+</script>
+

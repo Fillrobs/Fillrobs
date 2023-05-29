@@ -1,0 +1,68 @@
+{% load helper_tags %}
+
+{% if is_paginated %}
+    <p class="spaced-heading-element nav-page nav-page--footer catalog-filters" style="color: cornflowerblue">
+        {% if page_obj.has_previous %}
+
+            <a data-toggle="tooltip" title="Previous"
+                class="nav-link btn btn--is-icon catalog-icon-arrow-left" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            &nbsp&nbsp&nbsp&nbsp
+
+            {% if page_obj.previous_page_number > 1 %}
+
+                <a class="nav-link" href="?page=1">
+                    1
+                </a>
+                &nbsp&nbsp
+
+                {% if page_obj.previous_page_number > 2 %}
+                    <span style="color: black">
+                        ...
+                    </span>
+                    &nbsp&nbsp
+                {% endif %}
+
+            {% endif %}
+
+            <a class="nav-link" href="?page={{ page_obj.previous_page_number }}">
+                {{ page_obj.previous_page_number }}
+            </a>
+            &nbsp&nbsp
+
+        {% endif %}
+
+        <span style="color: black">
+            {{ page_obj.number }}
+        </span>
+        &nbsp&nbsp
+
+
+        {% if page_obj.has_next %}
+
+            <a class="nav-link" href="?page={{ page_obj.next_page_number }}">
+                {{ page_obj.next_page_number }}
+            </a>
+            &nbsp&nbsp
+
+            {% if page_obj.next_page_number < page_obj.paginator.num_pages %}
+                {% if page_obj.next_page_number|add:"1" < page_obj.paginator.num_pages %}
+                    <span style="color: black">
+                        ...
+                    </span>
+                    &nbsp&nbsp
+                {% endif %}
+
+                <a class="nav-link" style="color: cornflowerblue" href="?page={{ page_obj.paginator.num_pages }}">
+                    {{ page_obj.paginator.num_pages }}
+                </a>
+
+            {% endif %}
+
+         &nbsp&nbsp&nbsp&nbsp
+         <a data-toggle="tooltip" title="Next"
+             class="nav-link btn btn--is-icon catalog-icon-arrow-right" href="?page={{ page_obj.next_page_number }}"></a>
+         {% endif %}
+    </p>
+{% endif %}
+
+

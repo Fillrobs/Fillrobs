@@ -1,0 +1,145 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+    <div class="pull-right">
+        <a id="reload-report" class="btn btn-default">
+            <i class="icon-sync"></i>
+            {% trans "Redraw" %}
+        </a>
+    </div>
+
+    <div id="chart_div"></div>
+{% endblock %}
+{% block inlinecss %}
+.node {
+    border: solid 1px white;
+    line-height: 0.95;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 6px;
+    max-width: 100%!important;
+    background-image: -webkit-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:    -moz-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:     -ms-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:      -o-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:         linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0)); 
+    text-shadow: -1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px 1px 2px hsla(0,0%,100%,0.25),
+        1px -1px 2px hsla(0,0%,100%,0.25),
+        -1px 0px 2px hsla(0,0%,100%,0.25),
+        1px 0px 2px hsla(0,0%,100%,0.25);
+}
+
+.node div {
+   padding: 6px 4%;
+}
+{% endblock %}
+
+{% block javascript %}
+  {{ block.super }}
+  <script src="{{ STATIC_URL }}js/lib/d3.min.js"></script>
+  <script>
+    var tree = {{ group_tree|to_json }};
+    var nodeSizes = [];
+    var from= d3.rgb(200, 220, 241);
+    var to= d3.rgb(13, 69, 125);
+
+    getNodeSizes(tree);
+    // Sort by group size in ascending order.  Using a numeric comparison
+    // function (default is unicode str)
+    nodeSizes.sort(function (a, b) {return a - b;});
+
+    var colorForStep = getStepColors(from, to, nodeSizes.length);
+
+
+    /* Traverse tree structure, collecting all node sizes into an array defined
+      * outside of this function.
+      */
+    function getNodeSizes(tree) {
+      if (tree.size) {
+        // Remember this node's size in order to assign colors later
+        nodeSizes.push(parseFloat(tree.size));
+      }
+
+      if (tree.children) {
+        for (var i = 0; i < tree.children.length; i++) {
+          getNodeSizes(tree.children[i]);
+        }
+      }
+    }
+
+
+    /* Build a map of `step-num` to D3 color object for a given number of steps,
+      * starting from color `fromRGB` to `toRGB`.
+      */
+    function getStepColors(from, to, steps) {
+      var redStep = (to.r - from.r) / steps;
+      var greenStep = (to.g - from.g) / steps;
+      var blueStep = (to.b - from.b) / steps;
+
+      var colors = [];
+      for (var i = 0; i < steps; i++) {
+        colors[i] = d3.rgb(from.r + (redStep * i), from.g + (greenStep * i), from.b + (blueStep * i));
+      }
+      return colors;
+    }
+
+
+    function mapColorsBySize(d) {
+      if (d.name == 'root') {
+        return '#fff';
+      }
+
+      return colorForStep[nodeSizes.indexOf(parseFloat(d.size))];
+    }
+
+
+    function getNodeLabel(data) {
+      var rate = data.size ? '({{ rate_unit }}' + data.size +')': '';
+      return data.name + rate;
+    }
+
+    function position() {
+      this.style("left", function(d) { return d.x + "px"; })
+          .style("top", function(d) { return d.y + "px"; })
+          .style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
+          .style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
+    }
+
+
+    $(function() {
+      $('#reload-report').on('click', function() {
+        // If the browser is resized, re-render the report
+        document.location.reload(true);
+      });
+
+      var width = innerWidth-100,
+          height = innerHeight-220,
+          div = d3.select("#chart_div")
+            .style("position", "relative");
+
+      var treemap = d3.layout.treemap()
+          .size([width, height])
+          .sticky(true)
+          .value(function(d) { return d.size; });
+
+      var node = div.datum(tree).selectAll(".node")
+            .data(treemap.nodes)
+          .enter().append("div")
+            .attr("class", "node")
+            .attr('id', function(d) {
+              return d.name ? 'group-' + d.name : 'root';
+            })
+            .attr('title', getNodeLabel)
+            .call(position)
+            .style("background-color", mapColorsBySize)
+            .append('div')
+            .style('font-size', function(d) {return "18px";})
+            .style('font-style', 'bold')
+            .text(getNodeLabel);
+    });
+  </script>
+{% endblock javascript %}

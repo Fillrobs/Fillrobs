@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+\
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Permissions" %}{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Permissions" %}</h1>
+
+    <div><i>
+        {% url 'role_list' as role_url %}
+        {% blocktrans %}These are the permissions that can be assigned to <a href="{{ role_url }}">roles</a>.{% endblocktrans %}
+    </i></div><br>
+
+    <table id="permissions-table" data-table>
+        <thead>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Label" %}</th>
+                <th>{% trans "Description" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        {% for permission in permissions %}
+            <tr>
+                <td>
+                    {{ permission.name }}
+                </td>
+
+                <td>
+                    {{ permission.label }}
+                </td>
+
+                <td>
+                    {{ permission.description }}
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

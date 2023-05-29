@@ -1,0 +1,33 @@
+{% extends "reports/simple_base.html" %}
+{% load i18n %}
+{% load helper_tags %}
+
+  
+{% block report_content %}
+    {% if show_table %}
+        {{ table_caption }}
+
+        <table id="table-{{ report_slug|slugify }}"
+        class="table"
+        data-table>
+        <thead>
+            <tr>
+                {% for heading in column_headings %}
+                    <th class="a"> {{ heading|safe }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+            <tbody>
+                {% for row in rows %}
+                <tr>
+                    {% for col in row %}
+                        <td>{{ col|safe }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+               
+            </tbody>
+        </table>
+    {% endif %}    
+{% endblock %}
+ 

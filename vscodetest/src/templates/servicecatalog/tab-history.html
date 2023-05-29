@@ -1,0 +1,35 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div>
+    <table id="bp-history-table" data-table data-table-sort="1,desc">
+        <thead>
+            <tr>
+                <th>{% trans 'Date' %}</th>
+                <th>{% trans 'User' %}</th>
+                <th>{% trans 'Comment' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in history_items %}
+            {% if item.revision %}
+            <tr>
+                <td>
+                    {{item.revision.date_created|when}}
+                </td>
+                <td>
+                    {% if item.revision.user %}
+                        {{ item.revision.user.get_full_name }}
+                    {% endif %}
+                </td>
+                <td>
+                    {# If you want to make linebreaks, use \n in the comment #}
+                    {{ item.revision.comment|linebreaks }}
+                </td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>

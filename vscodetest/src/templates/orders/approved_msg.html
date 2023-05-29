@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<p>
+<a href="{{ order.get_absolute_url }}">
+  {% if autoapproved %}
+      {% blocktrans with order_id=order.id count counter=num_jobs %}
+          Order #{{ order_id }}</a> has been auto-approved and {{ num_jobs }} job has been created.
+      {% plural %}
+          Order #{{ order_id }}</a> has been auto-approved and {{ num_jobs }} jobs have been created.
+      {% endblocktrans %}
+  {% else %}
+      {% blocktrans with order_id=order.id count counter=num_jobs %}
+          Order #{{ order_id }}</a> has been approved and {{ num_jobs }} job has been created.
+      {% plural %}
+          Order #{{ order_id }}</a> has been approved and {{ num_jobs }} jobs have been created.
+      {% endblocktrans %}
+  {% endif %}
+</p>
+
+{{ extramsg }}

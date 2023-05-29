@@ -1,0 +1,194 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block item_details_row %}
+    {# the no-details class tells tuneLayoutForFormset if this panel can be hidden #}
+    <div class="row {% if service_item.description or service_item.os_build or service_item.hostname_template or apps or service_item.blueprint.resource_type %}{% else %}no-details{% endif %}">
+      {% if ordering %}
+        <div class="col-sm-12">
+      {% else %}
+        {# show 2nd column for capable envs #}
+        <div class="col-sm-6">
+      {% endif %}
+
+      {% if service_item.description %}
+        <p>{{ service_item.description }}</p>
+      {% endif %}
+
+      <table class="definitions">
+            <tr>
+                <th>{% trans 'OS Build:' %}</th>
+                <td>{{ os_build_display }}
+                    {% if managing and not blueprint.remote_source_url %}
+                        <a href="{% url 'edit_pssi_os_build' service_item.id %}"
+                            class="open-dialog"><i class="icon-edit"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% if not service_item.os_build %}
+            <tr>
+                <th>{% trans 'Initial OS Build:' %}
+                    {% blockinfotip %} {% trans "Select which OS Build will be the initially selected value in the order form" %} {% endblockinfotip %}
+                </th>
+                <td>{{ initial_os_build_display }}
+                    {% if managing and not blueprint.remote_source_url %}
+                        <a href="{% url 'edit_pssi_initial_os_build' service_item.id %}"
+                            class="open-dialog"><i class="icon-edit"></i></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endif %}
+        {% if managing %}
+            {% if os_families_display %}
+                <tr>
+                    <th>
+                        {% trans 'Allowable OS Families:' %}
+                        {% infotip allowable_os_families_tooltip %}
+                    </th>
+                    <td>{{ os_families_display }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+
+        {% if service_item.hostname_template %}
+            <tr>
+                <th>{% trans 'Hostname template:' %}</th>
+                <td ng-non-bindable>{{ service_item.hostname_template }}</td>
+            </tr>
+        {% endif %}
+
+        {# only show apps to end users if there are any #}
+        {% if apps or managing %}
+        <tr>
+          <th>
+            {% trans 'Applications:' %}
+            {% blockinfotip %} {% trans "Choose applications to install on this server tier. If none are specified, the requestor will be able to select applications in the order form, if any are available." %} {% endblockinfotip %}
+          </th>
+          <td>
+            {{ apps }}
+
+            {% if managing and not blueprint.remote_source_url %}
+              <a class="icon-installapplications js-dialog-link no-tooltip-affordance"
+                data-toggle="tooltip"
+                title="{% trans 'Edit applications' %}"
+                href="{% url 'service_item_apps_dialog' service_item.id %}"></a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endif %}
+
+        {% if not managing %}
+            {# else these are shown in column 2 to be more consistent with other SIs #}
+            <tr>
+                <th>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</th>
+                <td>
+                {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </td>
+            </tr>
+        {% endif %}
+      </table>
+    </div><!-- col 1 -->
+
+    {% if not ordering %}
+        <div class="col-sm-6">
+
+          <dl class="vertical">
+            <dt>{% trans 'Enabled Environments' %} {% blockinfotip %}<p>{% trans 'Allow users to order this blueprint for any capable environment permitted by their groups or only for those configured below.' %}</p><p>{% trans 'If all are enabled, you may still customize the order form for specific environments below.' %}</p>{% endblockinfotip %}:</dt>
+            <dd>
+                <input type=checkbox name=all_environments_enabled
+                    data-toggle="toggle"
+                    data-on="{% trans 'All capable' %}"
+                    data-off="{% trans 'Only those configured' %}"
+                    data-width="180"
+                    data-post-url="{% url 'toggle_all_environments_enabled' service_item.id %}"
+                    {% if service_item.all_environments_enabled %}checked{% endif %}
+                    {% if blueprint.remote_source_url %}disabled{% endif %} />
+            </dd>
+            <dt>
+            {% trans 'Configured Environments' %} {% blockinfotip %} <p>{% trans 'Configure the order form for this server tier for a particular environment.' %}</p><p>{% trans 'Parameter values may be set now or left for users to choose at order time, as long as the parameter is not already restricted to a single value by the environment.' %}</p>{% endblockinfotip %}:
+            </dt>
+            <dd>
+              <ul class="list-unstyled">
+                  {% for env in visible_enabled_envs %}
+                  <li>
+                      {{ env|link_or_label:profile }}
+
+                      {% if managing and not blueprint.remote_source_url %}
+                      <a href="{% url 'service_item_env_params_dialog' service_item.id env.id %}"
+                          class="icon-edit js-dialog-link no-tooltip-affordance"
+                          data-toggle="tooltip"
+                          data-dialog-width="800"
+                          title='{% trans "Edit parameters" %}'></a>
+                      <a href=""
+                          class="icon-delete remove-env-from-si no-tooltip-affordance"
+                          data-toggle="tooltip"
+                          data-post-url="{% url 'service_item_disable_env' service_item.id env.id %}"
+                          title='{% trans "Remove this environment choice from this blueprint item" %}'></a>
+                      {% endif %}
+                  </li>
+                  {% endfor %}
+              </ul>
+
+              {% if managing %}
+                <p>
+                    <a href="{% url 'service_item_add_env_dialog' service_item.id %}"
+                        class="btn btn-default js-dialog-link {% if blueprint.remote_source_url %}disabled{% endif %}"
+                        data-dialog-width="800">
+                        <span class="icon-add"></span>
+                        {% trans 'Configure an environment' %}
+                    </a>
+                </p>
+              {% endif %}
+            </dd>
+
+            <dd>
+              <dt>
+                {% trans 'Environment Selection Orchestration' %}
+                {% blockinfotip %}
+                    {% trans "Provide a plug-in to determine the target environment for this server tier at order execution time." %} {% endblockinfotip %}:
+              </dt>
+              <dd>
+                {{ service_item.environment_selection_hook|link_or_label:profile }}
+
+                {% if managing and not blueprint.remote_source_url %}
+                    {%  if service_item.environment_selection_hook %}
+                        <a class="icon-edit js-dialog-link no-tooltip-affordance"
+                            data-toggle="tooltip"
+                            title="{% trans 'Change Environment Selection Orchestration' %}"
+                            href="{% url 'choose_env_selection_action' blueprint.id service_item.id %}"></a>
+                        <a class="icon-delete js-dialog-link no-tooltip-affordance"
+                            data-toggle="tooltip"
+                            title="{% trans 'Remove Environment Selection Orchestration' %}"
+                            href="{% url 'remove_env_selection_action' blueprint.id service_item.id %}"></a>
+                    {%  else %}
+                        <a class="icon-edit js-dialog-link no-tooltip-affordance"
+                            data-toggle="tooltip"
+                            title="{% trans 'Add Environment Selection Orchestration' %}"
+                            href="{% url 'choose_env_selection_action' blueprint.id service_item.id %}"></a>
+                    {% endif %}
+                {% endif %}
+              </dd>
+            </dd>
+
+            {% if managing %}
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+                <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+                <dd>
+                    {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                </dd>
+            {% endif %}
+
+          </dl>
+
+        </div><!-- col 2 -->
+    {% endif %}
+    </div><!-- row -->
+
+{%  endblock item_details_row %}

@@ -1,0 +1,675 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('terraform-configuration-in-cloudbolt',true);});
+//--></script><title>Terraform Configuration in CloudBolt</title><script type="text/javascript">//<!--
+var articleTitleText='Terraform Configuration in CloudBolt';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Terraform Configuration in CloudBolt</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">Using CloudBolt</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="orchestration.html">Orchestration</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Terraform Configuration in CloudBolt</span></span>
+  </div><h1 id="h1__246429115" data-has-heading-anchor="true">
+  Terraform Configuration in CloudBolt
+<a href="terraform-configuration-in-cloudbolt.html#h1__246429115" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn about the Terraform Configuration Deployment Item in CloudBolt and how to configure and order Terraform Resources.
+</p>
+<br/>
+<div class="alert alert-warning">
+  <i class="mdi mdi-alert"></i> <b>Important:</b> This feature is considered Beta in version 9.4.6. Expect changes to functionality and design in future versions. To enable this feature in 9.4.6, contact <a href="mailto:support@cloudbolt.io" target="_top">support@cloudbolt.io</a>.
+</div>
+<hr/>
+<p>
+</p>
+<section>
+  <h2 id="h2__1296687178" data-has-heading-anchor="true">
+    Introduction
+  <a href="terraform-configuration-in-cloudbolt.html#h2__1296687178" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    The Terraform Configuration feature in CloudBolt allows you to directly manage your Terraform configurations using a CloudBolt  Build Item, called Terraform Deployment Item, on your Blueprint. 
+  </p>
+  <ul>
+    <li>
+      Configure one Terraform Deployment Item across multiple Environments. Map Resource Handler Parameters to Terraform Variables, which will then appear on the Order Form. 
+    </li>
+    <li>
+      Preserve the Terraform configuration directory in CloudBolt, so one instance of Terraform code can be used across multiple Terraform Deployment Items.
+    </li>
+    <li>
+      Define and Map custom key:value pairs of Resource Handler variables to Terraform variables, so you can pass variables, such as the Resource Handler’s credentials, down into the Terraform operating environment.
+    </li>
+  </ul>
+</section>
+<section>
+  <p>
+  </p>
+</section>
+<div class="alert alert-info">
+  <i class="mdi mdi-information mr-2"></i>Supported actions with this&nbsp;Build Item are&nbsp;Create (Deploy) and Delete Terraform resources.
+</div>
+<section>
+  <br/>
+  <h3 id="h3_1644201065" data-has-heading-anchor="true">
+    Prerequisites
+  <a href="terraform-configuration-in-cloudbolt.html#h3_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <ul>
+    <li>
+      Have the Resource Handler configured that you will use to create and delete Terraform Resources.
+    </li>
+    <li>
+      An Environment configured with a Region/Location and Network(s) imported.
+    </li>
+    <li>
+      <span>Terraform configuration file(s) in one of the following locations.</span> For more information about each option, see<a href="create-terraform-plan-action.html#h2__1370697003" target="_blank">&nbsp;Upload a Terraform Configuration</a>.
+      <ul>
+        <li>
+          A git repository from a URL.
+        </li>
+        <li>
+          A configuration uploaded as a zip file.
+        </li>
+        <li>
+          A zip file containing configurations from a URL. <b>Note: </b>Only .zip file format is supported.
+        </li>
+        <li>
+          A configuration directory on the CloudBolt server's filesystem. This must be an absolute path.
+        </li>
+      </ul>
+    </li>
+    <li>
+      <span>A CLI</span> for your Resource Handler as required by Terraform Provider and your Cloud Provider. For instance, this is required for Azure but not AWS.
+    </li>
+  </ul>
+  <hr/>
+  <h2 id="h2__768262442" data-has-heading-anchor="true">
+    Setup Overview
+  <a href="terraform-configuration-in-cloudbolt.html#h2__768262442" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <ol class="steps">
+    <li>
+      Create and Edit the Deployment Item.
+    </li>
+    <li>
+      Attach Environment(s).
+    </li>
+    <li>
+      Map Terraform Variables, including Parameters if desired.
+    </li>
+    <li>
+      Order the Blueprint.
+    </li>
+  </ol>
+</section>
+<p>
+</p>
+<hr/>
+<section>
+  <h2 id="h2_1223016999" data-has-heading-anchor="true">
+    Configure the Terraform Deployment Item
+  <a href="terraform-configuration-in-cloudbolt.html#h2_1223016999" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    First, you will configure the Terraform Deployment Item on your Blueprint. 
+  </p>
+</section>
+<h3 style="" id="h3_719230772" data-has-heading-anchor="true">
+  Create and Edit the Deployment Item
+<a href="terraform-configuration-in-cloudbolt.html#h3_719230772" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<div class="alert alert-info">
+  <i class="mdi mdi-information"></i> In this setup example, we will be using a git repository from a URL.
+</div>
+<section>
+  <ol>
+    <li>
+      In CloudBolt, create a Blueprint that will contain the Terraform Deployment Item.
+    </li>
+    
+    <li>
+      The first time you create this Blueprint, select a Resource Type of <b>None.</b>
+    </li>
+    <li>
+      From the Blueprint, click the <b>Build tab &gt; </b><span class="button">+ Terraform</span><b>.</b>
+      <ul>
+        <li>
+          This will create a new Resource Type called&nbsp;<b>Terraform Deployments </b>and will display the Resources (Terraform Deployments) tab.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Choose a <b>Name </b>and optional <b>Description </b>for this Deployment Item.
+    </li>
+    <li>
+      Fill out the <b>Edit Blueprint Item</b> form. Your choices may vary depending on your desired configuration.
+    </li>
+    <li>
+      When you are done,&nbsp;click <b>Save.</b>
+    </li>
+  </ol>
+  <p>
+  </p>
+  <div class="img-row">
+    <div class="img-set">
+      <a href="../Storage/cloudbolt-docs/9-4-6/cmp_946-ui-terraform-overview-aws.png" data-lightbox="terraform-overview" data-title="Terraform Overview." target="_top">
+        <img src="../Storage/cloudbolt-docs/9-4-6/cmp_946-ui-terraform-overview-aws.png" alt="" style="width: 500px; height: 161px;"/></a>
+    </div>
+  </div>
+  <p>
+  </p>
+</section>
+<div class="card">
+  <div class="card-header">
+    Example Folder Structure
+  </div>
+  <div class="card-body">
+    In these docs, we are using an example folder that contains three&nbsp;<span class="inlineCode">.tf</span>&nbsp;files. Your configuration may look similar to this sample:
+  </div>
+  <table data-tabs="true" cellspacing="0" cellpadding="0">
+    <tbody>
+      
+      <tr>
+        <td>
+          main.tf
+          <br/>
+        </td>
+        <td>
+          <pre class="CHCodeSample_codeSimple cm-s-default">terraform {<br>  required_providers {<br>    aws = {<br>      source  = "hashicorp/aws"<br>      version = "~&gt; 3.42"<br>    }<br>  }<br><br>  required_version = "&gt;= 0.13.5"<br>}<br><br>provider "aws" {<br>  profile = "sales"<br>  region  = "us-west-2"<br>  access_key = var.access_key<br>  secret_key = var.secret_key<br>}<br><br>resource "aws_instance" "app_server" {<br>  ami           = "ami-08d70e59c07c61a3a"<br>  instance_type = "t1.micro"<br><br>  tags = {<br>    Name = var.instance_name<br>  }<br>}</pre>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          variables.tf
+        </td>
+        <td>
+          <p>
+            Use a file like this variables file to define variables and their values that will appear on the Map Terraform Variables form. 
+          </p>
+          Variables without Default values will need to be mapped. Variables with Default values can  also be mapped to override the defaults given in the file.
+          <p>
+            <pre class="CHCodeSample_codeSimple cm-s-default"># A default value exists, so if none is mapped in CloudBolt, the default value is used.<br>variable "instance_name" {<br>  description = "Value of the Name tag for the EC2 instance"<br>  type        = string<br>  default     = "ExampleAppServerInstance"<br>}<br><br># No default values, so make sure to map them on the Map Terraform Variables form.<br>variable "access_key" {<br>  description = "Value of the Access key for AWS"<br>  type        = string<br>}<br><br>variable "secret_key" {<br>  description = "Value of the Secret Key for AWS"<br>  type        = string<br>}</pre>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          outputs.tf
+        </td>
+        <td>
+          <pre class="CHCodeSample_codeSimple cm-s-default">output "instance_id" {<br>  description = "ID of the EC2 instance"<br>  value       = aws_instance.app_server.id<br>}<br><br>output "instance_public_ip" {<br>  description = "Public IP address of the EC2 instance"<br>  value       = aws_instance.app_server.public_ip<br>}</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+<section>
+  <h3 id="h3__2099442391" data-has-heading-anchor="true">
+    <br/>
+    Edit the Blueprint Item Form
+  <a href="terraform-configuration-in-cloudbolt.html#h3__2099442391" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Fill out the Blueprint Item form fields according to the table below and your individual needs.
+  </p>
+</section>
+<section>
+  <div class="img-row">
+    <div class="img-set">
+      <a href="../Storage/cloudbolt-docs/9-4-6/cmp_ui-946-terraform-edit-bp-item-form.png" data-lightbox="edit-bp-item-form" data-title="Edit the Blueprint Item form." target="_top">
+        <img src="../Storage/cloudbolt-docs/9-4-6/cmp_ui-946-terraform-edit-bp-item-form.png" alt="" style="width: 371px; height: 700px;"/></a>
+    </div>
+  </div>
+  <table class="table table-responsive table-striped">
+    <tbody>
+      <tr style="height: 20px;">
+        <th>
+          Callout
+        </th>
+        <th>
+          Field
+        </th>
+        <th>
+          Description
+        </th>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">A
+            <br/>
+          </span>
+        </td>
+        <td>
+          Name
+          <br/>
+        </td>
+        <td>
+          Enter a Name for this Deployment Item.
+          <br/>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">B
+          </span>
+        </td>
+        <td>
+          Description<a href="http://docs.cloudbolt.io/smart/cloudbolt-csmp/header-bar" target="_blank">
+          </a>
+        </td>
+        <td>
+          Enter an optional Description.
+          <br/>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">C
+          </span>
+        </td>
+        <td>
+          Subdirectory
+          <br/>
+        </td>
+        <td>
+          If you have your <span class="inlineCode">.tf</span> file in a folder within your git repository, add the folder name here.
+          <br/>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">D</span>
+        </td>
+        <td>
+          Preserve config dir
+          <br/>
+        </td>
+        <td>
+          Instead of wiping out the contents of the directory upon code refresh, check this box to allow one instance of the code to be used by more than one Deployment Item.
+          <br/>
+        </td>
+      </tr>
+      
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">E
+          </span>
+        </td>
+        <td>
+          File location
+        </td>
+        <td>
+          Choose the location of your <span class="inlineCode">.tf </span>file. See&nbsp;<a href="create-terraform-plan-action.html#h2__1370697003" target="_blank"> Upload a Terraform Configuration</a>.
+          <br/>
+        </td>
+      </tr>
+      
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-area">F
+          </span>
+        </td>
+        <td>
+          Branch
+          <br/>
+        </td>
+        <td>
+          When fetching a git repo from a URL, specify the branch that the Terraform configuration is on.
+          <br/>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-function">G
+          </span>
+        </td>
+        <td>
+          <span>Refresh</span> on order
+        </td>
+        <td>
+          <p>
+            Pull the latest code from git every time you run the Blueprint.&nbsp;If you have <i>Refresh on order</i> checked, and you modify the <span class="inlineCode">.tf</span> file in the repo by adding new variables, ordering the Blueprint&nbsp;will fail with unknown variable(s). In the Deployment&nbsp;Item on the Blueprint,&nbsp;edit the Environment and map the new variable(s) so CloudBolt knows about them.
+          </p>
+        </td>
+      </tr>
+      <tr style="height: 50px;">
+        <td>
+          <span class="layout-function">H
+          </span>
+        </td>
+        <td>
+          Override working directory
+          <br/>
+        </td>
+        <td>
+          <p>
+            The directory where CloudBolt will store the files used by multiple Terraform Deployment Items.
+          </p>
+          <div class="card">
+            <div class="card-header">
+              Use Case
+            </div>
+            <div class="card-body">
+              Create a second Terraform Deployment Item, preserve the directory using <b>Preserve config dir, </b>and reference the directory entered in Override working directory. Then, both Deployment Items will use the same code copy.
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<h3 id="h3_1823863837" data-has-heading-anchor="true">
+  <section>
+    <br/>
+    Attach  Environment(s)
+  </section>
+<a href="terraform-configuration-in-cloudbolt.html#h3_1823863837" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ol>
+  <li>
+    <section>
+      On the Terraform Deployment Item, click <span class="button">+ Attach an environment</span>.
+    </section>
+  </li>
+  <li>
+    <section>
+      Choose an Environment, then click <b>Next.</b>
+    </section>
+  </li>
+  <li>
+    <section>
+      Set Tech-Specific Parameter values now, or let the user choose at order time. 
+    </section>
+  </li>
+  <li>
+    <section>
+      Click <b>Next</b> to continue to Map Terraform Variables to&nbsp;Environment / Resource Handler&nbsp;Parameters.
+    </section>
+  </li>
+</ol>
+<hr/>
+<h2 id="h2__1154394801" data-has-heading-anchor="true">
+  Map Terraform Variables
+<a href="terraform-configuration-in-cloudbolt.html#h2__1154394801" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  <span style="letter-spacing: -0.08px;">Define and Map custom key:value pairs of Resource Handler variables to Terraform variables, so you can pass variables, such as the Resource Handler’s credentials, down into the Terraform operating environment.</span>
+</p>
+<p>
+  Map Terraform Variables during the Attach Environment setup step.&nbsp;
+</p>
+<img src="../Storage/cloudbolt-docs/9-4-6/cmp_946-ui-map-tf-variables.png" alt="" style="width: 500px; height: 366px;"/>
+<h3 id="h3__419217678" data-has-heading-anchor="true">
+  1. Variables with Defined Default Values
+<a href="terraform-configuration-in-cloudbolt.html#h3__419217678" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Shown in callout 1. 
+</p>
+<div id="pnlContainer_cphMain_articleEditor_pnlCallback_pnlHtmlEditorContainer_htmlEditor_pnlCallback_commentsEditor_pnlListContainer">
+  <p>
+    CloudBolt will read and use the Default values for variables in the Terraform config if they exist. You can also override them by choosing a different value in the form. In this example, <b>instance_name </b>is defined in the <span class="inlineCode">.tf</span> file and has a value assigned.
+  </p>
+</div>
+<h3 id="h3__1519511604" data-has-heading-anchor="true">
+  2. Variables with no Default Value
+<a href="terraform-configuration-in-cloudbolt.html#h3__1519511604" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Shown in callout 2. 
+</p>
+<p>
+  Use the variables with no default value defined&nbsp;in the&nbsp;&nbsp;<span class="inlineCode">.tf</span>&nbsp;config file to map CloudBolt values onto Terraform variables in&nbsp;<b>key:value&nbsp;</b>pairs. In this configuration, variable&nbsp;<span class="inlineCode">access_key</span>&nbsp;and variable&nbsp;<span class="inlineCode">secret_key</span>&nbsp;are defined in the&nbsp;<span class="inlineCode">.tf&nbsp;</span>&nbsp;file&nbsp;with no default value given. Choose a value to assign to them.
+</p>
+<div class="card-body">
+  <div class="card">
+    <div class="card-header">
+      Use Case 
+    </div>
+    <div class="card-body">
+      Pass the Resource Handler's credentials down into the Terraform operating environment.
+    </div>
+  </div>
+</div>
+<ol>
+  <li>
+    On the Map Terraform Variables window, select the value dropdown to map to the variable with no default value.
+    <ul>
+      <li>
+        In this example, the variable names&nbsp;are <b>access_key and </b><b>secret_key.</b>
+      </li>
+    </ul>
+  </li>
+  
+  <li>
+    Select the CloudBolt Resource Handler value from the dropdown that match the defined variable.
+  </li>
+</ol>
+<h3 id="h3__680533991" data-has-heading-anchor="true">
+  Add Custom Key:Value Pairs
+<a href="terraform-configuration-in-cloudbolt.html#h3__680533991" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  Shown in callouts 3 and 4. 
+</p>
+<p>
+  Use&nbsp;custom key:value pairs on the Map Terraform Variables form to add Tech-Specific Parameters to the Order Form. These variables will appear on the Order Form when the Blueprint is ordered.
+  <br/>
+</p>
+<div>
+  <ol>
+    <li>
+      On the Map Terraform Variables form in  Edit Environment,&nbsp;click <span class="button-blue">Add Variable</span>.
+    </li>
+    <li>
+      Enter in the <b>Custom Key (variable name)</b>&nbsp;and <b>Custom Value</b>. If the entered value(s) is a Parameter, they will appear on the Order form.
+    </li>
+    <li>
+      Click <span class="button-blue">Save</span>.
+    </li>
+  </ol>
+  <h3 id="h3_1876025109" data-has-heading-anchor="true">
+    Remove Key:Value Pairs
+  <a href="terraform-configuration-in-cloudbolt.html#h3_1876025109" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <div class="alert alert-warning">
+    <i class="mdi mdi-alert"></i> Limitation: Removing key:value pairs is a known limitation for this initial version of Terraform Configuration. Key:value pairs that are added on the Map Terraform Variables form cannot be removed unless the Environment is deleted from the Deployment Item and re-added.
+  </div>
+</div>
+<hr/>
+<h2 id="h2_168440802" data-has-heading-anchor="true">
+  Order the Blueprint
+<a href="terraform-configuration-in-cloudbolt.html#h2_168440802" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<ol>
+  <li>
+    On the Order Form, fill out any Parameters added to the Blueprint Item and click <span class="button-blue">Submit</span>.
+  </li>
+  <li>
+    <span>Validate</span> that the server(s) were&nbsp;created in your Cloud Provider instance using the Resources tab or Terraform Deployments tab.
+  </li>
+</ol>
+<h3 id="h3__326413827" data-has-heading-anchor="true">
+  View Terraform Deployments
+<a href="terraform-configuration-in-cloudbolt.html#h3__326413827" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<div>
+  There are two ways to view Terraform Deployments depending on the type of Resource the Blueprint was set up to use:
+</div>
+<ul>
+  <li>
+    The Resources (Services) tab on the Blueprint.
+  </li>
+  <li>
+    The Terraform Deployments tab on the Blueprint.
+  </li>
+</ul>
+<h4 id="h4_1010378909" data-has-heading-anchor="true">
+  Resources (Services) Tab
+<a href="terraform-configuration-in-cloudbolt.html#h4_1010378909" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  The Resources (Services) tab shows Terraform Services deployed when the Resource Type is set as <b>Service </b>on the Blueprint.
+</p>
+<h4 id="h4_1561954523" data-has-heading-anchor="true">
+  Terraform Deployments Tab
+<a href="terraform-configuration-in-cloudbolt.html#h4_1561954523" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+<p>
+  The Terraform Deployments tab appears after meeting the following two conditions <b>which must be completed in this order</b>:
+</p>
+<ol>
+  <li>
+    Create a&nbsp;Blueprint with a Resource Type of <b>None</b>, and add a Terraform Build Item. This&nbsp;creates a new Resource Type called <b>Terraform Deployment.</b>
+  </li>
+  <li>
+    Edit the Resource Type on the Blueprint to <b>Terraform Deployment.</b>
+  </li>
+  <li>
+    The Blueprint will display a <b>Terraform Deployments </b>tab.
+  </li>
+</ol>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="limitations.html" class="articleActions_link CHNavLinkPrevious">Terraform Limitations and Troubleshooting</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="remote-scripts.html" class="articleActions_link CHNavLinkNext">Remote Scripts</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

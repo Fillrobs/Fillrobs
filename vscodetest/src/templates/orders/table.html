@@ -1,0 +1,70 @@
+{% load history_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+<table id="orders" class="{{ table_classes }}" data-table-no-auto-init>
+    <thead>
+        <tr>
+            <th>{% trans "Order" %}</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Group" %}</th>
+            <th>{% trans "Owner" %}</th>
+            <th>{% trans "Created" %}</th>
+            <th class="text-right">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {# will be populated by dataTable based on AJAX responses #}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(function() {
+
+        var $table = $("table#orders")
+
+        $table.attr('data-table-source', '{{ source }}');
+
+        // Specify the callback for additional params added before each
+        // Ajax request.
+        // Save the function object in DOM data; it will be called by the
+        // code in c2.dataTables. The function should exist in the scope of
+        // the template calling this templatetag and take one arg: aoData.
+        $table.data('table-fnServerParams', function (aoData) {
+            // Always send the columns being requested
+            aoData.push({'name': 'columns', 'value': '{{ columns|to_csv }}'});
+
+            aoData.push({
+                name: 'filters_selected',
+                value: JSON.stringify({'{{ filter_name }}': ['{{ filter_value }}']})
+            });
+
+            {% if orders_params_fn %}
+                // Now call the user-defined history_params_fn
+                {{ orders_params_fn }}(aoData);
+            {% endif %}
+        });
+
+        {% if orders_response_callback %}
+            $table.data('table-fnServersDataCallback', {{ orders_response_callback }});
+        {% endif %}
+
+        {% if initialize_now %}
+            c2.dataTables.init('table#orders');
+        {% endif %}
+
+
+        // Post the clicked icon's action (takes anchor tag data-action attr).
+        // This is used by orders list
+        $table.on('click', 'form.orderActions .btn', iconClickHandler);
+
+        function iconClickHandler(event) {
+            // always doOrderAction _except_ when the action is deny or rename
+            if (!$(this).hasClass('icon-deny') && !$(this).hasClass('icon-edit')) {
+                c2.forms.doOrderAction(event);
+            }
+        }
+
+    });
+</script>

@@ -1,0 +1,64 @@
+{% load i18n %}
+<div id="interval_form" style="float:left;">
+    <div class="btn-group">
+        {% if server.resource_handler.type_slug in 'azure_arm, gcp' %}
+            <button value="20-60" class="btn btn-default">{% trans "Last hour" %}</button>
+        {% elif server.resource_handler.type_slug == 'acropolis' %}
+            <button value="30-120" class="btn btn-default">{% trans "Last hour" %}</button>
+        {% else %}
+            <button value="20-180" class="btn btn-default">{% trans "Last hour" %}</button>
+        {% endif %}
+
+        <button value="300-288" class="active btn btn-default">{% trans "Last 24 hrs" %}</button>
+
+        {% if server.resource_handler.type_slug != 'vmware' %}
+          <button value="3600-168" class="btn btn-default">{% trans "Last week" %}</button>
+        {% endif %}
+
+        {% if server.resource_handler.type_slug in 'azure_arm, aws, vmware, gcp' %}
+          <button value="7200-360" class="btn btn-default">{% trans "Last 30 days" %}</button>
+        {% endif %}
+
+        {% if server.resource_handler.type_slug == 'vmware' %}
+          <button value="86400-365" class="btn btn-default">{% trans "Last 365 days" %}</button>
+        {% endif %}
+    </div>
+</div>
+
+<div id="last-refreshed" style="float:right;">
+  <a class="btn btn-default open-dialog" href="{% url 'confirm_refresh_server_stats' server.id %}" id="refresh_stats">
+    {% trans 'Refresh stats' %}
+  </a>
+  <div id="last-refreshed-info"><i>{% trans "Last refreshed" %}: {% firstof server.stats.last_refreshed 'N/A' %}</i></div>
+</div>
+
+<div class="clearfix"></div>
+
+{% if not server.stats %}
+    <div>{% trans "Stats are currently unavailable. You can refresh stats for this server by clicking the 'Refresh stats' button." %}</div>
+{% endif %}
+
+<div id="stats-graphs"></div>
+
+<script>
+  (function () {
+    'use strict';
+
+    var serverID = {{ server.id | escapejs }};
+    var $graphArea = $('#stats-graphs');
+    {% if server.stats %}
+      $graphArea.load('/servers/' + serverID + '/stats/?interval=300-288');
+    {% endif %}
+
+    $(".btn-group button").click(function(e){
+      e.preventDefault();
+      var $graphArea = $('#stats-graphs');
+      var interval = $(this).val();
+      $(this).addClass('active').siblings().removeClass('active');
+      {% if server.stats %}
+        $graphArea.load('/servers/' + serverID + '/stats/?interval=' + interval);
+      {% endif %}
+    });
+  })();
+
+</script>

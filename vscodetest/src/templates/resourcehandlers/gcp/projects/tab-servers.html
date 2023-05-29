@@ -1,0 +1,7 @@
+{% load i18n infrastructure_tags %}
+
+{% if project.environment %}
+    {% servers_table servers_empty_qs source="/servers/json/" filter_name="filter_by_environment" filter_value=project.environment.id %}
+{% else %}
+    {% trans "This Project has no associated Servers because it is not tied to an Environment." %}
+{% endif %}

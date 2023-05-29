@@ -1,0 +1,74 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="chart padding">
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            {# Click handler is set up once in auto_power_cost_savings_by_tech_report.html #}
+            <a class="btn btn-default btn-sm"
+                href="{% url 'auto_power_cost_savings_by_tech_report' %}?last_month&groups={{ groups }}">
+                {% trans "Last month" %}
+            </a>
+            <a class="btn btn-default btn-sm"
+                href="{% url 'auto_power_cost_savings_by_tech_report' %}?days_back=7&groups={{ groups }}">
+                {% trans "Last 7 days" %}
+            </a>
+            <a class="btn btn-default btn-sm open-dialog"
+                data-href="{% url 'auto_power_cost_savings_by_tech_dialog' %}?start_date={{ start_ymd }}&end_date={{ end_ymd }}&groups={{ groups }}">
+                {% trans "Choose dates" %}
+            </a>
+        </div>
+        <a class="btn btn-default btn-sm open-dialog"
+            data-href="{% url 'auto_power_cost_savings_by_tech_group_dialog' %}?start_date={{ start_ymd }}&end_date={{ end_ymd }}&groups={{ groups }}">
+            {% trans "Groups" %}
+        </a>
+    </div>
+    <div class="clearfix"></div>
+
+    <div id="chart-auto-power-cost-savings"></div>
+</div>
+
+<script>
+$(function () {
+    var numCategories = {{ categories|length }};
+    if (numCategories === 0) {
+        $('#chart-auto-power-cost-savings').html('<p>{% trans "There is no data." %}</p>');
+    } else {
+        $('#chart-auto-power-cost-savings').highcharts({
+            subtitle: {text: '{{ subtitle }}'},
+            chart: {
+                height: c2.charts.containerHeight({{ categories|length }}),
+                type: 'bar'
+            },
+            xAxis: {
+                categories: {{ categories|to_json }}
+            },
+            yAxis: {
+                min: 0,
+                // translators: This message is followed by a currency symbol, i.e. 'Cost in $'
+                title: { text: '{% trans "Cost in" %} {{ currency }}' }
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true,
+                        format: '{{ currency }}{y}'
+                    },
+                    onArea: false
+                },
+                series: {
+                    borderWidth: 0,
+                    // Set an upper limit to bar width
+                    maxPointWidth: 40
+                }
+            },
+            series: {{ series|to_json }},
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>'
+            },
+            legend: {enabled: true},
+            credits: {enabled: false}
+        });
+    }
+});
+</script>

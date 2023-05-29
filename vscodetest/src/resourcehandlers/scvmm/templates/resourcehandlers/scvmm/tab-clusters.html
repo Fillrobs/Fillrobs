@@ -1,0 +1,57 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        { href="{% url 'scvmm_import_cluster' handler.id %}" }
+        id="import-clusters">
+        <span class="icon-import"></span>
+        Import clusters
+    </a>
+</div>
+
+<table id="clusters" class="stats">
+    <thead>
+        <th>Cluster</th>
+        <th>Title</th>
+        <th>Environments</th>
+    </thead>
+    <tbody>
+        {% for cluster in clusters %}
+        <tr>
+            <td class="name">{{ cluster.name }}</td>
+            <td>{{ cluster.title }}</td>
+            <td>
+                {% for env in cluster.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+                <a title="Create an environment in cluster '{{ cluster.name }}'"
+                   href="{% url 'create_scvmm_env' handler.id cluster.name %}"
+                   class="icon-add open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#clusters').dataTable({
+        "aaSorting": [[ 1, "asc" ]],
+        "aoColumnDefs": [
+            { "bSortable": false, "aTargets": [0] }
+        ]
+    });
+
+    $('#import-clusters').data('dialog_options', {
+        width: 600,
+        position: 'center',
+        wait_msg: 'Querying the resource handler...'
+        });
+});
+</script>

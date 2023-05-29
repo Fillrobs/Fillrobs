@@ -1,0 +1,45 @@
+{% load helper_tags %}
+{% load puppet_tags %}
+
+<form id="sync-nodes" action="{% url 'puppet_connector_sync_servers' conf.id %}" method=post>
+    {% csrf_token %}
+    <div class="btn-toolbar">
+        <button type="submit" class="btn btn-default"
+            data-toggle="tooltip"
+            title="Update Puppet information for servers in this configuration manager's environments">
+            <span class="icon-sync"></span>
+            Sync servers
+        </button>
+    </div>
+</form>
+
+<table id="nodes-table" data-table>
+    <thead>
+        <tr>
+            <th>Puppet Certificate Name</th>
+            <th>Server</th>
+            <th>Server Status</th>
+            <th>Latest Report</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for node in nodes %}
+        <tr>
+            <td class="node-certname">{{ node.certname }}</td>
+            <td class="node-server">{{ node.cb_server|link_or_label:profile }}</td>
+            <td class="node-server-status">{{ node.cb_server.get_status_display }}</td>
+            <td class="node-report">{% report_link node.latest_report %}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('form#sync-nodes').submit(function() {
+        c2.block.block('#nodes-table');
+    });
+
+    c2.dataTables.init();
+});
+</script>

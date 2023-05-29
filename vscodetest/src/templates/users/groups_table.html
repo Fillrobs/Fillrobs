@@ -1,0 +1,67 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load i18n %}
+
+{% if can_edit_bulk_perms %}
+    <div class="btn-toolbar">
+        <button class="btn btn-default convertToForm">Bulk changes</button>
+    {% if the_profile.ldap %}
+        <a class="btn btn-default open-dialog"
+            href="{% url 'user_sync' the_profile.id %}">
+            <span class="icon-sync"></span>
+            Sync External User&hellip;
+        </a>
+    {% endif %}
+    </div>
+{% endif %}
+<table id="groups" data-table data-table-sort="0">
+    <thead>
+        <tr>
+            <th class="expand group_name">{% trans "Group" %}</th>
+            {% for role in roles %}
+                <th class="shrink">{{ role|role_with_tooltip }}</th>
+            {% endfor %}
+            <th class="">{% trans "Actions" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {# Use em tags to repr check mark; content is required to enable datatable sorting #}
+        {% for group in user_groups %}
+        <tr>
+            <td class="expand group_name"><a href="{{ group.get_absolute_url }}">{{ group }}</a></td>
+            {% for role in roles %}
+                <td class="shrink">
+                    {% render_permission_checkmark_and_infotip group the_profile role %}
+                </td>
+            {% endfor %}
+            <td class="shrink">
+                <div class="btn-group">
+                    {% if group in manageable_groups %}
+                        <a class="icon-edit js-dialog-link btn btn-default btn-sm"
+                            href="{% url 'user_group_edit' the_profile.id group.id %}"></a>
+                        <a class="icon-delete js-dialog-link btn btn-default btn-sm"
+                            data-toggle="tooltip"
+                            title="Remove from group"
+                            href="{% url 'batch_remove_users_from_group_dialog' group.id %}?profile_id[]={{ the_profile.id }}"></a>
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(function() {
+    {% if can_edit_bulk_perms %}
+        var $groupMembership = $('#groupMembership');
+        $('.convertToForm').on('click', function() {
+            c2.block.block($groupMembership);
+            $.get('{% url 'user_groups_formset' the_profile.id %}', function(data) {
+                $groupMembership.html(data);
+                c2.block.unblock($groupMembership);
+            });
+        });
+    {% endif %}
+});
+</script>

@@ -1,0 +1,596 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('google-cloud-platform',true);});
+//--></script><title>Google Cloud Platform (GCP)</title><script type="text/javascript">//<!--
+var articleTitleText='Google Cloud Platform (GCP)';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Google Cloud Platform (GCP)</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="resource-handlers.html">Resource Handlers</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Google Cloud Platform (GCP)</span></span>
+  </div><h1 id="h1__2064259685" data-has-heading-anchor="true">
+  Google Cloud Platform
+<a href="google-cloud-platform.html#h1__2064259685" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Learn how to set up the Google Cloud Platform to integrate with CloudBolt as a Resource Handler.
+</p>
+<p data-children-count="1">
+  <br/>
+  Integration with GCP can be set up using an OAuth 2.0 Client ID of type <i>Web application. </i>GCP&nbsp;functionality replaces GCE and the two should not be installed on the same instance of CloudBolt.<i>&nbsp;</i><ul class=""><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2__768262442">Setup Overview</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_1644201065">Prerequisites</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2__1341248813">Create Credentials for Google Cloud Platform</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2__136814524">Add a GCP Resource Handler</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2_1528662242">GCP Projects</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_1229908073">Fetch Existing Projects</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_1035740816">Manually Import&#160;GCP Projects</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3__2009449968">Create Projects</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2_1676903440">Import GCP Shared Images</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_1694855174">Required Roles</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2__893466258">GCP VMs</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_454043320">Set a Custom Host Name on Provisioned GCP VMs</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3_1032975431">Running Startup Scripts on GCP VMs</a></li><li class="CHMiniToc_heading3"><a href="google-cloud-platform.html#h3__248055496">Tags on GCP VMs</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2_1017680913">GCP Rates</a></li><li class="CHMiniToc_heading2"><a href="google-cloud-platform.html#h2_861724344">Troubleshooting</a></li></ul>
+</p>
+<hr/>
+<h2 id="h2__768262442" data-has-heading-anchor="true">
+  Setup Overview
+<a href="google-cloud-platform.html#h2__768262442" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<ol class="steps">
+  <li>
+    Set up Google Cloud Platform and collect the OAuth Client ID JSON file.
+  </li>
+  <li>
+    Add a GCP Resource Handler in CloudBolt.
+  </li>
+  <li>
+    Import GCP Projects.
+  </li>
+</ol>
+<h3 id="h3_1644201065" data-has-heading-anchor="true">
+  Prerequisites
+<a href="google-cloud-platform.html#h3_1644201065" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<ul>
+  <li>
+    An existing Google Cloud Platform account with permissions to Create Credentials.
+  </li>
+  <li>
+    At least one existing Project in GCP.
+  </li>
+</ul>
+<p>
+  For a GCP Project to be manageable from CloudBolt, it must:
+</p>
+<div>
+  <ol>
+    <li>
+      Have Billing enabled.
+    </li>
+    <li>
+      Have the Compute Engine API enabled.
+    </li>
+    <li>
+      Have the Identity and Access Management (IAM) API enabled.
+    </li>
+  </ol>
+</div>
+<hr/>
+<h2 id="h2__1341248813" data-has-heading-anchor="true">
+  Create Credentials for Google Cloud Platform
+<a href="google-cloud-platform.html#h2__1341248813" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<ol>
+  <li>
+    Navigate to the&nbsp;<a href="https://console.developers.google.com/apis/credentials" target="_top">Credentials page in the GCP&nbsp;console</a>. The active Project at this point must have the Cloud Resource Manager API enabled.
+  </li>
+  <li>
+    Click <b>Create Credentials</b> &gt;&nbsp;<b>OAuth Client ID</b>.
+  </li>
+  <li>
+    On the <b>Create OAuth client ID </b>page, select&nbsp;<i>Web application </i>as the Application type.
+  </li>
+  <li>
+    Add an <b>Authorized redirect URI</b> for this OAuth Client ID. 
+    <ul>
+      <li>
+        This is required to import GCP Projects into the CloudBolt instance. If your CloudBolt instance is running at&nbsp;<cite>https://example.com</cite>, then the value for this should be set to&nbsp;<cite>https://example.com/google-oauth2/</cite>
+      </li>
+      
+      <li>
+        <b>Note: </b>Google does not authenticate private IP addresses (such as <i>10.10.2.11).</i>
+      </li>
+    </ul>
+  </li>
+  <li>
+    Download the created JSON for your new OAuth Client ID.
+  </li>
+  <li>
+    Navigate to CloudBolt and follow the steps below to add a GCP Resource Handler.
+  </li>
+</ol>
+<hr/>
+<h2 style="" id="h2__136814524" data-has-heading-anchor="true">
+  Add a GCP Resource Handler
+<a href="google-cloud-platform.html#h2__136814524" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  The GCP<i>&nbsp;</i>Resource Handler allows users to create, delete, and synchronize Google Cloud Platform Projects from CloudBolt.&nbsp;
+</p>
+
+
+  <div class="alert alert-info">
+    <i class="mdi mdi-information"></i> If you have upgraded to 9.4.6 or newer with an existing GCP Resource Handler, create new Credentials in GCP and re-upload the JSON file in Edit Credentials. If you plan to Manually Import GCP Projects, save and store the old JSON file, because it will be needed to manually import Projects.</div>
+  <ol>
+    <li>
+      In CloudBolt, navigate to <b>Admin &gt; Resource Handlers.</b>
+    </li>
+    
+    <li>
+      Click <span class="button">+Add a new resource handler...</span>&nbsp;&gt; <b>Google Cloud Platform,&nbsp;</b>or select an existing GCP Resource Handler.
+    </li>
+    
+    <li>
+      Upload the JSON file created in Step 5 of Create Credentials for&nbsp;Google Cloud Platform.
+    </li>
+    <li>
+      Click <b>Create.&nbsp;</b></li>
+    <li>
+      You will be routed to the Google Console login screen. Log in with the GCP User that manages your Project(s).
+    </li>
+  </ol>
+  <ul style="margin-left: 40px;">
+  </ul>
+  <p>
+  </p>
+
+<hr/>
+<p>
+</p>
+<h2 id="h2_1528662242" data-has-heading-anchor="true">
+  GCP Projects
+<a href="google-cloud-platform.html#h2_1528662242" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<h3 id="h3_1229908073" data-has-heading-anchor="true">
+  Fetch Existing Projects
+<a href="google-cloud-platform.html#h3_1229908073" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+  After uploading your credentials and creating the Handler, you can choose which Projects you’d like CloudBolt to manage by clicking the&nbsp;<cite>Fetch Projects</cite>&nbsp;button from the Projects tab of the Resource Handler.
+  <br/>
+</p>
+<h3 id="h3_1035740816" data-has-heading-anchor="true">
+  Manually Import&nbsp;GCP Projects
+<a href="google-cloud-platform.html#h3_1035740816" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+<p>
+</p>
+<p>
+  If you are unable to use <i>Fetch Projects </i>to import, manually import GCP Projects instead:
+</p>
+<ol>
+  <li>
+    Create a service account in Google Cloud Platform. Give this account the following Roles:&nbsp;"roles/compute.admin", "roles/iam.serviceAccountUser".
+  </li>
+  <li>
+    Manually import the desired project using the json keyfile from the service account created in step 1.</li>
+</ol>
+<div class="alert alert-warning">
+  <i class="mdi mdi-alert"></i> <b>Important: </b>If you have updated to 9.4.6 and are using newly-created Credentials, you will need to use the OLD JSON code in order to manually import GCP Projects.</div>
+  <h3 id="h3__2009449968" data-has-heading-anchor="true">
+    Create Projects
+  <a href="google-cloud-platform.html#h3__2009449968" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Use the <b>GCP Project </b>Blueprint to Order new Projects from CloudBolt's UI. You must have the Billing Account permission in GCP to choose a Billing Account.</p>
+  <ol>
+    <li>
+      On the GCP Project Blueprint, click <b>Order.</b>
+    </li>
+    <li>
+      On the <b>Order Form: </b>
+      <ol>
+        <li>
+          Select a <b>GCP Resource Handler</b>
+        </li>
+        <li>
+          Give the<b> Project a Name</b>
+        </li>
+        <li>
+          Choose a<b> Billing Account </b>for the Project
+        </li>
+      </ol>
+    </li>
+    <li>
+      Click <b>Submit.</b>
+    </li>
+    <li>
+      Verify the Project was created in GCP.
+    </li>
+  </ol>
+  <hr/>
+  <h2 id="h2_1676903440" data-has-heading-anchor="true">
+    <span>Import GCP Shared Images
+    </span>
+  <a href="google-cloud-platform.html#h2_1676903440" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    You can import GCP Images across Projects on your GCP Resource Handler.
+  </p>
+  <ol>
+    <li>
+      From your GCP Resource Handler, click the&nbsp;<b>Images&nbsp;</b>tab.
+    </li>
+    <li>
+      Click&nbsp;<b>Import Images.</b>
+    </li>
+    <li>
+      Shared Images will appear in the list if the User has the appropriate Role.&nbsp;
+    </li>
+  </ol>
+  <h3 id="h3_1694855174" data-has-heading-anchor="true">
+    Required Roles
+  <a href="google-cloud-platform.html#h3_1694855174" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Your GCP User associated to the Resource Handler must have the <b>Compute Image User </b>Role assigned in <b>Google Cloud Platform &gt; IAM &amp; Roles &gt; IAM &gt; Roles</b>.&nbsp;</p>
+  This Role needs to be set in the Project&nbsp;where the image you want exists. If you have "Project A" imported and the image is in "Project B", add the user to "Project B" and grant them the Compute Image User Role.<hr/>
+  <h2 id="h2__893466258" data-has-heading-anchor="true">
+    GCP VMs
+  <a href="google-cloud-platform.html#h2__893466258" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <h3 id="h3_454043320" data-has-heading-anchor="true">
+    <span>Set a Custom Host Name </span>on Provisioned GCP VMs
+  <a href="google-cloud-platform.html#h3_454043320" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    Use the DNS Domain Parameter in CloudBolt to set a custom host name for provisioned GCP virtual machines.
+  </p>
+  <ol>
+    <li>
+      In your GCP Resource Handler, click on the desired Project to open it.
+      <ul>
+        <li>
+          Note: The Project must be configured as a&nbsp;host Project or as a service Project.
+        </li>
+      </ul>
+    </li>
+    <li>
+      Click the <b>Shared VPC <b>tab &gt; Sync Shared Subnets.</b></b>
+    </li>
+    <li>
+      Navigate to <b>Admin &gt; Environments </b>and open the Environment configured for your GCP Project.
+    </li>
+    <li>
+      Click the <b>Parameters tab &gt; +Add &gt; DNS Domain.</b>
+    </li>
+    <li>
+      Order a new Server using the same Project as the steps above.
+    </li>
+    <li>
+      The hostname in GCP will be set to <code class="path">{name}.{dns_domain}</code>.
+    </li>
+  </ol>
+  <h3 id="h3_1032975431" data-has-heading-anchor="true">
+    <span>
+      Running Startup Scripts on GCP VMs
+    </span>
+  <a href="google-cloud-platform.html#h3_1032975431" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    CloudBolt supports passing startup scripts for GCP VMs during the build process.&nbsp;
+  </p>
+  <ol>
+    <li>
+      In your GCP Resource Handler, click the Environment for your Project.
+    </li>
+    <li>
+      Click the <b>Parameters tab &gt; +Add</b>.
+    </li>
+    <li>
+      Choose a Startup Script that fits your needs. Choose from options:
+      <ul>
+        <li>
+          <table class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>
+                  Startup Script Name
+                  <br/>
+                </th>
+                <th>
+                  Description
+                  <br/>
+                </th>
+              <th>Run Point<br/></th></tr>
+            </thead>
+            <tbody>
+              <tr><th>GCP Initial Batch File Script<br/></th><td>Templated user data that is passed to new GCP instances. Passing a batch file script that is up to 256 KB in size. <br/></td><td><br/>During the initial boot.</td></tr>
+              
+              <tr><th>GCP Initial Command Shell Script<br/></th><td>Templated user data that is passed to new GCP instances. Passing a command shell&nbsp;script that is up to 256 KB in size.&nbsp;<br/></td><td>During the initial boot.<br/></td></tr>
+              
+              <tr><th>GCP Initial PowerShell Script<br/></th><td>Templated user data that is passed to new GCP instances. Passing an unsigned PowerShell&nbsp;script that is up to 256 KB in size.&nbsp;<br/></td><td>During the initial boot.<br/></td></tr>
+              
+              <tr><th>GCP Initial Windows Script URL<br/></th><td>User data URL that is passed to new GCP instances. Passing a batch file, Command shell, signed or unsigned PowerShell script that is stored in Cloud Storage and that is greater than 256 KB in size.&nbsp;<br/></td><td>During each boot after the initial boot.<br/></td></tr>
+              
+              <tr>
+                <th>
+                  GCP Startup Batch File Script
+                  <br/>
+                </th>
+                <td>
+                  Templated user data that is passed to new GCP instances. Passing a batch file script that is up to 256 KB in size. 
+                  <br/>
+                </td>
+              <td>During each boot after the initial boot.<br/></td></tr>
+              <tr>
+                <th>
+                  
+                  GCP Startup Command Shell Script
+                </th>
+                <td>
+                  Templated user data that is passed to new GCP instances. Passing a command shell&nbsp;script that is up to 256 KB in size. 
+                </td>
+              <td>During each boot after the initial boot.<br/></td></tr>
+              <tr>
+                <th>
+                  
+                  GCP Startup Linux Script
+                </th>
+                <td>
+                    Templated user data that is passed to new GCP that can be used to perform common automated configuration tasks and run scripts after the instance starts. 
+                  <div class="card">
+                    <div class="card-header">
+                      Sample Script 
+                    </div>
+                    <div class="card-body">
+                      <p>
+                        <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-meta">#!/usr/bin/env bash</span><br><span class="cm-def">hostname</span><span class="cm-operator">=</span><span class="cm-quote">$(hostname)</span><br><span class="cm-builtin">echo</span> <span class="cm-def">$hostname</span> <span class="cm-word">&gt;</span> <span class="cm-word">/tmp</span><span class="cm-word">/vmname</span><span class="cm-word">.host</span></pre></td></tr></table>
+                      </p>
+                    </div>
+                  </div>
+                </td>
+              <td>On every boot.<br/></td></tr>
+              <tr>
+                <th>
+                  GCP Startup Linux Script URL
+                  <br/>
+                </th>
+                <td>
+                  User data URL&nbsp;that is passed to new GCP that can be used to perform common automated configuration tasks and run scripts after the instance starts.<br/>
+                </td>
+              <td>On every boot.<br/></td></tr>
+              <tr>
+                <th>
+                  GCP Startup PowerShell Script
+                </th>
+                <td>
+                  Templated user data that is passed to new GCP instances. Passing an unsigned PowerShell&nbsp;script that is up to 256 KB in size. </td>
+              <td>During each boot after the initial boot.<br/></td></tr>
+              <tr>
+                <th>
+                  GCP Startup Windows Script URL
+                </th>
+                <td>
+                  User data URL that is passed to new GCP instances. Passing a batch file, Command shell, signed or unsigned PowerShell script that is stored in Cloud Storage and that is greater than 256 KB in size.</td>
+              <td>During each boot after the initial boot.</td></tr>
+              
+              
+            </tbody>
+          </table>
+          <br/>
+        </li>
+      </ul>
+    </li>
+    <li>
+      Click <b>Add.</b>
+    </li>
+    <li>
+      In the <b>Options </b>column, click&nbsp;[<i class="mdi mdi-pencil"></i>] <i>No options.</i>
+    </li>
+    <li>
+      Paste in your Code or URL depending on the option chosen.
+    </li>
+    <li>
+      Click <b>Save.</b>
+    </li>
+  </ol>
+  <h3 id="h3__248055496" data-has-heading-anchor="true">
+    Tags on GCP VMs
+  <a href="google-cloud-platform.html#h3__248055496" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+  <p>
+    CloudBolt supports bi-directional tagging (called <i>labels</i>&nbsp;in GCP) of VMs.&nbsp;Add new tag mappings from your GCP Resource Handler. Labels&nbsp;on VMs are updated in GCP when you change the associated attribute in CloudBolt.&nbsp;
+  </p>
+  <p>
+    Tags appear in the Google Cloud Platform Details section of the provisioned Server.
+  </p>
+  <ul>
+    <li>
+      Tags are set at provision and are synced as part of the server refresh process.
+    </li>
+    <li>
+      Tags with values, which are added to the VM at provisioning, can be edited via CloudBolt and will show in GCP when synced.
+    </li>
+    <li>
+      Removing a tag mapping (key:value) has no effect on the current state of tags in the cloud environment.
+    </li>
+  </ul>
+
+<hr/>
+<h2 id="h2_1017680913" data-has-heading-anchor="true">
+  GCP Rates
+<a href="google-cloud-platform.html#h2_1017680913" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<p>
+  CloudBolt uses the rates provided by Google. Google Cloud Platform controls rate accessibility, and the rates that CloudBolt has access to may not reflect current rates. If rates appear disparate, try the&nbsp;<a href="https://cloud.google.com/products/calculator" target="_top">Google Cloud Platform Pricing Calculator</a>.
+</p>
+<hr/>
+<h2 id="h2_861724344" data-has-heading-anchor="true">
+  Troubleshooting
+<a href="google-cloud-platform.html#h2_861724344" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+<table class="table table-striped table-hover">
+  <thead>
+    <tr style="height: 25px;">
+      <th>
+        Issue
+        <br/>
+      </th>
+      <th>
+        Solution
+        <br/>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="height: 25px;">
+      <th>
+        I am trying to run remotes scripts on Servers at the end of the provisioning process, and I'm receiving a "connection refused" error.
+      </th>
+      <td>
+        <p>
+          When building new servers, GCP marks them as ready before they may be fully booted, and services like ssh may not yet be running. 
+        </p>
+        If you are attempting to run remote scripts on servers at the end of the provisioning process and you receive a connection refused error:
+        <ol>
+          <li>
+            Go to the the <b>Environment in CloudBolt &gt; Parameters Tab</b>&nbsp;and add the “Post Provisioning Delay” Parameter with a single option of 30 (to add a 30s delay before attempting to run scripts).
+          </li>
+        </ol>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="hyper-v.html" class="articleActions_link CHNavLinkPrevious">Hyper-V</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="importing-and-viewing-gcp-billing-data.html" class="articleActions_link CHNavLinkNext">Importing and Viewing GCP Billing Data</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

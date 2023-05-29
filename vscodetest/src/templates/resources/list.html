@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load resource_tags %}
+{% load i18n %}
+
+{% block pagetitle %}{{resource_type.pluralized_label}}{% endblock %}
+{% block topnav %}resources{% endblock %}
+{% block content %}
+
+    <h1>
+        {{resource_type.pluralized_label}}
+        {% if resource_type.icon %}
+            <span class="{{ resource_type.icon }}"></span>
+        {% endif %}
+    </h1>
+
+    <div class="pull-left">
+        <div class="btn-toolbar">
+            <span class="collapsed" data-toggle="collapse" data-target="#filters-panel">
+                <a class="btn btn-default" id="filters-panel-toggle" tabindex="0" data-test="toggle-filter-panel">
+                    <span class="collapsed-indicator no-tooltip-affordance"></span>
+                    <span class="icon-filter"></span>
+                    <span class="filters-panel-toggle-btn-text">{% trans "Show Filters" %}</span>
+                    <span id="filtersInUse"></span>
+                </a>
+            </span>
+            <a href="{% url 'service_catalog' %}" id="order-new-resources" class="btn btn-default"
+              data-test="order-new-resources"
+              data-toggle="tooltip"
+              title="{% trans "Visit the Catalog" %}">
+              {% trans "Order new Resources" %}
+            </a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div id="filters-panel" class="panel panel-default collapse">
+        <div class="panel-body" style="height: 190px;">
+        </div>
+    </div>
+
+    {% resources_table resource_type=resource_type resource_params_fn="c2.dataTables.addListFilters" resource_response_callback="c2.dataTables.updateFiltersInUseFromResponse" %}
+
+{% endblock content %}
+
+{% block onReady %}
+    c2.dataTables.initListFilters('table#resources-table');
+{% endblock %}

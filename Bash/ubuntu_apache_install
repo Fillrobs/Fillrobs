@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+
+#python -mplatform | grep -qi ubuntu
+#is_ubuntu=$?
+
+#if [ $is_ubuntu -eq 0 ]; then
+    #apt-get install apache2 php5 libapache2-mod-php5 php5-mysql php5-mysqlnd curl debconf-utils
+	apt-get update
+	apt-get install -y software-properties-common 
+	apt-get install -y apache2 apache2-utils  php  libapache2-mod-php php-mysql php-common  php-gd php-xml php-mbstring  php-cli php-curl php-ldap php-zip php-fileinfo
+	
+#else
+ #   yum install -y httpd php php-common php-mysql php-gd php-xml php-mbstring php-mcrypt 
+#fi

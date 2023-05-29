@@ -1,0 +1,287 @@
+{% load i18n %}
+<style>
+  /* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.parentrow {
+  overflow: hidden;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+.rowcontent {
+  /*display: none;*/
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+<!--
+<div class="tab">
+  <button class="tablinks" onclick="openAWSSG(event, 'SecurityGroups')" id="defaultOpen">AWS Security Group</button>
+  <button class="tablinks" onclick="openAWSSG(event, 'InboundRules')" id="inboundrulestab" style="display:none;">Inbound Rules</button>
+  <button class="tablinks" onclick="openAWSSG(event, 'OutboundRules')" id="outboundrulestab" style="display:none;">Outbound Rules</button>
+  <button class="tablinks" onclick="openAWSSG(event, 'Tags')" id="tagstab" style="display:none;" >Tags</button>
+  <button class="tablinks" onclick="resetform()" id="resettab" style="display:none;">Reset Selection</button>
+</div>
+-->
+<!-- Tab content -->
+<div id="tab-parameters">
+  <div id="buttonbar" class="btn-toolbar" style="display:block;">
+    <a class="btn btn-default" href="#" onclick="resetform()" id="resettab">Reset Selection</a>
+  </div>  
+</div>
+
+<div id="SecurityGroups">
+  <h3>Security Groups</h3>
+  <a class="btn btn-default open-dialog" href="#" id="create_security_group_button">Create</a>
+
+<table id="table-aws_sg"
+        class="table"
+        data-table>
+        <thead>
+            <tr>
+                {% for heading in column_headings %}
+                    <th class="a"> {{ heading|safe }} </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+              <tr>
+                {% for col in row %}
+                <td>{{ col|safe }} </td>
+                {% endfor %}    
+              </tr>
+            {% endfor %}
+              </tbody>
+  
+        </table>
+</div>   
+<div id="parentrows" class="parentrow" style="display:none;">
+<!--<div id="InboundRules" class="tabcontent">-->
+  <div class="rowcontent">
+<div id="InboundRules" class="rowcontent">
+<h3>Inbound Rules</h3>
+<a class="btn btn-default open-dialog" href="#" id="create_inbound_button">Create</a>
+
+<table id="table-InboundRules"
+  class="table"
+  data-table>
+  <thead>
+      <tr>
+        <th class="a">#</th>
+        <th class="a">#</th>
+        <th class="a">GroupId</th>
+        <th class="a">From Port</th>
+        <th class="a">IP protocol</th>
+        <th class="a">CIdrIP</th>
+        <th class="a">Ipv6 Ranges</th>
+        <th class="a">Prefix List Ids</th>
+        <th class="a">To Port</th>
+        <th class="a">Modify</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for ig in igressRules %}
+        <tr>
+        {% for igressrule in ig %}
+          <td>{{ igressrule|safe }}</td>
+        {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>  
+</div>
+</div>
+<!-- Tab content -->
+<div id="OutboundRules" class="rowcontent">
+  <div class="rowcontent">
+  <h3>Outbound Rules</h3>
+  <a class="btn btn-default open-dialog" href="#" id="create_outbound_button">Create</a>
+
+ <table id="table-OutboundRules"
+  class="table"
+  data-table>
+  <thead>
+      <tr>
+        <th class="a">#</th>
+        <th class="a">#</th>
+        <th class="a">GroupId</th>
+        <th class="a">IP protocol</th>
+        <th class="a">CIdrIP</th>
+        <th class="a">From Port</th>
+        <th class="a">Prefix List Ids</th>
+        <th class="a">Modify</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for eg in egressRules %}
+        <tr>
+          {% for egressrule in eg %}
+          <td>{{ egressrule|safe }}</td>
+          {% endfor %}
+     
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>  
+</div>
+</div>  
+<!-- Tab content -->
+<div id="Tags" class="rowcontent">
+  <div class="rowcontent">
+  <h3>Tags</h3>
+  <a class="btn btn-default open-dialog" href="#" id="create_tag_button">Create</a>
+<table id="table-Tags"
+  class="table"
+  data-table>
+  <thead>
+      <tr>
+        <th class="a">#</th>
+        <th class="a">#</th>
+        <th class="a">GroupId</th>
+        <th class="a">Key</th>
+        <th class="a">Value</th>
+        <th class="a">Modify</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sg in sgTags %}
+        <tr>
+         {% for sgTag in sg %}
+          <td>{{ sgTag|safe }}</td>
+         {% endfor %}
+
+        </tr>
+      {% endfor %}
+    </tbody>
+
+  </table>
+</div>  
+<div id="env_id" style="display:none;">{{ env_id}}</div>
+</div>  
+</div>
+<script>
+c2.dataTables.init($("#table-aws_sg"));
+c2.dataTables.init($("#table-InboundRules"));
+c2.dataTables.init($("#table-OutboundRules"));
+c2.dataTables.init($("#table-Tags"));
+
+
+jQuery(document).ready(function () {
+    resetform()
+    var table_aws_sg = jQuery('#table-aws_sg').DataTable();
+   
+    var table_InboundRules = jQuery('#table-InboundRules').DataTable();
+    var table_OutboundRules = jQuery('#table-OutboundRules').DataTable();
+    var table_Tags = jQuery('#table-Tags').DataTable();
+   $('#create_security_group_button').click(function() {
+    var env_id = document.getElementById("env_id").innerHTML;
+    document.getElementById("create_security_group_button").setAttribute('href','/create_new_aws_sg/' + env_id + '/');
+    });
+
+   $('#table-aws_sg tbody').on('click', '[id*=getData]', function() {
+       var data = table_aws_sg.row($(this).parents('tr')).data();
+       console.log("data_rec=" + data[0]);
+       table_aws_sg.column(0).search(data[0]).draw();
+       table_InboundRules.column(0).search(data[0]).draw();
+       table_OutboundRules.column(0).search(data[0]).draw();
+       table_Tags.column(0).search(data[0]).draw();
+       
+       var selected_rec = data[0];
+       var env_id = document.getElementById("env_id").innerHTML;
+       console.log("selected_rec=" + selected_rec);
+       document.getElementById("buttonbar").style.display = 'block';
+       document.getElementById("parentrows").style.display = 'block';
+       
+      
+       document.getElementById("create_inbound_button").setAttribute('href','/create_aws_sg_inbound/' + env_id + '/' + selected_rec + '/');
+       document.getElementById("create_outbound_button").setAttribute('href','/create_aws_sg_outbound/' + env_id + '/' +  selected_rec + '/');
+       document.getElementById("create_tag_button").setAttribute('href','/create_aws_sg_tag/' + env_id + '/' +  selected_rec + '/');
+      });
+    });
+
+
+
+function openAWSSG(evt, tabName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function resetform(){
+  //document.getElementById("parentrows").style.display = 'none';
+	var table_aws_sg = $('#table-aws_sg').DataTable();
+        table_aws_sg.columns().search('');
+        table_aws_sg.draw();
+         document.getElementById("buttonbar").style.display = 'none';
+
+        var table_InboundRules = jQuery('#table-InboundRules').DataTable();
+        table_InboundRules.columns().search('');
+        table_InboundRules.draw();
+
+
+        var table_OutboundRules = jQuery('#table-OutboundRules').DataTable();
+        table_OutboundRules.columns().search('');
+        table_OutboundRules.draw();
+
+
+        var table_Tags = jQuery('#table-Tags').DataTable();
+        table_Tags.columns().search('');
+         table_Tags.draw();
+         document.getElementById("parentrows").style.display = 'none';
+
+        //openAWSSG(event, 'SecurityGroups');
+}
+
+
+//document.getElementById("defaultOpen").click();
+</script>

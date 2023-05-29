@@ -1,0 +1,81 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+         href="{% url 'add_azure_arm_image' handler.id %}">
+        <span class="icon-import"></span>
+        Add Image Manually
+    </a>
+    <a class="btn btn-default open-dialog"
+         href="{% url 'import_private_images' handler.id %}">
+        <span class="icon-import"></span>
+        Import Private Images
+    </a>
+    <a class="btn btn-default open-dialog"
+         href="{% url 'import_shared_images' handler.id %}">
+        <span class="icon-import"></span>
+        Import Shared Gallery Images
+    </a>
+</div>
+
+<hr>
+
+{% for location in locations %}
+
+<div class="btn-toolbar pull-right">
+    <a class="btn btn-default open-dialog"
+        data-dialog-width="100%"
+        href="{% url 'discover_azure_arm_images' handler.id location.name %}"
+        id="discover-{{ location.name }}">
+        <span class="icon-import"></span>
+        Import Images
+    </a>
+</div>
+
+<h3>{{ location.title }}</h3>
+
+<div class="clearfix"></div>
+
+<table id="templates-{{ location.name }}" data-table>
+    <thead>
+        <tr>
+            <th>Publisher</th>
+            <th>Offer</th>
+            <th>SKU</th>
+            <th>Version</th>
+            <th>OS</th>
+            <th>Credentials</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for image in location.images %}
+        <tr>
+            <td>{{ image.publisher }}</td>
+            <td>{{ image.offer }}</td>
+            <td>{{ image.sku }}</td>
+            <td>{{ image.version }}</td>
+            <td>
+                {{ image.os_build.os_family|os_family_icon }}
+                <a href="{{ image.os_build.get_absolute_url }}"> {{ image.os_build.name }} </a>
+                <a href="{% url 'resourcehandler_change_osbuild' handler.id image.id location.name %}"
+                    class="icon-edit open-dialog"></a>
+            </td>
+            <td>
+                {% template_credentials image 'image' %}
+            </td>
+            <td>
+                <a class="icon-delete"
+                    href="{% url 'resourcehandler_delete_osba' handler.id image.id %}"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% empty %}
+    <div class="alert alert-warning">
+    This resource handler has no Azure locations associated with it.
+    Before importing images, you must import at least one location.
+    </div>
+{% endfor %}

@@ -1,0 +1,58 @@
+{% load hook_tags %}
+{% load i18n %}
+
+{% if action.source_code_url %}
+    <a class="open-dialog no-tooltip-affordance"
+        href="{% url 'view_action_file' action.id %}"
+        data-toggle="tooltip"
+        data-html=true
+        {# let tooltip width accomodate long URLs #}
+        data-max-width="800"
+        data-dialog-width="800"
+        title="<span class=text-underline>{{ action.source_code_url }}</span> (view content)">
+        <i class="fas fa-link"></i>
+    </a>
+{% else %}
+    {% if action.module_file %}
+        {% if action.check_file_existence %}
+            <a class="open-dialog no-tooltip-affordance"
+                href="{% url 'view_action_file' action.id %}"
+                data-toggle="tooltip"
+                data-html=true
+                {# let tooltip width accomodate long file names #}
+                data-max-width="800"
+                data-dialog-width="800"
+                title="<span class=text-underline>{{ action|file_basename }}</span> (view content)">
+                <i class="far fa-file-code"></i>
+            </a>
+        {% else %}
+            <span data-toggle="tooltip"
+                class="no-tooltip-affordance text-danger"
+                title="{% blocktrans %}File does not exist{% endblocktrans %}">
+                <i class="fas fa-exclamation-triangle"></i>
+            </span>
+        {% endif %}
+        {% if show_code_origin %}
+            {# If the action has a module_file, it should be safe to check for its code origin #}
+            {% if action.determine_action_provenance == 'ootb' %}
+                <span data-toggle="tooltip"
+                    class="no-tooltip-affordance action-code-origin"
+                    title="{% blocktrans %}This action has code provided out-of-the-box, which is currently being used{% endblocktrans %}">
+                    <i class="far fa-circle"></i>
+                </span>
+            {% elif action.determine_action_provenance == 'ootb_edited' %}
+                <span data-toggle="tooltip"
+                    class="no-tooltip-affordance action-code-origin"
+                    title="{% blocktrans %}This action has code provided out-of-the-box, but has been edited so different code is currently being used{% endblocktrans %}">
+                    <i class="far fa-user-circle"></i>
+                </span>
+            {% elif action.determine_action_provenance == 'user' %}
+                <span data-toggle="tooltip"
+                    class="no-tooltip-affordance action-code-origin"
+                    title="{% blocktrans %}This action is user-defined, with no code provided out-of-the-box{% endblocktrans %}">
+                    <i class="fas fa-user"></i>
+                </span>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endif %}

@@ -1,0 +1,61 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+<div class="panel-body">
+    {% if service_now %}
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+                href="{% url 'edit_service_now_connectioninfo' service_now.connection_info.id %}"
+                id="edit-blueprint">
+                <span class="icon-edit"></span>
+                {% trans 'Edit' %}
+            </a>
+
+            <a class="btn btn-default open-dialog"
+                href="{% url 'delete_service_now' service_now.id %}">
+                <span class="icon-delete"></span>
+                {% trans 'Delete' %}&hellip;
+            </a>
+
+            <a class="btn btn-default open-dialog verify"
+                href="{% url 'service_now_verify_connection' service_now.id %}">
+                <span class="icon-verify-connection"></span>
+                Verify Connection
+            </a>
+
+        </div>
+        <div id="service-now-details-overview">
+                <div class="col-sm-12">
+                    <dl class="dt-20">
+                        <dt>ServiceNow Connection:</dt>
+                            <dd>
+                                {{ service_now.connection_info.name|bleach_filter }}</a>
+                            </dd>
+                    </dl>
+
+                    <dl class="dt-20">
+                        <dt>Host:</dt>
+                            <dd>
+                                {{ service_now.connection_info.ip|bleach_filter }}</a>
+                            </dd>
+                    </dl>
+
+                    <dl class="dt-20">
+                        <dt>Created:</dt>
+                            <dd>
+                                {{ service_now.created_at|bleach_filter }}</a>
+                            </dd>
+                    </dl>
+
+                </div>
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning" role="alert">
+                <p>ServiceNow is currently not configured.</p>
+                <a href="{% url 'create_service_now_connectioninfo' %}" class="btn btn-default open-dialog" data-dialog-width="800px" data-toggle="tooltip" data-original-title="Edit action">Configure</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock content %}

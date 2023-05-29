@@ -1,0 +1,86 @@
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+
+<div class="chart">
+    <div id="server-cost-scatterplot">
+    </div>
+
+    {# Click handler is set up once in the parent cost_dashboard.html #}
+    <div class="pull-right btn-toolbar chart-controls">
+        <p class="help-block">{% trans "Choose attribute for color category:" %}</p>
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" data-href="{% url 'server_cost_scatterplot' %}?c=group">{% trans "Group" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'server_cost_scatterplot' %}?c=environment">{% trans "Environment" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'server_cost_scatterplot' %}?c=os_family">{% trans "OS Family" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'server_cost_scatterplot' %}?c=owner">{% trans "Owner" %}</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script>
+$(function() {
+    var series = {{ series|to_json }};
+
+    // Create the chart
+    $('#server-cost-scatterplot').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy',
+        },
+        title: {text: '{{ title }}'},
+        subtitle: {text: '{{ subtitle }}'},
+        series: series,
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                }
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                var server = this.point;
+                return '{% trans "Server:" %} <b>' + server.hostname + '</b> <br>' +
+                    '{% trans "Added:" %} ' + Highcharts.dateFormat('%b %e %Y', server.x) + '<br>' +
+                    '{% trans "Rate: " %}{{ currency }}' + server.y + '/{{ rate_time_unit }} <br>' +
+                    '{% trans "OS Family" %}: ' + this.series.name;
+            }
+        },
+        xAxis: {
+            // This causes labels to be date strings converted from epoch values
+            type: 'datetime',
+            title: {
+                enabled: true,
+                text: '{% trans "Date Added" %}'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: '{% trans "Cost" %} ({{ currency }}/{{ rate_time_unit }})'
+            }
+        },
+        credits: false,
+        exporting: false
+    });
+
+});
+</script>

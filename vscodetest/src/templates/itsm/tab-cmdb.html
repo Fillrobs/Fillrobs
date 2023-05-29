@@ -1,0 +1,70 @@
+{% load helper_tags %}
+{% load itsm_tags %}
+{% load i18n %}
+
+{% block content %}
+<div class="panel-body">
+
+{% if itsm %}
+
+    <div class="btn-toolbar">
+
+        <input type=checkbox name=enabled id="cmdb"
+                        data-toggle="toggle"
+                        data-on="CMDB enabled"
+                        data-off="CMDB disabled"
+                        data-width="200"
+                        data-post-url="{% url 'toggle_itsm_hook_enabled' itsm.id hook.id%}"
+                        {% if hook.debugger_enabled %}checked{% endif %}
+                        {% if hook.enabled %}checked{% endif %}
+                        {% if not profile.is_cbadmin %} disabled{% endif %} />
+
+    </div>
+
+    <div class="well well-sm">
+            When enabled, CloudBolt will create a Configuration Item (CI) in your ITSM instance's Configuration Management Database (CMDB) for newly provisioned servers. Deleting a CloudBolt server will archive the Configuration Item entry in the ITSM CMDB. <br/>
+    </div>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog verify"
+               href="{% url 'cmdb_add' itsm.id %}">
+                <span class="icon-add"></span>
+                Add CMDB Configuration
+            </a>
+        </div>
+
+        <table id="cmdbs" data-table>
+        <thead>
+            <tr>
+                <th>{% trans 'Configuration' %}</th>
+                <th>{% trans 'Table Name' %}
+                <th>{% trans 'Actions' %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cmdb in cmdbs %}
+                <tr>
+                    <td><a href="{% url 'cmdb_detail' cmdb.id %}">{{ cmdb.name }}</a></td>
+                    <td>{{ cmdb.table_name }}</td>
+                    <td>
+                        <a class="icon-delete open-dialog" href="{% url 'cmdb_delete' cmdb.id %}"></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% include 'actions/action_input_defaults.html' with edit_url='action_trigger_edit' %}
+
+    {% if hook.supports_source_code %}
+        <div ng-non-bindable>
+            {% itsm_hook_source_code itsm hook profile %}
+        </div>
+    {% endif %}
+
+{% else %}
+    <div class="alert alert-warning" role="alert">
+            <p>ITSM is currently not configured.</p>
+    </div>
+{% endif %}
+</div>
+{% endblock content %}

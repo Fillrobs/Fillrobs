@@ -1,0 +1,38 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load rh_tags %}
+
+<div class="btn-toolbar">
+    {% block actions %}
+    <a class="btn btn-default open-dialog"
+        href="{% url 'resourcehandler_edit_limits' handler.id %}">
+        <span class="icon-edit"></span>
+        Make Changes
+    </a>
+    {% endblock %}
+</div>
+
+<table class="stats">
+    <thead>
+        <tr>
+            <th>Resource</th>
+            <th></th>
+            <th>Used</th>
+            <th>Max</th>
+        </tr>
+    </thead>
+{% for key, values in limit_stats.items %}
+    <tr class="{% cycle 'odd' 'even' %}">
+        <td>{{ values.label }}</td>
+        <td class="half"> {{ values|limit_percent_bar }}
+        </td>
+        <td>
+            {{ values.used }}
+        </td>
+        <td>
+            {{ values.max|unlimited_as_infinity }}
+        </td>
+    </tr>
+{% endfor %}
+</table>

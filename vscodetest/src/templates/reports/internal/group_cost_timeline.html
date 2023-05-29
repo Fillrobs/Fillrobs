@@ -1,0 +1,56 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="chart">
+    <div id="group-cost-timeline">
+    </div>
+
+    {# Click handler is set up once in the parent cost_dashboard.html #}
+    <div class="pull-right btn-toolbar chart-controls">
+        <p class="help-block">{% trans "Choose metric:" %}</p>
+        <div class="btn-group">
+            <a class="btn btn-default btn-sm" data-href="{% url 'group_cost_timeline' %}?metric=rate">{% trans "Cost" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'group_cost_timeline' %}?metric=servers">{% trans "Servers" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'group_cost_timeline' %}?metric=cpu">{% trans "CPUs" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'group_cost_timeline' %}?metric=mem">{% trans "Memory" %}</a>
+            <a class="btn btn-default btn-sm" data-href="{% url 'group_cost_timeline' %}?metric=disk">{% trans "Disk" %}</a>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script>
+$(function() {
+    $('#group-cost-timeline').highcharts({
+        chart: {
+            zoomType: 'x'
+        },
+        title: {
+            text: '{% blocktrans with metric_name=metric.name %} {{ metric_name }} for top {{ num_groups }} groups over past {{ days_in_period }} days {% endblocktrans %}'
+        },
+        subtitle: {
+            text: document.ontouchstart === undefined ?
+                '{% trans "Click and drag in the plot area to zoom in" %}' :
+                '{% trans "Pinch the chart to zoom in" %}'
+        },
+        series: {{ chart_series|to_json }},
+        tooltip: {
+            formatter: function() {
+                return Highcharts.dateFormat('%b %e %Y', this.x)  +'<br/>'
+                    + this.series.name +': <b>'+ this.y +' {{ metric.name }}</b>';
+            }
+        },
+        xAxis: {
+            // This causes labels to be date strings converted from epoch values
+            type: 'datetime'
+        },
+        yAxis: {
+            title: {
+                text: '{{ metric.name }}'
+            }
+        },
+        credits: false,
+        exporting: false
+    });
+});
+</script>

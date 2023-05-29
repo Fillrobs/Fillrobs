@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% comment %}
+This template is included in group_cost_detailed.html
+{% endcomment %}
+
+<button class="btn btn-default open-dialog"
+    data-href="{% url 'group_cost_report_dialog' 'detail' %}?group={{ group.id }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}"
+    data-toggle="tooltip"
+    title='{% trans "Change group or time period" %}'
+    >
+    {% trans "Change Group or Period" %}
+</button>
+
+<button type="button" class="btn btn-default open-dialog"
+    data-href="{% url 'customize_group_cost_detail_table' %}"
+    data-toggle="tooltip"
+    data-dialog-width="800px"
+    data-html="true"
+    title='{% trans "Customize the columns shown in this report" %}'>
+    {% trans "Change Columns" %}&hellip;
+</button>
+
+<a class="btn btn-default"
+    href="{% url 'export_internal_report' %}?report=group_cost_server_details&rep_format=csv&group={{ group.id }}&start_date={{ start_date|date:'Y-m-d' }}&end_date={{ end_date|date:'Y-m-d' }}&filename={{ report_slug|urlencode }}"
+    >
+    <i class="fas fa-download"></i>
+    {% trans "Export as CSV" %}
+</a>

@@ -1,0 +1,11 @@
+{% load helper_tags %}
+
+{% with group_or_env=group group_or_env_str='group' %}
+    {% feedback %}
+    {% include 'parameters/parameters_table.html' %}
+
+    {# include the inherited parameters only if this group has at least one parent group. #}
+    {% if group.parent and inherit_group_parameters %}
+        {% include 'parameters/inherited_parameters_table.html'%}
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,5 @@
+{% for tag in tags %}
+    <a class="tag"
+       {% if tag.color %}style="color:{{tag.color}}"{% endif %}
+       href="{{ tag.get_absolute_url }}"> {{ tag.name }} </a>
+{% endfor %}

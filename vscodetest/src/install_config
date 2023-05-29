@@ -1,0 +1,53 @@
+date=`date +%y%m%d.%H%M`
+
+# Logging information
+log_dir="/var/log/cloudbolt/install"
+install_log="$log_dir/install_$date.log"
+tmp_dir="/tmp/cb_zz"
+# location of pip build directory
+pip_build="/tmp/pip-build-$USER/"
+
+# information about the super user account that will be used to administrate CloudBolt
+superuser_name="admin"
+superuser_first="CB"
+superuser_last="Admin"
+superuser_password="admin"
+superuser_email="admin@domain.com"
+
+# what is products name?
+product_name="CloudBolt"
+# where should product be installed?
+product_home="/opt"
+# where should backups be stored for this product?
+product_backups="/opt/cb_archive"
+# where should static files be stored?
+static_home="/var/www/html"
+
+# What CloudBolt should use for the MySQL database settings while installing and configuring MySQL
+mysql_root_password="Vi-gn3tt3"
+mysql_user_profile="cb_dba"
+mysql_pass="Lap3liTe"
+mysql_db="cloudbolt"
+mysql_host="localhost"
+mysql_port="3306"
+mysql_options="SET DEFAULT_STORAGE_ENGINE=INNODB; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED"
+
+# Email configuration for links back to the system from CB-generated emails
+cloudbolt_base_email_url="http://ADD_URL_HERE"
+
+# Path to current Python directory
+## Python 3.9
+python_dir="/usr/local/lib/python3.9"
+python_dir_64="/usr/local/lib/python3.9"
+python_exec="/usr/local/bin/python"
+python_version="3.9"
+
+# What CloudBolt should use for the PostgreSQL database settings while installing and configuring PostgreSQL
+postgresql_user="cb_dba"
+postgresql_db="cloudbolt"
+postgresql_host="localhost"
+postgresql_port="5432"
+postgresql_schema="cloudbolt"
+postgresql_tablespace="cloudbolt_data"
+postgresql_tablespace_root="/var/opt/cloudbolt_pgsql"
+postgresql_data_dir=/var/lib/pgsql/14/data

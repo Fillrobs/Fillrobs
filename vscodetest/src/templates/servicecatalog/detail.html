@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load helper_tags %}
+{% load tab_tags %}
+{% load i18n %}
+
+{% block title %}{% trans 'Blueprint:' %} {{ blueprint.name }} {% endblock %}
+{% block extrastyle %}
+<style type="text/css">
+    .btn-toolbar>.btn:first-child,
+    .btn-toolbar>.btn-wrapper:first-child,
+    .btn-toolbar>.btn-group:first-child {
+        margin-left: 5px;
+    }
+
+    .btn {
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}
+{% block topnav %}catalog{% endblock %}
+
+{% block content %}
+<h1>{{ blueprint.name }}</h1>
+
+{% if blueprint.status == 'HISTORICAL' %}
+<p class="alert alert-warning">{% trans 'This blueprint is now historical.' %}</p>
+{% endif %}
+
+{% if blueprint.remote_source_url %}
+<p class="alert alert-info">
+    {% trans "This Blueprint is read-only because it's populated from a Remote Source URL." %}
+</p>
+{% endif %}
+
+{% draw_tabs tabs %}
+{% endblock %}

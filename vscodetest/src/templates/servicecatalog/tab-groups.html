@@ -1,0 +1,45 @@
+{% load helper_tags %}
+{% load i18n %}
+
+<div class="btn-toolbar">
+    {% if blueprint.status != 'HISTORICAL' and user_can_manage %}
+        <a class="btn btn-default open-dialog {% if blueprint.remote_source_url %}disabled{% endif %}"
+            href="{% url 'service_blueprint_groups_dialog' blueprint.id %}">
+            <span class="icon-edit"></span>
+            {% trans 'Edit' %}
+        </a>
+    {% endif %}
+</div>
+
+
+<table data-table data-table-sort="0">
+    <thead>
+        <tr>
+            <th>{% trans 'Group' %}</th>
+            <th>{% trans 'Deploy' %}</th>
+            <th>{% trans 'Manage' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if blueprint.any_group_can_deploy %}
+            <tr>
+                <td><i>{% trans 'Any Group' %}</i></td>
+                <td>{{ True|render_as_checkmark }}</td>
+                <td></td>
+            </tr>
+        {% endif %}
+        {% for group,perms in permitted_groups.items %}
+        <tr>
+            <td>
+                {{ group|link_or_label:profile }}
+            </td>
+            <td>
+                {{ perms.can_deploy|render_as_checkmark }}
+            </td>
+            <td>
+                {{ perms.can_manage|render_as_checkmark }}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

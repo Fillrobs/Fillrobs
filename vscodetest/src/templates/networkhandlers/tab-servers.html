@@ -1,0 +1,4 @@
+{% load infrastructure_tags %}
+
+{# Default server table has rate col, but this view does not yet calculate rates so hide it #}
+{% servers_table servers hide="Rate" %}

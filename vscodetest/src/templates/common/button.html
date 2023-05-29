@@ -1,0 +1,48 @@
+{% comment %}
+Renders a standard button with optional icon. Used by helper_tags.button.
+
+Args:
+- icon (str): optional icon class(es) for the icon element. If emtpy,
+  element is not created.
+- url (str): URL for button target
+- disabled_reason (str): explanation for why btn is disabled; shown as a
+  tooltip (default is simply "Disabled"). If this arg has a value, the button is
+  disabled.
+- querystring (str): str to append to the dialog URL, e.g. 'group=5'
+- btn_id: optional ID for .btn element
+- btn_extra_classes (str): extra CSS class names for the button element
+{% endcomment %}
+
+{% spaceless %}
+
+{% if disabled_reason %}
+    {# Wrap disabled Bootstrap button with tooltip trigger #}
+    <div class="btn-wrapper" data-toggle="tooltip" title="{{ disabled_reason }}">
+{% endif %}
+
+<a {% if btn_id %}id="{{ btn_id }}"{% endif %}
+    class="btn btn-default {{ btn_extra_classes }}
+    {% if disabled_reason %}
+        disabled
+    {% else %}
+        {% if dialog %}
+            open-dialog
+        {% endif %}
+    {% endif %}
+    "
+    {% if dialog_width %}
+        data-dialog-width="{{ dialog_width }}"
+    {% endif %}
+    href="{{ url }}{% if querystring %}?{{ querystring }}{% endif %}">
+    {% if icon %}
+        <i class="{{ icon }}"></i>
+    {% endif %}
+
+    {{ label }}
+</a>
+
+{% if disabled_reason %}
+    </div>
+{% endif %}
+
+{% endspaceless %}

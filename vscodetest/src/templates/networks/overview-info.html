@@ -1,0 +1,146 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+
+<dl>
+    <dt>Name:</dt>
+    <dd>{{ network.name}}</dd>
+
+    <dt>Description:</dt>
+    <dd>
+        <p {% if network.description %} class="well well-sm" {% endif %}>
+            {{ network.description|default:"<i>No description</i>" }}
+        </p>
+    </dd>
+
+    {% if network.tied_to_resource_handler %}
+        <dt>Resource Handler(s):</dt>
+        <dd>
+            <div id="rhs">
+                {{ resource_handlers|render_list_with_rh_icons:profile }}
+            </div>
+        </dd>
+    {% endif %}
+
+    {% comment %}
+    Show UUID if set; or show that it could be set but isn't,
+    for those technologies that support UUID (Xen, NVP).
+    {% endcomment %}
+    {% if network.uuid or network_type == "Xen network" %}
+        <dt>UUID</dt>
+        <dd>{{ network.uuid }}</dd>
+    {% endif %}
+
+    <dt>Type:</dt>
+    <dd>{{ network.real_type.name}}</dd>
+
+    <dt>Network:</dt>
+    <dd>{{ network.network }}</dd>
+
+    <dt>VLAN:</dt>
+    <dd>{{ network.vlan|default_if_none:"<i>None</i>" }}</dd>
+
+    {% if network.ipam_network %}
+    <dt>IPAM Network</dt>
+    <dd><a href="{% url 'ipam_detail' network.ipam_network.ipam.id %}">{{ network.ipam_network.ipam_set.first }}</a> - {{ network.ipam_network }}</dd>
+    {% endif %}
+
+    <dt>Gateway:</dt>
+    <dd>
+        {{ network.gateway|default_if_none:"<i>None</i>" }}
+    </dd>
+
+    <dt>Netmask:</dt>
+    <dd>
+        {{ network.netmask|default_if_none:"<i>None</i>" }}
+    </dd>
+
+    <dt>DNS 1:</dt>
+    <dd>
+        {{ network.dns1|default:"<i>None</i>" }}
+    </dd>
+
+    <dt>DNS 2:</dt>
+    <dd>
+        {{ network.dns2|default:"<i>None</i>" }}
+    </dd>
+
+    <dt>DNS Domain:</dt>
+    <dd>
+        {{ network.dns_domain|default:"<i>None</i>" }}
+    </dd>
+
+    <dt>Addressing Schema:</dt>
+    <dd>
+        {{ network.addressing_schema }}
+        {% if resource_pool %}
+            (resource pool overrides)
+        {% endif %}
+    </dd>
+
+    <dt>NAT Info:</dt>
+    <dd>
+        {{ network.nat_info|default_if_none:"<i>None</i>" }}
+    </dd>
+
+    {# Fields specific to different network types: #}
+
+    {% with network.real_type.name as network_type %}
+    {# FIXME there's got to be a better way to determine the network type than this? #}
+
+    {% if network_type == "VMware network" %}
+
+        <dt>dvSwitch:</dt>
+        <dd>
+            {{ network.dvSwitch|default:"<i>None</i>" }}
+        </dd>
+
+        <dt>Adapter Type:</dt>
+        <dd>{{ network.adapterType }}</dd>
+
+        <dt>PowerOn Stage:</dt>
+        <dd>{{ network.poweron_stage }}</dd>
+
+        <dt>PortGroup Key:</dt>
+        <dd>{{ network.portgroup_key }}</dd>
+
+    {% elif network_type == "Xen network" %}
+
+        {# No options #}
+
+    {% elif network_type == "NVP virtual network" %}
+
+        <dt>Transport Zone:</dt>
+        <dd>{{ network.transport_zone }}</dd>
+
+        <dt>Transport Type:</dt>
+        <dd>{{ network.transport_type }}</dd>
+
+        <dt>Logical Router:</dt>
+        <dd>{{ network.logical_router }}</dd>
+
+    {% elif network_type == "AWS VPC subnet" %}
+
+        <dt>CIDR:</dt>
+        <dd>{{ network.cidr_block }}</dd>
+
+        <dt>Default subnet:</dt>
+        <dd>{{ network.default_for_az|yesno:"Yes,No" }}</dd>
+
+        <dt>Auto-assign Public IP:</dt>
+        <dd>{{ network.map_public_ip_on_launch|yesno:"Yes,No" }}</dd>
+
+    {% elif network_type == "Oracle Cloud Infrastructure Switch" or network_type == "Alibaba VSwitch" %}
+
+        <dt>CIDR:</dt>
+        <dd>{{ network.cidr_block }}</dd>
+
+    {% endif %}
+    {% endwith %}
+
+    {% if profile.show_tenant_info %}
+      <dt>Tenant:</dt>
+      <dd>{{ network.tenant|link_or_label_none_global:profile }}</dd>
+    {% endif %}
+
+</dl>

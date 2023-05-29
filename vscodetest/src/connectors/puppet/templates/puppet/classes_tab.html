@@ -1,0 +1,13 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="btn btn-default js-dialog-link"
+        href="{% url 'puppet_connector_import_classes' provider.id %}">
+        <span class="icon-import"></span>
+        Import Classes
+    </a>
+</div>
+
+{% block objects_table %}
+    {% include 'connectors/common/objects_table.html' with object_type='class' objects=provider.puppetclass_set.all %}
+{% endblock objects_table %}

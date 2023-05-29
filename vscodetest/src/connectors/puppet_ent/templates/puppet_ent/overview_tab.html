@@ -1,0 +1,88 @@
+{% extends 'connectors/common/overview_tab.html' %}
+{% load helper_tags %}
+
+{% block extra_connector_content %}
+
+{% if not cert_ready %}
+<div class="alert alert-info">
+    <h4>Action Required</h4>
+    <p>This configuration manager is not fully configured.</p>
+
+    {# If needed, add other states here, e.g. to run request_puppet_cert #}
+    {% if not provider.ssl_signed_cert %}
+    <div class="row">
+        <div class="col-sm-8">
+            <p>The SSL certificate signing request (CSR) was sent to the
+            Puppet Master.  <b>A Puppet admin must sign the certificate.</b>
+            Once that is done, configuration can be completed by fetching the
+            signed certificate.</p>
+        </div>
+        <div class="col-sm-4 text-center">
+            <a href="{% url 'puppet_ent_connector_fetch_cert' provider.id %}"
+                class="btn btn-primary fetch js-dialog-link">Fetch signed certificate</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+<script>
+$(function(){
+    // for some reason, these options don't seem to be available in the
+    // loadDialogView function in spite of explicitly sending `this` above.
+    $('a.fetch').data('dialog_options', {
+        title: 'Fetch signed certificate',
+        wait_msg: 'Fetching certificate from Puppet Master "{{ provider.hostname }}"'
+    });
+});
+</script>
+{% endblock extra_connector_content %}
+
+{% block extra_attributes %}
+    {% if provider.version == "2015.3" %}
+        <dt>PE Master SSH Connection: {% infotip 'Provide the information necessary for running remote scripts on the PE Master' %}</dt>
+        <dd>
+            {% if provider.master_ssh_connection %}
+                 {{provider.master_ssh_connection}}
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'master_ssh' %}"></a>
+                 <a class="icon-delete open-dialog" href="{% url 'peconf_remove_endpoint' provider.id 'master_ssh' %}"></a>
+             {% else %}
+                 <i class="error">None (must configure to use this configuration manager)</i>
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'master_ssh' %}"></a>
+              {% endif %}
+        </dd>
+        <dt>PE Master API Connection: {% infotip 'Provide the information necessary for API connections to the PE Master' %}</dt>
+        <dd>
+             {% if provider.master_api_connection %}
+                 {{provider.master_api_connection}}
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'master_api' %}"></a>
+                 <a class="icon-delete open-dialog" href="{% url 'peconf_remove_endpoint' provider.id 'master_api' %}"></a>
+             {% else %}
+                 <i class="error">None (must configure to use this configuration manager)</i>
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'master_api' %}"></a>
+             {% endif %}
+        </dd>
+        <dt>PE Console API Connection: {% infotip 'Provide the information necessary for API connections to the PE Console' %}</dt>
+        <dd>
+             {% if provider.console_api_connection %}
+                 {{provider.console_api_connection}}
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'console_api' %}"></a>
+                 <a class="icon-delete open-dialog" href="{% url 'peconf_remove_endpoint' provider.id 'console_api' %}"></a>
+             {% else %}
+                <i>None (will default to using PE Master API Connection)</i>
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'console_api' %}"></a>
+             {% endif %}
+        </dd>
+        <dt>PE DB API Connection: {% infotip 'Provide the information necessary for API connections to the PE DB' %}</dt>
+        <dd>
+             {% if provider.db_api_connection %}
+                 {{provider.db_api_connection}}
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'db_api' %}"></a>
+                 <a class="icon-delete open-dialog" href="{% url 'peconf_remove_endpoint' provider.id 'db_api' %}"></a>
+             {% else %}
+                <i>None (will default to using PE Master API Connection)</i>
+                 <a class="icon-edit open-dialog" href="{% url 'peconf_edit_endpoint' provider.id 'db_api' %}"></a>
+             {% endif %}
+        </dd>
+    {% endif %}
+{% endblock extra_attributes %}

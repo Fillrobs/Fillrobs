@@ -1,0 +1,80 @@
+{% load history_tags %}
+{% load helper_tags %}
+
+{% comment %}
+BestPractice: Defining DataTable toolbars and hooking up batch actions (datatables)
+- DataTable is defined and conditionally made clickable.
+- Toolbar is defined with custom selection info area.
+- Batch checkbox in thead for checking all visible rows.
+- The data-table-no-auto-init is kind of a special case here: it allows more
+  setup to be done (i.e. toolbar) before initializing the datatable object.
+  Without this some custom behaviors would just not work.
+- Checkbox input in first column has a name that is made available to toolbar
+  dialogs via GET.
+{% endcomment %}
+<table ng-app="cb" id="history-events" class="{{ table_classes }}"
+    {% if not_sortable_indices %}
+        data-table-sort-disabled="{{ not_sortable_indices|to_csv }}"
+    {% endif %}
+    data-table-no-auto-init>
+    <thead>
+        <tr>
+            {% for heading in headings %}
+                <th> {{ heading }} </th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {#  Data is loaded through AJAX  #}
+    </tbody>
+</table>
+
+{% if as_datatable %}
+
+<script type="text/javascript">
+$(function() {
+    var $table = $('table#history-events');
+
+    $table.on('click', '.cb-tag', function(e) {
+        e.preventDefault();
+        var $tag = $(e.target);
+        $table.closest('.dataTables_wrapper')
+            .find('.dataTables_filter input')
+            .val('label: ' + $tag.text().trim())
+            .trigger('keyup');
+    });
+
+    {% if source %}
+        $table.attr('data-table-source', '{{ source }}');
+
+        // Specify the callback for additional params added before each
+        // Ajax request.
+        // Save the function object in DOM data; it will be called by the
+        // code in c2.dataTables. The function should exist in the scope of
+        // the template calling this templatetag and take one arg: aoData.
+        $table.data('table-fnServerParams', function (aoData) {
+            // Always send the columns being requested
+            aoData.push({'name': 'columns', 'value': '{{ columns|to_csv }}'});
+
+            {% if filter_name %}
+                aoData.push({'name': '{{ filter_name }}', 'value': '{{ filter_value }}'});
+            {% endif %}
+
+            {% if history_params_fn %}
+                // Now call the user-defined history_params_fn
+                {{ history_params_fn }}(aoData);
+            {% endif %}
+        });
+    {% endif %}
+
+    {% if history_response_callback %}
+        $table.data('table-fnServerDataCallback', {{ history_response_callback }});
+    {% endif %}
+
+    {% if initialize_now %}
+        c2.dataTables.init('#history-events');
+    {% endif %}
+
+});
+</script>
+{% endif %}

@@ -1,0 +1,43 @@
+<form method="post" action="{% url 'product_license-confirm' %}" enctype="multipart/form-data" id="license-upload-form">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="license-text" class="">Paste license text</label><br>
+        <textarea class="license-text form-control" name="license-text" rows="5"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="license-file">Or upload a license file</label>
+        <input type="file" name="license-file" class="form-control">
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Apply License</button>
+    </div>
+</form>
+<script>
+    (function () {
+        'use strict';
+
+        var text = document.querySelector('#license-upload-form textarea');
+        var file = document.querySelector('#license-upload-form [type=file]');
+        var submit = document.querySelector('#license-upload-form [type=submit]');
+
+        function enableSubmit () {
+            submit.removeAttribute('disabled');
+        }
+
+        function disableSubmit () {
+            submit.setAttribute('disabled', 'disabled');
+        }
+
+        // Prevent user from submitting without having selected a file (otherwise submission is pointless)
+        function updateSubmitState() {
+            return (file.value || text.value ? enableSubmit : disableSubmit)();
+        }
+
+        // Ensures that after hitting the Back button, the Apply License button is enabled
+        window.onpageshow = updateSubmitState;
+        updateSubmitState();
+        text.addEventListener('keyup', updateSubmitState);
+        text.addEventListener('change', updateSubmitState);
+        file.addEventListener('change', updateSubmitState);
+    })();
+</script>

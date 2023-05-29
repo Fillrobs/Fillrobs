@@ -1,0 +1,42 @@
+{% load i18n %}
+{% load helper_tags %}
+<!doctype html>
+<html>
+<head>
+    <title>
+        {% if pagetitle %}
+            {{ pagetitle }}
+        {% else %}
+            {% block title %}{% endblock %}
+        {% endif %}
+        - {% portal_label %}
+    </title>
+
+    <style type="text/css" media="all">
+      @import "./include_files/css/c2.css";
+    </style>
+
+    <script>
+    // Create our global c2 object
+    window.c2 = {};
+  </script>
+    <script src="./include_files/js/lib/jquery.min.js"></script>
+    <script src="./include_files/js/lib/lodash.min.js"></script>
+    <script src="./include_files/js/highcharts/highcharts.js"></script>
+    <script src="./include_files/js/ace/ace.js"></script>
+    <script src="./include_files/js/ace/ext-modelist.js"></script>
+    <script src="./include_files/js/ace/ext-language_tools.js"></script>
+    <script src="./include_files/js/c2.min.js"></script>
+
+</head>
+
+
+<body class="emailed-report">
+    <h1>{{ pagetitle }}</h1>
+    {% include report_template %}
+    <script type="text/javascript">
+    $(function () {
+    });
+    </script>
+</body>
+</html>

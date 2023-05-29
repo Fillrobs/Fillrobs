@@ -1,0 +1,19 @@
+<div class="btn-toolbar">
+    <a class="btn btn-default open-dialog"
+        href="{% url 'network_edit' network.id %}">
+        <span class="icon-edit"></span>
+        Edit
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'network_clone' network.id %}">
+        <span class="icon-duplicate"></span>
+        Clone&hellip;
+    </a>
+    <a class="btn btn-default open-dialog"
+        href="{% url 'network_delete' network.id %}">
+        <span class="icon-delete"></span>
+        Delete&hellip;
+    </a>
+</div>
+
+{% include 'networks/overview-info.html' %}

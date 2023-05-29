@@ -1,0 +1,40 @@
+{% load account_tags %}
+{% load helper_tags %}
+
+<div class="row">
+    <div class="col-sm-6">
+        <h2>Rate Options</h2>
+        <p><i>NOTE: Changing these options does not re-calculate existing rates.</i></p>
+        <form method="post" action="{% url 'update_rate_units' %}" method="post">
+            {% csrf_token %}
+            {{ units_form.as_p }}
+            <label></label><input class="btn btn-primary" type="submit" value="Save" />
+        </form>
+    </div>
+    <div class="col-sm-6">
+        {% if conversion_enabled %}
+            <h2>Currency Conversion Rates</h2>
+            <p><i>Rate multipliers will be calculated relative to USD.</i></p>
+            <div class="btn-toolbar">
+                <a href="{% url 'add_currency_conversion' %}" class="open-dialog btn btn-default">
+                    <i class="icon-add"></i> Add a currency</a>
+            </div>
+            <table id="custom_currency_rates" data-table>
+                <thead>
+                    <th>Currency</th>
+                    <th>Rate</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    {% for currency in currency_conversions %}
+                        <tr>
+                            <td>{{ currency.display_currency }}</td>
+                            <td>{{ currency.rate }}</td>
+                            <td><a class="icon-delete" href="{% url 'delete_currency_conversion' currency.id %}"></a></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+</div>

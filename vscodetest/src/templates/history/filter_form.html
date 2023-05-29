@@ -1,0 +1,60 @@
+{% load i18n %}
+
+<div class="panel-body">
+    <form method="get">
+        {# First row in the form #}
+        <ul id="filters-container" class="filter-row">
+            <li>
+                <span>{{ filters_form.start_date.label_tag }}</span>
+                <div class="input-group input-daterange daterange-group">
+                    {{ filters_form.start_date }}
+                    <div class="input-group-addon">{% trans "to" %}</div>
+                    {{ filters_form.end_date }}
+                </div>
+                <i id="daterange-error-message" class="daterange-error"></i>
+                {# All and Clear Buttons #}
+                <div id="daterange-selectize-toolbar" class="selectize-toolbar btn-group">
+                    <button class="select-all-options btn btn-default btn-xs" data-toggle="tooltip" data-test="history-filter-daterange-all" title="" data-original-title={% trans "Select all items" %}>
+                        <i class="fas fa-asterisk"></i>
+                    </button>
+                    <button class="select-no-options btn btn-default btn-xs" data-toggle="tooltip" data-test="history-filter-daterange-clear" title="" data-original-title={% trans "Clear selection" %}>
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </li>
+            <li class="filter-field inline-field">
+                {{ filters_form.owner.label_tag }}
+                {{ filters_form.owner }}
+            </li>
+        </ul>
+        <hr>
+        {# New row in the form #}
+        <ul id="filters-container">
+          <li class="filter-field">
+              {{ filters_form.event_type.label_tag }}
+              {{ filters_form.event_type }}
+          </li>
+          <li class="filter-field inline-field">
+              {{ filters_form.job_type.label_tag }}
+              {{ filters_form.job_type }}
+          </li>
+          <li class="filter-field inline-field">
+              {{ filters_form.job_status.label_tag }}
+              {{ filters_form.job_status }}
+          </li>
+          <li class="filter-field inline-field">
+              {{ filters_form.object_type.label_tag }}
+              {{ filters_form.object_type }}
+          </li>
+        </ul>
+        <hr>
+        <div class="btn-toolbar text-center">
+            <input type="button" class="btn btn-default" data-test="history-filter-clear" value="{% trans 'Clear' %}" id="unfilter"/>
+            <input type="submit" class="btn btn-primary" data-test="history-filter-submit" value="{% trans 'Apply' %}"/>
+        </div>
+    </form>
+</div>
+
+<script>
+    c2.datepicker.initDatePicker();
+</script>

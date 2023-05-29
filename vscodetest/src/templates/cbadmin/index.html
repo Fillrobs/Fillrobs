@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+{% load account_tags %}
+{% load appliance_tags %}
+{% load helper_tags %}
+{% load admin_tags %}
+{% load infrastructure_tags %}
+{% block topnav %}admin-index{% endblock %}
+{% load i18n %}
+
+{% block content %}
+
+{% comment %}
+Use this assignment so we can access the_portal_label as a string variable. This allows us to use the 
+string within other tags (as we do with admin_link's tooltips)
+{% endcomment %}
+{% portal_label as the_portal_label %}
+
+<h1>
+    {% portal_label %}
+    <span data-toggle="tooltip" class="no-tooltip-affordance" title="{{ 'Build '|add:cb_build }}">
+        {{ cb_version }}
+    </span>
+    {% trans "Administration" %}
+</h1>
+
+{% comment %}
+    Should show a list of required actions or other important
+    information that superusers may need.
+{% endcomment %}
+
+{% spotlight_search_bar 'admin-spotlight' '#content' %}
+
+{% get_upgrade_message %}
+<div class="row">
+    {% comment %}
+    Reference:
+        {% admin_link "<Link text / label>" "<view name>" "<tenant permission required, or empty string if tenant admins cannot access it>" "<spotlight search terms (does not need to include any terms already in the link text)>"
+            global_viewer_allowed=<True|False> (default: True),
+            tip="<text for an infotip to show next to the link",
+            license_required="<name of the module in the license, e.g. 'software defined network'>",
+            badge="<text for a badge to display next to the link, e.g. 'Beta'>",
+        %}
+    {% endcomment %}
+    <div class="col-xs-4">
+
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-internal" id="internal-entities" data-test="admin-panel-internal">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="fas fa-cloud"></i>
+                        {% portal_label %} {% trans "Objects" %}
+                </h3>
+            </div>
+            <div id="admin-panel-internal" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "Resource Pools" "resourcepool_list" "resourcepool.manage" "" %}
+                    {% admin_link "OS Builds" "osbuild_list" "osbuild.manage" "operating system windows linux template image ami" %}
+                    {% admin_link "Rates" "rates_admin" "" "cost spend money skrill cash" %}
+                    {% admin_link "Parameters" "customfields_list" "" "orders global defaults options" %}
+                    {% admin_link "Preconfigurations" "preconfigs_list" "preconfiguration.manage" "orders parameters" %}
+                    {% admin_link "Parameter Display Sequence" "sequenced_items" "" "customize forms fields configure order presentation" %}
+                    {% admin_link "Resource Types (XaaS)" "resourcetypes_list" "" "orders resources" %}
+                    {% admin_link "Catalog Management" "catalog_management" "" "organize categorize labels tags catalog taxonomy classify blueprints" %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-external" id="external-systems" data-test="admin-panel-external">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="fas fa-cubes"></i>
+                    {% trans "Integrations" %}
+                </h3>
+            </div>
+            <div id="admin-panel-external" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "Resource Handlers" "resourcehandler_list" "resourcehandler.manage" "aws amazon azure microsoft gce google ipmi kvm qemu openstack helion hp hpcloud acropolis hyperv hyper slayer verizon vcenter vsphere vmware xen" %}
+                    {% admin_link "Environments" "env_list" "environment.manage" "" %}
+                    {% admin_link "Networks" "network_list" "network.manage" "" %}
+                    {% admin_link "Network Virtualization" "network_virtualization_list" "" "nsxt" license_required="software defined network" %}
+                    {% admin_link "Provisioning Engines" "provengine_list" "" "razor" license_required="provisioning engine" %}
+                    {% admin_link "Configuration Managers" "provider_list" "configmanager.manage" "ansible chef docker puppet" license_required="connector" global_viewer_allowed=False %}
+                    {% admin_link "IP Management" "ipam_list" "ipam.manage" "ipam infoblox bluecat phpipam solarwinds" %}
+                    {% admin_link "Load Balancers" "loadbalancer_list" "" "f5 load balancer vip elb" %}
+                    {% admin_link "Connection Info" "connectioninfo_list" "" "" %}
+                    {% admin_link "Container Orchestrators" "container_orchestrator_list" "containerorchestrator.manage" "docker kubernetes container" %}
+                    {% with "Use your existing orchestration content from "|add:the_portal_label as tip %}
+                        {% admin_link "External Orchestrators" "orchestrators_list" "" "" tip=tip %}
+                    {% endwith %}
+                    {% admin_link "ITSM" "itsm_list" "" "itsm" %}
+                    {% if servicenow %}
+                        {% admin_link "ServiceNow" "service_now_detail" "" "servicenow snow" True "" "" True "Beta" %}
+                    {% endif %}
+                    {% admin_link "Data Protection" "dataprotection_list" "" "" %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-4">
+        {# the following sections are accessible to CB admins & global viewers, but not tenant admins #}
+        {% if profile.is_cbadmin or profile.global_viewer %}
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-orchestration" id="orchestration" data-test="admin-panel-orchestration">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="fas fa-cogs"></i>
+                    {% trans "Orchestration" %}
+                </h3>
+            </div>
+            <div id="admin-panel-orchestration" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "All Actions" "all_actions" "" "" tip="A powerful way to automate your infrastructure, actions are executable code in the form of plugins, scripts, flows, email hooks or webhooks." %}
+                    <ul class="list-styled">
+                        {% admin_link "Server Actions" "server_actions" "" "" global_viewer_allowed=False tip="Add new buttons on servers for users to run actions" %}
+                        {% with "Hook your custom logic into "|add:the_portal_label|add:" processes at various <i>hook points</i>" as tip %}
+                            {% admin_link "Orchestration Actions" "orchestration_actions" "" "" global_viewer_allowed=False tip=tip %}
+                        {% endwith %}
+                        {% admin_link "Resource Actions" "resource_actions" "" "" global_viewer_allowed=False tip="Add new buttons on resources for users to run actions" %}
+                    </ul>
+                    {% admin_link "Recurring Jobs" "recurring_job_list" "" "" tip="Run jobs or actions on a periodic basis" %}
+                    {% admin_link "Rules" "rules" "" ""  tip="Run daily and can be used to check for issues in the environment and take corrective action" %}
+                    {% admin_link "Multi-Channel Alerts" "alert_channel_list" "" "" %}
+                    {% admin_link "Continuous Infrastructure Testing" "cit_list" "" "cit tests" %}
+                    {% if profile.api_access %}
+                        {% admin_link "API Browser" "api" "" "rest" %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        {% if profile.is_cbadmin or profile.global_viewer %}
+         <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-jobs" id="activity" data-test="admin-panel-activity">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="fas fa-bolt"></i>
+                    {% trans "Activity" %}
+                </h3>
+            </div>
+            <div id="admin-panel-jobs" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% if profile.super_admin or profile.global_viewer %}
+                        {% admin_link "History" "all_history_events_list" "" "" %}
+                    {% endif %}
+                    {% admin_link "Orders" "order_list" "" "" %}
+                    {% admin_link "Jobs" "job_list" "" "" %}
+                    {% admin_link "Job Statistics" "job_stats_list" "" "" %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if profile.is_cbadmin or profile.global_viewer %}
+        <div class="panel panel-default">
+                <div class="panel-heading revealer">
+                    <h3 data-toggle="collapse" data-target="#admin-panel-advanced" id="system" data-test="admin-panel-system">
+                        <span class="revealable collapsed-indicator"></span>
+                        <i class="fas fa-cog"></i>
+                        {% trans "System" %}
+                    </h3>
+                </div>
+                <div id="admin-panel-advanced" class="panel-body collapse">
+                    <ul class="list-unstyled">
+                        {% admin_link "System Status" "health_check:index" "" "system status jobs job engine services" %}
+                        {% admin_link "Multi-tenancy" "tenant_management" "" "tenants multi tenancy tenant" license_required="multitenancy" %}
+                        {% admin_link "Branding and Portals" "portal_list" "" "portals multi tenancy tenant customize colors theme" %}
+                        {% admin_link "Email Settings" "email_settings" "" "smtp" %}
+                        {% admin_link "Miscellaneous Settings" "misc_settings" "" "console social facebook twitter linkedin" %}
+                        {% admin_link "Single Sign-On (SSO)" "sso_list" "" "saml saml2 sso idp" %}
+                        {% admin_link "LDAP Authentication Settings" "ldap_settings_list" "" "sso single sign-on active directory ad" %}
+                        {% admin_link "SSL Root Certificates" "root_certificate_list" "" "auth ssl certificate verify CA root" %}
+                        {% admin_link "Manage UI Extensions" "extensions_management" "" "extensible ui uix xui" %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-xs-4">
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-users" id="security" data-test="admin-panel-security">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="icon-user"></i>
+                      {% trans "Security" %}
+                </h3>
+            </div>
+            <div id="admin-panel-users" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "Users" "user_list" "user.manage" "profiles" %}
+                    {% admin_link "Groups" "list_groups" "" "" %}
+                    {% admin_link "Roles" "role_list" "" "permissions" %}
+                    {% admin_link "Permissions" "permission_list" "" "" %}
+                    {% admin_link "SSH Keys" "sshkey_list" "sshkey.manage" "authentication crypto" %}
+                    {% admin_link "Security Information and Event Management (SIEM)" "siem_list" "" "" %}
+                </ul>
+            </div>
+        </div>
+
+        {# the following sections are accessible to CB admins & global viewers, but not tenant admins #}
+        {% if profile.is_cbadmin or profile.global_viewer %}
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-maintenance" id="maintenance" data-test="admin-panel-maintenance">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="fas fa-wrench"></i>
+                    {% trans "Maintenance" %}
+                </h3>
+            </div>
+            <div id="admin-panel-maintenance" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "Export & Download Database" "export_db" "" "" tip="Dump the contents of the database as a zip. Can be useful for sending to Support." %}
+                    {% admin_link "CloudBolt Product License" "product_license-detail" "" "" %}
+                    {% admin_link "Version & Upgrade Info" "version_detail" "" "cloudbolt upgrade version alpha beta rc release candidate" %}
+                    <li>
+                        <a href="{{ STATIC_URL }}docs/HTML/release-notes.html" target="_blank"
+                           data-spotlight="docs about" data-test="admin-link-release_notes"> {% trans "Release Notes" %}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading revealer">
+                <h3 data-toggle="collapse" data-target="#admin-panel-support" id="support-tools" data-test="admin-panel-support">
+                    <span class="revealable collapsed-indicator"></span>
+                    <i class="far fa-life-ring"></i>
+                    {% trans "Support Tools" %}
+                </h3>
+            </div>
+            <div id="admin-panel-support" class="panel-body collapse">
+                <ul class="list-unstyled">
+                    {% admin_link "View Application Log" "collect_application_dot_log" "" "" %}
+                    {% admin_link "Download All CloudBolt Logs" "collect_all_logs" "" "" %}
+                    {% admin_link "Download Web Server Logs" "collect_httpd_logs" "" "" %}
+                    {% admin_link "Database Browser" "db_browser" "" "" %}
+                    {% admin_link "Application Settings" "django_settings" "" "" %}
+                </ul>
+            </div>
+        </div>
+
+        {% if extensions %}
+            {% comment %}
+            For now, only show this admin UI extensions section if any exist.
+            This means the feature is not discoverable.  But until the entire
+            XUI framework is actually in the docs, this seems like the better
+            approach. SEs still need to implement these and that is not a bad
+            thing necessarily.
+            {% endcomment %}
+            {% include 'cbadmin/custom_extensions_panel.html' %}
+        {% endif %}
+
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
+
+
+{% block onReady %}
+    c2.collapsible.init('#content');
+    $('input[data-spotlight-search]').focus();
+    c2.spotlight.init();
+
+    var konami_keys = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    var konami_index = 0;
+    var cornify_images = {{ cornify_images }};
+    $(document).keydown(function(e) {
+     if(e.keyCode === konami_keys[konami_index++]) {
+         if(konami_index === konami_keys.length) {
+             $(document).unbind('keydown', arguments.callee);
+             $.getScript({{ STATIC_URL }} + 'js/cornify.js',function() {
+                 cornify_add(cornify_images);
+                 $(document).keydown(function(e){
+                    cornify_add(cornify_images);
+                 });
+             });
+         }
+     } else {
+         konami_index = 0;
+     }
+    });
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "reports/internal/base.html" %}
+{% load helper_tags %}
+{% load i18n %}
+{% block server_side_csv_export %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Cost Savings from Power Schedules" %}</h1>
+
+<h3>{{ caption }}</h3>
+
+<div id="report-wrap">
+    <div data-include="{% url 'auto_power_cost_savings_by_tech_chart' %}?start_date={{ start_ymd }}&end_date={{ end_ymd }}&groups={{ group_ids_str }}"></div>
+</div>
+{% endblock %}

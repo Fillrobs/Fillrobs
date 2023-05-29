@@ -1,0 +1,12 @@
+{% load helper_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h5>{{ network|link_or_label:profile }}</h5>
+    </div>
+    <div class="panel-body">
+        {% with network.get_viewable_information as info %}
+            {% include 'networks/overview-info.html' with network=info.network network_groups=info.network_groups resource_pool=info.resource_pool iprange=info.iprange ip_addresses=info.ip_addresses resource_handlers=info.resource_handlers current_envs=info.current_envs doc_url_path=info.doc_url_path %}
+        {% endwith %}
+    </div>
+</div>

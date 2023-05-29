@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load infrastructure_tags %}
+{% load helper_tags %}
+{% load tab_tags %}
+{% load i18n %}
+{% block topnav %}resources{% endblock %}
+
+{% block content %}
+
+    <h1> {% blocktrans with hostname=server.hostname %}Server {{ hostname }}{% endblocktrans %} </h1>
+
+    {% if not server.resource_handler and server.created_by_terraform %}
+        <div class="alert alert-info">
+            {% blocktrans %}
+                This server was created by a Terraform Plan and is not yet associated with a Resource Handler in CloudBolt.
+                <br>
+                <b>To manage this server, run 'Sync VMs' on the appropriate Resource Handler.</b>
+            {% endblocktrans %}
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div id="server-details-sidebar" class="col-sm-3 text-center">
+            {% comment %} Spinner replaced by the JS in c2.server.reloadSections {% endcomment %}
+            <div class="spinner"></div>
+        </div>
+
+        <div class="col-sm-9">
+            {% draw_tabs tabs %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block onReady %}
+    c2.server.liveUpdates(
+      '{% url "server_details_sidebar" server.id %}',
+      '{% url "server_details_panel_organization" server.id %}'
+    );
+{% endblock %}

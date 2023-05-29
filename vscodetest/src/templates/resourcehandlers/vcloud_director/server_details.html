@@ -1,0 +1,20 @@
+{% load helper_tags %}
+{% load rh_tags %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>{{ rh.resource_technology.name }} Details</h3>
+    </div>
+    <div class="panel-body">
+        <dl>
+            {% if details.sockets %}
+                <dt>Sockets:</dt>
+                <dd>{{ details.sockets}}</dd>
+            {% endif %}
+            {% if details.vcpus_per_socket %}
+                <dt>Sockets:</dt>
+                <dd>{{ details.vcpus_per_socket}}</dd>
+            {% endif %}
+        </dl>
+    </div>
+</div>

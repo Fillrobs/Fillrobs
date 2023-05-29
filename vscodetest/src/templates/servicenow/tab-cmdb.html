@@ -1,0 +1,42 @@
+{% load helper_tags %}
+{% load servicenow_tags %}
+
+{% block content %}
+<div class="panel-body">
+{% if service_now %}
+    <div class="well well-sm">
+        When enabled, CloudBolt will create a Configuration Item(CI) in your ServiceNow instance's Configuration Management Database (CMDB) for newly provisioned servers. Deleting a CloudBolt server will remove the Configuration Item entry from ServiceNow CMDB. <br/>
+        <a href="https://www.servicenow.com/products/servicenow-platform/configuration-management-database.html">ServiceNow Configuration Management Database.</a>
+    </div>
+
+        <div class="clearfix">
+            <dt></dt>
+            <dd>
+                <input type=checkbox name=enabled id="cmdb"
+                    data-toggle="toggle"
+                    data-on="CMDB enabled"
+                    data-off="CMDB disabled"
+                    data-width="200"
+                    data-post-url="{% url 'toggle_hook_enabled' service_now.id hook.id%}"
+                    {% if hook.debugger_enabled %}checked{% endif %}
+                    {% if hook.enabled %}checked{% endif %}
+                    {% if not profile.is_cbadmin %} disabled{% endif %} />
+            </dd>
+        </div><br />
+
+    {% include 'actions/action_input_defaults.html' with edit_url='action_trigger_edit' %}
+
+    {% if hook.supports_source_code %}
+        <div ng-non-bindable>
+            {% servicenow_hook_source_code service_now hook profile %}
+        </div>
+    {% endif %}
+
+{% else %}
+    <div class="alert alert-warning" role="alert">
+            <p>ServiceNow is currently not configured.</p>
+            <a href="{% url 'create_service_now_connectioninfo' %}" class="btn btn-default open-dialog" data-dialog-width="800px" data-toggle="tooltip" data-original-title="Edit action">Configure</a>
+    </div>
+{% endif %}
+</div>
+{% endblock content %}

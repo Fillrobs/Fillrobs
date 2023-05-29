@@ -1,0 +1,26 @@
+{% load infrastructure_tags %}
+{% load i18n %}
+
+{% if resource.needs_to_sync_terraform_servers %}
+    <div class="alert alert-info">
+        {% blocktrans %}
+            Servers created by a Terraform Plan are not automatically associated with a Resource Handler in CloudBolt.
+            <br>
+            <b>To manage servers created by Terraform Plans, run 'Sync VMs' on the appropriate Resource Handler(s).</b>
+        {% endblocktrans %}
+    </div>
+{% endif %}
+
+{% servers_table empty_qs show=table_columns source='/servers/json/' sort_by_column=2 filter_name="filter_by_resource" filter_value=resource.id %}
+
+<script>
+$(function () {
+    var $table = $('#servers');
+    var serviceItemColIndex = 1;
+
+    {# BestPractice: DataTable draw event handler and grouping by a column #}
+    $table.on('table:draw', function(e, oSettings) {
+        c2.dataTables.drawRowsGroupedByCol($table.DataTable(), oSettings, serviceItemColIndex);
+    });
+});
+</script>

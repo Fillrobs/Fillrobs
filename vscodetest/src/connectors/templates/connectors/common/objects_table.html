@@ -1,0 +1,104 @@
+{% load helper_tags %}
+
+<table id="connector-{{ object_type }}" class="stats">
+    <thead>
+        <tr>
+            <th>{{ object_type|title }} Name</th>
+            <th>{% portal_label %} Application</th>
+            <th>Servers</th>
+            <th>Environments</th>
+            <th><span class="sr-only">Edit Buttons</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for obj in objects %}
+        <tr>
+            <td class="name">{{ obj.name }}</td>
+            <td>{{ obj.cb_application }}</td>
+            <td>
+                {% for server in obj.server_set.all %}
+                    {% if forloop.last %}
+                        {{ server|link_or_label:profile }}
+                    {% else %}
+                        {{ server|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+            </td>
+            <td>
+                {{ obj.cb_application.environments.all|render_list_unrestricted:profile }}
+                <a title="Add app to some environments"
+                    data-toggle="tooltip"
+                    href="{% url 'link_app_to_envs' provider.id object_type obj.id %}"
+                    class="icon-edit open-dialog no-tooltip-affordance"></a>
+            </td>
+            <td>
+                {% if object_type == 'cookbook' %}
+                <a class="icon-delete js-post-link no-tooltip-affordance"
+                    href="{% url 'chef_connector_remove_cookbook' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove cookbook from {% portal_label %}"
+                    ></a>
+                {% elif object_type == 'role' %}
+                <a class="icon-delete js-post-link no-tooltip-affordance"
+                    href="{% url 'chef_connector_remove_role' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove role from {% portal_label %}"
+                    ></a>
+                {% elif object_type == 'class' %}
+                <a class="icon-delete js-post-link no-tooltip-affordance"
+                    href="{% url 'puppet_connector_remove_class' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove class from {% portal_label %}"
+                    ></a>
+                {% elif object_type == 'group' %}
+                <a class="icon-delete open-dialog no-tooltip-affordance"
+                    href="{% url 'puppet_ent_connector_remove_group' provider.id obj.id %}"
+                    data-toggle="tooltip"
+                    title="Remove group from {% portal_label %}"
+                    ></a>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    'use strict';
+
+    var $objectsTable = $('#connector-{{ object_type }}');
+
+    $objectsTable.dataTable({
+        "aaSorting": [[ 0, "asc" ]],
+        "oLanguage": {
+            "sEmptyTable": "No {{ object_type }} has been added"
+        }
+    });
+
+    $objectsTable.on('click', '.js-post-link', function (e) {
+        e.preventDefault();
+        c2.block.block();
+        $.post(e.target.href).done(function () {
+            var $target = $(e.target);
+            var $row = $target.closest('tr');
+
+            // tooltips must be destroyed before deleting the row
+            // because otherwise the tooltip will stick around
+            // forever, never knowing that the mouse left the trigger
+            $target.tooltip('destroy');
+            // Bootstrap doesn't do a very good job of cleaning up...
+            $('#tooltip-container').empty();
+            $objectsTable.fnDeleteRow($row[0]);
+        }).fail(function () {
+            // Show a dismissable alert then fade out after 15s
+            c2.alerts.addGlobalAlert('The {{ object_type }} could not be removed.', 'error', true, 15000);
+        }).always(function () {
+            c2.block.unblock();
+        });
+    });
+});
+</script>

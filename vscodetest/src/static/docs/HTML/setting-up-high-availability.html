@@ -1,0 +1,541 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="MobileOptimized" content="width">
+  <meta name="HandheldFriendly" content="true">
+  <script type="text/javascript">
+    var addThisScriptUrl = 'https://s7.addthis.com/js/300/addthis_widget.js';
+  </script>
+  <link rel='shortcut icon' href='../_webHelpImages/cloudbolt-login-logo.png' /><link rel='icon' href='../_webHelpImages/cloudbolt-login-logo.png' />
+  <link rel='stylesheet' type='text/css' href='../_webHelpStyles/CHWebHelp.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/CommonControls/FontAwesome/css/font-awesome.min-ignore.css?t=637806378603891771'/><link rel='stylesheet' type='text/css' href='../_webHelpStyles/z-Branding.css?t=637806378603891771'/>
+  <script  src='../_webHelpScripts/Master/1-script.js?t=637806378603891771' type='text/javascript'></script><script  src='../_webHelpScripts/Master/toc_nav.js?t=637806378603891771' type='text/javascript'></script>
+  <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://kit.fontawesome.com/68d03bdd6e.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<script type="text/javascript">//<!--
+appendEventHandler(window, 'load', function() {webHelpSelectTocNodeByExtId('setting-up-high-availability',true);});
+//--></script><title>Setting up High Availability</title><script type="text/javascript">//<!--
+var articleTitleText='Setting up High Availability';
+//--></script><link rel="stylesheet" type="text/css" href="../Styles/article-published.css"/><link rel="stylesheet" type="text/css" href="../Styles/cloudbolt-docs/CloudBoltBranding.css"/><script src="../Scripts/article-published.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script1.js" type="text/javascript"></script><script src="../Scripts/cloudbolt-docs/Script2.js" type="text/javascript"></script><meta charset="utf-8"><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  
+</head>
+<body class="WebHelp_body">
+  <div id="pnlContainer" class="CHOffCanvasPanel_container">
+    <div class="CHOffCanvasPanel_content">
+      <nav id="pnlOffCanvasNav" class="CHOffCanvasPanel_nav noselect">
+        <div id="pnlOffCanvasHeader" class="BaseMaster_offCanvasHeader">
+        </div>
+        <script  type='text/javascript'>//<!--
+window['mobileMenu']=new CHMenu('pnlOffCanvasHeader',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"menuItemMenu","t":"Menu","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['mobileMenu'].onItemClick=function(s,e){webHelpMobileMenuItemClick(s,e);};
+//--></script>
+        <div id="pnlOffCanvasContent" class="BaseMaster_offCanvasContent">
+        </div>        
+      </nav>
+      <div id="pnlOffCanvasOverlay" class="CHOffCanvasPanel_overlay"></div>
+      <nav id="pnlMainMenuContainer" class="BaseMaster_mainMenuContainer">
+        <button type="button" aria-label="Show mobile menu" title="Show mobile menu" id="btnMobileMenu" style="display:none"
+          class="CHHamburger_container CHHamburger_container-htla BaseMaster_hamburgerMenuIcon">
+          <span></span>
+        </button>
+        <a title='CloudBolt Software' href='https://cloudbolt.io' target='_blank'><img alt='CloudBolt Software' class='BaseMaster_imgLogo' src='../_webHelpImages/cloudbolt_line_transparent_white_FINAL.png' /></a>
+        <div id="pnlMainMenu" class="BaseMaster_pnlMainMenu"></div>
+        <script  type='text/javascript'>//<!--
+window['mainMenu']=new CHMenu('pnlMainMenu',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":true,"mobileViewMinWidthThreshold":979,"selectedItemId":null,"isAllowItemSelection":false,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"926ab37c-af98-eab8-2cb6-f0224c32b59e","t":"Getting Support","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/","_target":"_blank"}},{"id":"a93dc193-cfa0-0c55-dc87-ef748c016d3e","t":"CloudBolt API","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenArticle","_customCssClass":null,"_url":"http://docs.cloudbolt.io/articles/cloudbolt-latest-docs/cloudbolt-api-v3","_target":"_blank"}},{"id":"1d7d67de-8445-1336-084c-3d22cc440080","t":"Documentation Portal","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://docs.cloudbolt.io/"}},{"id":"d4ac0703-4b0e-d846-4521-45b57775c8f2","t":"Knowledge Base","imgs":{},"c":[],"s":0,"d":0,"e":1,"isNoFocus":false,"vals":{"actionType":"OpenLink","_customCssClass":null,"_url":"https://support.cloudbolt.io/hc/en-us/sections/201319545-Knowledge-Base","_target":"_blank"}}]);window['mainMenu'].onViewSwitched=function(s,e){webHelpMasterPageMainMenuViewSwitched(s,e);};
+//--></script>
+        <div class="WebHelp_searchBoxContainer">
+          <input id="edtSearch" type="search" class="WebHelp_searchBox" aria-label="Search" />
+          <button id="btnSearch" class="btnSearch" alt="Search" title="Search" aria-label="Search" href="javascript:void(0)"></button>
+        </div>
+      </nav>
+      <div id="pnlContentContainer" class="BaseMaster_contentContainer clearfix">
+        <nav id="pnlArticlesNav" class="WebHelp_navPanel">
+          <div id="pnlNavTabs" class="WebHelp_navMenu"></div>
+          <script  type='text/javascript'>//<!--
+window['navMenu']=new CHMenu('pnlNavTabs',{"cssClasses":{"menu":null,"popup":null},"templates":{"itemContent":null,"treeItemContent":null,"dropDownArrow":null},"isMobileViewIfParentOverflow":false,"mobileViewMinWidthThreshold":-1,"selectedItemId":"tabContents","isAllowItemSelection":true,"isEscapeMenuItemText":true,"isUseFontAwesomeIcons":true,"fontAwesomeVersion":"4","isMovePopupToBodyChildLevel":true,"isShowPopupOnHover":false},[{"id":"tabContents","t":"Topics","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}},{"id":"tabSearch","t":"Search","imgs":{},"c":[],"s":-1,"d":0,"e":0,"isNoFocus":false,"vals":{"_faIconCssClass":""}}]);window['navMenu'].onItemClick=function(s,e){webHelpNavMenuItemClick(s,e);};
+//--></script>
+          <div id="pnlTocContainer" class="WebHelp_navPanelContent ArticleSelector_tabContent TocTreeLight_container">
+            <div id="pnlToc"></div>
+          </div>
+          <div id="pnlIndex" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameIndex" style="height: 100%; width:100%; display:block;" frameborder="0"></iframe>
+          </div>
+          <div id="pnlSearch" class="WebHelp_navPanelContent ArticleSelector_tabContent" style="display:none">
+            <iframe id="frameSearch" style="height: 100%; width:100%; display: block;" frameborder="0"></iframe>
+          </div>
+        </nav>
+        <article class="TopicViewer_container">
+          <header id="pnlTopicHeader" class="TopicViewer_header"  style='display:none'>
+            <div id="pnlSocial" class="TopicViewer_headerShare">Share: </div>
+            <div class="TopicViewer_headerText">
+              <div class="ArticleEditor_projectName">cloudbolt_docs</div>
+              <strong id="pnlTitle" class="ArticleEditor_title">Setting up High Availability</strong>
+              <button type="button" id="btnPrint" class="CHImageButton ArticleEditor_imageButton ArticleEditor_fontAwesomeButton ArticleEditor_btnPrint" title="Print this topic">
+                <i class="fa fa-print"></i>
+              </button>
+            </div>
+          </header>
+          <div id="pnlTopicContentContainer" class="TopicViewer_contentContainer">
+            <!-- START ARTICLE CONTAINER -->
+<div class="container">
+  <div class="articleBreadcrumb">
+    <span class="CHBreadcrumb"><span class="CHBreadcrumb_item CHBreadcrumb_itemHome"><a href="/" target="_top">Home</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item">CloudBolt Reference</span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item"><a href="installing-cloudbolt.html">Installing CloudBolt</a></span><span class="CHBreadcrumb_separator">›</span><span class="CHBreadcrumb_item CHBreadcrumb_itemSelf">Setting up High Availability</span></span>
+  </div><h1 id="h1_1636408536" data-has-heading-anchor="true">
+  Setting up High Availability
+<a href="setting-up-high-availability.html#h1_1636408536" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h1>
+<p class="lead">
+  Set up a High Availability (HA) arrangement for your CloudBolt instance(s).
+</p>
+<br/>
+<ul class=""><li class="CHMiniToc_heading2"><a href="setting-up-high-availability.html#before-you-begin">Before You Begin</a></li><li class="CHMiniToc_heading2"><a href="setting-up-high-availability.html#h2_838880121">Web Server</a></li><li class="CHMiniToc_heading3"><a href="setting-up-high-availability.html#h3__616515952">Load Balancer</a></li><li class="CHMiniToc_heading3"><a href="setting-up-high-availability.html#h3__1139214601">Configuring Web Servers</a></li><li class="CHMiniToc_heading2"><a href="setting-up-high-availability.html#h2__1387027031">Job Engine</a></li><li class="CHMiniToc_heading3"><a href="setting-up-high-availability.html#h3__1681127200">Configuring Job Engine servers</a></li><li class="CHMiniToc_heading2"><a href="setting-up-high-availability.html#h2_662607817">Database</a></li></ul>
+<section>
+  <h2 id="before-you-begin" data-has-heading-anchor="true">
+    Before You Begin
+  <a href="setting-up-high-availability.html#before-you-begin" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    Review the <a href="http://docs.cloudbolt.io/smart/onefuse/onefuse-appliance-reference-architecture" target="_blank">Appliance Reference Architecture</a> and follow these one-time steps below for all existing servers:
+  </p>
+  <ol>
+    <li>
+      Copy the <b>Secret Key</b> from the initial CloudBolt appliance to any CloudBolt Web Servers and/or Job Engines that are provisioned later.
+      <ol>
+        <li>
+          The Secret Key is used to encrypt and decrypt sensitive fields on the CloudBolt database.
+        </li>
+        <li>
+          Log in to the initial CloudBolt appliance using a SCP utility such as WinSCP, FileZilla, Cyberduck, etc.
+        </li>
+        <li>
+          Copy the Secret Key:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">scp</span> <span class="cm-word">/var</span><span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/secrets</span><span class="cm-word">/secret</span><span class="cm-attribute">-key</span><span class="cm-attribute">-for</span><span class="cm-attribute">-apache</span><span class="cm-word">.bin</span><br><span class="cm-word">root</span><span class="cm-word">@cb</span><span class="cm-attribute">-ha2</span><span class="cm-word">:</span><span class="cm-word">/var</span><span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/secrets</span><span class="cm-word">/</span></pre></td></tr></table>
+        </li>
+      </ol>
+    </li>
+    <li>
+      Copy the <b>UNIQUE_TOKEN</b> section of <code class="path">/var/opt/cloudbolt/proserv/customer_settings.py</code> from the initial CloudBolt appliance to the <code>customer_settings.py</code> file to any CloudBolt Web Servers and/or Job Engines that are provisioned later.
+    </li>
+  </ol>
+  <hr class="article-divider"/>
+</section>
+<section id="web-server">
+  <h2 id="h2_838880121" data-has-heading-anchor="true">
+    Web Server
+  <a href="setting-up-high-availability.html#h2_838880121" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CloudBolt uses the Apache HTTP server, which runs as the <code>httpd</code> service on the CloudBolt appliance.
+  </p>
+  <section>
+    <h3 id="h3__616515952" data-has-heading-anchor="true">
+      Load Balancer
+    <a href="setting-up-high-availability.html#h3__616515952" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <p>
+      If you are using multiple Web Servers, we recommend putting them behind a Load Balancer. This ensures that multiple Web Servers share an IP address. 
+    </p>
+    <ul>
+      <li>
+        Refer to <a href="cloudbolt-appliance-reference-architecture.html#h4_1433464100"> Load Balancer Requirements</a>.
+      </li>
+    </ul>
+  </section>
+  <section id="configuring-web-servers">
+    <h3 id="h3__1139214601" data-has-heading-anchor="true">
+      Configuring Web Servers
+    <a href="setting-up-high-availability.html#h3__1139214601" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <div class="alert alert-info">
+      <i class="mdi mdi-information"></i> If this machine is going to be a CloudBolt Web Server, it will <b>not</b>need to run either a Job Engine nor the Database service.
+    </div>
+    <p>
+      To create a web server, clone an existing CloudBolt Web Server or run the CloudBolt installer on a new VM. 
+    </p>
+    <p>
+      Each CloudBolt web server needs the source code in <code class="path">/opt/cloudbolt/</code>, as well as access to the <b>Shared Directories</b> described in <a href="cloudbolt-appliance-reference-architecture.html#h4_2019887315" target="_blank">CloudBolt Appliance Reference Architecture</a>.
+    </p>
+    <p>
+      Then, perform the following steps:
+    </p>
+    <ol class="steps">
+      <li>
+        Disable the Job Engine
+      </li>
+      
+      <li>
+        Disable PostgreSQL
+      </li>
+      <li>
+        Update Database Connection to the External Database
+      </li>
+    </ol>
+    <section id="job-engine">
+      <h4 id="h4_400308941" data-has-heading-anchor="true">
+        Disable Job Engine
+      <a href="setting-up-high-availability.html#h4_400308941" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+      <p>
+        Disable the Job Engine on the Web Server.
+      </p>
+      <ol>
+        <li>
+          In the Job Engine <code>supervisord</code> Configuration File, located at<code class="path">/etc/supervisord.d/jobengine.conf</code>, perform the following:
+          <ol>
+            <li>
+              Change the line that begins with <code>autostart</code> to:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-def">autostart</span><span class="cm-operator">=</span><span class="cm-atom">false</span></pre></td></tr></table>&nbsp;
+            </li>
+            <li>
+              Change the line that begins with <code>autorestart</code> to:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-def">autorestart</span><span class="cm-operator">=</span><span class="cm-atom">false</span></pre></td></tr></table>
+            </li>
+          </ol>
+        </li>
+        <li>
+          Use the following command to tell <code>supervisor</code> to reload its configuration files:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">supervisorctl</span> <span class="cm-word">reload</span></pre></td></tr></table>
+        </li>
+      </ol>
+    </section>
+    
+    
+  <section>
+    <h4 id="h4__1109043208" data-has-heading-anchor="true">
+      Disable PostgreSQL
+    <a href="setting-up-high-availability.html#h4__1109043208" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <p>
+      <code>postgresql-14</code> is the daemon that runs the PostgreSQL database and is not necessary on the instance that is connecting to an external database.
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="width: 294px;">
+            Purpose
+          </th>
+          <th style="width: 429px;">
+            Command
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="width: 294px;">
+            Turn off PostgreSQL
+          </th>
+          <td style="width: 429px;"><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-builtin">stop</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span></pre></td></tr></table>
+            
+          </td>
+        </tr>
+        <tr>
+          <th style="width: 294px;">
+            Prevent PostgreSQL from starting when this CloudBolt appliance reboots
+          </th>
+          <td style="width: 429px;"><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-word">disable</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span></pre></td></tr></table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+    <section>
+  <h4 id="h4__1590516190" data-has-heading-anchor="true">
+    Update Database Connection to the External Database
+  <a href="setting-up-high-availability.html#h4__1590516190" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    If this instance is connecting to an external database, update the database settings to point to the external database:
+  </p>
+  <ol>
+    <li>
+      Go to <code class="path">settings_local.py</code> file:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example using vi to view DATABASES section from settings_local.py</span><br><span class="cm-builtin">vi</span> <span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/settings_local</span><span class="cm-word">.py</span></pre></td></tr></table>
+    </li>
+    <li>
+      Copy the <b>DATABASES</b> section from the&nbsp;<code class="path">settings_local.py</code>&nbsp;file to be pasted into the&nbsp;<code class="path">customer_settings.py</code>&nbsp;file
+    </li>
+    <li>
+      Go to <code class="path">customer_settings.py</code> file: <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example using vi to edit customer_settings.py</span><br><span class="cm-builtin">vi</span> <span class="cm-word">/var</span><span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/proserv</span><span class="cm-word">/customer_settings</span><span class="cm-word">.py</span></pre></td></tr></table>
+    </li>
+    <li>
+      Paste the <b>DATABASES </b>section into the&nbsp;<code class="path">customer_settings.py</code>&nbsp;file
+    </li>
+    <li>
+      Update the <b>HOST, USER </b>and<b> PASSWORD</b>&nbsp;keys in the&nbsp;<b>DATABASES</b> section to reflect accordingly to your external database server:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example</span><br><span class="cm-word">HOST</span><span class="cm-word">:</span> <span class="cm-word">&lt;ip</span><span class="cm-attribute">-or</span><span class="cm-attribute">-fqdn</span><span class="cm-attribute">-of</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span><br><span class="cm-word">USER</span><span class="cm-word">:</span> <span class="cm-word">&lt;user</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span><br><span class="cm-word">PASSWORD</span><span class="cm-word">:</span> <span class="cm-word">&lt;password</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span></pre></td></tr></table>
+    </li>
+  </ol>
+</section>
+  </section>
+  <hr class="article-divider"/>
+</section>
+<section>
+  <h2 id="h2__1387027031" data-has-heading-anchor="true">
+    Job Engine
+  <a href="setting-up-high-availability.html#h2__1387027031" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+  <p>
+    CloudBolt runs its Job Engine through <code>supervisor</code>, which can be controlled through <code>supervisorctl</code> commands.
+    The Job Engine process(es) can be controlled by editing the configuration file at <code class="path">/etc/supervisord.d/jobengine.conf</code>.
+  </p>
+  <ol>
+    <li>
+      Ensure there are no active Jobs running.
+    </li>
+    <li>
+      Stop all Job Engine process(es):&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">supervisord</span> <span class="cm-builtin">stop</span> <span class="cm-word">jobengine</span><span class="cm-word">:</span><span class="cm-word">*</span></pre></td></tr></table>
+    </li>
+  </ol>
+  <section id="configuring-job-engine-servers">
+    <h3 id="h3__1681127200" data-has-heading-anchor="true">
+      Configuring Job Engine servers
+    <a href="setting-up-high-availability.html#h3__1681127200" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h3>
+    <div class="alert alert-info">
+      <i class="mdi mdi-information"></i> If this machine is going to be a CloudBolt Job Engine Server, it will <b>not</b>need to run either the Web service nor the Database service.
+    </div>
+    <p>
+      To create a Job Engine server, clone an existing CloudBolt Job Engine server or run the CloudBolt installer on a new VM.
+    </p>
+    <p>
+      Each CloudBolt Job Engine server needs the source code in <code class="path">/opt/cloudbolt/</code>, as well as access to the <b>Shared Directories</b> described in <a href="cloudbolt-appliance-reference-architecture.html#h4_2019887315" target="_blank">CloudBolt Appliance Reference Architecture</a>.
+    </p>
+    <p>
+      Then, perform the following steps:
+    </p>
+    <ol class="steps">
+      <li>
+        Disable the Web Service
+      </li>
+      
+      <li>
+        Disable PostgreSQL
+      </li>
+      <li>
+        Update Database Connection to the External Database
+      </li>
+    </ol>
+    <section>
+      <h4 id="h4_1110292168" data-has-heading-anchor="true">
+        Disable the Web Service
+      <a href="setting-up-high-availability.html#h4_1110292168" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+      <p>
+        Turn off the CloudBolt Web Server processes by stopping or disabling the <code>httpd</code> using the following commands:
+      </p>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th class="dxhe-resizable-table-cell" style="width: 350px;">
+              Purpose
+            </th>
+            <th class="dxhe-resizable-table-cell" style="width: 446px;">
+              Command
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="dxhe-resizable-table-cell" style="width: 350px;">
+              Stop the Web Server processes</th>
+            <td style="width: 446px;">
+              
+              <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-builtin">stop</span> <span class="cm-word">httpd</span></pre></td></tr></table>
+            </td>
+          </tr>
+          <tr>
+            <th class="dxhe-resizable-table-cell" style="width: 350px;">
+              Prevent Web Server processes from starting when this CloudBolt appliance reboots
+            </th>
+            <td style="width: 446px;">
+              <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-word">disable</span> <span class="cm-word">httpd</span></pre></td></tr></table>
+              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+    
+  <section>
+    <h4 id="h4__1109043208" data-has-heading-anchor="true">
+      Disable PostgreSQL
+    <a href="setting-up-high-availability.html#h4__1109043208" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+    <p>
+      <code>postgresql-14</code> is the daemon that runs the PostgreSQL database and is not necessary on the instance that is connecting to an external database.
+    </p>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th style="width: 294px;">
+            Purpose
+          </th>
+          <th style="width: 429px;">
+            Command
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th style="width: 294px;">
+            Turn off PostgreSQL
+          </th>
+          <td style="width: 429px;"><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-builtin">stop</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span></pre></td></tr></table>
+            
+          </td>
+        </tr>
+        <tr>
+          <th style="width: 294px;">
+            Prevent PostgreSQL from starting when this CloudBolt appliance reboots
+          </th>
+          <td style="width: 429px;"><table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">systemctl</span> <span class="cm-word">disable</span> <span class="cm-word">postgresql</span><span class="cm-attribute">-14</span></pre></td></tr></table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+    <section>
+  <h4 id="h4__1590516190" data-has-heading-anchor="true">
+    Update Database Connection to the External Database
+  <a href="setting-up-high-availability.html#h4__1590516190" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+  <p>
+    If this instance is connecting to an external database, update the database settings to point to the external database:
+  </p>
+  <ol>
+    <li>
+      Go to <code class="path">settings_local.py</code> file:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example using vi to view DATABASES section from settings_local.py</span><br><span class="cm-builtin">vi</span> <span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/settings_local</span><span class="cm-word">.py</span></pre></td></tr></table>
+    </li>
+    <li>
+      Copy the <b>DATABASES</b> section from the&nbsp;<code class="path">settings_local.py</code>&nbsp;file to be pasted into the&nbsp;<code class="path">customer_settings.py</code>&nbsp;file
+    </li>
+    <li>
+      Go to <code class="path">customer_settings.py</code> file: <table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example using vi to edit customer_settings.py</span><br><span class="cm-builtin">vi</span> <span class="cm-word">/var</span><span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/proserv</span><span class="cm-word">/customer_settings</span><span class="cm-word">.py</span></pre></td></tr></table>
+    </li>
+    <li>
+      Paste the <b>DATABASES </b>section into the&nbsp;<code class="path">customer_settings.py</code>&nbsp;file
+    </li>
+    <li>
+      Update the <b>HOST, USER </b>and<b> PASSWORD</b>&nbsp;keys in the&nbsp;<b>DATABASES</b> section to reflect accordingly to your external database server:&nbsp;<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example</span><br><span class="cm-word">HOST</span><span class="cm-word">:</span> <span class="cm-word">&lt;ip</span><span class="cm-attribute">-or</span><span class="cm-attribute">-fqdn</span><span class="cm-attribute">-of</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span><br><span class="cm-word">USER</span><span class="cm-word">:</span> <span class="cm-word">&lt;user</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span><br><span class="cm-word">PASSWORD</span><span class="cm-word">:</span> <span class="cm-word">&lt;password</span><span class="cm-attribute">-externalDB</span><span class="cm-word">&gt;</span></pre></td></tr></table>
+    </li>
+  </ol>
+</section>
+    <section>
+      <h4 id="h4__399764770" data-has-heading-anchor="true">
+        Disable Orphaned Job Cleanup
+      <a href="setting-up-high-availability.html#h4__399764770" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h4>
+      <p>
+        On each Job Engine server, add the following line to the file: <code class="path">/var/opt/cloudbolt/proserv/customer_settings.py</code>
+      </p>
+      <ul>
+        <li>
+          Go to the <code class="path">customer_settings.py</code> file:<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-comment">#Example using vi to edit customer_settings.py</span><br><span class="cm-builtin">vi</span> <span class="cm-word">/var</span><span class="cm-word">/opt</span><span class="cm-word">/cloudbolt</span><span class="cm-word">/proserv</span><span class="cm-word">/customer_settings</span><span class="cm-word">.py</span></pre></td></tr></table>
+        </li>
+        <li>
+          Add the following line to this file:<table class="CHCodeSample_container notranslate" cellspacing="0" cellpadding="0"><tr class="CHCodeSample_tr1"><td class="CHCodeSample_header"><div class="CHCodeSample_copyCode nonPrintable"><a onclick="copyCodeSample(this)" href="javascript:void(0)">Copy Code</a></div><div class="CHCodeSample_langName notranslate">Bash (Unix Shell)</div></td></tr><tr class="CHCodeSample_tr2"><td class="CHCodeSample_code notranslate cm-s-default"><pre><span class="cm-word">FEATURE_REGISTRY</span><span class="cm-word">[</span><span class="cm-string">"jobengine::cancel_orphan_jobs"</span><span class="cm-word">]</span> <span class="cm-operator">=</span> <span class="cm-word">False</span></pre></td></tr></table>
+          <br/>
+        </li>
+      </ul>
+      <p>
+      </p>
+    </section>
+  </section>
+  <div class="alert alert-info">
+    <i class="mdi mdi-information mr-2"></i> Refer to <a href="job-engine.html" target="_blank">Job Engine</a> documentation for further configuration information on the Job Engine, including Job filtering.
+  </div>
+  <hr class="article-divider"/>
+</section>
+<section>
+  
+  
+    <div id="database">
+      <br/>
+    </div>
+    <h2 id="h2_662607817" data-has-heading-anchor="true">
+      Database
+    <a href="setting-up-high-availability.html#h2_662607817" class="CHHeadingLink" title="Link to this heading" aria-hidden="true"></a></h2>
+    <div id="database">
+      We recommend you use a <a href="cloudbolt-appliance-reference-architecture.html#h3__1800004875">hosted PostgreSQL service</a> if you are unfamiliar with PostgreSQL administration. However you can setup a PostgreSQL cluster or replication topology as desired to support CloudBolt.
+    </div>
+    <div id="database">
+      <br/>
+      <div id="replication">
+        <p class="nospacing">
+          For example, PostgreSQL database servers can be configured to support one-way replication or configured as a redundant cluster. See&nbsp;<a href="https://www.postgresql.org/docs/14/index.html" target="_top">PostgreSQL Documentation</a>&nbsp;for more information on configuring replication.
+        </p>
+      </div>
+    </div>
+  
+</section>  <div class="articleActions row pt-4 mt-5 mb-4 ml-0">
+    <div class="col-6">
+      <span class="CHNavCaption">Previous Topic</span><a href="deploy-the-cloudbolt-vm-from-ova.html" class="articleActions_link CHNavLinkPrevious">Deploy the CloudBolt Appliance</a>
+    </div>
+    <div class="col-6 text-right">
+      <span class="CHNavCaption">Next Topic</span><a href="high-availability-in-aws-with-postgresql.html" class="articleActions_link CHNavLinkNext">High Availability in AWS with PostgreSQL</a>
+    </div>
+  </div>
+</div>
+<!-- END ARTICLE CONTAINER -->
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footerInner">
+    <div class="container">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <a href="https://www.cloudbolt.io/" target="_blank">
+                <img src="../Storage/cloudbolt-docs/logos/cb-horizontal-white.svg" class="img-fluid footerLogo" alt="CloudBolt"/>
+              </a>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-12">
+              <a class="btn btn-social" href="mailto:support@cloudbolt.io" role="button" target="_top">
+                <span class="btn-icon"><i class="mdi mdi-face-agent"></i></span>
+                support@cloudbolt.io
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <p class="footerTitle">
+            About the Company
+          </p>
+          <p class="footerAbout" data-children-count="1">
+            CloudBolt&#39;s hybrid cloud platform for enterprises helps IT admins provide simple to very complex IT resources to end users from a single portal.
+          </p>
+          <ul class="socials">
+            <li class="mr-3">
+              <a class="social-link" href="https://www.facebook.com/CloudBoltSoftware/" target="_blank" title="Facebook">
+                <i class="mdi mdi-facebook"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://twitter.com/CloudBoltSW" target="_blank" title="Twitter">
+                <i class="mdi mdi-twitter"></i>
+              </a>
+            </li>
+            <li class="mr-3">
+              <a class="social-link" href="https://www.linkedin.com/company/cloudbolt/" target="_blank" title="LinkedIn">
+                <i class="mdi mdi-linkedin"></i>
+              </a>
+            </li>
+            <li>
+              <a class="social-link" href="https://github.com/CloudBoltSoftware/cloudbolt-forge" target="_blank" title="GitHub">
+                <i class="mdi mdi-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12 text-center">
+          <span class="copyright mt-5" data-children-count="1">© CloudBolt Software. All rights reserved</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  if (window['initFooter']) {
+    initFooter();
+  }
+</script>
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="../Scripts/project-cloudbolt-docs/lightbox-plus-jquery.min.js"></script>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>  
+</body>
+</html>

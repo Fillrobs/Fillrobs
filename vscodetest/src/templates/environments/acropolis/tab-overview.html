@@ -1,0 +1,14 @@
+{% load i18n %}
+
+{% if nutanix_cluster %}
+    <dt>{% trans "Nutanix cluster:" %}</dt>
+    <dd>
+        {% if nutanix_cluster != "-" %}
+            {{ nutanix_cluster }}
+        {% else %}
+            <i style='color:red'>{% trans "None (must configure to use this environment)" %}</i>
+            <a class="icon-edit open-dialog"
+                href="{% url 'edit_env_nutanix_cluster' environment.id %}"></a>
+        {% endif %}
+    </dd>
+{% endif %}

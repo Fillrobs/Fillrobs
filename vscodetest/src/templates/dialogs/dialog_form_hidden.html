@@ -1,0 +1,11 @@
+{% extends "dialogs/dialog.html" %}
+{% comment %}
+Some confirmation views (e.g. servers_batch_power) want the form to be included but not visible.
+{% endcomment %}
+
+
+{% block form_content %}
+    <div style="display:none">
+        {{ form }}
+    </div>
+{% endblock form_content %}

@@ -1,0 +1,37 @@
+{% comment %}
+This markup and javascript was pulled almost verbatim from the
+jobs/list.html template, but the sAjaxSource includes a server_id arg.
+{% endcomment %}
+
+
+{% load helper_tags %}
+{% load job_tags %}
+{% load i18n %}
+
+<table id="jobs"
+    data-table
+    data-table-no-auto-init
+    data-table-sort="0,desc"
+    data-table-sort-disabled="4"
+    data-table-source="{% url 'job_list_json' %}?server_id={{ server.id }}"
+    >
+    <thead>
+        <tr>
+            <th>{% trans 'Job' %}</th>
+            <th>{% trans 'Status' %}</th>
+            <th>{% trans 'Type' %}</th>
+            <th>{% trans 'Start Date' %}</th>
+            <th>{% trans 'Order' %}</th>
+            <th>{% trans 'Owner' %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {# content is loaded asynchronously #}
+    </tbody>
+</table>
+{# The data-table-no-auto-init above and this manual initialization were added because, for some reason, without them the table doesn't populate #}
+<script>
+$(function(){
+  c2.dataTables.init('#jobs');
+});
+</script>

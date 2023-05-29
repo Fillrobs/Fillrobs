@@ -1,0 +1,31 @@
+{% load rh_tags helper_tags i18n %}
+<div class="btn-toolbar">
+    <p>Protection plans from your Data Protection system.</p>
+    <a class="btn btn-default open-dialog"
+       data-dialog-width="1000px"
+       href="{% url 'dataprotection_import_protection_plans' data_protection.id %}"
+       id="import-projects">
+        <span class="icon-import"></span>
+        Import Protection Plans
+    </a>
+</div>
+
+<table id="protection_plans" data-table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for plan in data_protection.protectionplan_set.all %}
+        <tr>
+            <td>{{ plan.name }}</td>
+            <td>
+                <a class="icon-delete" href="{% url 'dataprotection_remove_plan' data_protection.id plan.id %}">
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

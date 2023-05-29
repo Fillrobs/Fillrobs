@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load puppet_tags %}
+
+{% block title %}Puppet Report for {{ report.host }}{% endblock %}
+{% block topnav %}providers{% endblock %}
+
+{% block content %}
+<h1>Puppet Report</h1>
+<dl>
+    <dt>Host</dt><dd>{{ report.host }}</dd>
+    <dt>Status</dt><dd><span class="text-{{ report.status|report_status_to_bootstrap_context }}">{{ report.get_status_display }}</span></dd>
+    <dt>Time of Run</dt><dd>{{ report.time }}</dd>
+    <dt>Time Received</dt><dd>{{ report.time_received }}</dd>
+</dl>
+
+<pre><code>{{ report.yaml }}</code></pre>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% load cache %}
+{% load helper_tags %}
+{% load i18n %}
+
+{# Cache this rendered template to avoid HTTP calls. See common/header.html #}
+{% spaceless %}
+    <div class="dropdown-menu__sidebar">
+        <div class="sidebar__info">
+            <div class="info-heading">
+                <h2 class="heading-2">
+                    Resources
+                </h2>
+            </div>
+            <div class="info">
+                <p class="paragraph">
+                    Resources allow you to extend {% portal_label %} by defining additional types of objects you would like it to handle. A Resource could represent anything from a set of VMs that together constitute a web application to a single S3 bucket.
+                </p>
+                {% if show_management_paragraph %}
+                    <p class="paragraph">
+                        Manage the types of custom resources that can be created by Blueprints. Then, Blueprint managers can choose which of these types their Blueprint should deploy, if any.
+                    </p>
+                {% endif %}
+            </div>
+            <div class="info-btns">
+                <a href="{% url 'resourcetypes_list' %}" class="cb-btn cb-btn-primary">
+                    {% if show_management_paragraph %}
+                        Resource Types
+                    {% else %}
+                        Resources
+                    {% endif %}
+                </a>
+            </div>
+
+        </div>
+        <div class="dropdown-menu__actions">
+            {% if show_add_resource_type or show_new_server %}
+            <div class="quick-actions">
+                <h2 class="heading-5 bold panel-title">Quick Actions</h2>
+                {% if show_add_resource_type %}
+                <a href="{% url 'add_resourcetype' %}" class="cb-btn cb-btn-secondary open-dialog">New Resource Type</a>
+                {% endif %}
+                {% if show_new_server %}
+                <a href="{% url 'order_new_server' %}" class="cb-btn cb-btn-secondary">New Server</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="dropdown-menu__content">
+        <div id="resources-content" class="content">
+            <a href="{% url 'server_list' %}" >
+                {% trans 'Servers' %}
+            </a>
+            {% for resources_dict in resources_dicts %}
+                <a href="{% url 'resource_list' resources_dict.type %}">
+                    {{ resources_dict.plural_type }}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endspaceless %}

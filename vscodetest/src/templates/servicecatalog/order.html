@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% load helper_tags %}
+{% load order_tags %}
+{% load service_catalog_tags %}
+{% load i18n %}
+
+{% block topnav %}{% trans 'catalog' %}{% endblock %}
+
+{% block content %}
+<h1>
+    {% blocktrans with blueprint_name=blueprint.name %}Order {{ blueprint_name }}{% endblocktrans %}
+    {% if blueprint.resource_type and blueprint.resource_type.icon %}
+        <span class="{{ blueprint.resource_type.icon}} no-tooltip-affordance"
+          data-toggle="tooltip"
+          title="{% blocktrans with resource_type=blueprint.resource_type.label %}Creates a {{ resource_type }}{% endblocktrans %}">
+        </span>
+    {% endif %}
+</h1>
+
+<div id="action-msg"></div>
+
+<div id="blueprint-order-view">
+    {% if order_form %}
+        {# form starts out hidden to avoid initial flash of unstyled content #}
+        <form id="blueprint-order-form" action="" method="post" class="form-horizontal hidden">
+            {% csrf_token %}
+    {% endif %}
+
+    <div class="blueprint-overview panel panel-default">
+        <div class="panel-body">
+            {% if user_can_manage and not catalog_only_mode %}
+                <div class="btn-toolbar">
+                    <a href="{{ blueprint.get_absolute_url }}"
+                        class="btn btn-default">
+                        <span class="icon-cog"></span>
+                        {% trans 'Manage blueprint' %}
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="bp-description-wrapper">
+                {% if blueprint.list_image %}
+                    <img class="blueprint img-responsive" src="{{ blueprint.list_image.url }}"/>
+                {% endif %}
+
+                <div class="description contains-md">
+                    {% trans "No description" as default_description %}
+                    {{ blueprint.rendered_description|bleach_filter|default:default_description }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if order_form %}
+        <div id="order-form-wrap">
+
+            <div class="alignment-shim col-sm-3 nav nav-boxed-tabs nav-stacked"></div>
+            <div class="alignment-shim col-sm-9">
+                {# Note: once we use crispy_form on this (waiting on a PR) this will be simpler #}
+                <div class="form-group">
+                    <label for="id_order_group" class="requiredField col-lg-3 control-label">{% trans 'Group' %} *</label>
+                    <div class="col-lg-9 order-form__section">
+                        {{ order_form.order_group }}
+                    </div>
+                </div>
+
+                {% if blueprint.resource_type %}
+                    <div id="resource-name-field" class="form-group">
+                        {# validation errors are passed via the formset response HTML and inserted here #}
+                        {# this is done using a hidden field in service_item_formset.html #}
+                        <label for="id_resource_name" class="col-lg-3 control-label requiredField">
+                            {{ order_form.resource_name.label }}
+                        </label>
+                        <div class="col-lg-9 order-form__section">
+                            <input type="text" name="resource_name" id="id_resource_name"
+                                value="{{ order_form.resource_name.value }}"
+                                class="{{ order_form.resource_name.css_classes }} form-control"
+                                {% if blueprint.resource_name_template %}
+                                    disabled
+                                {% endif %}
+                            />
+                            <span class="help-block">{{ order_form.resource_name.help_text }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if show_recipient_field %}
+                    <div class="form-group">
+                    {% if bulk_orders_enabled %}
+                        <label for="recipients" class="col-lg-3 control-label"><strong>{% trans 'Recipient(s)' %} *</strong></label>
+                        <div class="col-lg-9 order-form__section">
+                            {{ order_form.recipients }}
+                            <span class="help-block">{{ order_form.recipients.help_text }}</span>
+                        </div>
+                    {% else %}
+                        <label for="id_recipient" class="col-lg-3 control-label">{% trans 'Recipient' %}</label>
+                        <div class="col-lg-9 order-form__section">
+                            {{ order_form.recipient }}
+                            <span class="help-block">{{ order_form.recipient.help_text }}</span>
+                        </div>
+                    {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <div id="service-items">
+            {# Loaded asynchronously by c2.orderForm #}
+        </div>
+
+        <div class="text-right btn-toolbar">
+            <a id="order-cancel-btn" class="btn btn-default">{% trans 'Cancel and Go Back' %}</a>
+
+            {% comment %}
+            This span is req'd because a disabled button cannot also have a
+            tooltip. The tooltip is managed by c2.orderForm based on the
+            state of the submit button.
+            {% endcomment %}
+            <span id="submit-btn-tip" class="no-tooltip-affordance">
+                <button id="submit-btn"
+                    class="btn btn-primary"
+                    type=submit
+                    disabled=disabled
+                    data-loading-text="{% trans 'Submitting' %}&hellip;">
+                    {% trans 'Submit' %}
+                </button>
+            </span>
+        </div>
+
+        <div id="bottom-msg"></div>
+    {% elif error_message %}
+        <p class="alert alert-warning">
+            {{ error_message }}
+        </p>
+    {% endif %}
+</div>
+
+{% if order_form %}
+    </form>
+    <script>
+    // called whenever a formset is loaded
+    c2.orderForm.init(
+        '{% url "service_item_formset" blueprint.id %}',
+        '{% url "service_item_cost" blueprint.id %}',
+        {{show_cost_preview|to_json }}
+    );
+
+    $('#order-cancel-btn').on('click', function(e) {
+        c2.block.block();
+        window.history.go(-1);
+        // The above is a noop if this is a new tab/window with no history.
+        window.location = '{% url "service_catalog" %}';
+    });
+    </script>
+{% endif %}
+
+{% endblock content %}

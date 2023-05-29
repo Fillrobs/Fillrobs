@@ -1,0 +1,13 @@
+<script>
+    var environmentId = '{{environment.id}}'
+    sessionStorage.setItem("environmentId", environmentId);
+</script>
+
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load render_bundle from webpack_loader %}
+
+<div id="environmentsSummary"></div>
+{% render_bundle 'chunk-vendors' %}
+{% render_bundle 'environmentsServerStats' %}
+{% servers_table servers_empty_qs hide="Environment" source="/servers/json/" filter_name="filter_by_environment" filter_value=environment.id %}

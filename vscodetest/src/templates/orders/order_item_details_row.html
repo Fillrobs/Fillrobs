@@ -1,0 +1,110 @@
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load infrastructure_tags %}
+{% load i18n %}
+
+<td class="shrink"> {# Type #}
+    <span class="icon-order-type-{{ item.TYPE_CODE }}"></span>
+    {{ quantity }}
+</td>
+
+<td> {# Environments #}
+    {% for env in item.get_environments|uniquify_items %}
+        {{ env|link_or_label:profile }}{% if not forloop.last %},{% endif %}
+    {% endfor %}
+</td>
+
+<td> {# Parameters #}
+    {# The blueprint is in the 'parameter' column for now #}
+    {# and it looks better before the parameters #}
+    {% if blueprint %}
+        {% trans "Blueprint:" %}
+
+        {% if user_can_manage_blueprint %}
+            <a href="{{ blueprint.get_absolute_url }}">{{ blueprint.name }}</a>
+        {% else %}
+            {% if user_can_order_blueprint %}
+                <a href="{% url "order_blueprint" blueprint.id %}" title="">
+                    {{ blueprint.name }}
+                </a>
+            {% else %}
+                {{ blueprint.name }}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% with num_params=parameters.items|length %}
+      {% if num_params %}
+          <div id="item-parameters-{{ item.id }}" class="parameters">
+            <table class="table table-condensed definitions unruled">
+                {% for pname, pvalue in parameters.items %}
+                    <tr>
+                        <th>{{ pname }}:</th>
+                        <td>{{ pvalue }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+      {% endif %}
+    {% endwith %}
+</td>
+
+<td>
+    {% if resource %}
+        {# Resource orders get a link to the resource as well as truncated server list with 'more'. #}
+        <h5>
+            {{ resource.resource_type.label }}: <a href="{{ resource.get_absolute_url }}">{{ resource }}</a>
+        </h5>
+        {% if profile|can_view:resource %}
+            {% server_cards servers profile max_cards=4 more_btn_url=resource.get_absolute_url|add:"#tab-servers" %}
+        {% else %}
+            {% trans "You don't have permission to view this resource" as no_permission_msg %}
+            {% server_cards servers profile max_cards=4 more_btn_tooltip=no_permission_msg %}
+        {% endif %}
+    {% else %}
+        {# Non-resource orders don't link anywhere for now, so have no max. #}
+        {% server_cards servers profile max_cards=0 %}
+    {% endif %}
+</td>
+
+{% if show_rates %}
+<td class="shrink">
+    {{ item.rate_display_with_tooltip }}
+</td>
+{% endif %}
+
+{% if show_scheduled_col %}
+<td class="shrink">
+    {% if item.scheduled_time %}
+        {{ item.scheduled_time|when_utc }}
+    {% else %}
+        {% trans "N/A" %}
+    {% endif %}
+</td>
+{% endif %}
+
+<td class="shrink">
+    {{ item|order_item_actions:profile }}
+</td>
+</tr>
+
+{% if item.job_set.count %}
+<tr>
+    {% if show_rates and show_scheduled_col %}
+    <td colspan=7> {# FIXME this needs to be updated if number of columns is altered! #}
+    {% elif show_rates or show_scheduled_col %}
+    <td colspan=6> {# FIXME this needs to be updated if number of columns is altered! #}
+    {% else %}
+    <td colspan=5> {# FIXME this needs to be updated if number of columns is altered! #}
+    {% endif %}
+        <div class="panel panel-default">
+            <ul class="list-group">
+            {% for job in item.job_set.all %}
+                {% include "jobs/job_details_row.html" with job=job profile=profile %}
+            {% endfor %}
+            </ul>
+        </div>
+    </td>
+</tr>
+{% endif %}

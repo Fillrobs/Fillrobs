@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% load timetags %}
+<report>
+	<report_details>
+    <report_title>{{ report_title }}</report_title>
+    <custom_banner_url>{{ custom_banner_url }}</custom_banner_url>
+    <group_name>{{ group_name }}</group_name>
+    <start_period>{{ start_period }}</start_period>
+    <end_period>{{ end_period }}</end_period>
+    <period_display>{{ period_display }}</period_display>
+    <units>{{ units }}</units>
+    <units_display>{{ units_display }}</units_display>
+    </report_details>
+	<data>
+	{% for row in data %}
+		<row date='{{ row.date }}' disk="{{row.disk}}" server="{{row.server}}" memory="{{row.mem}}" cpu="{{row.cpu}}"  />
+        {% empty %}
+		<row date='0' disk="0" server="0" memory="0" cpu="0"  />
+	{% endfor %}
+	</data>
+    <message>{{message}}</message>
+</report>

@@ -1,0 +1,15 @@
+{% load i18n %}
+
+<div class="text-center">
+  <div class="btn-group-vertical">
+    {% for type in types %}
+    <a class="btn btn-default open-dialog {{ type.extra_class }} btn-lg"
+        data-toggle="tooltip"
+        title="{{ type.description }}"
+        href="{{ type.url }}">
+        <span class="icon-30 icon-lb-{{ type.slug }}" title="{{ type.name }}"></span>
+        <span>{{ type.name }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</div>

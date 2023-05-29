@@ -1,0 +1,57 @@
+{% load helper_tags %}
+{% load i18n %}
+
+{% block content %}
+    <div class="well well-sm">
+        {% if itsm %}
+            ITSM integration with {{ itsm.itsm_technology.name }}</a>.
+        {% endif %}
+    </div>
+
+    {% if itsm %}
+
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog"
+               href="{% url 'itsm_edit' itsm.id %}">
+                <span class="icon-edit"></span>
+                Edit Credentials
+            </a>
+                <a class="btn btn-default open-dialog"
+                href="{% url 'itsm_delete' itsm.id %}">
+                    <span class="icon-delete"></span>
+                    Remove&hellip;
+                </a>
+            <a class="btn btn-default open-dialog verify"
+               href="{% url 'itsm_verify_connection' itsm.id %}">
+                <span class="icon-verify-connection"></span>
+                Verify Connection
+            </a>
+        </div>
+
+        <dl>
+            <dt>Technology:</dt><dd>{{ itsm.itsm_technology.name }}</dd>
+            <dt>IP Address:</dt><dd>{{ itsm.ip }}</dd>
+            <dt>Username:</dt><dd>{{ itsm.service_account }}</dd>
+
+            <dt>
+                <span title="Servers in these environments will be configured to sync with this ITSM Technology provided there is an appropriate CMDB configuration." data-toggle="tooltip">Environments</span>:
+                <a href="{% url 'environment_edit' itsm.id %}" class="open-dialog">
+                        <i class="icon-edit"></i></a>
+            </dt>
+            <dd>
+                {{ environment_displays|render_list:profile }}
+            </dd>
+        </dl>
+    {% else %}
+        <div class="alert alert-info">
+            <p>No ITSM has been added yet.</p>
+        </div>
+        <br>
+        <div class="btn-toolbar">
+            <a class="btn btn-default open-dialog" href="{% url 'itsm_add' %}">
+                <span class="icon-add"></span>
+                Add ITSM
+            </a>
+        </div>
+    {% endif %}
+{% endblock content %}

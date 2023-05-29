@@ -1,0 +1,124 @@
+{% load infrastructure_tags %}
+{% comment %}
+Given a server return a div with the power schedule for this server represented as a grid
+{% endcomment %}
+
+{% with name=server_or_resource.id %}
+
+<div id="powerScheduleChart"></div>
+
+{% with ps=server_or_resource.power_schedule %}
+{{ ps|json_script:"sched-json"}}
+{% endwith %}
+<script>
+$(function(){
+    const field = $('#id_s{{ name }}');
+    const initializeScheduleChart = function(){
+
+        const schedJson = JSON.parse(document.getElementById('sched-json').textContent);
+        const scheduleArrays = []
+
+        const genWeekArray = function() {
+            const schedArray = [];
+            let i = 0;
+            while(i<7){
+                schedArray.push([24,24]);
+                i++;
+            }
+            return schedArray;
+        }
+
+        // Create an array of day/times for each schedule, then populate the correct day indices with the on/off times
+        schedJson.forEach(function(schedData) {
+            let sched = genWeekArray();
+
+            if(schedData.off_day == schedData.on_day) {
+                // The basic case, the on/off times are on the same day
+                sched[schedData.on_day] = [schedData.on_hour, schedData.off_hour];
+            } else {
+                //Handling for schedules that span multiple days
+                let on_day = schedData.on_day;
+                let on_hour = schedData.on_hour;
+                let off_hour = 24;
+                let off_day = on_day;
+
+                sched[on_day] = [on_hour, off_hour];
+
+                if(schedData.off_day == 0) {
+                    schedData.off_day = 7; // hack to allow schedules to wrap to Monday
+                }
+
+                while(off_day < schedData.off_day) {
+                    on_day++;
+                    off_day++;
+                    on_hour = 0;
+                    if(off_day == schedData.off_day) {
+                        off_hour = schedData.off_hour;
+                    }
+                    if(on_day == 7) {
+                        on_day = 0; // switch it back to the actual "Monday" index
+                    }
+                    sched[on_day] = [on_hour, off_hour];
+                }
+            }
+            scheduleArrays.push(sched);
+        });
+
+
+        // Now loop thru the schedule arrays we made above to
+        // generate "series" objects used by Highcharts
+        const seriesFromSchedules = scheduleArrays.map(function(sched) {
+            const series = {
+                name: 'Power Schedule',
+                groupPadding: 0,
+                data: sched,
+                color: '#3DC449',
+                animation: false,
+            };
+            return series;
+        });
+
+        $('#powerScheduleChart').highcharts({
+            chart: {
+                type: 'columnrange',
+                inverted: true
+            },
+            credits: {enabled: false},
+            legend: {enabled: false},
+            title: {text: ''},
+            plotOptions: {
+                columnrange: {
+                    grouping: true,
+                }
+            },
+            xAxis: {
+                categories: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun']
+            },
+            yAxis: {
+                title: {
+                    enabled: false,
+                },
+                labels: {
+                    formatter: function() {
+                        return this.value + ':00';
+                    }
+                },
+                tickInterval: 6,
+                min: 0,
+                max: 24,
+            },
+            tooltip: {
+                valueSuffix: ':00'
+            },
+            series: seriesFromSchedules
+        });
+
+    }
+
+    initializeScheduleChart();
+
+});
+</script>
+
+
+{% endwith %}

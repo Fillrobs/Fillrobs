@@ -1,0 +1,163 @@
+{% load infrastructure_tags %}
+{% load helper_tags %}
+
+{% comment %}
+BestPractice: Defining DataTable toolbars and hooking up batch actions (datatables)
+- DataTable is defined and conditionally made clickable.
+- Toolbar is defined with custom selection info area.
+- Batch checkbox in thead for checking all visible rows.
+- The data-table-no-auto-init is kind of a special case here: it allows more
+  setup to be done (i.e. toolbar) before initializing the datatable object.
+  Without this some custom behaviors would just not work.
+- Checkbox input in first column has a name that is made available to toolbar
+  dialogs via GET.
+{% endcomment %}
+<table ng-app="cb" id="servers" class="{{ table_classes }}"
+    {% if not_sortable_indices %}
+        data-table-sort-disabled="{{ not_sortable_indices|to_csv }}"
+    {% endif %}
+    data-table-no-auto-init>
+    <thead>
+        <tr>
+            {% for heading in headings %}
+                {% if heading == 'Power' %}
+                    <th style="display: flex;"> {% server_pictograph_legend %} </th>
+                {% else %}
+                    <th> {{ heading }} </th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody class="clickable-tags">{# this class must wrap .cb-tag for them to appear clickable #}
+    {% for server in servers %}
+        {% comment %}
+            Most server tables load data via AJAX and don't provide a `servers` value. However,
+            a few do, so the following is required to render their rows. Those that use AJAX rely
+            on the server_list_json and ServerTableConfig, where ServerTableConfig defines the values
+            for each column
+        {% endcomment %}
+        <tr>
+            {% if 'Checkbox' in columns %}
+                {# checkbox is always first #}
+                <td class="selected">
+                    <input class="selector" type="checkbox" name="server_id" value="{{ server.id }}"/>
+                </td>
+            {% endif %}
+
+            {# Add table data in the order that `columns` specifies #}
+            {% for col in columns %}
+
+                {% if col == 'Card' %}
+                    <td ng-non-bindable>
+                        {% server_card server size="tiny" with_hostname=True with_tooltip=True link_if_can_view=profile %}
+                    </td>
+                {% endif %}
+                {# Showing Pictographs for Power would require the view to calculate max values #}
+                {% if col == 'Power' %}     <td>{{ server.power_status|icon_for_power_status }}</td>                    {% endif %}
+                {% if col == 'Added' %}     <td>{{ server.add_date|when }}</td>                                         {% endif %}
+                {% if col == 'Environment' %} <td>{{ server.environment|link_or_label:profile }}</td>                   {% endif %}
+                {% if col == 'Family' %}    <td>{{ server.os_family|os_family_icon }}</td>                              {% endif %}
+                {% if col == 'Group' %}     <td>{{ server.group|link_or_label:profile }}</td>                           {% endif %}
+                {% if col == 'Hostname' %}  <td><span ng-non-bindable>{{ server|link_or_label:profile }}</span></td>    {% endif %}
+                {% if col == 'IP' %}        <td>{{ server.ip }}</td>                                                    {% endif %}
+                {% if col == 'OS Build' %}  <td>{{ server.os_build }}</td>                                              {% endif %}
+                {% if col == 'Owner' %}     <td>{{ server.owner|link_or_label:profile }}</td>                           {% endif %}
+                {% if col == 'Rate' %}      <td>{{ server.rate_display_with_tooltip }}</td>                             {% endif %}
+                {# Any server provisioned from a BP will have service_item, but we only want to show it if the BP created a resource #}
+                {% if col == 'Resource Tier' %} <td>{% if server.resource_id %}{{ server.service_item }}{% endif %}</td> {% endif %}
+                {% if col == 'Status' %}    <td>{{ server.get_status_display }}</td>                                    {% endif %}
+                {% if col == 'Storage' %}   <td>{{ server.disk_size }}</td>                                             {% endif %}
+                {% if col == 'Tags' %}      <td> {% if server.tags.all %} {{ server.tags.all|render_list }} {% endif %} </td> {% endif %}
+
+            {% endfor %}
+        </tr>
+    {% empty %}
+        {% if not as_datatable %}
+            <tr>
+                <td colspan="{{ columns|length }}" class="centered">No servers</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if as_datatable %}
+    {% if 'Checkbox' in columns %}
+        {% include 'servers/toolbar.html' %}
+    {% endif %}
+
+<script type="text/javascript">
+$(function() {
+    var $table = $('table#servers');
+
+    $table.on('click', '.cb-tag', function(e) {
+        e.preventDefault();
+        var $tag = $(e.target);
+        $table.closest('.dataTables_wrapper')
+            .find('.dataTables_filter input')
+            .val('label: ' + $tag.text().trim())
+            .trigger('keyup');
+    });
+
+    {% if 'Checkbox' in columns %}
+        $table.attr('data-table', 'clickable');
+
+        // Tell jQuery.clickable that clicking on tag spans should not select a row
+        $table.data('clickable-options', {
+          ignoreThisTarget: function($target) {
+            return $target.hasClass('cb-tag');
+          }
+        });
+
+        // Prepare our custom toolbar DOM fragment with all client-side
+        // behavior and pass it along to the c2 DataTable API.
+        var $toolbar = $('#servers-table-toolbar');
+        c2.dataTables.setupToolbarBehavior($table, $toolbar);
+        $table.data('table-toolbar', $toolbar);
+    {% else %}
+        $table.attr('data-table', '');
+    {% endif %}
+
+    {% if sort_by_column %}
+        $table.attr('data-table-sort', '{{ sort_by_column }}');
+    {% endif %}
+
+    {% if source %}
+        $table.attr('data-table-source', '{{ source }}');
+
+        // Specify the callback for additional params added before each
+        // Ajax request.
+        // Save the function object in DOM data; it will be called by the
+        // code in c2.dataTables. The function should exist in the scope of
+        // the template calling this templatetag and take one arg: aoData.
+        $table.data('table-fnServerParams', function (aoData) {
+            // Always send the columns being requested
+            aoData.push({'name': 'columns', 'value': '{{ columns|to_csv }}'});
+
+            {% if filter_name %}
+                // Handle views that just want a server list filtered by a single thing, e.g. Group > Servers.
+                // This does the same thing c2.dataTables.addListFilters does.
+                aoData.push({
+                    name: 'filters_selected',
+                    value: JSON.stringify({'{{ filter_name }}': ['{{ filter_value }}']})
+                });
+            {% endif %}
+
+            {% if server_params_fn %}
+                // Now call the user-defined server_params_fn
+                {{ server_params_fn }}(aoData);
+            {% endif %}
+        });
+    {% endif %}
+
+    {% if server_response_callback %}
+        $table.data('table-fnServerDataCallback', {{ server_response_callback }});
+    {% endif %}
+
+    {% if initialize_now %}
+        c2.dataTables.init('#servers');
+    {% endif %}
+
+});
+</script>
+{% endif %}

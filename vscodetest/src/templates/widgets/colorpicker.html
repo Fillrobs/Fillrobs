@@ -1,0 +1,16 @@
+{# container must be relatively positioned, so we supply our own #}
+<div class="colorpicker-container" id="colorpicker-container-{{ name }}">
+    <div id="colorpicker-{{ name }}" class="input-group">
+        <input type="text" name="{{ name }}" value="{{ value }}" class="form-control" />
+        <span class="input-group-addon"><i></i></span>
+    </div>
+</div>
+<script>
+$(function(){
+    var $picker = $('#colorpicker-{{ name }}').colorpicker({
+        container: $('#colorpicker-container-{{ name }}'),
+        customClass: 'colorpicker-modal-fix',
+        format: 'hex'
+    });
+});
+</script>

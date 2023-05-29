@@ -1,0 +1,4 @@
+{{ object.id }}
+{{ object.hostname }}
+{{ object.ip }}
+{{ object.notes }}

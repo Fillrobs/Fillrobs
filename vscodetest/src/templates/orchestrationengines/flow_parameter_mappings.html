@@ -1,0 +1,12 @@
+{% for param in flow.parameters.all %}
+    {% if param.param_required %}
+        <b>{{ param.param_key }}<sup>*</sup></b>
+    {% else %}
+        {{ param.param_key }}
+    {% endif %}
+    &harr;
+    <span class="pre">{{ param.param_c2_mapping|default:"[Runtime Input]" }}</span>
+    <br>
+{% empty %}
+    <i>No parameters defined</i>
+{% endfor %}

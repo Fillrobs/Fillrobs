@@ -1,0 +1,47 @@
+{% extends 'reports/bar.html' %}
+{% load i18n helper_tags %}
+
+{% block report_content %}
+
+{# Keep buttons at top because graph can be quite tall #}
+<div class="clearfix"></div>
+<div style="float:left;" class="btn-toolbar">
+    <div class="btn-group">
+        {% for name, label in periods.items %}
+            <a class="btn btn-default period-{{ name }} {% if name == current_period %}active{% endif %}"
+                href="?period={{ name }}&metric={{ current_metric }}">
+                {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+
+<div style="float:right;" class="btn-toolbar">
+    <div class="btn-group">
+        {% for name, label in metrics.items %}
+            <a class="btn btn-default metric-{{ name }} {% if name == current_metric %}active{% endif %}"
+                href="?period={{ current_period }}&metric={{ name }}">
+                {{ label }}
+            </a>
+        {% endfor %}
+    </div>
+</div>
+<div class="clearfix"></div>
+
+{% trans 'Different time periods are provided for different Resource Handlers.' %}
+{% trans 'Metrics over the last week are not available for VMware servers, and metrics over the last year are not available for AWS, Azure, or GCP servers.' as infotip_content %}
+{% infotip infotip_content %}
+<div class="clearfix"></div>
+{% trans 'Not all usage metrics are provided for all Resource Handlers.' %}
+{% trans 'Memory statistics are not available for AWS, Azure or GCP servers.' as infotip_content %}
+{% infotip infotip_content %}
+<div class="clearfix"></div>
+
+{% if not categories %}
+	<p style="margin-top: 20px;">{% trans 'There are no server metrics available for the selected time period.' %}</p>
+{% else %}
+	{# Height for graph is based on number of bars. See views.py #}
+	<div id="chart-{{ report_slug|slugify }}" class="panel panel-default" style="height: {{graph_height}}px"></div>
+{% endif %}
+
+{% endblock %}

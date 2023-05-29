@@ -1,0 +1,58 @@
+{% load helper_tags %}
+
+{% if available_projects %}
+    <p>
+        {{ available_projects|length }} projects are available for import.
+    </p>
+
+    <table id="discovered_projects" data-table="dialog clickable">
+        <thead>
+            {% block project_columns %}
+            <th>
+                <input class="check-column" type="checkbox" />
+            </th>
+            <th>Project Name</th>
+            <th>Project ID</th>
+            <th>Project Number</th>
+            {% endblock %}
+        </thead>
+        <tbody>
+            {% block project_rows %}
+                {% for project in available_projects %}
+                <tr>
+                    <td><input name="project" type="checkbox" value="{{ project.name }}"/></td>
+                    <td class="name">{{ project.name }}</td>
+                    <td>{{ project.gcp_id }}</td>
+                    <td>{{ project.project_number }}</td>
+                </tr>
+                {% endfor %}
+            {% endblock %}
+        </tbody>
+    </table>
+{% else %}
+    {% block no_projects %}
+    <p>
+    Unable to locate any new Projects at this time.
+    </p>
+    {% endblock %}
+{% endif %}
+
+{% if projects_removed %}
+    <br>
+    <div class="ui-corner-all ui-helper-clearfix ui-state-highlight padding">
+        <p>
+            The following Projects were removed because they no longer exist on the resource handler:
+        </p>
+        <ul class="removed">
+            {% for project in projects_removed %}
+                <li><b>{{ project.name }}</b></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<script type="text/javascript">
+$(function() {
+    c2.dataTables.init('#discovered_projects');
+});
+</script>

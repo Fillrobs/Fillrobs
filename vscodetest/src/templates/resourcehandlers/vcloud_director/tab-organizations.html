@@ -1,0 +1,53 @@
+{% load helper_tags %}
+
+<div class="btn-toolbar">
+    <a class="open-dialog btn btn-default"
+        href="{% url 'import_vcd_organization' handler.id %}"
+        id="import_vcd_org">
+        <span class="icon-import"></span>
+        Import organizations
+    </a>
+</div>
+
+<table id="orgs" data-table>
+    <thead>
+        <tr>
+        <th>Organization</th>
+        <th>Virtual Datacenters</th>
+        <th>Environments</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for org in organizations %}
+        <tr>
+            <td class="name">{{ org.name }}</td>
+            <td>
+                {% for vdc in org.vdcs %}
+                    {% if forloop.last %}
+                        {{ vdc }}
+                    {% else %}
+                        {{ vdc }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+      
+            </td>
+            <td>
+                {% for env in org.envs %}
+                    {% if forloop.last %}
+                        {{ env|link_or_label:profile }}
+                    {% else %}
+                        {{ env|link_or_label:profile }},
+                    {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
+                <a title="Create environments for organization '{{ org.name }}'"
+                   href="{% url 'create_vcd_env' handler.id org.uuid %}"
+                   class="icon-add open-dialog"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

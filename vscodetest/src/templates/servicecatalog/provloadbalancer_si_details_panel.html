@@ -1,0 +1,56 @@
+{%  extends "servicecatalog/si_details_panel.html" %}
+
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load i18n %}
+
+{% block si_icon %}icon-30 icon-lb-{{service_item.lb_tech.type_slug}}{% endblock %}
+
+{% block item_details_row %}
+    <div class="row">
+
+        <div class="col-sm-6">
+            {% if service_item.description %}
+                <p>{{ service_item.description }}</p>
+            {% endif %}
+
+            <dl class="vertical">
+                <dt>Source Port:</dt>
+                <dd>{{ service_item.source_port }}</dd>
+
+                <dt>{% trans 'Destination Port:' %}</dt>
+                <dd>{{ service_item.destination_port }}</dd>
+
+                <dt>
+                {% trans 'Server Tiers' %} {% blockinfotip %} {% trans "This load balancer will only apply to servers within these tiers." %} {% endblockinfotip %}:</dt>
+                <dd>
+                    {% if service_item.servers.all %}
+                        {{ service_item.servers.all|render_list }}
+                    {% else %}
+                        <i>{% trans 'None' %}</i>
+                    {% endif %}
+                </dd>
+                {% if service_item.extra_args %}
+                    {{ service_item.extra_args|action_inputs_as_dl_items }}
+                {% endif %}
+            </dl>
+        </div>
+
+        <div class="col-sm-6">
+            <dl class="vertical">
+                <dt>{% trans 'Start next item' %} {% include 'servicecatalog/tip_parallel.html' %}:</dt>
+                <dd>
+                    {% include 'servicecatalog/toggle_execute_in_parallel.html' %}
+                </dd>
+                {% if managing %}
+                    <dt>{% trans 'Show on order form' %} {% infotip orderform_tip %}:</th>
+                    <dd>
+                        {% include 'servicecatalog/toggle_show_on_order_form.html' %}
+                    </dd>
+                {% endif %}
+            </dl>
+        </div>
+
+    </div>
+{%  endblock item_details_row %}

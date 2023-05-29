@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load helper_tags %}
+{% load infrastructure_tags %}
+{% load account_tags %}
+{% load helper_tags %}
+{% load order_tags %}
+{% load quota_tags %}
+{% load i18n %}
+
+{% block title %} {% trans "Groups" %} {% endblock %}
+{% block topnav %}groups{% endblock %}
+
+
+{% block content %}
+<h1>{% trans "Groups" %}</h1>
+
+<div style="display: flex; flex-wrap: wrap;">
+    <section class="intro" style="flex: 1 1 50%; margin-right: 2em;">
+        <p>
+        {% portal_label as portal_lbl %}
+        {% blocktrans %}A group is an organizational unit with access to a set of {{ portal_lbl }}
+        environments.  It may represent a team, project, or other business
+        unit.  Group members are assigned various permissions depending on
+        their role.{% endblocktrans %}
+        {% include 'common/docs_link.html' with url="groups-permissions.html" %}
+        </p>
+    </section>
+
+    {% if is_cbadmin %}
+    <div class="well" style="flex: 1 1 auto; max-width: 500px;">
+        {% if gp.inherit_group_permissions %}
+            <p>All configured Users and Roles are inherited from parent groups down to
+            all their subgroups</p>
+            <a class="btn btn-default open-dialog"
+                href="{% url 'disable_group_permissions_inheritance' %}">
+                {% trans "Disable Inheritance" %}
+            </a>
+        {% else %}
+            <p>Permissions are not inherited from parent groups to subgroups</p>
+            <a class="btn btn-default open-dialog"
+                href="{% url 'enable_group_permissions_inheritance' %}">
+                {% trans "Enable Inheritance" %}
+            </a>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+
+<div class="btn-toolbar">
+    {% if is_cbadmin %}
+    <a class="btn btn-default open-dialog"
+        href="{% url 'create_toplevel_group' %}">
+        <span class="icon-add"></span>
+        {% trans "Add a Group" %}
+    </a>
+    {% endif %}
+</div>
+
+<style>
+    #groupTree th.name {
+        background-color: #f7f7f7;
+    }
+    #groupTree td.first {
+        background-color: #ffffff;
+        // This allows page to override the color value in the LESS, since
+        // the pre-processor can't be impacted by the run time theming.
+    }
+</style>
+<div id="groupTreeScroll">
+    <div id="groupTreeContainer">
+        <table id="groupTree" class="stats">
+            <thead>
+                <tr>
+                    <th class="name">{% trans "Name" %}</th>
+                    <th><span data-toggle="tooltip" title='{% trans "Includes servers in subgroups" %}'>
+                            {% trans "Servers" %}
+                        </span>
+                    </th>
+                    {% if enable_rates_feature %}
+                        <th><span data-toggle="tooltip" title='{% blocktrans %}Rate per {{ units }}. Includes servers in subgroups.{% endblocktrans %}'>
+                                {% trans "Rate" %}
+                            </span>
+                        </th>
+                    {% endif %}
+                    <th><span data-toggle="tooltip" title='{% trans "Includes servers in subgroups" %}'>
+                            {% trans "CPUs" %}
+                        </span>
+                    </th>
+                    <th><span data-toggle="tooltip" title='{% trans "Includes servers in subgroups" %}'>
+                            {% trans "Memory (GB)" %}
+                        </span>
+                    </th>
+                    <th><span data-toggle="tooltip" title='{% trans "Includes servers in subgroups" %}'>
+                            {% trans "Disk (GB)" %}
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in group_hierarchy %}
+                {% with quotas=group.quota_set %}
+                <tr id="node-{{ group.id }}" class=" {{ group|group_class }} depth-{{ group.hierarchy_depth }} {% cycle 'odd' 'even' %}">
+                    <td class="first" title="{{ group.type }}">{{ group|tree_link_or_label:profile }}</td>
+                    <td>
+                        <span data-toggle="tooltip" data-html="true" class="no-tooltip-affordance"
+                            data-max-width="none" title='{{ quotas.vm_cnt|quota_to_tip:"Servers,Servers" }}'>
+                            {{ quotas.vm_cnt|quota_to_icon }}
+                        </span>
+                        {{ quotas.vm_cnt.total_used|format_usage }} <span class="maximum">/&nbsp;{{ quotas.vm_cnt.limit|format_limit }}</span>
+                    </td>
+                    {% if enable_rates_feature %}
+                        <td>
+                            <span data-toggle="tooltip" data-html="true" class="no-tooltip-affordance"
+                                data-max-width="none" title='{{ quotas.rate|quota_to_tip:rate_quota_tooltip_units }}'>
+                                {{ quotas.rate|quota_to_icon }}
+                            </span>
+                            {% render_rate quotas.rate.total_used|format_usage %} <span class="maximum">/&nbsp;{{ quotas.rate.limit|format_limit }}</span>
+                        </td>
+                    {% endif %}
+                    <td>
+                        <span data-toggle="tooltip" data-html="true" class="no-tooltip-affordance"
+                            data-max-width="none" title='{{ quotas.cpu_cnt|quota_to_tip:"CPUs,CPUs" }}'>
+                            {{ quotas.cpu_cnt|quota_to_icon }}
+                        </span>
+                        {{ quotas.cpu_cnt.total_used|format_usage }} <span class="maximum">/&nbsp;{{ quotas.cpu_cnt.limit|format_limit }}</span>
+                    </td>
+                    <td>
+                        <span data-toggle="tooltip" data-html="true" class="no-tooltip-affordance"
+                            data-max-width="none" title='{{ quotas.mem_size|quota_to_tip:"Memory,GB" }}'>
+                            {{ quotas.mem_size|quota_to_icon }}
+                        </span>
+                        {{ quotas.mem_size.total_used|format_usage }} <span class="maximum">/&nbsp;{{ quotas.mem_size.limit|format_limit }}</span>
+                    </td>
+                    <td>
+                        <span data-toggle="tooltip" data-html="true" class="no-tooltip-affordance"
+                            data-max-width="none" title='{{ quotas.disk_size|quota_to_tip:"Disk,GB" }}'>
+                            {{ quotas.disk_size|quota_to_icon }}
+                        </span>
+                        {{ quotas.disk_size.total_used|format_usage }} <span class="maximum">/&nbsp;{{ quotas.disk_size.limit|format_limit }}</span>
+                    </td>
+                </tr>
+                {% endwith %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if profile.is_cbadmin and profile.view_initial_tour %}
+    <script>
+        var profile_id = '{{ profile.id }}';
+    </script>
+    <script src="{{ STATIC_URL }}js/tours/tourUtilities.js"></script>
+    <script src="{{ STATIC_URL }}js/tours/groupsTour.js"></script>
+    <script>
+        c2.groupsTour.init().start();
+    </script>
+{% endif %}
+
+{% endblock content %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{{ STATIC_URL }}js/jquery.treeTable.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/custom/groups-tree-common.js"></script>
+    <script>
+        $( document ).ready(function() {
+            var thisBox = $(".no-tooltip-affordance");
+            thisBox.on('shown.bs.tooltip', function(){
+                var used = $(".usedTooltip");
+                var usedAmount = used.attr('class').split(' ').pop();
+                used.width(usedAmount + "%");
+
+                var delegated = $(".delegatedTooltip");
+                var delegatedAmount = delegated.attr('class').split(' ').pop();
+                delegated.width(delegatedAmount + "%");
+
+                var available = $(".availableTooltip");
+                var availableAmount = available.attr('class').split(' ').pop();
+                available.width(availableAmount + "%");
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block inlinecss %}
+    @import "{{ STATIC_URL }}css/jquery.treeTable.css";
+{% endblock %}
